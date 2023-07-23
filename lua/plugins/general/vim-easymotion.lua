@@ -2,6 +2,6 @@ local M = {
   "easymotion/vim-easymotion",
 }
 
-M.init = function() end
+M.config = function() end
 
 return M
