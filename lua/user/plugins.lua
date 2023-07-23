@@ -3,25 +3,50 @@ local fn = vim.fn
 -- Automatically install lazy.nvim
 local install_path = fn.stdpath "data" .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(install_path) then
-  vim.fn.system({
+  vim.fn.system {
     "git",
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
     "--branch=stable", -- latest stable release
     install_path,
-  })
+  }
 end
 vim.opt.rtp:prepend(install_path)
 
 -- Install our plugins here
-require("lazy").setup({
-  { "wbthomason/packer.nvim" }, -- Have packer manage itself
+require("lazy").setup {
+  -- General
+  { "907th/vim-auto-save" },
+  { "mhinz/vim-startify" },
+  { "yamatsum/nvim-cursorline" },
+  { "terryma/vim-multiple-cursors" },
+  { "ntpeters/vim-better-whitespace" },
+  { "easymotion/vim-easymotion" },
+  { "vim-airline/vim-airline" },
+  { "vim-airline/vim-airline-themes" },
+  { "tpope/vim-repeat" },
+  { "tpope/vim-abolish" },
+  { "yegappan/mru" },
+
+  { "romgrk/barbar.nvim" },
+  { "wellle/context.vim" },
+  { "junegunn/goyo.vim" },
+  { "junegunn/limelight.vim" },
+  { "mg979/vim-visual-multi", branch = "master" },
+  { "sheerun/vim-polyglot" },
+  { "Pocco81/HighStr.nvim" },
+  { "psliwka/vim-smoothie" },
+  { "inkarkat/vim-mark" },
+  { "christoomey/vim-system-copy" },
+
   { "nvim-lua/plenary.nvim" }, -- Useful lua functions used by lots of plugins
   { "windwp/nvim-autopairs" }, -- Autopairs, integrates with both cmp and treesitter
+  { "LunarWatcher/auto-pairs" },
+  { "tpope/vim-surround" },
+  { "machakann/vim-sandwich" },
   { "numToStr/Comment.nvim" },
   { "JoosepAlviste/nvim-ts-context-commentstring" },
-  { "kyazdani42/nvim-web-devicons" },
   { "kyazdani42/nvim-tree.lua" },
   { "akinsho/bufferline.nvim" },
   { "moll/vim-bbye" },
@@ -36,6 +61,152 @@ require("lazy").setup({
   -- Colorschemes
   { "folke/tokyonight.nvim" },
   { "lunarvim/darkplus.nvim" },
+  { "Sammyalhashe/random_colorscheme.vim" },
+  { "overcache/NeoSolarized" },
+  { "morhetz/gruvbox" },
+  { "altercation/vim-colors-solarized" },
+  { "tomasr/molokai" },
+  { "dracula/vim", name = "dracula" },
+  { "ajmwagar/vim-deus" },
+  { "joshdick/onedark.vim" },
+  { "nanotech/jellybeans.vim" },
+  { "jacoborus/tender.vim" },
+  { "savq/melange" },
+  { "arcticicestudio/nord-vim" },
+  { "rakr/vim-one" },
+  { "mhartington/oceanic-next" },
+  { "drewtempelmeyer/palenight.vim" },
+  { "whatyouhide/vim-gotham" },
+  { "itchyny/landscape.vim" },
+  { "glepnir/zephyr-nvim" },
+  { "marko-cerovac/material.nvim" },
+  { "w0ng/vim-hybrid" },
+  { "junegunn/seoul256.vim" },
+  { "shaeinst/roshnivim-cs" },
+  { "Mofiqul/vscode.nvim" },
+  { "ray-x/aurora" },
+  { "srcery-colors/srcery-vim" },
+  { "alessandroyorba/despacio" },
+  { "sainnhe/everforest" },
+  { "cocopon/iceberg.vim" },
+  { "sainnhe/sonokai" },
+  { "fenetikm/falcon" },
+  { "jordwalke/flatlandia" },
+  { "cseelus/vim-colors-lucid" },
+  { "olimorris/onedarkpro.nvim" },
+  { "romainl/Apprentice" },
+  { "AlessandroYorba/Alduin" },
+  { "tlhr/anderson.vim" },
+  { "sainnhe/gruvbox-material" },
+  { "sainnhe/edge" },
+  { "ayu-theme/ayu-vim" },
+  { "NLKNguyen/papercolor-theme" },
+  { "rebelot/kanagawa.nvim" },
+  { "Rigellute/rigel" },
+  { "KeitaNakamura/neodark.vim" },
+  { "projekt0n/github-nvim-theme" },
+  { "EdenEast/nightfox.nvim" },
+  { "folke/tokyonight.nvim", branch = "main" },
+  { "liuchengxu/space-vim-dark" },
+  { "jaredgorski/SpaceCamp" },
+  { "arzg/vim-substrata" },
+  { "mhinz/vim-janah" },
+  { "embark-theme/vim", name = "embark", branch = "main" },
+  { "Rigellute/shades-of-purple.vim" },
+  { "kyazdani42/blue-moon" },
+  { "challenger-deep-theme/vim", name = "challenger-deep" },
+  { "zacanger/angr.vim" },
+  { "tyrannicaltoucan/vim-quantum" },
+  { "jnurmine/zenburn" },
+  { "kvrohit/rasmus.nvim" },
+  { "sjl/badwolf" },
+  { "jpo/vim-railscasts-theme" },
+  { "alek3y/Spacegray.vim" },
+  {
+    "sonph/onehalf",
+    config = function(plugin)
+      vim.opt.rtp:append(plugin.dir .. "/vim")
+    end,
+  },
+  { "tjdevries/colorbuddy.nvim" },
+  { "luisiacc/gruvbox-baby", branch = "main" },
+  { "GlennLeo/cobalt2" },
+  { "wuelnerdotexe/vim-enfocado" },
+  { "yonlu/omni.vim" },
+  { "vim-scripts/wombat256.vim" },
+  { "rockerBOO/boo-colorscheme-nvim" },
+  { "windwp/wind-colors" },
+  { "ldelossa/vimdark" },
+  { "rmehri01/onenord.nvim" },
+  { "dikiaap/minimalist" },
+  { "bluz71/vim-nightfly-guicolors" },
+  { "tssm/fairyfloss.vim" },
+  { "phanviet/vim-monokai-pro" },
+  { "ishan9299/nvim-solarized-lua" },
+  { "frenzyexists/aquarium-vim", branch = "develop" },
+  { "preservim/vim-colors-pencil" },
+  { "bluz71/vim-moonfly-colors" },
+  { "yassinebridi/vim-purpura" },
+  { "aonemd/kuroi.vim" },
+  { "glepnir/oceanic-material" },
+  { "yuttie/hydrangea-vim" },
+  { "ntk148v/vim-horizon" },
+  { "yunlingz/ci_dark" },
+  { "mcchrish/zenbones.nvim" },
+  { "rktjmp/lush.nvim" },
+  { "patstockwell/vim-monokai-tasty" },
+  { "nikolvs/vim-sunbather" },
+  { "spf3000/skeletor.vim" },
+  { "beikome/cosme.vim" },
+  { "agude/vim-eldar" },
+  { "pineapplegiant/spaceduck", branch = "main" },
+  { "kaiuri/nvim-juliana" },
+  { "cpea2506/one_monokai.nvim" },
+  { "shaunsingh/moonlight.nvim" },
+  {
+    "kyoz/purify",
+    config = function(plugin)
+      vim.opt.rtp:append(plugin.dir .. "/vim")
+    end,
+  },
+  { "andersevenrud/nordic.nvim" },
+  { "lmburns/kimbox" },
+  { "rhysd/vim-color-spring-night" },
+  { "aktersnurra/no-clown-fiesta.nvim" },
+  { "lewpoly/sherbet.nvim" },
+  { "tiagovla/tokyodark.nvim" },
+  { "NTBBloodbath/doom-one.nvim" },
+  { "fxn/vim-monochrome" },
+  { "rakr/vim-two-firewatch" },
+  { "owickstrom/vim-colors-paramount" },
+  { "JoosepAlviste/palenightfall.nvim" },
+  { "tyrannicaltoucan/vim-deep-space" },
+  { "AlessandroYorba/Sierra" },
+  { "danilo-augusto/vim-afterglow" },
+  { "Mofiqul/adwaita.nvim" },
+  { "rafamadriz/neon" },
+  { "ofirgall/ofirkai.nvim" },
+  { "Everblush/nvim", name = "everblush" },
+  { "kartikp10/noctis.nvim" },
+  { "lifepillar/vim-gruvbox8" },
+  { "rockyzhang24/arctic.nvim" },
+  { "kvrohit/mellow.nvim" },
+  { "uloco/bluloco.nvim" },
+  { "freeo/vim-kalisi" },
+  { "kristijanhusak/vim-hybrid-material" },
+  { "rose-pine/neovim", name = "rose-pine" },
+  { "catppuccin/nvim", name = "catppuccin" },
+  { "romainl/flattened" },
+  { "AhmedAbdulrahman/aylin.vim" },
+  { "Shadorain/shadotheme" },
+  { "raphamorim/lucario" },
+  { "lunacookies/vim-colors-xcode" },
+  { "haishanh/night-owl.vim" },
+  { "gosukiwi/vim-atom-dark" },
+  { "jpo/vim-railscasts-theme" },
+  { "artanikin/vim-synthwave84" },
+  { "wadackel/vim-dogrun" },
+  { "liuchengxu/vista.vim" },
 
   -- Cmp
   { "hrsh7th/nvim-cmp" }, -- The completion plugin
@@ -60,10 +231,82 @@ require("lazy").setup({
   { "nvim-telescope/telescope.nvim" },
 
   -- Treesitter
-  {
-    "nvim-treesitter/nvim-treesitter"
-  },
+  { "nvim-treesitter/nvim-treesitter" },
 
   -- Git
   { "lewis6991/gitsigns.nvim" },
-})
+  { "airblade/vim-gitgutter" },
+  { "APZelos/blamer.nvim" },
+  { "tpope/vim-fugitive" },
+  { "junegunn/gv.vim" },
+  { "rbong/vim-flog" },
+  { "rhysd/git-messenger.vim" },
+  { "gregsexton/gitv" },
+  { "jreybert/vimagit" },
+
+  -- Markdown
+  { "godlygeek/tabular" },
+  { "preservim/vim-markdown" },
+  { "mzlogin/vim-markdown-toc" },
+  { "dhruvasagar/vim-table-mode" },
+  { "dkarter/bullets.vim" },
+  { "Scuilion/markdown-drawer" },
+  { "mzlogin/vim-markdown-toc" },
+  { "iamcco/markdown-preview.nvim", build = "cd app && yarn install" },
+
+  -- Comment
+  { "tyru/caw.vim" },
+  { "preservim/nerdcommenter" },
+  { "numToStr/Comment.nvim" },
+
+  -- Misc
+  { "elentok/plaintasks.vim" },
+
+  -- Coc
+  { "neoclide/coc.nvim", branch = "release" },
+  { "luochen1990/rainbow" },
+
+  -- Search
+  { "mhinz/vim-grepper" },
+  { "Yggdroot/LeaderF", build = ":LeaderfInstallCExtension" },
+  {
+    "junegunn/fzf",
+    build = function()
+      vim.fn["fzf#install"]()
+    end,
+  },
+  { "junegunn/fzf.vim" },
+  { "gfanto/fzf-lsp.nvim" },
+  { "rhysd/clever-f.vim" },
+
+  -- Menu
+  { "gelguy/wilder.nvim", build = ":UpdateRemotePlugins" },
+  { "roxma/nvim-yarp" },
+  { "roxma/vim-hug-neovim-rpc" },
+
+  -- Icons
+  { "ryanoasis/vim-devicons" },
+  { "kyazdani42/nvim-web-devicons" },
+  { "lambdalisue/nerdfont.vim" },
+
+  -- Highlight
+  { "t9md/vim-quickhl" },
+  { "mtdl9/vim-log-highlighting" },
+  { "nvim-lua/plenary.nvim" },
+  { "folke/todo-comments.nvim" },
+
+  -- Indent
+  { "Yggdroot/indentLine" },
+  { "lukas-reineke/indent-blankline.nvim" },
+
+  -- Refactor
+  { "AndrewRadev/splitjoin.vim" },
+
+  -- Undo
+  { "mbbill/undotree" },
+  { "simnalamburt/vim-mundo" },
+
+  -- Align
+  { "junegunn/vim-easy-align" },
+  { "jbyuki/venn.nvim" },
+}
