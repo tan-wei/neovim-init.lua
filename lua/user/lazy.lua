@@ -321,4 +321,8 @@ vim.opt.rtp:prepend(install_path)
 --   { "jbyuki/venn.nvim" },
 -- }
 
-require("lazy").setup "plugins"
+require("lazy").setup {
+  spec = {
+    { import = "plugins.general" },
+  },
+}
