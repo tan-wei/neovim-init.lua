@@ -324,5 +324,6 @@ vim.opt.rtp:prepend(install_path)
 require("lazy").setup {
   spec = {
     { import = "plugins.general" },
+    { import = "plugins.colorscheme" },
   },
 }
