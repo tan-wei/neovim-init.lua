@@ -2,7 +2,7 @@ local M = {
   "907th/vim-auto-save",
 }
 
-M.config = function()
+M.init = function()
   vim.g.auto_save = 0
   vim.g.auto_save_events = { "InsertLeave", "TextChanged" }
   local group = vim.api.nvim_create_augroup("ft_markdown", { clear = false })
