@@ -303,8 +303,18 @@ require("lazy").setup {
   { "AndrewRadev/splitjoin.vim" },
 
   -- Undo
-  { "mbbill/undotree" },
-  { "simnalamburt/vim-mundo" },
+  {
+    "mbbill/undotree",
+    enabled = function()
+      return vim.fn.has "mac" == 1 or vim.fn.has "mac" == 1
+    end,
+  },
+  {
+    "simnalamburt/vim-mundo",
+    enabled = function()
+      return vim.fn.has "win64" == 1 or vim.fn.has "win32" == 1 or vim.fn.has "win16" == 1
+    end,
+  },
 
   -- Align
   { "junegunn/vim-easy-align" },
