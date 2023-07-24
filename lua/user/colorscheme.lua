@@ -13,6 +13,6 @@ colorscheme_randomizer.setup {
   apply_scheme = true,
   plugin_strategy = nil,
   plugins = nil,
-  colorschemes = { "tokyonight" },
+  colorschemes = vim.g.available_colorschemes,
   exclude_colorschemes = nil,
 }

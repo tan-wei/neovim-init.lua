@@ -3,8 +3,9 @@ local M = {
 }
 
 M.init = function()
-  vim.g.available_colorschemes = (vim.g.available_colorschemes or {})
-  table.insert(vim.g.available_colorschemes, "tokyonight")
+  local available_colorschemes = vim.g.available_colorschemes or {}
+  table.insert(available_colorschemes, "tokyonight")
+  vim.g.available_colorschemes = available_colorschemes
 end
 
 return M
