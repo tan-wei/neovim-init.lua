@@ -326,5 +326,6 @@ require("lazy").setup {
     { import = "plugins.general" },
     { import = "plugins.colorscheme" },
     { import = "plugins.treesitter" },
+    { import = "plugins.git" },
   },
 }
