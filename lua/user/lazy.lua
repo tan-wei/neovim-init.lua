@@ -17,20 +17,7 @@ vim.opt.rtp:prepend(install_path)
 -- Install our plugins here
 -- require("lazy").setup {
 --   -- General
---   { "907th/vim-auto-save" },
---   { "mhinz/vim-startify" },
---   { "yamatsum/nvim-cursorline" },
---   { "terryma/vim-multiple-cursors" },
---   { "ntpeters/vim-better-whitespace" },
---   { "easymotion/vim-easymotion" },
---   { "vim-airline/vim-airline" },
---   { "vim-airline/vim-airline-themes" },
---   { "tpope/vim-repeat" },
---   { "tpope/vim-abolish" },
---   { "yegappan/mru" },
 
---   { "romgrk/barbar.nvim" },
---   { "wellle/context.vim" },
 --   { "junegunn/goyo.vim" },
 --   { "junegunn/limelight.vim" },
 --   { "mg979/vim-visual-multi", branch = "master" },
@@ -59,18 +46,6 @@ vim.opt.rtp:prepend(install_path)
 --   { "folke/which-key.nvim" },
 
 --   -- Colorschemes
---   { "folke/tokyonight.nvim" },
---   { "lunarvim/darkplus.nvim" },
---   { "Sammyalhashe/random_colorscheme.vim" },
---   { "overcache/NeoSolarized" },
---   { "morhetz/gruvbox" },
---   { "altercation/vim-colors-solarized" },
---   { "tomasr/molokai" },
---   { "dracula/vim", name = "dracula" },
---   { "ajmwagar/vim-deus" },
---   { "joshdick/onedark.vim" },
---   { "nanotech/jellybeans.vim" },
---   { "jacoborus/tender.vim" },
 --   { "savq/melange" },
 --   { "arcticicestudio/nord-vim" },
 --   { "rakr/vim-one" },
@@ -234,9 +209,7 @@ vim.opt.rtp:prepend(install_path)
 --   { "nvim-treesitter/nvim-treesitter" },
 
 --   -- Git
---   { "lewis6991/gitsigns.nvim" },
 --   { "airblade/vim-gitgutter" },
---   { "APZelos/blamer.nvim" },
 --   { "tpope/vim-fugitive" },
 --   { "junegunn/gv.vim" },
 --   { "rbong/vim-flog" },
