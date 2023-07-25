@@ -300,5 +300,6 @@ require("lazy").setup {
     { import = "plugins.colorscheme" },
     { import = "plugins.treesitter" },
     { import = "plugins.git" },
+    { import = "plugins.markdown" },
   },
 }
