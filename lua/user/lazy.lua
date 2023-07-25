@@ -294,5 +294,6 @@ require("lazy").setup {
     { import = "plugins.treesitter" },
     { import = "plugins.git" },
     { import = "plugins.markdown" },
+    { import = "plugins.c++" },
   },
 }
