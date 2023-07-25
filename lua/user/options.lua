@@ -18,7 +18,7 @@ local options = {
   splitbelow = true, -- force all horizontal splits to go below current window
   splitright = true, -- force all vertical splits to go to the right of current window
   swapfile = false, -- creates a swapfile
-  -- termguicolors = true,                    -- set term gui colors (most terminals support this)
+  termguicolors = true, -- set term gui colors (most terminals support this)
   timeoutlen = 300, -- time to wait for a mapped sequence to complete (in milliseconds)
   undofile = true, -- enable persistent undo
   updatetime = 300, -- faster completion (4000ms default)
@@ -34,6 +34,7 @@ local options = {
   incsearch = true, -- enable incremental search
   laststatus = 2, -- always display statusline
   listchars = "tab:»·", -- show tabs with special icon
+  background = "dark", -- dark background
 
   signcolumn = "yes", -- always show the sign column, otherwise it would shift the text each time
   wrap = true, -- display lines as one long line

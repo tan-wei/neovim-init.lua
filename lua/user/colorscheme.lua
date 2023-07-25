@@ -17,9 +17,9 @@
 --   exclude_colorschemes = nil,
 -- }
 
-local status_ok, _ = pcall(vim.cmd, "call ChangeColour()")
+local change_color = vim.fn["ChangeColour"]
 
-if not status_ok then
+if not change_color then
   local colorscheme = "default"
 
   local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
@@ -28,4 +28,4 @@ if not status_ok then
   end
 end
 
-vim.cmd "call ChangeColour()"
+change_color()
