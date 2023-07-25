@@ -295,5 +295,6 @@ require("lazy").setup {
     { import = "plugins.git" },
     { import = "plugins.markdown" },
     { import = "plugins.c++" },
+    { import = "plugins.lsp" },
   },
 }
