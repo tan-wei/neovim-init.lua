@@ -8,8 +8,6 @@ local M = {
   },
 }
 
-M.init = function()
-  vim.g.barbar_auto_setup = false
-end
+M.init = function() end
 
 return M
