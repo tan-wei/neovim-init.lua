@@ -218,14 +218,7 @@ vim.opt.rtp:prepend(install_path)
 --   { "jreybert/vimagit" },
 
 --   -- Markdown
---   { "godlygeek/tabular" },
---   { "preservim/vim-markdown" },
---   { "mzlogin/vim-markdown-toc" },
---   { "dhruvasagar/vim-table-mode" },
---   { "dkarter/bullets.vim" },
 --   { "Scuilion/markdown-drawer" },
---   { "mzlogin/vim-markdown-toc" },
---   { "iamcco/markdown-preview.nvim", build = "cd app && yarn install" },
 
 --   -- Comment
 --   { "tyru/caw.vim" },
