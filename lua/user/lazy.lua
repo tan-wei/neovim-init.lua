@@ -296,5 +296,7 @@ require("lazy").setup {
     { import = "plugins.markdown" },
     { import = "plugins.c++" },
     { import = "plugins.lsp" },
+    { import = "plugins.cmp" },
+    { import = "plugins.snippet" },
   },
 }
