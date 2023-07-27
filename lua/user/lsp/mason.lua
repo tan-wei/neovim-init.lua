@@ -9,6 +9,7 @@ local servers = {
   -- "yamlls",
   "clangd",
   -- "ccls",
+  "ltex",
 }
 
 local ensure_installed_servers = {
