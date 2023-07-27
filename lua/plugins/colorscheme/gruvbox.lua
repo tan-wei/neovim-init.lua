@@ -1,5 +1,5 @@
 local M = {
-  "morhetz/gruvbox",
+  "ellisonleao/gruvbox.nvim",
 }
 
 M.init = function()
