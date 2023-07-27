@@ -11,6 +11,18 @@ local servers = {
   "ccls",
 }
 
+local ensure_installed_servers = {
+  "lua_ls",
+  -- "cssls",
+  -- "html",
+  -- "tsserver",
+  "pyright",
+  -- "bashls",
+  "jsonls",
+  -- "yamlls",
+  -- "clangd",
+}
+
 local settings = {
   ui = {
     border = "none",
@@ -26,7 +38,7 @@ local settings = {
 
 require("mason").setup(settings)
 require("mason-lspconfig").setup {
-  ensure_installed = servers,
+  ensure_installed = ensure_installed_servers,
   automatic_installation = true,
 }
 
