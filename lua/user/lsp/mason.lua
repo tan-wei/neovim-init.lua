@@ -7,8 +7,8 @@ local servers = {
   -- "bashls",
   "jsonls",
   -- "yamlls",
-  -- "clangd",
-  "ccls",
+  "clangd",
+  -- "ccls",
 }
 
 local ensure_installed_servers = {
@@ -20,7 +20,7 @@ local ensure_installed_servers = {
   -- "bashls",
   "jsonls",
   -- "yamlls",
-  -- "clangd",
+  "clangd",
 }
 
 local settings = {
