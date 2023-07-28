@@ -299,5 +299,6 @@ require("lazy").setup {
     { import = "plugins.cmp" },
     { import = "plugins.snippet" },
     { import = "plugins.keymap" },
+    { import = "plugins.formatter" },
   },
 }
