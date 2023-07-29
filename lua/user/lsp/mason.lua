@@ -10,6 +10,7 @@ local servers = {
   "clangd",
   -- "ccls",
   "ltex",
+  "rust_analyzer",
 }
 
 local ensure_installed_servers = {
@@ -22,6 +23,7 @@ local ensure_installed_servers = {
   "jsonls",
   -- "yamlls",
   "clangd",
+  "rust_analyzer",
 }
 
 local settings = {
