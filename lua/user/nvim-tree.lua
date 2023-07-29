@@ -83,6 +83,9 @@ vim.api.nvim_create_autocmd("WinClosed", {
 })
 
 nvim_tree.setup {
+  -- required for project.nvim to auto change root dir
+  sync_root_with_cwd = true,
+  respect_buf_cwd = true,
   update_focused_file = {
     enable = true,
     update_cwd = true,
