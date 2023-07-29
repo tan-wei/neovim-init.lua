@@ -62,7 +62,7 @@ local spaces = function()
   return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
 end
 
-lualine.setup {
+local config = {
   options = {
     icons_enabled = true,
     theme = "auto",
@@ -91,3 +91,41 @@ lualine.setup {
   tabline = {},
   extensions = {},
 }
+
+-- Inserts a component in lualine_c at left section
+local function ins_left(component)
+  table.insert(config.sections.lualine_c, component)
+end
+
+-- Inserts a component in lualine_x ot right section
+local function ins_right(component)
+  table.insert(config.sections.lualine_x, component)
+end
+
+ins_left {
+  "lsp_progress",
+  -- With spinner
+  -- display_components = { 'lsp_client_name', 'spinner', { 'title', 'percentage', 'message' }},
+  -- colors = {
+  --   percentage = colors.cyan,
+  --   title = colors.cyan,
+  --   message = colors.cyan,
+  --   spinner = colors.cyan,
+  --   lsp_client_name = colors.magenta,
+  --   use = true,
+  -- },
+  separators = {
+    component = " ",
+    progress = " | ",
+    message = { pre = "(", post = ")", commenced = "In Progress", completed = "Completed" },
+    percentage = { pre = "", post = "%% " },
+    title = { pre = "", post = ": " },
+    lsp_client_name = { pre = "[", post = "]" },
+    spinner = { pre = "", post = "" },
+  },
+  display_components = { "lsp_client_name", "spinner", { "title", "percentage", "message" } },
+  timer = { progress_enddelay = 500, spinner = 1000, lsp_client_name_enddelay = 1000 },
+  spinner_symbols = { "🌑 ", "🌒 ", "🌓 ", "🌔 ", "🌕 ", "🌖 ", "🌗 ", "🌘 " },
+}
+
+lualine.setup(config)
