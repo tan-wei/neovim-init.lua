@@ -23,7 +23,7 @@ M.setup = function()
   end
 
   local config = {
-    virtual_text = false, -- disable virtual text
+    virtual_text = true, -- disable virtual text
     signs = {
       active = signs, -- show signs
     },
@@ -78,6 +78,10 @@ M.on_attach = function(client, bufnr)
 
   if client.name == "sumneko_lua" then
     client.server_capabilities.documentFormattingProvider = false
+  end
+
+  if client.server_capabilities.inlayHintProvider then
+    vim.lsp.inlay_hint(bufnr, true)
   end
 
   lsp_keymaps(bufnr)
