@@ -5,9 +5,20 @@ end
 
 clangd_extensions.setup {
   server = {
-    -- options to pass to nvim-lspconfig
-    -- i.e. the arguments to require("lspconfig").clangd.setup({})
-    -- NOTE: here just leave it empty, the configure will be done in the later process
+    cmd = {
+      "clangd",
+      "--background-index",
+      "--compile-commands-dir=build",
+      "-j=2",
+      "--clang-tidy",
+      "--clang-tidy-checks=performance-*,bugprone-*",
+      "--all-scopes-completion",
+      "--completion-style=detailed",
+      "--header-insertion=iwyu",
+      "--pch-storage=disk",
+    },
+    filetypes = { "c", "cpp", "cxx", "h", "hpp", "objc", "objcpp", "cuda", "proto" },
+    single_file_support = true,
   },
   extensions = {
     -- defaults:
@@ -46,44 +57,24 @@ clangd_extensions.setup {
       priority = 100,
     },
     ast = {
-      -- These are unicode, should be available in any font
       role_icons = {
-        type = "🄣",
-        declaration = "🄓",
-        expression = "🄔",
-        statement = ";",
-        specifier = "🄢",
-        ["template argument"] = "🆃",
+        type = "",
+        declaration = "",
+        expression = "",
+        specifier = "",
+        statement = "",
+        ["template argument"] = "",
       },
+
       kind_icons = {
-        Compound = "🄲",
-        Recovery = "🅁",
-        TranslationUnit = "🅄",
-        PackExpansion = "🄿",
-        TemplateTypeParm = "🅃",
-        TemplateTemplateParm = "🅃",
-        TemplateParamObject = "🅃",
+        Compound = "",
+        Recovery = "",
+        TranslationUnit = "",
+        PackExpansion = "",
+        TemplateTypeParm = "",
+        TemplateTemplateParm = "",
+        TemplateParamObject = "",
       },
-      --[[ These require codicons (https://github.com/microsoft/vscode-codicons)
-            role_icons = {
-                type = "",
-                declaration = "",
-                expression = "",
-                specifier = "",
-                statement = "",
-                ["template argument"] = "",
-            },
-
-            kind_icons = {
-                Compound = "",
-                Recovery = "",
-                TranslationUnit = "",
-                PackExpansion = "",
-                TemplateTypeParm = "",
-                TemplateTemplateParm = "",
-                TemplateParamObject = "",
-            }, ]]
-
       highlights = {
         detail = "Comment",
       },
