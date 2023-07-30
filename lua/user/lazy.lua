@@ -46,17 +46,6 @@ vim.opt.rtp:prepend(install_path)
 --   { "folke/which-key.nvim" },
 
 --   -- Colorschemes
---   { "savq/melange" },
---   { "arcticicestudio/nord-vim" },
---   { "rakr/vim-one" },
---   { "mhartington/oceanic-next" },
---   { "drewtempelmeyer/palenight.vim" },
---   { "whatyouhide/vim-gotham" },
---   { "itchyny/landscape.vim" },
---   { "glepnir/zephyr-nvim" },
---   { "marko-cerovac/material.nvim" },
---   { "w0ng/vim-hybrid" },
---   { "junegunn/seoul256.vim" },
 --   { "shaeinst/roshnivim-cs" },
 --   { "Mofiqul/vscode.nvim" },
 --   { "ray-x/aurora" },
