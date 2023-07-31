@@ -17,6 +17,12 @@ clangd_extensions.setup {
       "--header-insertion=iwyu",
       "--pch-storage=disk",
     },
+    init_options = {
+      usePlaceholders = true,
+      completeUnimported = true,
+      clangdFileStatus = true,
+    },
+    flags = { debounce_text_changes = 150 },
     filetypes = { "c", "cpp", "cxx", "h", "hpp", "objc", "objcpp", "cuda", "proto" },
     single_file_support = true,
   },
