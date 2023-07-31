@@ -36,7 +36,7 @@ clangd_extensions.setup {
       -- not that this may cause  higher CPU usage.
       -- This option is only respected when only_current_line and
       -- autoSetHints both are true.
-      only_current_line_autocmd = "CursorHold",
+      only_current_line_autocmd = { "CursorHold" },
       -- whether to show parameter hints with the inlay hints or not
       show_parameter_hints = true,
       -- prefix for parameter hints
