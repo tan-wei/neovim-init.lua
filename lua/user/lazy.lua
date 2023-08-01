@@ -40,6 +40,7 @@ vim.opt.rtp:prepend(install_path)
 --   { "nvim-lualine/lualine.nvim" },
 --   { "akinsho/toggleterm.nvim" },
 --   { "ahmedkhalf/project.nvim" },
+--   { "GnikDroy/projections.nvim" } -- Add this
 --   { "lewis6991/impatient.nvim" },
 --   { "lukas-reineke/indent-blankline.nvim" },
 --   { "goolord/alpha-nvim" },
