@@ -28,4 +28,10 @@ if not change_color then
   end
 end
 
+local status_ok, _ = pcall(vim.cmd, "colorscheme " .. "default")
+
+if not status_ok then
+  return
+end
+
 change_color()
