@@ -12,6 +12,7 @@ M.init = function()
     "help",
     "fugitive",
     "minimap",
+    "toggleterm",
   }
 end
 
