@@ -56,7 +56,6 @@ vim.opt.formatoptions:remove { "c", "r", "o" } -- don't insert the current comme
 vim.opt.runtimepath:remove "/usr/share/vim/vimfiles" -- separate vim plugins from neovim in case vim still in use
 
 -- neovide related configure
-print(vim.g.neovide)
 if vim.g.neovide then
   vim.o.guifont = "DejaVuSansMono Nerd Font:h10"
   vim.g.neovide_remember_window_size = true
