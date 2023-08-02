@@ -72,3 +72,14 @@ keymap("x", "<A-k>", ":m '<-2<CR>gv=gv", opts)
 -- Keeping the functionality of ; and , via mappings
 keymap("", ";", "<Plug>(clever-f-repeat-forward)", opts)
 keymap("", ",", "<Plug>(clever-f-repeat-back)", opts)
+
+-- high-str --
+vim.api.nvim_set_keymap("v", "<F3>", ":<c-u>HSHighlight 1<CR>", {
+  noremap = true,
+  silent = true,
+})
+
+vim.api.nvim_set_keymap("v", "<F4>", ":<c-u>HSRmHighlight<CR>", {
+  noremap = true,
+  silent = true,
+})
