@@ -44,6 +44,7 @@ local options = {
   guifont = "Iosevka Nerd Font Mono:h10", -- the font used in graphical neovim applications
   whichwrap = "bs<>[]hl", -- which "horizontal" keys are allowed to travel to prev/next line
   foldenable = false, -- Default not fold any thing
+  undofile = true, -- Persistent undo enable
 }
 
 for k, v in pairs(options) do
