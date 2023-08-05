@@ -4,7 +4,6 @@ local M = {
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
   },
-  build = ":MasonUpdate",
 }
 
 M.init = function() end
