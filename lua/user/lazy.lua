@@ -55,7 +55,6 @@ vim.opt.rtp:prepend(install_path)
 --   { "tlhr/anderson.vim" },
 --   { "ayu-theme/ayu-vim" },
 --   { "NLKNguyen/papercolor-theme" },
-
 --   { "Rigellute/rigel" },
 --   { "KeitaNakamura/neodark.vim" },
 --   { "projekt0n/github-nvim-theme" },
