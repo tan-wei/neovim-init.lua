@@ -62,12 +62,11 @@ vim.opt.rtp:prepend(install_path)
 --   { "arzg/vim-substrata" },
 --   { "mhinz/vim-janah" },
 --   { "Rigellute/shades-of-purple.vim" },
-
 --   { "challenger-deep-theme/vim", name = "challenger-deep" },
 --   { "zacanger/angr.vim" },
 --   { "tyrannicaltoucan/vim-quantum" },
 --   { "jnurmine/zenburn" },
---   { "kvrohit/rasmus.nvim" },
+
 --   { "sjl/badwolf" },
 --   { "jpo/vim-railscasts-theme" },
 --   { "alek3y/Spacegray.vim" },
