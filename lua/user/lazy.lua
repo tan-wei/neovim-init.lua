@@ -54,8 +54,6 @@ vim.opt.rtp:prepend(install_path)
 --   { "AlessandroYorba/Alduin" },
 --   { "tlhr/anderson.vim" },
 
---   { "sainnhe/gruvbox-material" },
---   { "sainnhe/edge" },
 --   { "ayu-theme/ayu-vim" },
 --   { "NLKNguyen/papercolor-theme" },
 --   { "rebelot/kanagawa.nvim" },
