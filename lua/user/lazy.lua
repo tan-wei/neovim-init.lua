@@ -142,7 +142,7 @@ vim.opt.rtp:prepend(install_path)
 --   { "gosukiwi/vim-atom-dark" },
 --   { "jpo/vim-railscasts-theme" },
 --   { "artanikin/vim-synthwave84" },
---   { "wadackel/vim-dogrun" },
+
 --   { "liuchengxu/vista.vim" },
 
 --   -- Cmp
