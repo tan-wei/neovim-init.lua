@@ -78,10 +78,9 @@ vim.opt.rtp:prepend(install_path)
 --   { "tjdevries/colorbuddy.nvim" },
 --   { "GlennLeo/cobalt2" },
 --   { "vim-scripts/wombat256.vim" },
-
 --   { "windwp/wind-colors" },
 --   { "ldelossa/vimdark" },
---   { "rmehri01/onenord.nvim" },
+
 --   { "dikiaap/minimalist" },
 --   { "bluz71/vim-nightfly-guicolors" },
 --   { "tssm/fairyfloss.vim" },
