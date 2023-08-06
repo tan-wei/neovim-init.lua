@@ -81,8 +81,6 @@ vim.opt.rtp:prepend(install_path)
 --   { "windwp/wind-colors" },
 --   { "ldelossa/vimdark" },
 
---   { "dikiaap/minimalist" },
---   { "bluz71/vim-nightfly-guicolors" },
 --   { "tssm/fairyfloss.vim" },
 --   { "phanviet/vim-monokai-pro" },
 --   { "ishan9299/nvim-solarized-lua" },
