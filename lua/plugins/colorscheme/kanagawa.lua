@@ -1,5 +1,5 @@
 local M = {
-  "rebelot/kanagawa.nvim"
+  "rebelot/kanagawa.nvim",
 }
 
 M.init = function()
