@@ -61,9 +61,8 @@ vim.opt.rtp:prepend(install_path)
 --   { "jaredgorski/SpaceCamp" },
 --   { "arzg/vim-substrata" },
 --   { "mhinz/vim-janah" },
-
 --   { "Rigellute/shades-of-purple.vim" },
---   { "kyazdani42/blue-moon" },
+
 --   { "challenger-deep-theme/vim", name = "challenger-deep" },
 --   { "zacanger/angr.vim" },
 --   { "tyrannicaltoucan/vim-quantum" },
