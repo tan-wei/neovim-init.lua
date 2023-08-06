@@ -82,9 +82,8 @@ vim.opt.rtp:prepend(install_path)
 --   { "ldelossa/vimdark" },
 --   { "tssm/fairyfloss.vim" },
 --   { "phanviet/vim-monokai-pro" },
-
 --   { "preservim/vim-colors-pencil" },
---   { "bluz71/vim-moonfly-colors" },
+
 --   { "yassinebridi/vim-purpura" },
 --   { "aonemd/kuroi.vim" },
 --   { "glepnir/oceanic-material" },
