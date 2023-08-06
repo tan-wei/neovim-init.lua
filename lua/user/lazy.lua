@@ -57,14 +57,11 @@ vim.opt.rtp:prepend(install_path)
 --   { "NLKNguyen/papercolor-theme" },
 --   { "Rigellute/rigel" },
 --   { "KeitaNakamura/neodark.vim" },
-
---   { "EdenEast/nightfox.nvim" },
---   { "folke/tokyonight.nvim", branch = "main" },
 --   { "liuchengxu/space-vim-dark" },
 --   { "jaredgorski/SpaceCamp" },
 --   { "arzg/vim-substrata" },
 --   { "mhinz/vim-janah" },
---   { "embark-theme/vim", name = "embark", branch = "main" },
+
 --   { "Rigellute/shades-of-purple.vim" },
 --   { "kyazdani42/blue-moon" },
 --   { "challenger-deep-theme/vim", name = "challenger-deep" },
