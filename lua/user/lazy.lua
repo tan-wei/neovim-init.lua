@@ -66,7 +66,6 @@ vim.opt.rtp:prepend(install_path)
 --   { "zacanger/angr.vim" },
 --   { "tyrannicaltoucan/vim-quantum" },
 --   { "jnurmine/zenburn" },
-
 --   { "sjl/badwolf" },
 --   { "jpo/vim-railscasts-theme" },
 --   { "alek3y/Spacegray.vim" },
@@ -77,7 +76,7 @@ vim.opt.rtp:prepend(install_path)
 --     end,
 --   },
 --   { "tjdevries/colorbuddy.nvim" },
---   { "luisiacc/gruvbox-baby", branch = "main" },
+
 --   { "GlennLeo/cobalt2" },
 --   { "wuelnerdotexe/vim-enfocado" },
 --   { "yonlu/omni.vim" },
