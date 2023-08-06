@@ -77,9 +77,8 @@ vim.opt.rtp:prepend(install_path)
 --   },
 --   { "tjdevries/colorbuddy.nvim" },
 --   { "GlennLeo/cobalt2" },
-
 --   { "vim-scripts/wombat256.vim" },
---   { "rockerBOO/boo-colorscheme-nvim" },
+
 --   { "windwp/wind-colors" },
 --   { "ldelossa/vimdark" },
 --   { "rmehri01/onenord.nvim" },
