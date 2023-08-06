@@ -50,11 +50,10 @@ vim.opt.rtp:prepend(install_path)
 
 --   { "jordwalke/flatlandia" },
 --   { "cseelus/vim-colors-lucid" },
-
---   { "olimorris/onedarkpro.nvim" },
 --   { "romainl/Apprentice" },
 --   { "AlessandroYorba/Alduin" },
 --   { "tlhr/anderson.vim" },
+
 --   { "sainnhe/gruvbox-material" },
 --   { "sainnhe/edge" },
 --   { "ayu-theme/ayu-vim" },
