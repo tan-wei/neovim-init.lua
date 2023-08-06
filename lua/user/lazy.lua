@@ -83,11 +83,10 @@ vim.opt.rtp:prepend(install_path)
 --   { "tssm/fairyfloss.vim" },
 --   { "phanviet/vim-monokai-pro" },
 --   { "preservim/vim-colors-pencil" },
-
 --   { "yassinebridi/vim-purpura" },
 --   { "aonemd/kuroi.vim" },
 --   { "glepnir/oceanic-material" },
---   { "yuttie/hydrangea-vim" },
+
 --   { "ntk148v/vim-horizon" },
 --   { "yunlingz/ci_dark" },
 --   { "mcchrish/zenbones.nvim" },
