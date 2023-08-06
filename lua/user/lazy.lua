@@ -80,10 +80,9 @@ vim.opt.rtp:prepend(install_path)
 --   { "vim-scripts/wombat256.vim" },
 --   { "windwp/wind-colors" },
 --   { "ldelossa/vimdark" },
-
 --   { "tssm/fairyfloss.vim" },
 --   { "phanviet/vim-monokai-pro" },
---   { "ishan9299/nvim-solarized-lua" },
+
 --   { "frenzyexists/aquarium-vim", branch = "develop" },
 --   { "preservim/vim-colors-pencil" },
 --   { "bluz71/vim-moonfly-colors" },
