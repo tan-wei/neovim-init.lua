@@ -76,9 +76,8 @@ vim.opt.rtp:prepend(install_path)
 --     end,
 --   },
 --   { "tjdevries/colorbuddy.nvim" },
-
 --   { "GlennLeo/cobalt2" },
---   { "wuelnerdotexe/vim-enfocado" },
+
 --   { "yonlu/omni.vim" },
 --   { "vim-scripts/wombat256.vim" },
 --   { "rockerBOO/boo-colorscheme-nvim" },
