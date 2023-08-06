@@ -47,17 +47,10 @@ vim.opt.rtp:prepend(install_path)
 --   { "folke/which-key.nvim" },
 
 --   -- Colorschemes
---   { "shaeinst/roshnivim-cs" },
---   { "Mofiqul/vscode.nvim" },
---   { "ray-x/aurora" },
---   { "srcery-colors/srcery-vim" },
---   { "alessandroyorba/despacio" },
---   { "sainnhe/everforest" },
---   { "cocopon/iceberg.vim" },
---   { "sainnhe/sonokai" },
---   { "fenetikm/falcon" },
+
 --   { "jordwalke/flatlandia" },
 --   { "cseelus/vim-colors-lucid" },
+
 --   { "olimorris/onedarkpro.nvim" },
 --   { "romainl/Apprentice" },
 --   { "AlessandroYorba/Alduin" },
