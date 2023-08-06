@@ -57,7 +57,7 @@ vim.opt.rtp:prepend(install_path)
 --   { "NLKNguyen/papercolor-theme" },
 --   { "Rigellute/rigel" },
 --   { "KeitaNakamura/neodark.vim" },
---   { "projekt0n/github-nvim-theme" },
+
 --   { "EdenEast/nightfox.nvim" },
 --   { "folke/tokyonight.nvim", branch = "main" },
 --   { "liuchengxu/space-vim-dark" },
