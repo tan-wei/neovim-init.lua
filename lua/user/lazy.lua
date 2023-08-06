@@ -83,7 +83,6 @@ vim.opt.rtp:prepend(install_path)
 --   { "tssm/fairyfloss.vim" },
 --   { "phanviet/vim-monokai-pro" },
 
---   { "frenzyexists/aquarium-vim", branch = "develop" },
 --   { "preservim/vim-colors-pencil" },
 --   { "bluz71/vim-moonfly-colors" },
 --   { "yassinebridi/vim-purpura" },
