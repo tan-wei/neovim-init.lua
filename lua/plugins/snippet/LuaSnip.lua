@@ -6,7 +6,8 @@ local M = {
       local job = require "plenary.job"
       job
         :new({
-          command = "make install_jsregexp",
+          command = "make",
+          args = { "install_jsregexp" },
           cwd = vim.fn.stdpath "data" .. "/lazy/LuaSnip",
         })
         :sync()
