@@ -9,4 +9,4 @@ M.init = function()
   vim.g.available_colorschemes = available_colorschemes
 end
 
-return Mz
+return M
