@@ -135,9 +135,8 @@ vim.opt.rtp:prepend(install_path)
 --   { "catppuccin/nvim", name = "catppuccin" },
 --   { "romainl/flattened" },
 --   { "AhmedAbdulrahman/aylin.vim" },
---   { "Shadorain/shadotheme" },
---   { "raphamorim/lucario" },
 
+--   { "raphamorim/lucario" },
 --   { "haishanh/night-owl.vim" },
 
 --   { "liuchengxu/vista.vim" },
