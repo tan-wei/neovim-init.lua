@@ -1,6 +1,5 @@
 local M = {
   "yonlu/omni.vim",
-  enable = false,
 }
 
 M.init = function()
