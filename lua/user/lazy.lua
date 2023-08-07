@@ -128,10 +128,9 @@ vim.opt.rtp:prepend(install_path)
 --   { "lifepillar/vim-gruvbox8" },
 --   { "rockyzhang24/arctic.nvim" },
 --   { "kvrohit/mellow.nvim" },
---   { "uloco/bluloco.nvim" },
+
 --   { "freeo/vim-kalisi" },
 --   { "kristijanhusak/vim-hybrid-material" },
-
 --   { "romainl/flattened" },
 --   { "AhmedAbdulrahman/aylin.vim" },
 --   { "raphamorim/lucario" },
