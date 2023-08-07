@@ -133,9 +133,9 @@ vim.opt.rtp:prepend(install_path)
 --   { "kristijanhusak/vim-hybrid-material" },
 --   { "rose-pine/neovim", name = "rose-pine" },
 --   { "catppuccin/nvim", name = "catppuccin" },
+
 --   { "romainl/flattened" },
 --   { "AhmedAbdulrahman/aylin.vim" },
-
 --   { "raphamorim/lucario" },
 --   { "haishanh/night-owl.vim" },
 
