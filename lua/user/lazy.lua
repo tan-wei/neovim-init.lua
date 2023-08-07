@@ -131,8 +131,6 @@ vim.opt.rtp:prepend(install_path)
 --   { "uloco/bluloco.nvim" },
 --   { "freeo/vim-kalisi" },
 --   { "kristijanhusak/vim-hybrid-material" },
---   { "rose-pine/neovim", name = "rose-pine" },
---   { "catppuccin/nvim", name = "catppuccin" },
 
 --   { "romainl/flattened" },
 --   { "AhmedAbdulrahman/aylin.vim" },
