@@ -139,9 +139,6 @@ vim.opt.rtp:prepend(install_path)
 --   { "raphamorim/lucario" },
 --   { "lunacookies/vim-colors-xcode" },
 --   { "haishanh/night-owl.vim" },
---   { "gosukiwi/vim-atom-dark" },
---   { "jpo/vim-railscasts-theme" },
---   { "artanikin/vim-synthwave84" },
 
 --   { "liuchengxu/vista.vim" },
 
