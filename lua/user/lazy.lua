@@ -137,7 +137,7 @@ vim.opt.rtp:prepend(install_path)
 --   { "AhmedAbdulrahman/aylin.vim" },
 --   { "Shadorain/shadotheme" },
 --   { "raphamorim/lucario" },
---   { "lunacookies/vim-colors-xcode" },
+
 --   { "haishanh/night-owl.vim" },
 
 --   { "liuchengxu/vista.vim" },
