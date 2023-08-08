@@ -74,12 +74,18 @@ keymap("", ";", "<Plug>(clever-f-repeat-forward)", opts)
 keymap("", ",", "<Plug>(clever-f-repeat-back)", opts)
 
 -- high-str --
-vim.api.nvim_set_keymap("v", "<F3>", ":<c-u>HSHighlight 1<CR>", {
-  noremap = true,
-  silent = true,
-})
+keymap("v", "<F3>", ":<c-u>HSHighlight 1<CR>", opts)
 
-vim.api.nvim_set_keymap("v", "<F4>", ":<c-u>HSRmHighlight<CR>", {
-  noremap = true,
-  silent = true,
-})
+keymap("v", "<F4>", ":<c-u>HSRmHighlight<CR>", opts)
+
+-- bufferline.nvim --
+keymap("", "<Leader>1", ":BufferLineGoToBuffer 1<CR>", opts)
+keymap("", "<Leader>2", ":BufferLineGoToBuffer 2<CR>", opts)
+keymap("", "<Leader>3", ":BufferLineGoToBuffer 3<CR>", opts)
+keymap("", "<Leader>4", ":BufferLineGoToBuffer 4<CR>", opts)
+keymap("", "<Leader>5", ":BufferLineGoToBuffer 5<CR>", opts)
+keymap("", "<Leader>6", ":BufferLineGoToBuffer 6<CR>", opts)
+keymap("", "<Leader>7", ":BufferLineGoToBuffer 7<CR>", opts)
+keymap("", "<Leader>8", ":BufferLineGoToBuffer 8<CR>", opts)
+keymap("", "<Leader>9", ":BufferLineGoToBuffer 9<CR>", opts)
+keymap("", "<Leader>$", ":BufferLineGoToBuffer -1<CR>", opts)
