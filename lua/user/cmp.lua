@@ -105,6 +105,8 @@ cmp.setup {
         luasnip = "[Snippet]",
         buffer = "[Buffer]",
         path = "[Path]",
+        nvim_lua = "[NVIM_LUA]",
+        emoji = "[EMOJI]",
       })[entry.source.name]
       return vim_item
     end,
@@ -115,6 +117,7 @@ cmp.setup {
     { name = "buffer" },
     { name = "path" },
     { name = "nvim_lua" },
+    { name = "emoji" },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
