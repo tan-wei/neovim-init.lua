@@ -88,14 +88,13 @@ vim.opt.rtp:prepend(install_path)
 --   { "glepnir/oceanic-material" },
 --   { "ntk148v/vim-horizon" },
 --   { "yunlingz/ci_dark" },
-
 --   { "patstockwell/vim-monokai-tasty" },
 --   { "nikolvs/vim-sunbather" },
 --   { "spf3000/skeletor.vim" },
 --   { "beikome/cosme.vim" },
 --   { "agude/vim-eldar" },
 --   { "pineapplegiant/spaceduck", branch = "main" },
---   { "kaiuri/nvim-juliana" },
+
 --   { "cpea2506/one_monokai.nvim" },
 --   { "shaunsingh/moonlight.nvim" },
 --   {
