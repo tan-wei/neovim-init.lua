@@ -101,7 +101,6 @@ vim.opt.rtp:prepend(install_path)
 --     end,
 --   },
 
---   { "lmburns/kimbox" },
 --   { "rhysd/vim-color-spring-night" },
 --   { "aktersnurra/no-clown-fiesta.nvim" },
 --   { "lewpoly/sherbet.nvim" },
