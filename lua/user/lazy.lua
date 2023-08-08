@@ -95,7 +95,6 @@ vim.opt.rtp:prepend(install_path)
 --   { "agude/vim-eldar" },
 --   { "pineapplegiant/spaceduck", branch = "main" },
 
---   { "cpea2506/one_monokai.nvim" },
 --   { "shaunsingh/moonlight.nvim" },
 --   {
 --     "kyoz/purify",
