@@ -89,7 +89,6 @@ vim.opt.rtp:prepend(install_path)
 --   { "ntk148v/vim-horizon" },
 --   { "yunlingz/ci_dark" },
 
---   { "rktjmp/lush.nvim" },
 --   { "patstockwell/vim-monokai-tasty" },
 --   { "nikolvs/vim-sunbather" },
 --   { "spf3000/skeletor.vim" },
