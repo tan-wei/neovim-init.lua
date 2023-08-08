@@ -94,14 +94,13 @@ vim.opt.rtp:prepend(install_path)
 --   { "beikome/cosme.vim" },
 --   { "agude/vim-eldar" },
 --   { "pineapplegiant/spaceduck", branch = "main" },
-
 --   {
 --     "kyoz/purify",
 --     config = function(plugin)
 --       vim.opt.rtp:append(plugin.dir .. "/vim")
 --     end,
 --   },
---   { "andersevenrud/nordic.nvim" },
+
 --   { "lmburns/kimbox" },
 --   { "rhysd/vim-color-spring-night" },
 --   { "aktersnurra/no-clown-fiesta.nvim" },
