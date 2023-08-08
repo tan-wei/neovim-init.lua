@@ -119,7 +119,7 @@ cmp.setup {
     { name = "path" },
     { name = "nvim_lua" },
     { name = "emoji" },
-    { name = "rg", keyword_length = 10 },
+    { name = "rg", keyword_length = 3 },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
