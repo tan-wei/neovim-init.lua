@@ -86,10 +86,9 @@ vim.opt.rtp:prepend(install_path)
 --   { "yassinebridi/vim-purpura" },
 --   { "aonemd/kuroi.vim" },
 --   { "glepnir/oceanic-material" },
-
 --   { "ntk148v/vim-horizon" },
 --   { "yunlingz/ci_dark" },
---   { "mcchrish/zenbones.nvim" },
+
 --   { "rktjmp/lush.nvim" },
 --   { "patstockwell/vim-monokai-tasty" },
 --   { "nikolvs/vim-sunbather" },
