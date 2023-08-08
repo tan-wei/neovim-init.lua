@@ -5,7 +5,6 @@ local M = {
 M.init = function()
   local available_colorschemes = vim.g.available_colorschemes or {}
   table.insert(available_colorschemes, "carbonfox")
-  table.insert(available_colorschemes, "dawndox")
   table.insert(available_colorschemes, "duskfox")
   table.insert(available_colorschemes, "nightfox")
   table.insert(available_colorschemes, "nordfox")
