@@ -107,6 +107,7 @@ cmp.setup {
         path = "[Path]",
         nvim_lua = "[NVIM_LUA]",
         emoji = "[EMOJI]",
+        rg = "[RG]",
       })[entry.source.name]
       return vim_item
     end,
@@ -118,6 +119,7 @@ cmp.setup {
     { name = "path" },
     { name = "nvim_lua" },
     { name = "emoji" },
+    { name = "rg", keyword_length = 10 },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
