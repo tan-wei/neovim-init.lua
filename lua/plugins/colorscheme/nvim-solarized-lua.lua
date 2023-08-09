@@ -8,7 +8,6 @@ M.init = function()
   table.insert(available_colorschemes, "solarized")
   table.insert(available_colorschemes, "solarized-high")
   table.insert(available_colorschemes, "solarized-flat")
-  table.insert(available_colorschemes, "solarized-low")
   vim.g.available_colorschemes = available_colorschemes
 end
 
