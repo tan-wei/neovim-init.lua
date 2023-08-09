@@ -7,7 +7,7 @@ local servers = {
   -- "bashls",
   "jsonls",
   -- "yamlls",
-  -- "clangd", -- Use clangd_extensions to setup lspconfig
+  "clangd",
   -- "ccls",
   "ltex",
   "rust_analyzer",
