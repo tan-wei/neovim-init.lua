@@ -46,4 +46,3 @@ if not tele_status_ok then
 end
 
 telescope.load_extension "projects"
-telescope.load_extension "persisted"
