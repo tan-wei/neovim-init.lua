@@ -62,6 +62,14 @@ local spaces = function()
   return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
 end
 
+local session = function()
+  local status_ok, auto_session = pcall(require, "auto-session.lib")
+  if not status_ok then
+    return nil
+  end
+  return "session: " .. auto_session.current_session_name()
+end
+
 local config = {
   options = {
     icons_enabled = true,
@@ -74,7 +82,7 @@ local config = {
   sections = {
     lualine_a = { branch, diagnostics },
     lualine_b = { mode },
-    lualine_c = { "lsp_progress" },
+    lualine_c = { session, "lsp_progress" },
     -- lualine_x = { "encoding", "fileformat", "filetype" },
     lualine_x = { diff, spaces, "encoding", filetype },
     lualine_y = { location },
