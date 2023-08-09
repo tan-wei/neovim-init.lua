@@ -181,6 +181,12 @@ local mappings = {
     h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
     v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
   },
+
+  w = {
+    name = "Workspace",
+    s = { "<cmd>SessionSave<cr>", "Save Session" },
+    d = { "<cmd>Autosession delete<cr>", "Delete a selected Session" },
+  },
 }
 
 which_key.setup(setup)
