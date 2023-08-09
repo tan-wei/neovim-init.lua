@@ -9,7 +9,8 @@ auto_session.setup {
   auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
   auto_session_use_git_branch = true,
   auto_session_enable_last_session = false,
-  auto_save_enabled = false,
+  auto_save_enabled = true,
+  auto_session_create_enabled = false,
   session_lens = {
     load_on_setup = true,
     theme_conf = { border = true },
