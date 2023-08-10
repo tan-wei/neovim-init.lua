@@ -135,3 +135,31 @@ cmp.setup {
     native_menu = false,
   },
 }
+
+local snip_status_ok, luasnip = pcall(require, "luasnip")
+if not snip_status_ok then
+  return
+end
+
+-- `/` cmdline setup.
+cmp.setup.cmdline("/", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = "buffer" },
+  },
+})
+
+-- `:` cmdline setup.
+cmp.setup.cmdline(":", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = "path" },
+  }, {
+    {
+      name = "cmdline",
+      option = {
+        ignore_cmds = { "Man", "!" },
+      },
+    },
+  }),
+})
