@@ -89,3 +89,5 @@ keymap("", "<Leader>7", ":BufferLineGoToBuffer 7<CR>", opts)
 keymap("", "<Leader>8", ":BufferLineGoToBuffer 8<CR>", opts)
 keymap("", "<Leader>9", ":BufferLineGoToBuffer 9<CR>", opts)
 keymap("", "<Leader>$", ":BufferLineGoToBuffer -1<CR>", opts)
+
+keymap("", "<F8>", ":call ChangeColour()<CR>", opts)

@@ -1,5 +1,3 @@
-
-
 local M = {
   "wuelnerdotexe/vim-enfocado",
 }
