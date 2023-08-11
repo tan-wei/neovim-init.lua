@@ -209,6 +209,7 @@ local mappings = {
 
   w = {
     name = "Workspace",
+    l = { "<cmd>Telescope session-lens<cr>", "Session Lens" },
     s = { "<cmd>SessionSave<cr>", "Save Session" },
     d = { "<cmd>Autosession delete<cr>", "Delete a selected Session" },
   },
