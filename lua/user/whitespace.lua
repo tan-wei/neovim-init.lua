@@ -22,6 +22,7 @@ whitespace.setup {
     "checkhealth",
     "notify",
     "noice",
+    "lspinfo",
   },
 
   -- `ignore_terminal` configures whether to ignore terminal buffers
