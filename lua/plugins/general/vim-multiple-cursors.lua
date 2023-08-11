@@ -1,17 +1,18 @@
 local M = {
-  "mg979/vim-visual-multi",
-  branch = "master",
+  "terryma/vim-multiple-cursors",
 }
 
 M.init = function()
-  vim.g.VM_default_mappings = 0
-  vim.g.VM_mouse_mappings = 1
-  vim.g.VM_maps = {
-    ["Find Under"] = "<C-d>",
-    ["Find Subword Under"] = "",
-    ["Select Cursor Down"] = "<M-C-Down>",
-    ["Select Cursor Up"] = "<M-C-Up>",
-  }
+  vim.g.multi_cursor_use_default_mapping = 0
+  vim.g.multi_cursor_start_word_key = "<C-n>"
+  vim.g.multi_cursor_select_all_word_key = "<A-n>"
+  vim.g.multi_cursor_start_key = "g<C-n>"
+  vim.g.multi_cursor_select_all_key = "g<A-n>"
+  vim.g.multi_cursor_next_key = "<C-n>"
+  vim.g.multi_cursor_prev_key = "<C-p>"
+  vim.g.multi_cursor_skip_key = "<C-x>"
+  vim.g.multi_cursor_quit_key = "<Esc>"
 end
 
 return M
+
