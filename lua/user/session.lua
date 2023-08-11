@@ -16,6 +16,35 @@ auto_session.setup {
     theme_conf = { border = true },
     previewer = true,
   },
+  pre_save_cmds = {
+    function()
+      local status_ok, api = pcall(require, "nvim-tree.api")
+      if not status_ok then
+        return
+      end
+      api.tree.close()
+    end,
+  },
+
+  post_save_cmds = {
+    function()
+      local status_ok, api = pcall(require, "nvim-tree.api")
+      if not status_ok then
+        return
+      end
+      api.tree.toggle { focus = false, find_file = true }
+    end,
+  },
+
+  post_restore_cmds = {
+    function()
+      local status_ok, api = pcall(require, "nvim-tree.api")
+      if not status_ok then
+        return
+      end
+      api.tree.toggle { focus = false, find_file = true }
+    end,
+  },
 }
 
 -- Workaround for nvim-tree, see here: https://github.com/nvim-tree/nvim-tree.lua/wiki/Recipes
