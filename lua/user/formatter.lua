@@ -26,6 +26,9 @@ formmater.setup {
       require("formatter.filetypes.c").clangformat,
     },
 
+    rust = {
+      require("formatter.filetypes.rust").rustfmt,
+    },
     -- Use the special "*" filetype for defining formatter configurations on
     -- any filetype
     ["*"] = {
