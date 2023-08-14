@@ -101,9 +101,6 @@ vim.opt.rtp:prepend(install_path)
 --     end,
 --   },
 
---   { "rhysd/vim-color-spring-night" },
---   { "aktersnurra/no-clown-fiesta.nvim" },
---   { "lewpoly/sherbet.nvim" },
 --   { "tiagovla/tokyodark.nvim" },
 --   { "NTBBloodbath/doom-one.nvim" },
 --   { "fxn/vim-monochrome" },
