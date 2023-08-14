@@ -4,7 +4,7 @@ if not status_ok then
 end
 
 -- HACK: work-around for https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
-vim.wo.colorcolumn = "99999"
+-- vim.wo.colorcolumn = "99999"
 
 -- Workaound, auto highlight when refresh colorscheme
 -- see here: https://github.com/lukas-reineke/indent-blankline.nvim/issues/553
@@ -22,17 +22,19 @@ vim.wo.colorcolumn = "99999"
 
 vim.opt.list = true
 vim.opt.listchars:append "space:⋅"
--- vim.opt.listchars:append "space:"
 vim.opt.listchars:append "eol:↴"
 
 indent_blankline.setup {
+  char_priority = 50,
   show_end_of_line = true,
   show_trailing_blankline_indent = true,
   space_char_blankline = " ",
   show_current_context = true,
   show_current_context_start = true,
+  show_current_context_start_on_current_line = true,
   char_list = { "|", "¦", "┆", "┊" },
   context_char_list = { "┃", "║", "╬", "█" },
+  context_char_list_blankline = { "┃", "║", "╬", "█" },
   indent_level = 20,
   buftype_exclude = { "terminal", "nofile" },
   filetype_exclude = {
@@ -44,6 +46,7 @@ indent_blankline.setup {
     "NvimTree",
     "Trouble",
   },
+  -- context_pattern_highlight = { ["function"] = "Function" },
   -- char_highlight_list = {
   --   "IndentBlanklineIndent1",
   --   "IndentBlanklineIndent2",
