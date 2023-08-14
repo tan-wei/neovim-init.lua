@@ -101,8 +101,6 @@ vim.opt.rtp:prepend(install_path)
 --     end,
 --   },
 
---   { "tiagovla/tokyodark.nvim" },
---   { "NTBBloodbath/doom-one.nvim" },
 --   { "fxn/vim-monochrome" },
 --   { "rakr/vim-two-firewatch" },
 --   { "owickstrom/vim-colors-paramount" },
