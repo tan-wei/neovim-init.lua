@@ -45,6 +45,53 @@ local kind_icons = {
 }
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
+local default_cmp_sources = cmp.config.sources {
+  { name = "nvim_lsp" },
+  { name = "nvim_lsp_signature_help" },
+  { name = "luasnip" },
+  { name = "buffer" },
+  { name = "path" },
+  { name = "nvim_lua" },
+  { name = "emoji" },
+  { name = "nerdfont" },
+  { name = "rg", keyword_length = 3 },
+}
+
+-- Only enable `fonts` for `options.lua`
+--             `treesitter` for small file
+local buf_is_big = function(bufnr)
+  local max_filesize = 100 * 1024 -- 100 KB
+  local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
+  if ok and stats and stats.size > max_filesize then
+    return true
+  else
+    return false
+  end
+end
+
+local buf_is_options_lua = function(bufnr)
+  local bufname = vim.api.nvim_buf_get_name(bufnr)
+  local enable_filename = "options.lua"
+  return bufname:sub(-#enable_filename) == enable_filename
+end
+
+vim.api.nvim_create_autocmd("BufReadPre", {
+  callback = function(t)
+    local sources = default_cmp_sources
+    if not buf_is_big(t.buf) then
+      sources[#sources + 1] = { name = "treesitter", group_index = 2 }
+    end
+
+    if buf_is_options_lua(t.buf) then
+      sources[#sources + 1] = { name = "fonts", option = { space_filter = "-" } }
+    end
+
+    cmp.setup.buffer {
+      sources = sources,
+    }
+  end,
+})
+
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -116,19 +163,7 @@ cmp.setup {
       return vim_item
     end,
   },
-  sources = {
-    { name = "nvim_lsp" },
-    { name = "nvim_lsp_signature_help" },
-    -- { name = "treesitter" },
-    { name = "luasnip" },
-    { name = "buffer" },
-    { name = "path" },
-    { name = "nvim_lua" },
-    { name = "emoji" },
-    { name = "nerdfont" },
-    { name = "rg", keyword_length = 3 },
-    { name = "fonts", option = { space_filter = "-" } },
-  },
+  sources = default_cmp_sources,
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
     select = false,
@@ -171,6 +206,3 @@ cmp.setup.cmdline(":", {
     },
   }),
 })
-
--- Only enable `fonts` for `conf` and `config` file types
-cmp.setup.filetype({ "conf", "config", "lua" }, { sources = { { name = "fonts" } } })
