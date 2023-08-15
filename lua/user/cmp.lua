@@ -109,6 +109,7 @@ cmp.setup {
         nvim_lua = "[NVIM_LUA]",
         emoji = "[EMOJI]",
         rg = "[RG]",
+        fonts = "[FONT]",
       })[entry.source.name]
       return vim_item
     end,
@@ -122,6 +123,7 @@ cmp.setup {
     { name = "nvim_lua" },
     { name = "emoji" },
     { name = "rg", keyword_length = 3 },
+    { name = "fonts", option = { space_filter = "-" } },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
@@ -165,3 +167,6 @@ cmp.setup.cmdline(":", {
     },
   }),
 })
+
+-- Only enable `fonts` for `conf` and `config` file types
+cmp.setup.filetype({ "conf", "config", "lua" }, { sources = { { name = "fonts" } } })
