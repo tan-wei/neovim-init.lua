@@ -103,9 +103,10 @@ cmp.setup {
       vim_item.menu = ({
         nvim_lsp = "[LSP]",
         nvim_lsp_signature_help = "[LSP_SIGNATURE]",
-        luasnip = "[Snippet]",
-        buffer = "[Buffer]",
-        path = "[Path]",
+        treesitter = "[TREESITTER]",
+        luasnip = "[SNIPPET]",
+        buffer = "[BUFFER]",
+        path = "[PATH]",
         nvim_lua = "[NVIM_LUA]",
         emoji = "[EMOJI]",
         rg = "[RG]",
@@ -117,6 +118,7 @@ cmp.setup {
   sources = {
     { name = "nvim_lsp" },
     { name = "nvim_lsp_signature_help" },
+    { name = "treesitter" },
     { name = "luasnip" },
     { name = "buffer" },
     { name = "path" },
