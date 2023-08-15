@@ -3,28 +3,6 @@ if not status_ok then
   return
 end
 
-local config_status_ok, nvim_tree_config = pcall(require, "nvim-tree.config")
-if not config_status_ok then
-  return
-end
-
-local tree_cb = nvim_tree_config.nvim_tree_callback
-
-local function on_attach(bufnr)
-  local api = require "nvim-tree.api"
-
-  local function opts(desc)
-    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-  end
-
-  -- default mappings
-  api.config.mappings.default_on_attach(bufnr)
-
-  -- custom mappings
-  -- vim.keymap.set("n", "<C-t>", api.tree.change_root_to_parent, opts "Up")
-  -- vim.keymap.set("n", "?", api.tree.toggle_help, opts "Help")
-end
-
 -- Open on startup
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
   callback = function(data)
@@ -60,7 +38,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 nvim_tree.setup {
-  -- required for project.nvim to auto change root dir
   sync_root_with_cwd = true,
   respect_buf_cwd = true,
   update_focused_file = {
@@ -105,17 +82,4 @@ nvim_tree.setup {
       error = "",
     },
   },
-  view = {
-    width = 30,
-    side = "left",
-    mappings = {
-      list = {
-        { key = { "l", "<CR>", "o" }, cb = tree_cb "edit" },
-        { key = "h", cb = tree_cb "close_node" },
-        { key = "v", cb = tree_cb "vsplit" },
-      },
-    },
-  },
-
-  on_attach = on_attach,
 }
