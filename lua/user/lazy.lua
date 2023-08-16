@@ -101,10 +101,6 @@ vim.opt.rtp:prepend(install_path)
 --     end,
 --   },
 
---   { "tyrannicaltoucan/vim-deep-space" },
---   { "AlessandroYorba/Sierra" },
---   { "danilo-augusto/vim-afterglow" },
---   { "Mofiqul/adwaita.nvim" },
 --   { "rafamadriz/neon" },
 --   { "ofirgall/ofirkai.nvim" },
 --   { "Everblush/nvim", name = "everblush" },
