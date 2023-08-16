@@ -101,7 +101,6 @@ vim.opt.rtp:prepend(install_path)
 --     end,
 --   },
 
---   { "rafamadriz/neon" },
 --   { "ofirgall/ofirkai.nvim" },
 --   { "Everblush/nvim", name = "everblush" },
 --   { "kartikp10/noctis.nvim" },
