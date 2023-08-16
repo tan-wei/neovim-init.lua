@@ -101,10 +101,6 @@ vim.opt.rtp:prepend(install_path)
 --     end,
 --   },
 
---   { "fxn/vim-monochrome" },
---   { "rakr/vim-two-firewatch" },
---   { "owickstrom/vim-colors-paramount" },
---   { "JoosepAlviste/palenightfall.nvim" },
 --   { "tyrannicaltoucan/vim-deep-space" },
 --   { "AlessandroYorba/Sierra" },
 --   { "danilo-augusto/vim-afterglow" },
