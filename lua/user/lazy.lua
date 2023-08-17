@@ -101,7 +101,6 @@ vim.opt.rtp:prepend(install_path)
 --     end,
 --   },
 
---   { "kvrohit/mellow.nvim" },
 
 --   { "freeo/vim-kalisi" },
 --   { "kristijanhusak/vim-hybrid-material" },
