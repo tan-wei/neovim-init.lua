@@ -101,7 +101,6 @@ vim.opt.rtp:prepend(install_path)
 --     end,
 --   },
 
---   { "rockyzhang24/arctic.nvim" },
 --   { "kvrohit/mellow.nvim" },
 
 --   { "freeo/vim-kalisi" },
