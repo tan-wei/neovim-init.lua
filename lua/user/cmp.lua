@@ -60,7 +60,7 @@ local default_cmp_sources = cmp.config.sources {
 -- Only enable `fonts` for `options.lua`
 --             `treesitter` for small file
 local buf_is_big = function(bufnr)
-  local max_filesize = 100 * 1024 -- 100 KB
+  local max_filesize = 10 * 1024 -- 10 KB
   local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
   if ok and stats and stats.size > max_filesize then
     return true
@@ -78,9 +78,9 @@ end
 vim.api.nvim_create_autocmd("BufReadPre", {
   callback = function(t)
     local sources = default_cmp_sources
-    if not buf_is_big(t.buf) then
-      sources[#sources + 1] = { name = "treesitter", group_index = 2 }
-    end
+    -- if not buf_is_big(t.buf) then
+    --   sources[#sources + 1] = { name = "treesitter", group_index = 2 }
+    -- end
 
     if buf_is_options_lua(t.buf) then
       sources[#sources + 1] = { name = "fonts", option = { space_filter = "-" } }
