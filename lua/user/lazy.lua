@@ -101,7 +101,6 @@ vim.opt.rtp:prepend(install_path)
 --     end,
 --   },
 
---   { "lifepillar/vim-gruvbox8" },
 --   { "rockyzhang24/arctic.nvim" },
 --   { "kvrohit/mellow.nvim" },
 
