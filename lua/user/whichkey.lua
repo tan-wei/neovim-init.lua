@@ -204,6 +204,11 @@ local mappings = {
     C = { "<cmd>Telescope commands<cr>", "Commands" },
   },
 
+  t = {
+    name = "Table",
+    m = {"<cmd>TableModeToggle<cr>", "Table Mode Toggle"},
+  },
+
   T = {
     name = "Terminal",
     n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
