@@ -11,6 +11,7 @@ local servers = {
   -- "ccls",
   "ltex",
   "rust_analyzer",
+  "marksman",
 }
 
 local ensure_installed_servers = {
@@ -24,6 +25,7 @@ local ensure_installed_servers = {
   -- "yamlls",
   "clangd",
   "rust_analyzer",
+  "marksman",
 }
 
 local settings = {
