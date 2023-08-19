@@ -5,7 +5,6 @@ local options = {
   completeopt = { "menuone", "noselect" }, -- mostly just for cmp
   conceallevel = 0, -- so that `` is visible in markdown files
   fileencodings = "utf-8,gb18030,gbk,gb2312", -- the encoding written to a file
-  -- termencoding = "utf-8", -- set terminal encoding
   encoding = "utf-8", -- set encdoing
   hlsearch = true, -- highlight all matches on previous search pattern
   ignorecase = true, -- ignore case in search patterns
@@ -35,7 +34,6 @@ local options = {
   laststatus = 2, -- always display statusline
   listchars = "tab:»·", -- show tabs with special icon
   background = "dark", -- dark background
-
   signcolumn = "yes", -- always show the sign column, otherwise it would shift the text each time
   wrap = true, -- display lines as one long line
   linebreak = true, -- companion to wrap, don't split words
