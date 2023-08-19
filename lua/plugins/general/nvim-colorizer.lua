@@ -1,5 +1,5 @@
 local M = {
-  "brenoprata10/nvim-highlight-colors",
+  "NvChad/nvim-colorizer.lua",
 }
 
 M.config = function() end
