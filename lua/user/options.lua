@@ -44,6 +44,7 @@ local options = {
   guifont = "Iosevka Nerd Font Mono:h8", -- the font used in graphical neovim applications
   whichwrap = "bs<>[]hl", -- which "horizontal" keys are allowed to travel to prev/next line
   foldenable = false, -- Default not fold any thing
+  sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions", -- Session save options
 }
 
 for k, v in pairs(options) do
