@@ -54,7 +54,7 @@ local default_cmp_sources = cmp.config.sources {
   { name = "nvim_lua" },
   { name = "emoji" },
   { name = "nerdfont" },
-  -- { name = "rg", keyword_length = 3 },
+  { name = "rg", keyword_length = 3 },
 }
 
 -- Only enable `fonts` for `options.lua`
