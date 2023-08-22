@@ -205,8 +205,11 @@ local mappings = {
   },
 
   t = {
-    name = "Table",
-    m = {"<cmd>TableModeToggle<cr>", "Table Mode Toggle"},
+    name = "Table/TOC",
+    m = { "<cmd>TableModeToggle<cr>", "Table Mode Toggle" },
+    g = { "<cmd>GenTocGFM<cr>", "Generate TOC" },
+    r = { "<cmd>RemoveToc<cr>", "Remove TOC" },
+    u = { "<cmd>UpdateToc<cr>", "Update TOC" },
   },
 
   T = {
