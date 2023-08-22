@@ -49,12 +49,12 @@ local default_cmp_sources = cmp.config.sources {
   { name = "nvim_lsp" },
   { name = "nvim_lsp_signature_help" },
   { name = "luasnip" },
-  { name = "buffer" },
+  { name = "buffer", dup = 0 },
   { name = "path" },
   { name = "nvim_lua" },
   { name = "emoji" },
   { name = "nerdfont" },
-  { name = "rg", keyword_length = 3 },
+  { name = "rg", keyword_length = 3, dup = 0 },
 }
 
 -- Only enable `fonts` for `options.lua`
@@ -140,6 +140,18 @@ cmp.setup {
       "i",
       "s",
     }),
+  },
+
+  sorting = {
+    comparators = {
+      cmp.config.compare.offset,
+      cmp.config.compare.exact,
+      cmp.config.compare.score,
+      cmp.config.compare.kind,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.length,
+      cmp.config.compare.order,
+    },
   },
   formatting = {
     fields = { "kind", "abbr", "menu" },
