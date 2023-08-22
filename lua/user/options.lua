@@ -41,12 +41,12 @@ local options = {
   sidescrolloff = 8, -- minimal number of screen columns either side of cursor if wrap is `false`
   guifont = "Agave Nerd Font:h8", -- the font used in graphical neovim applications
   whichwrap = "bs<>[]hl", -- which "horizontal" keys are allowed to travel to prev/next line
-  foldcolumn = '1', -- The width of a colum on the side of the window to indicate folds
+  foldcolumn = "1", -- The width of a colum on the side of the window to indicate folds
   foldlevel = 99, -- The higher the more folder regions are open
   foldlevelstart = 99, -- Avoid auto fold
   foldenable = true, -- Default not fold any thing
   fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]], -- Set for foldcolumn
-  sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions", -- Session save options
+  sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions", -- Session save options
 }
 
 for k, v in pairs(options) do
