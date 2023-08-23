@@ -30,21 +30,22 @@ vim.cmd [[
   augroup end
 ]]
 
--- Autoformat
--- augroup _lsp
---   autocmd!
---   autocmd BufWritePre * lua vim.lsp.buf.formatting()
--- augroup end
-
 -- Illuminate
 vim.cmd [[
 augroup illuminate_augroup
-    autocmd!
-    autocmd VimEnter * hi link illuminatedWord CursorLine
+  autocmd!
+  autocmd VimEnter * hi link illuminatedWord CursorLine
 augroup END
 
 augroup illuminate_augroup
-    autocmd!
-    autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
+  autocmd!
+  autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
+augroup END
+]]
+
+vim.cmd [[
+augroup _auto_format
+  autocmd!
+  autocmd BufWritePost * FormatWrite
 augroup END
 ]]
