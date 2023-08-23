@@ -12,6 +12,7 @@ local servers = {
   "ltex",
   "rust_analyzer",
   "marksman",
+  "cmake",
 }
 
 local ensure_installed_servers = {
@@ -26,6 +27,8 @@ local ensure_installed_servers = {
   "clangd",
   "rust_analyzer",
   "marksman",
+  "cmake-language-server",
+  "cmakelang",
 }
 
 local settings = {
