@@ -205,11 +205,20 @@ local mappings = {
   },
 
   t = {
-    name = "Table/TOC",
+    name = "Table/TOC/Test",
     m = { "<cmd>TableModeToggle<cr>", "Table Mode Toggle" },
     g = { "<cmd>GenTocGFM<cr>", "Generate TOC" },
     r = { "<cmd>RemoveToc<cr>", "Remove TOC" },
     u = { "<cmd>UpdateToc<cr>", "Update TOC" },
+    n = { "<cmd>lua require('neotest').run.run()<cr>", "Run the Nearest test" },
+    l = { "<cmd>lua require('neotest').run.run_last()<cr>", "Re-run the Last position test that was run" },
+    c = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", "Run the Current file" },
+    s = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Toggle test Summary" },
+    o = { "<cmd>lua require('neotest').output.open({ enter = false })<cr>", "Open the Output of a test result" },
+    p = { "<cmd>lua require('neotest').output_panel.toggle()<cr>", "Toggle the output Panel" },
+    w = { "<cmd>lua require('neotest').watch.toggle(vim.fn.expand('%'))<cr>", "Toggle Watching the current file" },
+    j = { "<cmd>lua require('neotest').jump.next({ status = 'failed' })<cr>", "Jump to next falied test" },
+    k = { "<cmd>lua require('neotest').jump.prev({ status = 'failed' })<cr>", "Jump to previous falied test" },
   },
 
   T = {

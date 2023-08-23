@@ -158,6 +158,7 @@ require("lazy").setup {
     { import = "plugins.keymap" },
     { import = "plugins.formatter" },
     { import = "plugins.linter" },
+    { import = "plugins.test" },
     { import = "plugins.ui" },
   },
 }
