@@ -27,8 +27,7 @@ local ensure_installed_servers = {
   "clangd",
   "rust_analyzer",
   "marksman",
-  "cmake-language-server",
-  "cmakelang",
+  "cmake",
 }
 
 local settings = {
