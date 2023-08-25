@@ -67,6 +67,19 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
   end,
 })
 
+-- Make sure save session, because if nvim-tree is the last buffer, neovim will exit without save session
+vim.api.nvim_create_autocmd({ "QuitPre" }, {
+  callback = function()
+    local status_ok, auto_session_lib = pcall(require, "auto-session.lib")
+    if not status_ok then
+      return nil
+    end
+    if auto_session_lib.current_session_name() then
+      vim.cmd ":SessionSave"
+    end
+  end,
+})
+
 local tele_status_ok, telescope = pcall(require, "telescope")
 if not tele_status_ok then
   return
