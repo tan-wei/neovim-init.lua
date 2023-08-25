@@ -1,5 +1,5 @@
 local M = {
-  "ajmwagar/vim-deus",
+  "theniceboy/nvim-deus",
 }
 
 M.init = function()
