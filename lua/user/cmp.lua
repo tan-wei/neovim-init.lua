@@ -8,6 +8,11 @@ if not snip_status_ok then
   return
 end
 
+local lspkind_status_ok, lspkind = pcall(require, "lspkind")
+if not lspkind_status_ok then
+  return
+end
+
 local check_backspace = function()
   local col = vim.fn.col "." - 1
   return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
@@ -152,26 +157,35 @@ cmp.setup {
     },
   },
   formatting = {
-    fields = { "kind", "abbr", "menu" },
-    format = function(entry, vim_item)
-      -- Kind icons
-      vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-      -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
-      vim_item.menu = ({
-        nvim_lsp = "[LSP]",
-        nvim_lsp_signature_help = "[LSP_SIGNATURE]",
-        treesitter = "[TREESITTER]",
-        luasnip = "[SNIPPET]",
-        buffer = "[BUFFER]",
-        path = "[PATH]",
-        nvim_lua = "[NVIM_LUA]",
-        nerdfont = "[NERD_FONT]",
-        emoji = "[EMOJI]",
-        rg = "[RG]",
-        fonts = "[FONT]",
-      })[entry.source.name]
-      return vim_item
-    end,
+    fields = { "abbr", "kind", "menu" },
+    format = lspkind.cmp_format {
+      mode = "text_symbol",
+      maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+      ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+
+      -- The function below will be called before any actual modifications from lspkind
+      -- so that we can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+      before = function(entry, vim_item)
+        -- Remove duplicate when the source is from rg and buffer
+        if entry.source.name == "rg" or entry.source.name == "buffer" then
+          vim_item.dup = nil
+        end
+        vim_item.menu = ({
+          nvim_lsp = "[LSP]",
+          nvim_lsp_signature_help = "[LSP_SIGNATURE]",
+          treesitter = "[TREESITTER]",
+          luasnip = "[SNIPPET]",
+          buffer = "[BUFFER]",
+          path = "[PATH]",
+          nvim_lua = "[NVIM_LUA]",
+          nerdfont = "[NERD_FONT]",
+          emoji = "[EMOJI]",
+          rg = "[RG]",
+          fonts = "[FONT]",
+        })[entry.source.name]
+        return vim_item
+      end,
+    },
   },
   sources = default_cmp_sources,
   confirm_opts = {
