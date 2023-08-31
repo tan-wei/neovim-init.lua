@@ -10,7 +10,7 @@ local servers = {
   "clangd",
   -- "ccls",
   "ltex",
-  "rust_analyzer",
+  -- "rust_analyzer", -- rust-tools.nvim automatically sets up nvim-lspconfig for rust_analyzer
   "marksman",
   "cmake",
 }
