@@ -160,5 +160,6 @@ require("lazy").setup {
     { import = "plugins.linter" },
     { import = "plugins.test" },
     { import = "plugins.ui" },
+    { import = "plugins.code-runner" },
   },
 }
