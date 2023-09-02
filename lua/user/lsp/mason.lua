@@ -28,6 +28,7 @@ local ensure_installed_servers = {
   "rust_analyzer",
   "marksman",
   "cmake",
+  "ltex",
 }
 
 local settings = {
