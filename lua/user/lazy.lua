@@ -162,4 +162,5 @@ require("lazy").setup {
     { import = "plugins.ui" },
     { import = "plugins.code-runner" },
   },
+  concurrency = 8,
 }
