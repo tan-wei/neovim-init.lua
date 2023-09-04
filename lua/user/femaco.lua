@@ -10,6 +10,8 @@ local mapped_filetype = {
 
 local ensure_newlien_filetype = {
   cpp = true,
+  c = true,
+  ["c++"] = true,
 }
 
 femaco.setup {
