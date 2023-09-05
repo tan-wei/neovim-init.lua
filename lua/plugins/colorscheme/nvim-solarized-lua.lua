@@ -1,5 +1,6 @@
 local M = {
   "ishan9299/nvim-solarized-lua",
+  lazy = true,
 }
 
 M.init = function()

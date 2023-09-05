@@ -1,5 +1,6 @@
 local M = {
   "itchyny/landscape.vim",
+  lazy = true,
 }
 
 M.init = function()

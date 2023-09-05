@@ -1,5 +1,6 @@
 local M = {
   "kvrohit/substrata.nvim",
+  lazy = true,
 }
 
 M.init = function()

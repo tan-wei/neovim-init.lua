@@ -1,5 +1,6 @@
 local M = {
   "kvrohit/rasmus.nvim",
+  lazy = true,
 }
 
 M.init = function()

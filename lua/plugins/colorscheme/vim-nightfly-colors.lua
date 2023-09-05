@@ -1,7 +1,6 @@
-
-
 local M = {
   "bluz71/vim-nightfly-colors",
+  lazy = true,
 }
 
 M.init = function()

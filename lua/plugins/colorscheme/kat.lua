@@ -1,5 +1,6 @@
 local M = {
   "katawful/kat.nvim",
+  lazy = true,
 }
 
 M.init = function()

@@ -1,5 +1,6 @@
 local M = {
   "navarasu/onedark.nvim",
+  lazy = true,
 }
 
 M.init = function()

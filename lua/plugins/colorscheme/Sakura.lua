@@ -1,5 +1,6 @@
 local M = {
   "numToStr/Sakura.nvim",
+  lazy = true,
 }
 
 M.init = function()

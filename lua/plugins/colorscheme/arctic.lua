@@ -1,5 +1,6 @@
 local M = {
   "rockyzhang24/arctic.nvim",
+  lazy = true,
 }
 
 M.init = function()

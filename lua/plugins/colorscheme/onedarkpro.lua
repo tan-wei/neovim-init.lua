@@ -1,5 +1,6 @@
 local M = {
   "olimorris/onedarkpro.nvim",
+  lazy = true,
 }
 
 M.init = function()

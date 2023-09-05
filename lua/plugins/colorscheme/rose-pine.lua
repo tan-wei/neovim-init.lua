@@ -1,6 +1,7 @@
 local M = {
   "rose-pine/neovim",
   name = "rose-pine",
+  lazy = true,
 }
 
 M.init = function()

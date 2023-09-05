@@ -1,5 +1,6 @@
 local M = {
   "mhartington/oceanic-next",
+  lazy = true,
 }
 
 M.init = function()

@@ -1,5 +1,6 @@
 local M = {
   "yuttie/hydrangea-vim",
+  lazy = true,
 }
 
 M.init = function()

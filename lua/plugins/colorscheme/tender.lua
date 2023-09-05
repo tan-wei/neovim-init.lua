@@ -1,5 +1,6 @@
 local M = {
   "jacoborus/tender.vim",
+  lazy = true,
 }
 
 M.init = function()

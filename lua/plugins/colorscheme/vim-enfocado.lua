@@ -1,5 +1,6 @@
 local M = {
   "wuelnerdotexe/vim-enfocado",
+  lazy = true,
 }
 
 M.init = function()

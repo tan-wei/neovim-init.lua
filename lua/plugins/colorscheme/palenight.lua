@@ -1,5 +1,6 @@
 local M = {
   "drewtempelmeyer/palenight.vim",
+  lazy = true,
 }
 
 M.init = function()

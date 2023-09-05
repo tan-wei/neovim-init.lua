@@ -1,5 +1,6 @@
 local M = {
   "kihachi2000/yash.nvim",
+  lazy = true,
 }
 
 M.init = function()

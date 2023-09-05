@@ -1,5 +1,6 @@
 local M = {
   "Shadorain/shadotheme",
+  lazy = true,
 }
 
 M.init = function()

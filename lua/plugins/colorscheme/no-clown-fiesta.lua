@@ -1,5 +1,6 @@
 local M = {
   "aktersnurra/no-clown-fiesta.nvim",
+  lazy = true,
 }
 
 M.init = function()

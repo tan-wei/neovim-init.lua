@@ -1,5 +1,6 @@
 local M = {
   "sainnhe/gruvbox-material",
+  lazy = true,
 }
 
 M.init = function()

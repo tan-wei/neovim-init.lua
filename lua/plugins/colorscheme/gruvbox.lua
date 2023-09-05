@@ -1,5 +1,6 @@
 local M = {
   "ellisonleao/gruvbox.nvim",
+  lazy = true,
 }
 
 M.init = function()

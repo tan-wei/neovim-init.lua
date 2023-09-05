@@ -1,5 +1,6 @@
 local M = {
   "dasupradyumna/midnight.nvim",
+  lazy = true,
 }
 
 M.init = function()

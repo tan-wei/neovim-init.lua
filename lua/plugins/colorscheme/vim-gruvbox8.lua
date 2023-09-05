@@ -1,5 +1,6 @@
 local M = {
   "lifepillar/vim-gruvbox8",
+  lazy = true,
 }
 
 M.init = function()
@@ -9,4 +10,3 @@ M.init = function()
 end
 
 return M
-

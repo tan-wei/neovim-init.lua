@@ -3,6 +3,7 @@ local M = {
   dependencies = {
     "rktjmp/lush.nvim",
   },
+  lazy = true,
 }
 
 M.init = function()

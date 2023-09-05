@@ -1,5 +1,6 @@
 local M = {
   "sainnhe/sonokai",
+  lazy = true,
 }
 
 M.init = function()

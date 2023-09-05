@@ -1,5 +1,6 @@
 local M = {
   "ray-x/aurora",
+  lazy = true,
 }
 
 M.init = function()

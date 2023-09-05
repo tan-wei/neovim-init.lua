@@ -1,5 +1,6 @@
 local M = {
   "theniceboy/nvim-deus",
+  lazy = true,
 }
 
 M.init = function()

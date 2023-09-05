@@ -1,5 +1,6 @@
 local M = {
   "mcchrish/zenbones.nvim",
+  lazy = true,
 }
 
 M.init = function()

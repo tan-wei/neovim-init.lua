@@ -1,5 +1,6 @@
 local M = {
   "Th3Whit3Wolf/one-nvim",
+  lazy = true,
 }
 
 M.init = function()

@@ -1,5 +1,6 @@
 local M = {
   "LunarVim/onedarker.nvim",
+  lazy = true,
 }
 
 M.init = function()

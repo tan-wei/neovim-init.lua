@@ -1,5 +1,6 @@
 local M = {
   "kartikp10/noctis.nvim",
+  lazy = true,
 }
 
 M.init = function()

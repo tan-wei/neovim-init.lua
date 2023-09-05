@@ -1,6 +1,7 @@
 local M = {
   "Everblush/nvim",
   name = "everblush",
+  lazy = true,
 }
 
 M.init = function()

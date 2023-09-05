@@ -1,5 +1,6 @@
 local M = {
   "tanvirtin/monokai.nvim",
+  lazy = true,
 }
 
 M.init = function()

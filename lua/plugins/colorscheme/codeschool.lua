@@ -1,5 +1,6 @@
 local M = {
   "adisen99/codeschool.nvim",
+  lazy = true,
 }
 
 M.init = function()

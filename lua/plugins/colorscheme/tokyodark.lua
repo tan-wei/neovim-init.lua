@@ -1,5 +1,6 @@
 local M = {
   "tiagovla/tokyodark.nvim",
+  lazy = true,
 }
 
 M.init = function()

@@ -1,5 +1,6 @@
 local M = {
   "Mofiqul/vscode.nvim",
+  lazy = true,
 }
 
 M.init = function()

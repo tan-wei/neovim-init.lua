@@ -1,5 +1,6 @@
 local M = {
   "rebelot/kanagawa.nvim",
+  lazy = true,
 }
 
 M.init = function()
@@ -9,4 +10,3 @@ M.init = function()
 end
 
 return M
-

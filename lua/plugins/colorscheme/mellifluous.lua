@@ -1,5 +1,6 @@
 local M = {
   "ramojus/mellifluous.nvim",
+  lazy = true,
 }
 
 M.init = function()

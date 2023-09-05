@@ -1,5 +1,6 @@
 local M = {
   "NTBBloodbath/doom-one.nvim",
+  lazy = true,
 }
 
 M.init = function()

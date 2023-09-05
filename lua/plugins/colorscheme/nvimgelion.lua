@@ -1,5 +1,6 @@
 local M = {
   "nyngwang/nvimgelion",
+  lazy = true,
 }
 
 M.init = function()

@@ -1,5 +1,6 @@
 local M = {
   "sainnhe/edge",
+  lazy = true,
 }
 
 M.init = function()

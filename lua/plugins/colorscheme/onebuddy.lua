@@ -1,8 +1,9 @@
 local M = {
   "Th3Whit3Wolf/onebuddy",
   dependencies = {
-    "tjdevries/colorbuddy.vim"
-  }
+    "tjdevries/colorbuddy.vim",
+  },
+  lazy = true,
 }
 
 M.init = function()

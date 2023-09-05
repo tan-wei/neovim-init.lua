@@ -1,5 +1,6 @@
 local M = {
   "muchzill4/doubletrouble",
+  lazy = true,
 }
 
 M.init = function()

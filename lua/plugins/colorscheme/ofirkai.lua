@@ -1,5 +1,6 @@
 local M = {
   "ofirgall/ofirkai.nvim",
+  lazy = true,
 }
 
 M.init = function()

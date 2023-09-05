@@ -1,5 +1,6 @@
 local M = {
   "cocopon/iceberg.vim",
+  lazy = true,
 }
 
 M.init = function()

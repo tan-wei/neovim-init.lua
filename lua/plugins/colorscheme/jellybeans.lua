@@ -1,5 +1,6 @@
 local M = {
   "nanotech/jellybeans.vim",
+  lazy = true,
 }
 
 M.init = function()

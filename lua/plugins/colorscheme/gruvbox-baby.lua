@@ -1,5 +1,6 @@
 local M = {
   "luisiacc/gruvbox-baby",
+  lazy = true,
 }
 
 M.init = function()

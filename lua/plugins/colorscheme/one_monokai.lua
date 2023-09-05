@@ -1,5 +1,6 @@
 local M = {
   "cpea2506/one_monokai.nvim",
+  lazy = true,
 }
 
 M.init = function()

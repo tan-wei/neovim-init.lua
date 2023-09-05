@@ -1,5 +1,6 @@
 local M = {
   "kaiuri/nvim-juliana",
+  lazy = true,
 }
 
 M.init = function()

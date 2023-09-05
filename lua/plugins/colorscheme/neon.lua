@@ -1,5 +1,6 @@
 local M = {
   "rafamadriz/neon",
+  lazy = true,
 }
 
 M.init = function()

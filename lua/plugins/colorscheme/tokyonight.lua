@@ -1,5 +1,6 @@
 local M = {
   "folke/tokyonight.nvim",
+  lazy = true,
 }
 
 M.init = function()

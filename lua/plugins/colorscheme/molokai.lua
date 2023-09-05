@@ -1,5 +1,6 @@
 local M = {
   "tomasr/molokai",
+  lazy = true,
 }
 
 M.init = function()

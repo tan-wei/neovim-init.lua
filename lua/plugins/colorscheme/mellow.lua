@@ -1,5 +1,6 @@
 local M = {
   "kvrohit/mellow.nvim",
+  lazy = true,
 }
 
 M.init = function()

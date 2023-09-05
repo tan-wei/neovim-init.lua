@@ -3,6 +3,7 @@ local M = {
   dependencies = {
     "tjdevries/colorbuddy.nvim",
   },
+  lazy = true,
 }
 
 M.init = function()

@@ -1,5 +1,6 @@
 local M = {
   "overcache/NeoSolarized",
+  lazy = true,
 }
 
 M.init = function()

@@ -1,6 +1,7 @@
 local M = {
   "embark-theme/vim",
   name = "embark",
+  lazy = true,
 }
 
 M.init = function()
@@ -10,4 +11,3 @@ M.init = function()
 end
 
 return M
-

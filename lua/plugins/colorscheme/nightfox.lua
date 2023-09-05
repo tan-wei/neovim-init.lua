@@ -1,5 +1,6 @@
 local M = {
   "EdenEast/nightfox.nvim",
+  lazy = true,
 }
 
 M.init = function()

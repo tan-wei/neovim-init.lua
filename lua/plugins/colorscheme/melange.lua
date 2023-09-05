@@ -1,5 +1,6 @@
 local M = {
   "savq/melange-nvim",
+  lazy = true,
 }
 
 M.init = function()

@@ -1,5 +1,6 @@
 local M = {
   "whatyouhide/vim-gotham",
+  lazy = true,
 }
 
 M.init = function()

@@ -1,5 +1,6 @@
 local M = {
   "arcticicestudio/nord-vim",
+  lazy = true,
 }
 
 M.init = function()

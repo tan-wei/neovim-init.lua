@@ -1,5 +1,6 @@
 local M = {
   "lewpoly/sherbet.nvim",
+  lazy = true,
 }
 
 M.init = function()

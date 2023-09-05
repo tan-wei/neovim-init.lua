@@ -1,5 +1,6 @@
 local M = {
   "Mofiqul/adwaita.nvim",
+  lazy = true,
 }
 
 M.init = function()

@@ -1,5 +1,6 @@
 local M = {
   "nxvu699134/vn-night.nvim",
+  lazy = true,
 }
 
 M.init = function()

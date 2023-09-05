@@ -1,6 +1,7 @@
 local M = {
   "dracula/vim",
   name = "dracula",
+  lazy = true,
 }
 
 M.init = function()

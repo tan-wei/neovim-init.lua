@@ -1,5 +1,6 @@
 local M = {
   "maxmx03/fluoromachine.nvim",
+  lazy = true,
 }
 
 M.init = function()

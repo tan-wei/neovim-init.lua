@@ -1,5 +1,6 @@
 local M = {
   "lunacookies/vim-colors-xcode",
+  lazy = true,
 }
 
 M.init = function()

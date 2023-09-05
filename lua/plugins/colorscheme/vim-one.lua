@@ -1,5 +1,6 @@
 local M = {
   "rakr/vim-one",
+  lazy = true,
 }
 
 M.init = function()

@@ -1,5 +1,6 @@
 local M = {
   "2nthony/vitesse.nvim",
+  lazy = true,
 }
 
 M.init = function()

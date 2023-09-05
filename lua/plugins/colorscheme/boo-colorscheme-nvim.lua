@@ -1,5 +1,6 @@
 local M = {
   "rockerBOO/boo-colorscheme-nvim",
+  lazy = true,
 }
 
 M.init = function()

@@ -1,5 +1,6 @@
 local M = {
   "srcery-colors/srcery-vim",
+  lazy = true,
 }
 
 M.init = function()

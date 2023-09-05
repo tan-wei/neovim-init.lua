@@ -1,5 +1,6 @@
 local M = {
   "fenetikm/falcon",
+  lazy = true,
 }
 
 M.init = function()

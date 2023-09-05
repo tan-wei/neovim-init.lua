@@ -1,5 +1,6 @@
 local M = {
   "marko-cerovac/material.nvim",
+  lazy = true,
 }
 
 M.init = function()

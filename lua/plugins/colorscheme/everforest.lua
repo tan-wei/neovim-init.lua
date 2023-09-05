@@ -1,5 +1,6 @@
 local M = {
   "sainnhe/everforest",
+  lazy = true,
 }
 
 M.init = function()

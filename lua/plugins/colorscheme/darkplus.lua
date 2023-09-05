@@ -1,5 +1,6 @@
 local M = {
   "lunarvim/darkplus.nvim",
+  lazy = true,
 }
 
 M.init = function()

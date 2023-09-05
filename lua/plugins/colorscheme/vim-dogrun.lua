@@ -1,5 +1,6 @@
 local M = {
   "wadackel/vim-dogrun",
+  lazy = true,
 }
 
 M.init = function()

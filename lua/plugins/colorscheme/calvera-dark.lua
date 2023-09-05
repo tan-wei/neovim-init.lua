@@ -1,5 +1,6 @@
 local M = {
   "hoprr/calvera-dark.nvim",
+  lazy = true,
 }
 
 M.init = function()

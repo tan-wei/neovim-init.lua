@@ -1,5 +1,6 @@
 local M = {
   "baliestri/aura-theme",
+  lazy = true,
 }
 
 M.init = function()

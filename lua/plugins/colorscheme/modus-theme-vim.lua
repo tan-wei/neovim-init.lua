@@ -1,5 +1,6 @@
 local M = {
   "ishan9299/modus-theme-vim",
+  lazy = true,
 }
 
 M.init = function()

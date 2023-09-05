@@ -1,5 +1,6 @@
 local M = {
   "JoosepAlviste/palenightfall.nvim",
+  lazy = true,
 }
 
 M.init = function()
