@@ -5,9 +5,9 @@ end
 
 cinnamon.setup {
   default_keymaps = true,
-  extra_keymaps = true,
-  extended_keymaps = true,
-  override_keymaps = true,
+  extra_keymaps = false,
+  extended_keymaps = false,
+  override_keymaps = false,
   always_scroll = false,
   centered = true,
   disabled = false,
