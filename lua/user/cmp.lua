@@ -182,6 +182,7 @@ cmp.setup {
           emoji = "[EMOJI]",
           rg = "[RG]",
           fonts = "[FONT]",
+          crates = "[CRATES]",
         })[entry.source.name]
         return vim_item
       end,
