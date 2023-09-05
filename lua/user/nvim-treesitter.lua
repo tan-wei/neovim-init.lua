@@ -45,6 +45,16 @@ nvim_treesitter_configs.setup {
     enable = true,
     enable_autocmd = false,
   },
+
+  textsubjects = {
+    enable = true,
+    prev_selection = ",",
+    keymaps = {
+      ["."] = "textsubjects-smart",
+      [";"] = "textsubjects-container-outer",
+      ["i;"] = "textsubjects-container-inner",
+    },
+  },
 }
 
 local status_ok, treesitter_context = pcall(require, "treesitter-context")
