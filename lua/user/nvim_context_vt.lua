@@ -3,6 +3,15 @@ if not status_ok then
   return
 end
 
+local ignore_node_types = {
+  ["function"] = true,
+  expression_statement = true,
+  declaration = true,
+  using_declaration = true,
+  return_statement = true,
+  preproc_include = true,
+}
+
 nvim_context_vt.setup {
   enabled = true,
   prefix = "",
@@ -29,7 +38,7 @@ nvim_context_vt.setup {
   custom_parser = function(node, ft, opts)
     local utils = require "nvim_context_vt.utils"
     -- If we return `nil`, no virtual text will be displayed.
-    if node:type() == "function" then
+    if ignore_node_types[node:type()] then
       return nil
     end
 
