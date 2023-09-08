@@ -50,7 +50,7 @@ local kind_icons = {
 
 local default_cmp_sources = cmp.config.sources {
   { name = "nvim_lsp" },
-  { name = "nvim_lsp_signature_help" },
+  -- { name = "nvim_lsp_signature_help" }, -- NOTE: May cause duplicated information
   { name = "luasnip" },
   { name = "buffer", dup = 0 },
   { name = "path" },
