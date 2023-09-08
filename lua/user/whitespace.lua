@@ -24,6 +24,7 @@ whitespace.setup {
     "noice",
     "lspinfo",
     "lazy",
+    "Outline",
   },
 
   -- `ignore_terminal` configures whether to ignore terminal buffers
