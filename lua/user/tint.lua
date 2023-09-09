@@ -9,6 +9,13 @@ local ignore_buftypes = {
   guiuha = true,
 }
 
+local window_ignore_function = function(winid)
+  local bufid = vim.api.nvim_win_get_buf(winid)
+  local buftype = vim.api.nvim_buf_get_option(bufid, "buftype")
+  local floating = vim.api.nvim_win_get_config(winid).relative ~= ""
+  return ignore_buftypes[buftype] or floating
+end
+
 tint.setup {
   tint = -45,
   saturation = 0.6,
@@ -22,26 +29,27 @@ tint.setup {
     "VertSplit",
     "StatusLineNC",
   },
-  window_ignore_function = function(winid)
-    local bufid = vim.api.nvim_win_get_buf(winid)
-    local buftype = vim.api.nvim_buf_get_option(bufid, "buftype")
-    local floating = vim.api.nvim_win_get_config(winid).relative ~= ""
-    return ignore_buftypes[buftype] or floating
-  end,
+  window_ignore_function = window_ignore_function,
 }
 
 -- Tint when neovim is not active
 vim.api.nvim_create_autocmd("FocusGained", {
   pattern = "*",
   callback = function()
-    tint.untint(vim.api.nvim_get_current_win())
+    local winid = vim.api.nvim_get_current_win()
+    if not window_ignore_function(winid) then
+      tint.untint(winid)
+    end
   end,
 })
 
 vim.api.nvim_create_autocmd("FocusLost", {
   pattern = "*",
   callback = function()
-    tint.tint(vim.api.nvim_get_current_win())
+    local winid = vim.api.nvim_get_current_win()
+    if not window_ignore_function(winid) then
+      tint.tint(winid)
+    end
   end,
 })
 
