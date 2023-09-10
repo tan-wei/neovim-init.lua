@@ -169,6 +169,7 @@ require("lazy").setup {
     { import = "plugins.snippet" },
     { import = "plugins.terminal" },
     { import = "plugins.test" },
+    { import = "plugins.telescope" },
     { import = "plugins.treesitter" },
     { import = "plugins.ui" },
   },
