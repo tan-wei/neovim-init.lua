@@ -4,6 +4,7 @@ if not status_ok then
 end
 
 local actions = require "telescope.actions"
+local zoxide_utils = require "telescope._extensions.zoxide.utils"
 
 telescope.setup {
   defaults = {
@@ -90,11 +91,27 @@ telescope.setup {
     },
   },
   extensions = {
-    -- Your extension configuration goes here:
-    -- extension_name = {
-    --   extension_config_key = value,
-    -- }
-    -- please take a look at the readme of the extension you want to configure
+    zoxide = {
+      -- TODO: Configure for tetescope-zoxide
+      prompt_title = "[ Walking on the shoulders of TJ ]",
+      mappings = {
+        default = {
+          after_action = function(selection)
+            print("Update to (" .. selection.z_score .. ") " .. selection.path)
+          end,
+        },
+        ["<C-s>"] = {
+          before_action = function(selection)
+            print "before C-s"
+          end,
+          action = function(selection)
+            vim.cmd.edit(selection.path)
+          end,
+        },
+        -- Opens the selected entry in a new split
+        ["<C-q>"] = { action = zoxide_utils.create_basic_command "split" },
+      },
+    },
   },
 }
 
@@ -103,3 +120,7 @@ vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+
+-- Load extensions
+
+telescope.load_extension "zoxide"
