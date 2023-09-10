@@ -33,8 +33,10 @@ indent_blankline.setup {
   show_current_context_start = true,
   show_current_context_start_on_current_line = true,
   char_list = { "|", "¦", "┆", "┊" },
-  context_char_list = { "┃", "║", "╬", "█" },
-  context_char_list_blankline = { "┃", "║", "╬", "█" },
+  -- context_char_list = { "┃", "║", "╬", "█" },
+  context_char_list = { "┃" },
+  -- context_char_list_blankline = { "┃", "║", "╬", "█" },
+  context_char_list_blankline = { "┃" },
   context_highlight_list = {
     "RainbowDelimiterRed",
     "RainbowDelimiterYellow",
