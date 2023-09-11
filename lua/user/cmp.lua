@@ -60,6 +60,10 @@ local default_cmp_sources = cmp.config.sources {
   { name = "rg", keyword_length = 3, dup = 0 },
 }
 
+local quoted_name = function(name)
+  return "「" .. name .. "」"
+end
+
 -- Only enable `fonts` for `options.lua`
 --             `treesitter` for small file
 local buf_is_big = function(bufnr)
@@ -171,18 +175,18 @@ cmp.setup {
           vim_item.dup = nil
         end
         vim_item.menu = ({
-          nvim_lsp = "[LSP]",
-          nvim_lsp_signature_help = "[LSP_SIGNATURE]",
-          treesitter = "[TREESITTER]",
-          luasnip = "[SNIPPET]",
-          buffer = "[BUFFER]",
-          path = "[PATH]",
-          nvim_lua = "[NVIM_LUA]",
-          nerdfont = "[NERD_FONT]",
-          emoji = "[EMOJI]",
-          rg = "[RG]",
-          fonts = "[FONT]",
-          crates = "[CRATES]",
+          nvim_lsp = quoted_name "LSP",
+          nvim_lsp_signature_help = quoted_name "LSP_SIGNATURE",
+          treesitter = quoted_name "TREESITTER",
+          luasnip = quoted_name "SNIPPET",
+          buffer = quoted_name "BUFFER",
+          path = quoted_name "PATH",
+          nvim_lua = quoted_name "NVIM_LUA",
+          nerdfont = quoted_name "NERD_FONT",
+          emoji = quoted_name "EMOJI",
+          rg = quoted_name "RG",
+          fonts = quoted_name "FONT",
+          crates = quoted_name "CRATES",
         })[entry.source.name]
         return vim_item
       end,
