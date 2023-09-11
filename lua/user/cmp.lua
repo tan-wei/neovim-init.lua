@@ -61,7 +61,7 @@ local default_cmp_sources = cmp.config.sources {
 }
 
 local quoted_name = function(name)
-  return "「" .. name .. "」"
+  return "»" .. name .. "«"
 end
 
 -- Only enable `fonts` for `options.lua`
