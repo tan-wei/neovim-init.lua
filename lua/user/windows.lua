@@ -3,7 +3,34 @@ if not status_ok then
   return
 end
 
-windows.setup()
+vim.o.winwidth = 10
+vim.o.winminwidth = 10
+vim.o.equalalways = false
+
+windows.setup {
+  autowidth = {
+    enable = false,
+    winwidth = 5,
+    filetype = {},
+  },
+  ignore = {
+    buftype = {
+      "quickfix",
+    },
+    filetype = {
+      "NvimTree",
+      "neo-tree",
+      "undotree",
+      "gundo",
+    },
+  },
+  animation = {
+    enable = true,
+    duration = 300,
+    fps = 30,
+    easing = "in_out_sine",
+  },
+}
 
 local function cmd(command)
   return table.concat { "<Cmd>", command, "<CR>" }
