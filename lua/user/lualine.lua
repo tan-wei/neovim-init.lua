@@ -22,6 +22,20 @@ local diff = {
   colored = false,
   symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
   cond = hide_in_width,
+  source = function()
+    local git_status = vim.b.gitsigns_status_dict
+    if git_status == nil then
+      return
+    end
+
+    local modify_num = git_status.changed
+    local remove_num = git_status.removed
+    local add_num = git_status.added
+
+    local info = { added = add_num, modified = modify_num, removed = remove_num }
+    -- vim.print(info)
+    return info
+  end,
 }
 
 local mode = {
@@ -33,7 +47,8 @@ local mode = {
 
 local filetype = {
   "filetype",
-  icons_enabled = false,
+  colored = true,
+  icon_only = false,
   icon = nil,
 }
 
