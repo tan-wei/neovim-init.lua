@@ -10,6 +10,7 @@ local ignore_node_types = {
   using_declaration = true,
   return_statement = true,
   preproc_include = true,
+  comment = true,
 }
 
 nvim_context_vt.setup {
