@@ -3,6 +3,13 @@ if not status_ok then
   return
 end
 
+local auto_save_fts = {
+  -- "markdown",
+  "tex",
+  "org",
+  "txt",
+}
+
 auto_save.setup {
   enabled = true,
   execution_message = {
@@ -12,7 +19,7 @@ auto_save.setup {
     dim = 0.18, -- dim the color of `message`
     cleaning_interval = 1250, -- (milliseconds) automatically clean MsgArea after displaying `message`. See :h MsgArea
   },
-  trigger_events = { "InsertLeave", "TextChanged" }, -- vim events that trigger auto-save.
+  trigger_events = { "InsertLeave" }, -- vim events that trigger auto-save.
   -- function that determines whether to save the current buffer or not
   -- return true: if buffer is ok to be saved
   -- return false: if it's not ok to be saved
@@ -20,12 +27,14 @@ auto_save.setup {
     local fn = vim.fn
     local utils = require "auto-save.utils.data"
 
-    if
-      fn.getbufvar(buf, "&modifiable") == 1
-      and utils.set_of({ "markdown", "tex", "org", "txt" })[fn.getbufvar(buf, "&filetype")]
-    then
+    if fn.getbufvar(buf, "&modifiable") == 1 and utils.set_of(auto_save_fts)[fn.getbufvar(buf, "&filetype")] then
+      local undotree = fn.undotree()
+      if undotree.seq_last ~= undotree.seq_cur then
+        return false -- don't try to save again if I tried to undo. k thanks
+      end
       return true -- met condition(s), can save
     end
+
     return false -- can't save
   end,
   write_all_buffers = false, -- write all buffers when the current one meets `condition`
