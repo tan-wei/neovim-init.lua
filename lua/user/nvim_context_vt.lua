@@ -11,6 +11,7 @@ local ignore_node_types = {
   return_statement = true,
   preproc_include = true,
   comment = true,
+  line_comment = true,
 }
 
 nvim_context_vt.setup {
