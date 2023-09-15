@@ -4,12 +4,12 @@ if not status_ok then
 end
 
 local ignore_node_types = {
-  ["function"] = true,
-  expression_statement = true,
-  declaration = true,
-  using_declaration = true,
-  return_statement = true,
-  preproc_include = true,
+  -- ["function"] = true,
+  -- expression_statement = true,
+  -- declaration = true,
+  -- using_declaration = true,
+  -- return_statement = true,
+  -- preproc_include = true,
   comment = true,
   line_comment = true,
 }
