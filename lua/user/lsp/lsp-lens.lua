@@ -15,3 +15,5 @@ lsp_lens.setup {
     "prisma",
   },
 }
+
+vim.api.nvim_set_hl(0, "LspLens", { link = "LspCodeLens" })
