@@ -1,6 +1,5 @@
 local M = {
-  "declancm/cinnamon.nvim",
-  enabled = false,
+  "karb94/neoscroll.nvim",
 }
 
 M.init = function() end
