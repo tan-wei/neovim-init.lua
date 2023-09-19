@@ -11,9 +11,9 @@ cinnamon.setup {
   always_scroll = false,
   centered = true,
   disabled = false,
-  default_delay = 7,
+  default_delay = 1,
   hide_cursor = false,
   horizontal_scroll = true,
   max_length = -1,
-  scroll_limit = 150,
+  scroll_limit = 30,
 }
