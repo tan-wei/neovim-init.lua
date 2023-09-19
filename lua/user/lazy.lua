@@ -164,6 +164,7 @@ require("lazy").setup {
     { import = "plugins.media" },
     { import = "plugins.motion" },
     { import = "plugins.project" },
+    { import = "plugins.register" },
     { import = "plugins.rust" },
     { import = "plugins.search" },
     { import = "plugins.snippet" },
