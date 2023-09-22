@@ -82,6 +82,12 @@ local buf_is_options_lua = function(bufnr)
   return bufname:sub(-#enable_filename) == enable_filename
 end
 
+local buf_is_cargo_toml = function(bufnr)
+  local bufname = vim.api.nvim_buf_get_name(bufnr)
+  local enable_filename = "Cargo.toml"
+  return bufname:sub(-#enable_filename) == enable_filename
+end
+
 vim.api.nvim_create_autocmd("BufReadPre", {
   callback = function(t)
     local sources = default_cmp_sources
@@ -91,6 +97,10 @@ vim.api.nvim_create_autocmd("BufReadPre", {
 
     if buf_is_options_lua(t.buf) then
       sources[#sources + 1] = { name = "fonts", option = { space_filter = "-" } }
+    end
+
+    if buf_is_options_lua(t.buf) then
+      sources[#sources + 1] = { name = "crates" }
     end
 
     cmp.setup.buffer {
