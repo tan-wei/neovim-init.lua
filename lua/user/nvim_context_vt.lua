@@ -22,7 +22,10 @@ nvim_context_vt.setup {
   highlight = "CustomContextVt",
   -- Disable virtual text for given filetypes
   -- Default: { 'markdown' }
-  disable_ft = { "markdown" },
+  disable_ft = {
+    "markdown",
+    "python",
+  },
   -- Disable display of virtual text below blocks for indentation based languages like Python
   -- Default: false
   disable_virtual_lines = false,
