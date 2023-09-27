@@ -1,7 +1,6 @@
 local M = {
-  "VidocqH/lsp-lens.nvim",
+  "Wansmer/symbol-usage.nvim",
   event = "LspAttach",
-  enabled = false,
 }
 
 M.init = function() end
