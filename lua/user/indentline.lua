@@ -1,88 +1,78 @@
-local status_ok, indent_blankline = pcall(require, "indent_blankline")
+local status_ok, ibl = pcall(require, "ibl")
 if not status_ok then
   return
 end
 
--- HACK: work-around for https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
--- vim.wo.colorcolumn = "99999"
-
--- Workaound, auto highlight when refresh colorscheme
--- see here: https://github.com/lukas-reineke/indent-blankline.nvim/issues/553
--- vim.api.nvim_create_autocmd("ColorScheme", {
---   desc = "Refresh indent colors",
---   callback = function()
---     vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
---     vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
---     vim.cmd [[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]]
---     vim.cmd [[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]]
---     vim.cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
---     vim.cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
---   end,
--- })
+local highlight = {
+  "RainbowRed",
+  "RainbowYellow",
+  "RainbowBlue",
+  "RainbowOrange",
+  "RainbowGreen",
+  "RainbowViolet",
+  "RainbowCyan",
+}
 
 vim.opt.list = true
 vim.opt.listchars:append "space:⋅"
 vim.opt.listchars:append "eol:↴"
+vim.g.rainbow_delimiters = { highlight = highlight }
 
-indent_blankline.setup {
-  char_priority = 50,
-  show_end_of_line = true,
-  show_trailing_blankline_indent = true,
-  space_char_blankline = " ",
-  show_current_context = true,
-  show_current_context_start = true,
-  show_current_context_start_on_current_line = true,
-  char_list = { "|", "¦", "┆", "┊" },
-  -- context_char_list = { "┃", "║", "╬", "█" },
-  context_char_list = { "┃" },
-  -- context_char_list_blankline = { "┃", "║", "╬", "█" },
-  context_char_list_blankline = { "┃" },
-  context_highlight_list = {
-    "RainbowDelimiterRed",
-    "RainbowDelimiterYellow",
-    "RainbowDelimiterBlue",
-    "RainbowDelimiterOrange",
-    "RainbowDelimiterGreen",
-    "RainbowDelimiterViolet",
-    "RainbowDelimiterCyan",
+local hooks = require "ibl.hooks"
+-- create the highlight groups in the highlight setup hook, so they are reset
+-- every time the colorscheme changes
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+  vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+  vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+  vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+  vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+  vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+  vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+  vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+end)
+
+hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+
+ibl.setup {
+  indent = { char = { "|", "¦", "┆", "┊" }, tab_char = { ">" }, smart_indent_cap = true, priority = 50 },
+  scope = {
+    show_start = true,
+    show_end = true,
+    highlight = highlight,
+    char = { "┃" },
   },
-  indent_level = 20,
-  buftype_exclude = { "terminal", "nofile" },
-  filetype_exclude = {
-    "",
-    "NvimTree",
-    "Outline",
-    "TelescopePrompt",
-    "Trouble",
-    "Ultest*",
-    "alpha",
-    "dapui*",
-    "dashboard",
-    "dbui",
-    "floaterm",
-    "flutterToolsOutline",
-    "fugitive*",
-    "git*",
-    "help",
-    "lazy",
-    "log",
-    "lspinfo",
-    "mason",
-    "neogit*",
-    "org*",
-    "packer",
-    "startify",
-    "term",
-    "undotree",
-    "vista",
+  whitespace = { highlight = { "Whitespace", "NonText" }, remove_blankline_trail = true },
+  exclude = {
+    language = {},
+    node_type = {},
+    filetypes = {
+      "",
+      "NvimTree",
+      "Outline",
+      "TelescopePrompt",
+      "Trouble",
+      "Ultest*",
+      "alpha",
+      "dapui*",
+      "dashboard",
+      "dbui",
+      "floaterm",
+      "flutterToolsOutline",
+      "fugitive*",
+      "git*",
+      "help",
+      "lazy",
+      "log",
+      "lspinfo",
+      "mason",
+      "neogit*",
+      "org*",
+      "packer",
+      "startify",
+      "term",
+      "undotree",
+      "vista",
+    },
+    buftypes = { "terminal", "nofile" },
   },
-  -- context_pattern_highlight = { ["function"] = "Function" },
-  -- char_highlight_list = {
-  --   "IndentBlanklineIndent1",
-  --   "IndentBlanklineIndent2",
-  --   "IndentBlanklineIndent3",
-  --   "IndentBlanklineIndent4",
-  --   "IndentBlanklineIndent5",
-  --   "IndentBlanklineIndent6",
-  -- },
 }
