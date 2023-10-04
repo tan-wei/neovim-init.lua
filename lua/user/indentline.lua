@@ -43,8 +43,6 @@ ibl.setup {
   },
   whitespace = { highlight = { "Whitespace", "NonText" }, remove_blankline_trail = true },
   exclude = {
-    language = {},
-    node_type = {},
     filetypes = {
       "",
       "NvimTree",
