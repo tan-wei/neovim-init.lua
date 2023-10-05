@@ -9,6 +9,8 @@ conform.setup {
     python = { "isort", "black" },
     javascript = { { "prettierd", "prettier" } },
     rust = { "rustfmt" },
+    c = { "clang_format" },
+    cpp = { "clang_format" },
     ["*"] = { "codespell" },
     ["_"] = { "trim_whitespace" },
   },
