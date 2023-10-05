@@ -38,3 +38,10 @@ formmater.setup {
     },
   },
 }
+
+vim.cmd [[
+augroup _auto_format
+  autocmd!
+  autocmd BufWritePost * FormatWrite
+augroup END
+]]

@@ -42,10 +42,3 @@ augroup illuminate_augroup
   autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
 augroup END
 ]]
-
-vim.cmd [[
-augroup _auto_format
-  autocmd!
-  autocmd BufWritePost * FormatWrite
-augroup END
-]]
