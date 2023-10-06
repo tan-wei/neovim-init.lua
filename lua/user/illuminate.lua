@@ -49,3 +49,15 @@ illuminate.configure {
   -- min_count_to_highlight: minimum number of matches required to perform highlighting
   min_count_to_highlight = 1,
 }
+
+vim.cmd [[
+augroup _illuminate
+  autocmd!
+  autocmd VimEnter * hi link illuminatedWord CursorLine
+augroup END
+
+augroup _illuminate
+  autocmd!
+  autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
+augroup END
+]]

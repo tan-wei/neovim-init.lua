@@ -29,16 +29,3 @@ vim.cmd [[
     autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
   augroup end
 ]]
-
--- Illuminate
-vim.cmd [[
-augroup illuminate_augroup
-  autocmd!
-  autocmd VimEnter * hi link illuminatedWord CursorLine
-augroup END
-
-augroup illuminate_augroup
-  autocmd!
-  autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
-augroup END
-]]
