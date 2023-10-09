@@ -3,4 +3,10 @@ if not status_ok then
   return
 end
 
-rust_tools.setup {}
+rust_tools.setup {
+  server = {
+    interpret = {
+      tests = true,
+    },
+  },
+}
