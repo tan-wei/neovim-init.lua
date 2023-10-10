@@ -151,6 +151,7 @@ local mappings = {
     },
     f = { "<cmd>FormatEnable<cr>", "Enable Format" },
     F = { "<cmd>FormatDisable!<cr>", "Disable Format" },
+    h = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover" },
     i = { "<cmd>LspInfo<cr>", "Info" },
     I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
     j = {
