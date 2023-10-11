@@ -183,6 +183,14 @@ local mappings = {
     c = { "<cmd>MCclear<cr>", "Clear all the selections" },
   },
 
+  M = {
+    name = "Marks",
+    g = { "<cmd>lua require('grapple').toggle()<cr>", "Toggle grapple with annoymous tag" },
+    j = { "<cmd>lua require('grapple').select({key = '{name}'})<cr>", "Select grapple tag" },
+    s = { "<cmd>lua require('grapple').popup_scopes()<cr>", "Open the scopes popup menu" },
+    t = { "<cmd>lua require('grapple').popup_tags()<cr>", "Open the tags popup menu" },
+  },
+
   p = {
     name = "Plugins",
     i = { "<cmd>Lazy install<cr>", "Install" },
