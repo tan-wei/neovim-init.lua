@@ -8,17 +8,18 @@ clipboard_image.setup {
   default = {
     img_dir = "images",
     img_name = function()
-      return os.date "%Y-%m-%d-%H-%M-%S"
-    end, -- Example result: "2021-04-13-10-04-18"
+      vim.fn.inputsave()
+      local name = vim.fn.input "Name: "
+      vim.fn.inputrestore()
+      return name
+    end,
     affix = "<\n  %s\n>", -- Multi lines affix
   },
 
   markdown = {
-    img_dir = { "src", "assets", "img" }, -- Use table for nested dir (New feature form PR #20)
-    img_dir_txt = "/assets/img",
-    img_handler = function(img) -- New feature from PR #22
-      local script = string.format('./image_compressor.sh "%s"', img.path)
-      os.execute(script)
+    img_dir = { "%:p:h", "%:t:r" },
+    img_dir_txt = function()
+      return { vim.fn["percent#encode"](vim.fn.expand "%:p:h") }
     end,
   },
 }
