@@ -81,6 +81,12 @@ nvim_treesitter_configs.setup {
         goto_previous_usage = "<a-#>",
       },
     },
+    matchup = {
+      enable = true,
+      disable = {},
+      disable_virtual_text = false,
+      include_match_words = true,
+    },
   },
 }
 
