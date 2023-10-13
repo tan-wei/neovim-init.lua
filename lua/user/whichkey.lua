@@ -225,6 +225,7 @@ local mappings = {
       end,
       "Flash Treesitter",
     },
+    r = { "<cmd>lua require('spectre').toggle()<cr>", "Toggle Spectre" },
   },
 
   t = {
