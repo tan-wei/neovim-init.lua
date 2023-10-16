@@ -39,7 +39,7 @@ ibl.setup {
     show_start = true,
     show_end = true,
     highlight = highlight,
-    char = { "┃" },
+    char = { "│" },
   },
   whitespace = { highlight = { "Whitespace", "NonText" }, remove_blankline_trail = true },
   exclude = {
