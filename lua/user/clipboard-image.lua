@@ -4,7 +4,6 @@ if not status_ok then
 end
 
 clipboard_image.setup {
-
   default = {
     img_dir = "images",
     img_name = function()
@@ -19,7 +18,7 @@ clipboard_image.setup {
   markdown = {
     img_dir = { "%:p:h", "%:t:r" },
     img_dir_txt = function()
-      return { vim.fn["percent#encode"](vim.fn.expand "%:p:h") }
+      return { "./" .. vim.fn["percent#encode"](vim.fn.expand "%:t:r") }
     end,
   },
 }
