@@ -39,6 +39,10 @@ nvim_treesitter_configs.setup {
     enable = true,
   },
 
+  autotag = {
+    enable = true,
+  },
+
   indent = { enable = true, disable = { "python", "css" } },
 
   context_commentstring = {
