@@ -93,6 +93,8 @@ local mappings = {
 
   b = {
     name = "Buffers",
+    i = {"<cmd>lua require 'ibl'.setup_buffer(0, { enabled = false })<cr>", "Disable indent-blankline"},
+    I = {"<cmd>lua require 'ibl'.setup_buffer(0, { enabled = true })<cr>", "Enable indent-blankline"},
     j = { "<cmd>BufferLinePick<cr>", "Jump" },
     f = { "<cmd>Telescope buffers previewer=false<cr>", "Find" },
     b = { "<cmd>BufferLineCyclePrev<cr>", "Previous" },
