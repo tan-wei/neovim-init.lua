@@ -5,7 +5,7 @@ end
 
 -- TODO: modicator.nvim now works buggy with lualine
 modicator.setup {
-  intergration = {
+  integration = {
     lualine = {
       enabled = false,
     },
