@@ -5,9 +5,10 @@ end
 
 -- TODO: modicator.nvim now works buggy with lualine
 modicator.setup {
+  show_warnings = false,
   integration = {
     lualine = {
-      enabled = false,
+      -- enabled = false,
     },
   },
 }
