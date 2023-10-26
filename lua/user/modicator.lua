@@ -3,4 +3,11 @@ if not status_ok then
   return
 end
 
-modicator.setup()
+-- TODO: modicator.nvim now works buggy with lualine
+modicator.setup {
+  intergregration = {
+    lualine = {
+      enabled = false,
+    },
+  },
+}
