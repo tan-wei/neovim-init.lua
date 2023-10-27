@@ -1,5 +1,5 @@
 local M = {
-  "theniceboy/nvim-deus",
+  "tandy1229/deus.nvim",
   lazy = true,
 }
 
