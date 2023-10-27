@@ -8,7 +8,7 @@ modicator.setup {
   show_warnings = false,
   integration = {
     lualine = {
-      -- enabled = false,
+      mode_section = "lualine_b",
     },
   },
 }
