@@ -9,6 +9,7 @@ nvim_treesitter_configs.setup {
   ensure_installed = {
     "c",
     "cpp",
+    "csv",
     "vim",
     "rust",
     "ruby",
@@ -24,6 +25,7 @@ nvim_treesitter_configs.setup {
     "json",
     "dot",
     "capnp",
+    "tsv",
   }, -- put the language you want in this array
   -- ensure_installed = "all", -- one of "all" or a list of languages
   ignore_install = { "" }, -- List of parsers to ignore installing
