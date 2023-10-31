@@ -9,6 +9,7 @@ modicator.setup {
   integration = {
     lualine = {
       mode_section = "lualine_b",
+      highlight = "fg",
     },
   },
 }
