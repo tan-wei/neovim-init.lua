@@ -26,6 +26,8 @@ nvim_treesitter_configs.setup {
     "dot",
     "capnp",
     "tsv",
+    "proto",
+    "vimdoc",
   }, -- put the language you want in this array
   -- ensure_installed = "all", -- one of "all" or a list of languages
   ignore_install = { "" }, -- List of parsers to ignore installing
