@@ -93,8 +93,8 @@ local mappings = {
 
   b = {
     name = "Buffers",
-    i = {"<cmd>lua require 'ibl'.setup_buffer(0, { enabled = false })<cr>", "Disable indent-blankline"},
-    I = {"<cmd>lua require 'ibl'.setup_buffer(0, { enabled = true })<cr>", "Enable indent-blankline"},
+    i = { "<cmd>lua require 'ibl'.setup_buffer(0, { enabled = false })<cr>", "Disable indent-blankline" },
+    I = { "<cmd>lua require 'ibl'.setup_buffer(0, { enabled = true })<cr>", "Enable indent-blankline" },
     j = { "<cmd>BufferLinePick<cr>", "Jump" },
     f = { "<cmd>Telescope buffers previewer=false<cr>", "Find" },
     b = { "<cmd>BufferLineCyclePrev<cr>", "Previous" },
@@ -203,6 +203,11 @@ local mappings = {
     p = { "<cmd>Lazy profile<cr>", "Profile" },
     l = { "<cmd>Lazy log<cr>", "Log" },
     d = { "<cmd>Lazy debug<cr>", "Debug" },
+  },
+
+  r = {
+    name = "Run",
+    -- TODO: Add key bindings here
   },
 
   s = {
