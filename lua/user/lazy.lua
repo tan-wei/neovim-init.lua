@@ -169,6 +169,7 @@ require("lazy").setup {
     { import = "plugins.rust" },
     { import = "plugins.search" },
     { import = "plugins.snippet" },
+    { import = "plugins.task" },
     { import = "plugins.terminal" },
     { import = "plugins.test" },
     { import = "plugins.telescope" },
