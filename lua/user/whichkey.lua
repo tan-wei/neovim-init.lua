@@ -148,6 +148,7 @@ local mappings = {
       "<cmd>Telescope diagnostics bufnr=0<cr>",
       "Document Diagnostics",
     },
+    D = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
     w = {
       "<cmd>Telescope diagnostics<cr>",
       "Workspace Diagnostics",
@@ -169,7 +170,7 @@ local mappings = {
     o = { "<cmd>SymbolsOutline<cr>", "Symbols Outline " },
     q = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Quickfix" },
     r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
-    s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
+    s = { "<cmd>lua require('lsp_signature').toggle_float_win()<cr>", "Toggle Signature" },
     S = {
       "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
       "Workspace Symbols",
