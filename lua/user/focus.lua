@@ -3,7 +3,15 @@ if not status_ok then
   return
 end
 
-focus.setup()
+focus.setup {
+  ui = {
+    cursorline = false,
+    colorcolumn = {
+      enable = true,
+    },
+    signcolumn = false,
+  },
+}
 
 local ignore_filetypes = { "NvimTree" }
 local ignore_buftypes = { "nofile", "prompt", "popup" }
