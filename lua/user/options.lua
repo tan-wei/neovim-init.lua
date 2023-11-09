@@ -47,6 +47,7 @@ local options = {
   foldenable = true, -- Default not fold any thing
   fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]], -- Set for foldcolumn
   sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions", -- Session save options
+  textwidth = 256, -- Default text width
 }
 
 for k, v in pairs(options) do
