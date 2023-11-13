@@ -85,7 +85,7 @@ M.on_attach = function(client, bufnr)
   end
 
   if client.server_capabilities.inlayHintProvider then
-    vim.lsp.inlay_hint.get(bufnr, true)
+    vim.lsp.inlay_hint.enable(bufnr, true)
   end
 
   lsp_keymaps(bufnr)
