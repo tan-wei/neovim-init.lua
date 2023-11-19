@@ -9,5 +9,5 @@ lsp_signature.setup {
   hint_enable = false,
   handler_opts = { border = "rounded" },
   max_width = 80,
-  noice = true,
+  noice = false, -- TODO: Will cause error, and the author consider to deprecate this option
 }
