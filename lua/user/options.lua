@@ -66,3 +66,6 @@ if vim.g.neovide then
   vim.o.guifont = "DejaVuSansMono Nerd Font:h10"
   vim.g.neovide_remember_window_size = true
 end
+
+-- other options
+vim.g.rust_recommended_style = 0
