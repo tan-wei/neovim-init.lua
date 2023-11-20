@@ -52,11 +52,6 @@ nvim_treesitter_configs.setup {
 
   indent = { enable = true, disable = { "python", "css" } },
 
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
-  },
-
   textsubjects = {
     enable = true,
     prev_selection = ",",
