@@ -177,15 +177,6 @@ local mappings = {
     },
   },
 
-  m = {
-    name = "Multi cursors",
-    w = { "<cmd>MCstart<cr>", "Select the word under cursor and start" },
-    u = { "<cmd>MCunderCursor<cr>", "Select the char under cursor and start" },
-    p = { "<cmd>MCpattern<cr>", "Prompts for a pattern and selects every match in the buffer" },
-    v = { "<cmd>MCvisual<cr>", "Select the last visual mode selection and start listening for the actions." },
-    c = { "<cmd>MCclear<cr>", "Clear all the selections" },
-  },
-
   M = {
     name = "Marks",
     g = { "<cmd>lua require('grapple').toggle()<cr>", "Toggle grapple with annoymous tag" },
