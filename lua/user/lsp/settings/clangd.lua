@@ -19,4 +19,10 @@ return {
   flags = { debounce_text_changes = 150 },
   filetypes = { "c", "cpp", "cxx", "h", "hpp", "objc", "objcpp", "cuda", "proto" },
   single_file_support = true,
+  on_new_config = function(new_config, new_cwd)
+    local status, cmake = pcall(require, "cmake-tools")
+    if status then
+      cmake.clangd_on_new_config(new_config)
+    end
+  end,
 }
