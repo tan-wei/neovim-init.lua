@@ -18,7 +18,8 @@ endif
 
 " Set Ligatures
 if exists(':GuiRenderLigatures')
-    GuiRenderLigatures 1
+    " Enable ligatures will cause nerd font cutoff
+    GuiRenderLigatures 0
 endif
 
 " Disable GUI Tabline
