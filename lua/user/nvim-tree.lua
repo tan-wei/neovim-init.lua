@@ -82,4 +82,7 @@ nvim_tree.setup {
       error = "",
     },
   },
+  filters = {
+    git_ignored = false,
+  },
 }
