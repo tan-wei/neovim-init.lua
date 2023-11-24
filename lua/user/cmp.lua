@@ -82,6 +82,12 @@ local buf_is_options_lua = function(bufnr)
   return bufname:sub(-#enable_filename) == enable_filename
 end
 
+local buf_is_ginit_vim = function(bufnr)
+  local bufname = vim.api.nvim_buf_get_name(bufnr)
+  local enable_filename = "ginit.vim"
+  return bufname:sub(-#enable_filename) == enable_filename
+end
+
 local buf_is_cargo_toml = function(bufnr)
   local bufname = vim.api.nvim_buf_get_name(bufnr)
   local enable_filename = "Cargo.toml"
@@ -95,7 +101,7 @@ vim.api.nvim_create_autocmd("BufReadPre", {
     --   sources[#sources + 1] = { name = "treesitter", group_index = 2 }
     -- end
 
-    if buf_is_options_lua(t.buf) then
+    if buf_is_options_lua(t.buf) or buf_is_ginit_vim(t.buf) then
       sources[#sources + 1] = { name = "fonts", option = { space_filter = "-" } }
     end
 

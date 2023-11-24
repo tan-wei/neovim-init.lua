@@ -12,7 +12,7 @@ if exists(':GuiFont')
     elseif has('mac')
         GuiFont! DejaVuSansMono Nerd Font:h14
     else
-        GuiFont SpaceMono Nerd Font:h8
+        GuiFont! VictorMono NF:h8
     endif
 endif
 
