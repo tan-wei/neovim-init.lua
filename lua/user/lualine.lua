@@ -84,6 +84,14 @@ local session = function()
   return "session: " .. auto_session.current_session_name()
 end
 
+local action_hints = function()
+  local status_ok, action_hints = pcall(require, "action-hints")
+  if not status_ok then
+    return nil
+  end
+  return action_hints.statusline()
+end
+
 local config = {
   options = {
     icons_enabled = true,
@@ -97,8 +105,7 @@ local config = {
     lualine_a = { branch, diagnostics },
     lualine_b = { mode },
     lualine_c = { session, "lsp_progress" },
-    -- lualine_x = { "encoding", "fileformat", "filetype" },
-    lualine_x = { diff, spaces, "encoding", filetype },
+    lualine_x = { action_hints, diff, spaces, "encoding", filetype },
     lualine_y = { location },
     lualine_z = { progress },
   },
