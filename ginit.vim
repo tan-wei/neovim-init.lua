@@ -10,7 +10,7 @@ if exists(':GuiFont')
         " NOTE: DejaVuSansMono Nerd Font causes 'bad fixed pitch metrics'
         GuiFont! DejaVuSansMono Nerd Font:h12
     elseif has('mac')
-        GuiFont! DejaVuSansMono Nerd Font:h14
+        GuiFont! DejaVuSansM Nerd Font:h14
     else
         GuiFont! VictorMono NF:h8
     endif
