@@ -92,3 +92,4 @@ keymap("", "<Leader>$", ":BufferLineGoToBuffer -1<CR>", opts)
 
 -- keymap("", "<F8>", ":call ChangeColour()<CR>", opts)
 keymap("", "<F8>", "<cmd>lua require('colorscheme-randomizer').randomize()<cr>", opts)
+keymap("", "<F9>", "<cmd>CellularAutomaton make_it_rain<cr>", opts)
