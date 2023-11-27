@@ -90,6 +90,5 @@ keymap("", "<Leader>8", ":BufferLineGoToBuffer 8<CR>", opts)
 keymap("", "<Leader>9", ":BufferLineGoToBuffer 9<CR>", opts)
 keymap("", "<Leader>$", ":BufferLineGoToBuffer -1<CR>", opts)
 
--- TODO: Will make modicator.nvim do not work
 -- keymap("", "<F8>", ":call ChangeColour()<CR>", opts)
--- keymap("", "<F8>", "<cmd>lua require('colorscheme-randomizer').randomize()<cr>", opts)
+keymap("", "<F8>", "<cmd>lua require('colorscheme-randomizer').randomize()<cr>", opts)
