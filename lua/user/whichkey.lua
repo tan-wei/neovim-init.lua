@@ -115,6 +115,10 @@ local mappings = {
       "<cmd>BufferLineSortByExtension<cr>",
       "Sort by language",
     },
+    t = {
+      "<cmd>lua require('buffer_manager.ui').toggle_quick_menu()<cr>",
+      "Toggle quick menu",
+    },
   },
 
   g = {
