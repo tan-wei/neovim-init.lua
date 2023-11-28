@@ -3,9 +3,22 @@ if not status_ok then
   return
 end
 
+local nvim_tree_api = require "nvim-tree.api"
+local nvim_tree_open = false
+
+nvim_tree_api.events.subscribe(nvim_tree_api.events.Event.TreeOpen, function()
+  nvim_tree_open = true
+end)
+nvim_tree_api.events.subscribe(nvim_tree_api.events.Event.TreeClose, function()
+  nvim_tree_open = false
+end)
+
 -- Open on startup
 vim.api.nvim_create_autocmd({ "VimEnter" }, {
   callback = function(data)
+    if nvim_tree_open then
+      return
+    end
     -- buffer is a real file on the disk
     local real_file = vim.fn.filereadable(data.file) == 1
 
@@ -17,7 +30,7 @@ vim.api.nvim_create_autocmd({ "VimEnter" }, {
     end
 
     -- open the tree, find the file but don't focus it
-    require("nvim-tree.api").tree.toggle { focus = false, find_file = true }
+    nvim_tree_api.tree.toggle { focus = false, find_file = true }
   end,
 })
 
