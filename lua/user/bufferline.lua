@@ -5,7 +5,7 @@ end
 
 bufferline.setup {
   options = {
-    mod = "buffers",
+    mod = "tabs",
     style_preset = bufferline.style_preset.default,
     themable = true,
     numbers = function(opts)

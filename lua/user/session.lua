@@ -19,30 +19,37 @@ auto_session.setup {
   pre_save_cmds = {
     function()
       local status_ok, api = pcall(require, "nvim-tree.api")
-      if not status_ok then
-        return
+      if status_ok then
+        api.close()
       end
-      api.tree.close()
+
+      local status_ok, _ = pcall(require, "scope")
+      if status_ok then
+        vim.cmd [[ScopeSaveState]]
+      end
     end,
   },
 
   post_save_cmds = {
     function()
       local status_ok, api = pcall(require, "nvim-tree.api")
-      if not status_ok then
-        return
+      if status_ok then
+        api.tree.toggle { focus = false, find_file = true }
       end
-      api.tree.toggle { focus = false, find_file = true }
     end,
   },
 
   post_restore_cmds = {
     function()
       local status_ok, api = pcall(require, "nvim-tree.api")
-      if not status_ok then
-        return
+      if status_ok then
+        api.tree.toggle { focus = false, find_file = true }
       end
-      api.tree.toggle { focus = false, find_file = true }
+
+      local status_ok, _ = pcall(require, "scope")
+      if status_ok then
+        vim.cmd [[ScopeLoadState]]
+      end
     end,
   },
 }
