@@ -20,7 +20,7 @@ auto_session.setup {
     function()
       local status_ok, api = pcall(require, "nvim-tree.api")
       if status_ok then
-        api.close()
+        api.tree.close()
       end
 
       local status_ok, _ = pcall(require, "scope")
