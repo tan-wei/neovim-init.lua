@@ -25,9 +25,10 @@ bufferline.setup {
     max_prefix_length = 30,
     tab_size = 21,
     diagnostics = "nvim_lsp",
-    diagnostics_update_in_insert = true,
+    diagnostics_update_in_insert = false,
     diagnostics_indicator = function(count, level, diagnostics_dict, context)
       if context.buffer:current() then
+        -- Does not show indicator when it is the current buffer
         return ""
       end
       local icon = level:match "error" and " " or " "
