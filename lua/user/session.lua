@@ -58,6 +58,7 @@ auto_session.setup {
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = "NvimTree*",
   callback = function()
+    -- TODO: Manipulate nvim-tree.lua per tabpage, now buggy when the current tabpage is not the first one
     local status_ok, api = pcall(require, "nvim-tree.api")
     if not status_ok then
       return
@@ -68,7 +69,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
       return
     end
 
-    if not view.is_visible() then
+    if not view.is_visible { tabpage = vim.api.nvim_get_current_tabpage() } then
       api.tree.open()
     end
   end,
