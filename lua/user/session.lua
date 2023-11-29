@@ -20,7 +20,11 @@ auto_session.setup {
     function()
       local status_ok, api = pcall(require, "nvim-tree.api")
       if status_ok then
-        api.tree.close()
+        local winid = api.tree.winid()
+
+        if winid then
+          api.tree.close_in_this_tab()
+        end
       end
 
       local status_ok, _ = pcall(require, "scope")
@@ -34,7 +38,11 @@ auto_session.setup {
     function()
       local status_ok, api = pcall(require, "nvim-tree.api")
       if status_ok then
-        api.tree.toggle { focus = false, find_file = true }
+        local winid = api.tree.winid()
+
+        if not winid then
+          api.tree.toggle { focus = false, find_file = true }
+        end
       end
     end,
   },
@@ -43,7 +51,11 @@ auto_session.setup {
     function()
       local status_ok, api = pcall(require, "nvim-tree.api")
       if status_ok then
-        api.tree.toggle { focus = false, find_file = true }
+        local winid = api.tree.winid()
+
+        if not winid then
+          api.tree.toggle { focus = false, find_file = true }
+        end
       end
 
       local status_ok, _ = pcall(require, "scope")
@@ -55,7 +67,7 @@ auto_session.setup {
 }
 
 -- Workaround for nvim-tree, see here: https://github.com/nvim-tree/nvim-tree.lua/wiki/Recipes
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
+vim.api.nvim_create_autocmd({ "BufEnter", "TabEnter", "TabNewEntered" }, {
   pattern = "NvimTree*",
   callback = function()
     -- TODO: Manipulate nvim-tree.lua per tabpage, now buggy when the current tabpage is not the first one
@@ -64,13 +76,11 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
       return
     end
 
-    local status_ok, view = pcall(require, "nvim-tree.view")
-    if not status_ok then
-      return
-    end
+    local winid = api.tree.winid()
+    -- vim.print("winid = " .. tostring(winid))
 
-    if not view.is_visible { tabpage = vim.api.nvim_get_current_tabpage() } then
-      api.tree.open()
+    if not winid then
+      api.tree.open { cureent_window = true }
     end
   end,
 })
