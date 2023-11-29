@@ -7,16 +7,19 @@ local nvim_tree_api = require "nvim-tree.api"
 local nvim_tree_open = {}
 
 nvim_tree_api.events.subscribe(nvim_tree_api.events.Event.TreeOpen, function()
-  nvim_tree_open[vim.api.nvim_get_current_tabpage()] = true
+  local winid = nvim_tree_api.tree.winid { tabpage = 0 }
+  nvim_tree_open[winid] = true
 end)
 nvim_tree_api.events.subscribe(nvim_tree_api.events.Event.TreeClose, function()
-  nvim_tree_open[vim.api.nvim_get_current_tabpage()] = false
+  local winid = nvim_tree_api.tree.winid { tabpage = 0 }
+  local tabpage = vim.api.nvim_get_current_tabpage()
 end)
 
 -- Open on startup
 vim.api.nvim_create_autocmd({ "VimEnter", "TabNew", "TabNewEntered", "TabEnter" }, {
   callback = function(data)
-    if nvim_tree_open[vim.api.nvim_get_current_tabpage()] then
+    local winid = nvim_tree_api.tree.winid { tabpage = 0 }
+    if nvim_tree_open[winid] then
       return
     end
     -- buffer is a real file on the disk

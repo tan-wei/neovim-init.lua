@@ -49,6 +49,11 @@ auto_session.setup {
 
   post_restore_cmds = {
     function()
+      local status_ok, _ = pcall(require, "scope")
+      if status_ok then
+        vim.cmd [[ScopeLoadState]]
+      end
+
       local status_ok, api = pcall(require, "nvim-tree.api")
       if status_ok then
         local winid = api.tree.winid()
@@ -56,11 +61,6 @@ auto_session.setup {
         if not winid then
           api.tree.toggle { focus = false, find_file = true }
         end
-      end
-
-      local status_ok, _ = pcall(require, "scope")
-      if status_ok then
-        vim.cmd [[ScopeLoadState]]
       end
     end,
   },
@@ -70,7 +70,6 @@ auto_session.setup {
 vim.api.nvim_create_autocmd({ "BufEnter", "TabEnter", "TabNewEntered" }, {
   pattern = "NvimTree*",
   callback = function()
-    -- TODO: Manipulate nvim-tree.lua per tabpage, now buggy when the current tabpage is not the first one
     local status_ok, api = pcall(require, "nvim-tree.api")
     if not status_ok then
       return
