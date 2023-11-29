@@ -4,19 +4,19 @@ if not status_ok then
 end
 
 local nvim_tree_api = require "nvim-tree.api"
-local nvim_tree_open = false
+local nvim_tree_open = {}
 
 nvim_tree_api.events.subscribe(nvim_tree_api.events.Event.TreeOpen, function()
-  nvim_tree_open = true
+  nvim_tree_open[vim.api.nvim_get_current_tabpage()] = true
 end)
 nvim_tree_api.events.subscribe(nvim_tree_api.events.Event.TreeClose, function()
-  nvim_tree_open = false
+  nvim_tree_open[vim.api.nvim_get_current_tabpage()] = false
 end)
 
 -- Open on startup
-vim.api.nvim_create_autocmd({ "VimEnter" }, {
+vim.api.nvim_create_autocmd({ "VimEnter", "TabNew", "TabNewEntered", "TabEnter" }, {
   callback = function(data)
-    if nvim_tree_open then
+    if nvim_tree_open[vim.api.nvim_get_current_tabpage()] then
       return
     end
     -- buffer is a real file on the disk
