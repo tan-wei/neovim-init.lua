@@ -4,4 +4,13 @@ if not status_ok then
 end
 
 -- TODO: Keybindings should be configured with which-key
-vgit.setup()
+vgit.setup {
+  settings = {
+    live_blame = {
+      enabled = false,
+    },
+    live_gutter = {
+      enabled = false,
+    },
+  },
+}
