@@ -30,6 +30,9 @@ ufo.setup {
     },
   },
   provider_selector = function(bufnr, filetype, buftype)
+    if vim.bo[bufnr].buftype == "nofile" then
+      return ""
+    end
     return ftMap[filetype] or { "treesitter", "indent" }
   end,
 }

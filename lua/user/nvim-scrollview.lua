@@ -3,4 +3,7 @@ if not status_ok then
   return
 end
 
-scrollview.setup()
+scrollview.setup {
+  excluded_filetypes = {},
+  current_only = true,
+}
