@@ -59,6 +59,7 @@ nvim_tree.setup {
   update_focused_file = {
     enable = true,
     update_cwd = true,
+    ignore_list = { "/tmp" },
   },
   renderer = {
     root_folder_modifier = ":t",
