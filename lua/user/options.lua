@@ -68,7 +68,7 @@ vim.loader.enable() -- Enables the experimental Lua module loader
 
 -- neovide related configure
 if vim.g.neovide then
-  vim.o.guifont = "DejaVuSansMono Nerd Font:h10"
+  vim.o.guifont = "DejaVuSansM Nerd Font:h8"
   vim.g.neovide_remember_window_size = true
 end
 
