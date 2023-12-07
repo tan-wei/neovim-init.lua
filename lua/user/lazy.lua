@@ -150,6 +150,7 @@ require("lazy").setup {
     { import = "plugins.code-runner" },
     { import = "plugins.color" },
     { import = "plugins.colorscheme" },
+    { import = "plugins.config" },
     { import = "plugins.csv" },
     { import = "plugins.edit" },
     { import = "plugins.filesystem" },
