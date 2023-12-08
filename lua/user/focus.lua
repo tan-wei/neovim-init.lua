@@ -13,7 +13,7 @@ focus.setup {
   },
 }
 
-local ignore_filetypes = { "NvimTree" }
+local ignore_filetypes = { "NvimTree", "Outline" }
 local ignore_buftypes = { "nofile", "prompt", "popup" }
 
 local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
