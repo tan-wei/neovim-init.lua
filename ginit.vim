@@ -39,7 +39,7 @@ endif
 
 " Enable GUI Adaptive Font
 if exists(':GuiAdaptiveFont')
-    GUIAdaptiveFont 1
+    GuiAdaptiveFont 1
 endif
 
 
