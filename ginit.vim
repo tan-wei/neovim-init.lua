@@ -16,7 +16,7 @@ if exists(':GuiFont')
     endif
 endif
 
-" Set Ligatures
+" Disable Ligatures
 if exists(':GuiRenderLigatures')
     " Enable ligatures will cause nerd font cutoff
     GuiRenderLigatures 0
@@ -32,9 +32,14 @@ if exists(':GuiPopupmenu')
     GuiPopupmenu 0
 endif
 
-" Enable GUI ScrollBar
+" Disable GUI ScrollBar
 if exists(':GuiScrollBar')
-    GuiScrollBar 1
+    GuiScrollBar 0
+endif
+
+" Enable GUI Adaptive Font
+if exists(':GuiAdaptiveFont')
+    GUIAdaptiveFont 1
 endif
 
 
