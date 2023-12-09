@@ -14,6 +14,7 @@ whitespace.setup {
   -- displaying trailing whitespace
   ignored_filetypes = {
     "TelescopePrompt",
+    "TelescopeResults",
     "Trouble",
     "help",
     "alpha",
