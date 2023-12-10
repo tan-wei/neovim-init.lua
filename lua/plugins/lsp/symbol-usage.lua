@@ -3,6 +3,4 @@ local M = {
   event = "LspAttach",
 }
 
-M.init = function() end
-
 return M

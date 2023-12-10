@@ -3,6 +3,4 @@ local M = {
   dependencies = { "nvim-tree/nvim-web-devicons" },
 }
 
-M.init = function() end
-
 return M

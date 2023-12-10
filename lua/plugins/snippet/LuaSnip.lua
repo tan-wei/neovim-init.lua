@@ -15,6 +15,4 @@ local M = {
   end,
 }
 
-M.init = function() end
-
 return M

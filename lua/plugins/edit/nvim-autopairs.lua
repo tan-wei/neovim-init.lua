@@ -3,6 +3,4 @@ local M = {
   event = "InsertEnter",
 }
 
-M.init = function() end
-
 return M

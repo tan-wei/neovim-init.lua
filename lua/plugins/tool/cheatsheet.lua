@@ -8,6 +8,4 @@ local M = {
   cmd = "Cheatsheet",
 }
 
-M.init = function() end
-
 return M

@@ -8,8 +8,6 @@ local M = {
   event = { "VeryLazy" },
 }
 
-M.init = function() end
-
 M.config = function()
   require("attempt").setup()
   require("telescope").load_extension "attempt"

@@ -18,6 +18,4 @@ local M = {
   event = { "VimEnter" },
 }
 
-M.init = function() end
-
 return M

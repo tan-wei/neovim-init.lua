@@ -7,6 +7,4 @@ local M = {
   enabled = false,
 }
 
-M.init = function() end
-
 return M

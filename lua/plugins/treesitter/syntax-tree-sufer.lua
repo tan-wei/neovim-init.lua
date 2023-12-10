@@ -7,6 +7,4 @@ local M = {
 
 -- TODO: Configure for syntax-tree-surfer
 
-M.init = function() end
-
 return M

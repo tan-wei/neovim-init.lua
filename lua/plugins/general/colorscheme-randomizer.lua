@@ -3,6 +3,4 @@ local M = {
   tag = "v1.0.0",
 }
 
-M.init = function() end
-
 return M

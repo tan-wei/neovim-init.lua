@@ -16,8 +16,6 @@ local M = {
   },
 }
 
-M.init = function() end
-
 -- TODO: Configure for comment-box.nvim
 M.config = true
 

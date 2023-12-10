@@ -4,6 +4,4 @@ local M = {
   cmd = "CarbonNow",
 }
 
-M.init = function() end
-
 return M

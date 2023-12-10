@@ -3,6 +3,4 @@ local M = {
   build = ":TSUpdate",
 }
 
-M.init = function() end
-
 return M

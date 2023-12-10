@@ -7,6 +7,4 @@ local M = {
   cmd = "Registers",
 }
 
-M.init = function() end
-
 return M

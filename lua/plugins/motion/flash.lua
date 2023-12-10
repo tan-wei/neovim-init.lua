@@ -3,6 +3,4 @@ local M = {
   event = "VeryLazy",
 }
 
-M.init = function() end
-
 return M

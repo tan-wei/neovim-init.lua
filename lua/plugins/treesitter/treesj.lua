@@ -7,6 +7,4 @@ local M = {
 
 -- TODO: Configure for treesj
 
-M.init = function() end
-
 return M

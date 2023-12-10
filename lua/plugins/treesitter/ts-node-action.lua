@@ -7,6 +7,4 @@ local M = {
 
 -- TODO: Configure for ts-node-action
 
-M.init = function() end
-
 return M
