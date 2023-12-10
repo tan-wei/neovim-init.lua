@@ -1,5 +1,12 @@
 local M = {
   "ibhagwan/fzf-lua",
+  enabled = function()
+    if vim.uv.os_uname().sysname ~= "Windows_NT" then
+      return true
+    else
+      return false
+    end
+  end,
   dependencies = {
     {
       "junegunn/fzf",
