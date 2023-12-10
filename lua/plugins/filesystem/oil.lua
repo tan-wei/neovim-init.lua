@@ -1,6 +1,9 @@
 local M = {
   "stevearc/oil.nvim",
-  dependencies = { "nvim-tree/nvim-web-devicons" },
+  dependencies = {
+    "nvim-tree/nvim-web-devicons",
+  },
+  cmd = { "Oil" },
 }
 
 M.init = function()
@@ -8,5 +11,7 @@ M.init = function()
   vim.g.loaded_netrw = 1
   vim.g.loaded_netrwPlugin = 1
 end
+
+M.opts = {}
 
 return M
