@@ -5,8 +5,14 @@ local M = {
     "nvim-telescope/telescope.nvim",
     "nvim-telescope/telescope-ui-select.nvim",
   },
+  event = { "VeryLazy" },
 }
 
 M.init = function() end
+
+M.config = function()
+  require("attempt").setup()
+  require("telescope").load_extension "attempt"
+end
 
 return M
