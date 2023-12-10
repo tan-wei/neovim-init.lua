@@ -11,10 +11,9 @@ end
 
 colorscheme_randomizer.setup {
   apply_scheme = true,
-  plugin_strategy = nil,
-  plugins = nil,
+  plugin_strategy = "lazy",
+  plugins = vim.g.available_colorschemes,
   colorschemes = vim.g.available_colorschemes,
-  exclude_colorschemes = nil,
 }
 
 -- local change_color = vim.fn["ChangeColour"]
