@@ -20,6 +20,9 @@ local M = {
     },
     "nvim-tree/nvim-web-devicons",
   },
+  cmd = "FzfLua",
 }
+
+M.config = true
 
 return M
