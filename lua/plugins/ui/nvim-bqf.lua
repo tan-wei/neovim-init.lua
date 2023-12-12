@@ -4,6 +4,10 @@ local M = {
     "nvim-treesitter/nvim-treesitter",
     "junegunn/fzf",
   },
+  ft = "qf",
 }
+
+-- TODO: This plugin should write more configurations
+M.config = true
 
 return M
