@@ -5,6 +5,15 @@ local M = {
     "nvim-lua/plenary.nvim",
     "mfussenegger/nvim-dap",
   },
+  ft = "rust",
+}
+
+M.opts = {
+  server = {
+    interpret = {
+      tests = true,
+    },
+  },
 }
 
 return M
