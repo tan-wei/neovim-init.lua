@@ -1,8 +1,10 @@
 " Enable Mouse
 set mouse=a
+
 if has("win64") || has("win32") || has("win16")
     source $VIMRUNTIME/mswin.vim
 endif
+
 " Set Editor Font
 if exists(':GuiFont')
     if has("win64") || has("win32") || has("win16")
@@ -41,7 +43,6 @@ endif
 if exists(':GuiAdaptiveFont')
     GuiAdaptiveFont 1
 endif
-
 
 if exists(':GuiScrollBar')
     " Right Click Context Menu (Copy-Cut-Paste)
