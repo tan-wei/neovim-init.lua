@@ -7,4 +7,7 @@ local M = {
   cmd = "Registers",
 }
 
+-- TODO: This plugin should write more configurations
+M.opts = {}
+
 return M
