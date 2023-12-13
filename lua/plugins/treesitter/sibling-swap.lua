@@ -3,6 +3,10 @@ local M = {
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
   },
+  module = true,
 }
+
+-- TODO: This plugin should write more configurations
+M.config = true
 
 return M
