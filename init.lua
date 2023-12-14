@@ -1,7 +1,6 @@
 require "user.options"
 require "user.keymaps"
 require "user.lazy"
-require "user.luasnip"
 require "user.cmp"
 require "user.lsp"
 require "user.symbols-outline"

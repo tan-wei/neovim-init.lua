@@ -1,6 +1,6 @@
 local M = {
   "L3MON4D3/LuaSnip",
-  version = "2.*",
+  version = "v2.*",
   build = function()
     if vim.uv.os_uname().sysname ~= "Windows_NT" then
       local job = require "plenary.job"
@@ -13,6 +13,24 @@ local M = {
         :sync()
     end
   end,
+  dependencies = {
+    "rafamadriz/friendly-snippets",
+  },
+  event = {
+    "InsertEnter",
+  },
 }
+
+M.config = function()
+  local luasnip = require "luasnip"
+
+  require("luasnip/loaders/from_vscode").lazy_load()
+
+  local snippets = require "user.snippets"
+
+  for lang, snippet in pairs(snippets) do
+    luasnip.add_snippets(lang, snippet)
+  end
+end
 
 return M
