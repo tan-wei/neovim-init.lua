@@ -8,6 +8,10 @@ local M = {
       return false
     end
   end,
+  cmd = { "SnipRun", "SnipInfo" },
 }
+
+-- TODO: This plugin should write more configurations
+M.config = true
 
 return M
