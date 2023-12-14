@@ -3,8 +3,9 @@ local M = {
   dependencies = {
     "winston0410/cmd-parser.nvim",
   },
+  event = { "CmdlineChanged" },
 }
 
-M.config = function() end
+M.config = true
 
 return M
