@@ -8,6 +8,15 @@ local M = {
     "nvim-neotest/neotest-vim-test",
     "rouge8/neotest-rust",
   },
+  module = true,
 }
+
+M.config = function()
+  require("neotest").setup {
+    adapters = {
+      require "neotest-rust" { allow_file_types = { "rust" } },
+    },
+  }
+end
 
 return M
