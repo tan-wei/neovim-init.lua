@@ -4,6 +4,7 @@ local M = {
     "nvim-treesitter/nvim-treesitter",
     "nvim-treesitter/nvim-treesitter-textobjects",
   },
+  event = "BufEnter",
 }
 
 M.init = function()
@@ -11,5 +12,7 @@ M.init = function()
   vim.g.loaded_netrw = 1
   vim.g.loaded_netrwPlugin = 1
 end
+
+M.config = true
 
 return M
