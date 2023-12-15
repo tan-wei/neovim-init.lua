@@ -4,14 +4,11 @@ local M = {
 }
 
 M.config = function()
-  local treesitter = require "nvim-treesitter"
-  local nvim_treesitter_configs = require "nvim-treesitter.configs"
-
-  nvim_treesitter_configs.setup {
+  require("nvim-treesitter.configs").setup {
     ensure_installed = "all",
     highlight = {
-      enable = true, 
-      disable = { "css" }, 
+      enable = true,
+      disable = { "css" },
     },
     auto_install = true,
     autopairs = {
@@ -68,11 +65,6 @@ M.config = function()
       },
     },
   }
-
-  local status_ok, nt_cpp_tools = pcall(require, "nt-cpp-tools")
-  if status_ok then
-    nt_cpp_tools.setup()
-  end
 end
 
 return M
