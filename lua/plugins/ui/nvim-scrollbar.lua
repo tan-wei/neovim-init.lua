@@ -7,4 +7,11 @@ local M = {
   enabled = false,
 }
 
+M.config = function()
+  local scrollbar = require "scrollbar"
+  scrollbar.setup()
+  require("scrollbar.handlers.gitsigns").setup()
+  require("scrollbar.handlers.search").setup()
+end
+
 return M
