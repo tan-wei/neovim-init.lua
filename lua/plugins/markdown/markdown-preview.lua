@@ -1,6 +1,7 @@
 local M = {
   "iamcco/markdown-preview.nvim",
   build = "cd app && yarn install",
+  cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 }
 
 M.init = function()
