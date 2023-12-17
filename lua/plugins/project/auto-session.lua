@@ -3,7 +3,7 @@ local M = {
   dependencies = {
     "nvim-telescope/telescope.nvim",
   },
-  event = "VimEnter",
+  -- event = "VimEnter",
 }
 
 M.config = function()
