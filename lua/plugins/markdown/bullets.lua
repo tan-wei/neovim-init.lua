@@ -1,5 +1,6 @@
 local M = {
   "dkarter/bullets.vim",
+  ft = "markdown",
 }
 
 M.init = function()
