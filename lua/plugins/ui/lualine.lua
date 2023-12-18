@@ -124,7 +124,22 @@ M.config = function()
       lualine_z = {},
     },
     tabline = {},
-    extensions = {},
+    extensions = {
+      "aerial",
+      "fugitive",
+      "fzf",
+      "lazy",
+      "man",
+      "mason",
+      "mundo",
+      "nvim-dap-ui",
+      "nvim-tree",
+      "overseer",
+      "quickfix",
+      "symbols-outline",
+      "toggleterm",
+      "trouble",
+    },
   }
 
   -- Inserts a component in lualine_c at left section
@@ -163,9 +178,9 @@ M.config = function()
     spinner_symbols = { "🌑 ", "🌒 ", "🌓 ", "🌔 ", "🌕 ", "🌖 ", "🌗 ", "🌘 " },
   }
 
-  local status_ok, cmake = pcall(require, "cmake-tools")
-
-  if status_ok then
+  -- TODO: Write a common function to check whether a plugin is loaded
+  if require("lazy.core.config").plugins["cmake-tools.nvim"]._.loaded then
+    local cmake = require "cmake-tools"
     local icons = require "user.icons"
 
     ins_left {
