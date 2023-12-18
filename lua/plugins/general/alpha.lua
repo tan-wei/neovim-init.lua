@@ -34,7 +34,22 @@ M.config = function()
     -- local fortune = handle:read("*a")
     -- handle:close()
     -- return fortune
-    return "Winterreise"
+    local v = vim.version()
+    local datetime = os.date " %d-%m-%Y   %H:%M:%S"
+    local platform = vim.fn.has "win32" == 1 and "" or ""
+    local stats = require("lazy").stats()
+    local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+    return string.format(
+      "%d plugins  %s %d.%d.%d  %s, %d plugins loaded in %d ms",
+      stats.count,
+      platform,
+      v.major,
+      v.minor,
+      v.patch,
+      datetime,
+      stats.loaded,
+      ms
+    )
   end
 
   dashboard.section.footer.val = footer()
@@ -46,6 +61,15 @@ M.config = function()
   dashboard.opts.opts.noautocmd = true
   -- vim.cmd([[autocmd User AlphaReady echo 'ready']])
   alpha.setup(dashboard.opts)
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "LazyVimStarted",
+    callback = function()
+      local stats = require("lazy").stats()
+      local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+      dashboard.section.footer.val = footer()
+      pcall(vim.cmd.AlphaRedraw)
+    end,
+  })
 end
 
 return M
