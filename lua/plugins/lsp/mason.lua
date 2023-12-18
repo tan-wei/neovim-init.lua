@@ -4,7 +4,7 @@ local M = {
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
   },
-  cmd = "Mason",
+  event = "VeryLazy",
 }
 
 M.config = function()
