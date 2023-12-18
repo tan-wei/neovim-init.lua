@@ -29,12 +29,8 @@ M.config = function()
   }
 
   local function footer()
-    -- NOTE: requires the fortune-mod package to work
-    -- local handle = io.popen("fortune")
-    -- local fortune = handle:read("*a")
-    -- handle:close()
-    -- return fortune
     local v = vim.version()
+    -- FIXME: datetime is not working on Windows now
     local datetime = os.date " %d-%m-%Y   %H:%M:%S"
     local platform = vim.fn.has "win32" == 1 and "" or ""
     local stats = require("lazy").stats()
