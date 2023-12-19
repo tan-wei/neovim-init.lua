@@ -15,8 +15,15 @@ M.opts = {
       end,
       "NvimTree",
     },
+    highlight = {
+      backdrop = true,
+    },
+  },
+  label = {
+    rainbow = {
+      enabled = true,
+    },
   },
 }
-
 
 return M
