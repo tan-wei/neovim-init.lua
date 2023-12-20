@@ -179,5 +179,5 @@ require("lazy").setup {
     { import = "plugins.treesitter" },
     { import = "plugins.ui" },
   },
-  concurrency = 8,
+  concurrency = 16,
 }
