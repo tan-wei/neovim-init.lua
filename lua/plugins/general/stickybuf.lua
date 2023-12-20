@@ -1,6 +1,6 @@
 local M = {
   "stevearc/stickybuf.nvim",
-  event = "BufEnter",
+  event = "VeryLazy",
 }
 
 -- TODO: This plugin should write more configurations
