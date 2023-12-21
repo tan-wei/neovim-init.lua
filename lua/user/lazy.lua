@@ -24,9 +24,6 @@ vim.opt.rtp:prepend(install_path)
 --   { "machakann/vim-sandwich" },
 
 --   -- Git
---   { "airblade/vim-gitgutter" },
---   { "junegunn/gv.vim" },
---   { "rbong/vim-flog" },
 --   { "rhysd/git-messenger.vim" },
 --   { "gregsexton/gitv" },
 --   { "jreybert/vimagit" },
