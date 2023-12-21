@@ -1,5 +1,6 @@
 local M = {
   "mbbill/undotree",
+  event = "VeryLazy",
 }
 
 M.init = function()

@@ -1,6 +1,6 @@
 local M = {
   "nvim-focus/focus.nvim",
-  cmd = "VeryLazy",
+  event = "VeryLazy",
 }
 
 M.init = function()

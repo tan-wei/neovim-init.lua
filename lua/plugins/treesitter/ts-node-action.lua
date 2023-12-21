@@ -3,8 +3,10 @@ local M = {
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
   },
+  module = true,
 }
 
 -- TODO: Configure for ts-node-action
+M.opts = {}
 
 return M
