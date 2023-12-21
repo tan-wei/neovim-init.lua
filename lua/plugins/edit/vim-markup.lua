@@ -3,7 +3,7 @@ local M = {
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
   },
-  event = "BufReadPost",
+  -- event = "BufReadPost", -- FIXME: Any lazy load will cause problem
 }
 
 M.init = function()
