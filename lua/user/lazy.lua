@@ -106,11 +106,6 @@ vim.opt.rtp:prepend(install_path)
 
 --   -- Comment
 --   { "tyru/caw.vim" },
---   { "preservim/nerdcommenter" },
---   { "numToStr/Comment.nvim" },
-
---   -- Misc
---   { "elentok/plaintasks.vim" },
 
 --   -- Search
 --   { "mhinz/vim-grepper" },
