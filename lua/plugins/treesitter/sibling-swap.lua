@@ -3,7 +3,7 @@ local M = {
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
   },
-  module = true,
+  event = "VeryLazy",
 }
 
 -- TODO: This plugin should write more configurations

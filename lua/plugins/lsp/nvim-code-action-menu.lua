@@ -1,5 +1,6 @@
 local M = {
   "weilbith/nvim-code-action-menu",
+  event = "VeryLazy",
 }
 
 M.init = function()

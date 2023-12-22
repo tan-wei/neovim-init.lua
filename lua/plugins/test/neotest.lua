@@ -8,7 +8,7 @@ local M = {
     "nvim-neotest/neotest-vim-test",
     "rouge8/neotest-rust",
   },
-  module = true,
+  event = "VeryLazy",
 }
 
 M.config = function()

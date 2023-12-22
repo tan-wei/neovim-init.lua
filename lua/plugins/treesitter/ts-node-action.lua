@@ -3,7 +3,7 @@ local M = {
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
   },
-  module = true,
+  event = "VeryLazy",
 }
 
 -- TODO: Configure for ts-node-action

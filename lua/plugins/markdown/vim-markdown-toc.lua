@@ -1,5 +1,6 @@
 local M = {
   "mzlogin/vim-markdown-toc",
+  ft = { "markdown" },
 }
 
 M.init = function()
