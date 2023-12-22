@@ -91,11 +91,9 @@ M.config = function()
   end
 
   local action_hints = function()
-    local status_ok, action_hints = pcall(require, "action-hints")
-    if not status_ok then
-      return nil
+    if require("lazy.core.config").plugins["action-hints"]._.loaded then
+      return require("action-hints").statusline()
     end
-    return action_hints.statusline()
   end
 
   local config = {

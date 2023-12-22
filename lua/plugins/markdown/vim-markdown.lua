@@ -1,5 +1,6 @@
 local M = {
   "preservim/vim-markdown",
+  ft = { "markdown" },
 }
 
 M.init = function()
