@@ -70,6 +70,7 @@ M.config = function()
     { name = "luasnip" },
     { name = "buffer", dup = 0 },
     { name = "path" },
+    { name = "calc" },
     { name = "nvim_lua" },
     { name = "emoji" },
     { name = "nerdfont" },
@@ -186,6 +187,9 @@ M.config = function()
         cmp.config.compare.offset,
         cmp.config.compare.exact,
         cmp.config.compare.score,
+        cmp.config.compare.recently_used,
+        -- require "clangd_extensions.cmp_scores",
+        require("cmp-under-comparator").under,
         cmp.config.compare.kind,
         cmp.config.compare.sort_text,
         cmp.config.compare.length,
@@ -219,6 +223,7 @@ M.config = function()
             rg = quoted_name "RG",
             fonts = quoted_name "FONT",
             crates = quoted_name "CRATES",
+            calc = quoted_name "CALC",
           })[entry.source.name]
           return vim_item
         end,
