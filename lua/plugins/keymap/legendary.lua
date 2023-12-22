@@ -5,8 +5,7 @@ local M = {
     "nvim-telescope/telescope.nvim",
     "stevearc/dressing.nvim",
   },
-  lazy = false,
-  priority = 10000,
+  cmd = "Legendary", -- FIXME: Should be integrate with which-key
 }
 
 M.opts = {
