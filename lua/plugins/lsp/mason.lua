@@ -78,18 +78,6 @@ M.config = function()
     end
     lspconfig[server].setup(opts)
   end
-
-  local mason_tool_installer_status_ok, mason_tool_installer = pcall(require, "mason-tool-installer")
-  if not mason_tool_installer_status_ok then
-    return
-  end
-
-  mason_tool_installer.setup {
-    ensure_installed = {},
-    auto_update = true,
-    start_delay = 3000,
-    debounce_hours = 5,
-  }
 end
 
 return M
