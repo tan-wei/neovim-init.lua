@@ -1,6 +1,7 @@
 local M = {
   "lukas-reineke/indent-blankline.nvim",
   event = "VeryLazy",
+  version = "v3.3.11", -- TODO: v3.4 will fail to rainbow highlight scope indent line
 }
 
 -- TODO: This table should import by user config, and shared with other plugins (e.g.,rainbowdelimiters)
