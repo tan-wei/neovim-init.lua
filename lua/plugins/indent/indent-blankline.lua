@@ -41,7 +41,7 @@ M.config = function()
   hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
 
   ibl.setup {
-    indent = { char = { "|", "¦", "┆", "┊" }, tab_char = { ">" }, smart_indent_cap = true, priority = 50 },
+    indent = { char = { "|", "¦", "┆", "┊" }, tab_char = { "»" }, smart_indent_cap = true, priority = 50 },
     scope = {
       show_start = true,
       show_end = true,
