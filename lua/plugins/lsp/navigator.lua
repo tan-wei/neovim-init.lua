@@ -30,6 +30,7 @@ local M = {
     "TsAndDiag",
     "Calltree",
   },
+  enabled = false, -- TODO: Now disable it, we should configure for it firstly
 }
 
 -- TODO: This plugin should write more configurations
