@@ -11,7 +11,7 @@ local M = {
     },
     { "hrsh7th/cmp-nvim-lsp" },
   },
-  event = "VeryLazy",
+  event = { "BufReadPre", "BufNewFile" },
 }
 
 local servers = {
@@ -45,6 +45,8 @@ M.config = function()
     local require_ok, conf_opts = pcall(require, "user.lsp.settings." .. server)
     if require_ok then
       opts = vim.tbl_deep_extend("force", conf_opts, opts)
+    else
+      vim.notify("Server [" .. server .. "] is not available")
     end
     lspconfig[server].setup(opts)
   end
