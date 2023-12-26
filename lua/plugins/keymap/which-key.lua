@@ -149,7 +149,7 @@ M.config = function()
 
     l = {
       name = "LSP",
-      a = { "<cmd>CodeActionMenu<cr>", "Code Action" },
+      a = { "<cmd>lua require('actions-preview').code_actions()<cr>", "Code Action" },
       c = { "<cmd>lua require('treesitter-context').go_to_context()<cr>", "Jump to context" },
       d = {
         "<cmd>Telescope diagnostics bufnr=0<cr>",
