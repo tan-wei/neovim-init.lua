@@ -5,7 +5,7 @@ local M = {
     "folke/trouble.nvim",
     "nvim-telescope/telescope.nvim",
   },
-  -- cmd = "VeryLazy", It will not work after LSP is attached, so disable the event
+  event = "VeryLazy",
 }
 
 M.opts = {
