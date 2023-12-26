@@ -3,7 +3,7 @@ local M = {
   dependencies = {
     "hiphish/rainbow-delimiters.nvim",
   },
-  event = "BufEnter",
+  event = "BufReadPre",
 }
 
 M.init = function()
