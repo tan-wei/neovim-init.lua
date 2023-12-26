@@ -1,28 +1,29 @@
 local M = {
   "lukas-reineke/indent-blankline.nvim",
-  event = "VeryLazy",
-  version = "v3.3.11", -- TODO: v3.4 will fail to rainbow highlight scope indent line
-}
-
--- TODO: This table should import by user config, and shared with other plugins (e.g.,rainbowdelimiters)
-local highlight = {
-  "RainbowRed",
-  "RainbowYellow",
-  "RainbowBlue",
-  "RainbowOrange",
-  "RainbowGreen",
-  "RainbowViolet",
-  "RainbowCyan",
+  dependencies = {
+    "hiphish/rainbow-delimiters.nvim",
+  },
+  event = "BufEnter",
 }
 
 M.init = function()
   vim.opt.list = true
   vim.opt.listchars:append "space:⋅"
   vim.opt.listchars:append "eol:↴"
-  vim.g.rainbow_delimiters = { highlight = highlight }
 end
 
 M.config = function()
+  -- TODO: This table should import by user config, and shared with other plugins (e.g.,rainbowdelimiters)
+  local highlight = {
+    "RainbowRed",
+    "RainbowYellow",
+    "RainbowBlue",
+    "RainbowOrange",
+    "RainbowGreen",
+    "RainbowViolet",
+    "RainbowCyan",
+  }
+
   local ibl = require "ibl"
   local hooks = require "ibl.hooks"
 
@@ -39,6 +40,7 @@ M.config = function()
   end)
 
   hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+  vim.g.rainbow_delimiters = { highlight = highlight }
 
   ibl.setup {
     indent = { char = { "|", "¦", "┆", "┊" }, tab_char = { "»" }, smart_indent_cap = true, priority = 50 },
