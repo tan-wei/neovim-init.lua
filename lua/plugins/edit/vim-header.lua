@@ -11,6 +11,7 @@ M.init = function()
   vim.g.header_field_author = "Winterreise"
   vim.g.header_field_author_email = "winterreise.tanwei@gmail.com"
   vim.g.header_field_timestamp = 1
+  vim.g.header_field_timestamp_format = "%Y-%m-%d %H:%M:%S"
   vim.g.header_field_modified_by = 1
 end
 
