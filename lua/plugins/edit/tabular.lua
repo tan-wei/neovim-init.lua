@@ -1,6 +1,6 @@
 local M = {
   "godlygeek/tabular",
-  ft = "markdown",
+  cmd = "Tabularize",
 }
 
 return M
