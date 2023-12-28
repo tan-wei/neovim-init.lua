@@ -37,7 +37,6 @@ M.config = function()
         end
       end,
     },
-
     post_save_cmds = {
       function()
         local status_ok, api = pcall(require, "nvim-tree.api")
@@ -50,7 +49,6 @@ M.config = function()
         end
       end,
     },
-
     post_restore_cmds = {
       function()
         local status_ok, _ = pcall(require, "scope")
@@ -66,6 +64,13 @@ M.config = function()
             api.tree.toggle { focus = false, find_file = true }
           end
         end
+      end,
+    },
+    cwd_change_handling = {
+      restore_upcoming_session = true,
+      pre_cwd_changed_hook = nil,
+      post_cwd_changed_hook = function()
+        require("lualine").refresh()
       end,
     },
   }
