@@ -20,6 +20,7 @@ local M = {
     "lukas-reineke/cmp-under-comparator",
     "onsails/lspkind.nvim",
     "L3MON4D3/LuaSnip",
+    "dmitmel/cmp-cmdline-history",
   },
   event = { "InsertEnter", "CmdlineEnter" },
 }
@@ -224,6 +225,7 @@ M.config = function()
             fonts = quoted_name "FONT",
             crates = quoted_name "CRATES",
             calc = quoted_name "CALC",
+            cmdline_history = quoted_name "CMD_HISTORY",
           })[entry.source.name]
           return vim_item
         end,
@@ -251,6 +253,17 @@ M.config = function()
     sources = {
       { name = "nvim_lsp_document_symbol" },
       { name = "buffer" },
+      { name = "cmdline_history" },
+    },
+  })
+
+  -- `?` cmdline setup.
+  cmp.setup.cmdline("?", {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      { name = "nvim_lsp_document_symbol" },
+      { name = "buffer" },
+      { name = "cmdline_history" },
     },
   })
 
@@ -259,6 +272,7 @@ M.config = function()
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
       { name = "path" },
+      { name = "cmdline_history" },
     }, {
       {
         name = "cmdline",
