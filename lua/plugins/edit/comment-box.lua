@@ -13,6 +13,8 @@ local M = {
     "CBalbox",
     "CBacbox",
     "CBarbox",
+    "CBdbox",
+    "CBy",
   },
 }
 
