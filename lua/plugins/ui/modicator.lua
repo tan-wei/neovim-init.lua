@@ -1,5 +1,8 @@
 local M = {
   "mawkler/modicator.nvim",
+  dependencies = {
+    "nvim-lualine/lualine.nvim",
+  },
   event = "ModeChanged",
 }
 
