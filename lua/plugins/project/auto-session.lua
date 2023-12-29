@@ -66,16 +66,16 @@ M.config = function()
         end
       end,
     },
-    cwd_change_handling = {
-      restore_upcoming_session = true,
-      pre_cwd_changed_hook = function()
-        vim.cmd "LspStop"
-      end,
-      post_cwd_changed_hook = function()
-        vim.cmd "LspStart"
-        require("lualine").refresh()
-      end,
-    },
+    -- cwd_change_handling = {
+    --   restore_upcoming_session = true,
+    --   pre_cwd_changed_hook = function()
+    --     vim.cmd "LspStop"
+    --   end,
+    --   post_cwd_changed_hook = function()
+    --     vim.cmd "LspStart"
+    --     require("lualine").refresh()
+    --   end,
+    -- },
   }
 
   -- Workaround for nvim-tree, see here: https://github.com/nvim-tree/nvim-tree.lua/wiki/Recipes
