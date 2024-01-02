@@ -21,6 +21,7 @@ local M = {
     "onsails/lspkind.nvim",
     "L3MON4D3/LuaSnip",
     "dmitmel/cmp-cmdline-history",
+    "SergioRibera/cmp-dotenv",
   },
   event = { "InsertEnter", "CmdlineEnter" },
 }
@@ -76,6 +77,7 @@ M.config = function()
     { name = "emoji" },
     { name = "nerdfont" },
     { name = "rg", keyword_length = 3, dup = 0 },
+    { name = "dotenv" },
   }
 
   local quoted_name = function(name)
@@ -226,6 +228,7 @@ M.config = function()
             crates = quoted_name "CRATES",
             calc = quoted_name "CALC",
             cmdline_history = quoted_name "CMD_HISTORY",
+            dotenv = quoted_name "DOTENV",
           })[entry.source.name]
           return vim_item
         end,
