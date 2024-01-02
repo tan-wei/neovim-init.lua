@@ -69,7 +69,7 @@ M.config = function()
     respect_buf_cwd = true,
     update_focused_file = {
       enable = true,
-      update_cwd = true,
+      update_root = false, -- FIXME: Buggy when set true on Windows
       ignore_list = { "/tmp" },
     },
     renderer = {
