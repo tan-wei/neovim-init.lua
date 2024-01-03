@@ -66,10 +66,10 @@ M.config = function()
 
   nvim_tree.setup {
     sync_root_with_cwd = true,
-    respect_buf_cwd = true,
+    respect_buf_cwd = false,
     update_focused_file = {
       enable = true,
-      update_root = false, -- FIXME: Buggy when set true on Windows
+      update_root = false,
       ignore_list = { "/tmp" },
     },
     renderer = {
