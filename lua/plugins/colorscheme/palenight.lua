@@ -1,5 +1,5 @@
 local M = {
-  "drewtempelmeyer/palenight.vim",
+  "alexmozaidze/palenight.nvim",
   lazy = true,
 }
 
