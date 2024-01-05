@@ -265,7 +265,7 @@ M.config = function()
     sources = {
       { name = "nvim_lsp_document_symbol" },
       { name = "buffer" },
-      { name = "cmdline_history" },
+      -- { name = "cmdline_history" },
     },
   })
 
@@ -275,7 +275,7 @@ M.config = function()
     sources = {
       { name = "nvim_lsp_document_symbol" },
       { name = "buffer" },
-      { name = "cmdline_history" },
+      -- { name = "cmdline_history" },
     },
   })
 
