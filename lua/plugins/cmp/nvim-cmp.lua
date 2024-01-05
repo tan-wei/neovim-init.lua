@@ -22,6 +22,13 @@ local M = {
     "L3MON4D3/LuaSnip",
     "dmitmel/cmp-cmdline-history",
     "SergioRibera/cmp-dotenv",
+    {
+      "petertriho/cmp-git",
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+      },
+      config = true,
+    },
   },
   event = { "InsertEnter", "CmdlineEnter" },
 }
@@ -78,6 +85,7 @@ M.config = function()
     { name = "nerdfont" },
     { name = "rg", keyword_length = 3, dup = 0 },
     { name = "dotenv" },
+    { name = "git" },
   }
 
   local quoted_name = function(name)
@@ -229,6 +237,7 @@ M.config = function()
             calc = quoted_name "CALC",
             cmdline_history = quoted_name "CMD_HISTORY",
             dotenv = quoted_name "DOTENV",
+            dotenv = quoted_name "GIT",
           })[entry.source.name]
           return vim_item
         end,
