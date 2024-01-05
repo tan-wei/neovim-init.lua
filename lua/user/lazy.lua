@@ -14,22 +14,6 @@ if not vim.uv.fs_stat(install_path) then
 end
 vim.opt.rtp:prepend(install_path)
 
--- Install our plugins here
--- require("lazy").setup {
---   -- General
-
---   { "christoomey/vim-system-copy" },
-
---   { "tpope/vim-surround" },
---   { "machakann/vim-sandwich" },
-
---   -- Git
---   { "rhysd/git-messenger.vim" },
---   { "gregsexton/gitv" },
---   { "jreybert/vimagit" },
-
--- }
-
 require("lazy").setup {
   spec = {
     { import = "plugins.c++" },
