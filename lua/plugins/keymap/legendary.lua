@@ -17,6 +17,9 @@ M.opts = {
       auto_register = true,
     },
   },
+  lazy_nvim = {
+    auto_register = true,
+  },
 }
 
 return M
