@@ -31,6 +31,7 @@ require("lazy").setup {
     { import = "plugins.indent" },
     { import = "plugins.keymap" },
     { import = "plugins.linter" },
+    { import = "plugins.log" },
     { import = "plugins.lsp" },
     { import = "plugins.markdown" },
     { import = "plugins.marks" },
