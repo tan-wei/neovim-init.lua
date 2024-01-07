@@ -91,7 +91,7 @@ M.config = function()
   end
 
   local action_hints = function()
-    if require("lazy.core.config").plugins["action-hints"]._.loaded then
+    if require("util.package").is_loaded "action-hints" then
       return require("action-hints").statusline()
     end
   end
@@ -176,8 +176,7 @@ M.config = function()
     spinner_symbols = { "🌑 ", "🌒 ", "🌓 ", "🌔 ", "🌕 ", "🌖 ", "🌗 ", "🌘 " },
   }
 
-  -- TODO: Write a common function to check whether a plugin is loaded
-  if require("lazy.core.config").plugins["cmake-tools.nvim"]._.loaded then
+  if require("util.package").is_loaded "cmake-tools.nvim" then
     local cmake = require "cmake-tools"
     local icons = require "user.icons"
 
