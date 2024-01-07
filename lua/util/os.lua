@@ -5,7 +5,7 @@ local get_os_name = function()
 end
 
 M.is_windows = function()
-  if get_os_name() ~= "Windows_NT" then
+  if get_os_name() == "Windows_NT" then
     return true
   else
     return false
@@ -13,7 +13,7 @@ M.is_windows = function()
 end
 
 M.is_macos = function()
-  if get_os_name() ~= "Darwin" then
+  if get_os_name() == "Darwin" then
     return true
   else
     return false
@@ -21,7 +21,7 @@ M.is_macos = function()
 end
 
 M.is_linux = function()
-  if get_os_name() ~= "Linux" then
+  if get_os_name() == "Linux" then
     return true
   else
     return false
@@ -29,3 +29,4 @@ M.is_linux = function()
 end
 
 return M
+
