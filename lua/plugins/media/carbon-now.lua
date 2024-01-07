@@ -12,7 +12,7 @@ M.config = function()
   }
 
   require("carbon-now").setup {
-    open_cmd = cmds[vim.uv.os_uname().sysname],
+    open_cmd = cmds[require("util.os").get_os_name()],
     options = {
       bg = "gray",
       drop_shadow_blur = "68px",

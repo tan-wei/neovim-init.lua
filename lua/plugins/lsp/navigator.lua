@@ -4,7 +4,7 @@ local M = {
     {
       "ray-x/guihua.lua",
       build = function()
-        if vim.uv.os_uname().sysname ~= "Windows_NT" then
+        if not require("util.os").is_windows() then
           local job = require "plenary.job"
           job
             :new({
