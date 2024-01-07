@@ -6,6 +6,12 @@ local M = {
   -- event = "VimEnter",
 }
 
+local meta = {
+  focused = vim.api.nvim_get_current_win(),
+  nvimTreeOpen = false,
+  nvimTreeFocused = false,
+}
+
 M.config = function()
   require("auto-session").setup {
     log_level = vim.log.levels.ERROR,
@@ -22,11 +28,27 @@ M.config = function()
     },
     pre_save_cmds = {
       function()
-        local status_ok, api = pcall(require, "nvim-tree.api")
-        if status_ok then
-          local winid = api.tree.winid()
+        -- local status_ok, api = pcall(require, "nvim-tree.api")
+        -- if status_ok then
+        --   local winid = api.tree.winid()
 
-          if winid then
+        --   if winid then
+        --     api.tree.close_in_this_tab()
+        --   end
+        -- end
+
+        -- local status_ok, _ = pcall(require, "scope")
+        -- if status_ok then
+        --   vim.cmd [[ScopeSaveState]]
+        -- end
+
+        ------------------------------------------------
+        -- ref: https://github.com/b0o/nvim-conf/blob/3f9c92550f79921326a453f3140be9dcf843eb3d/lua/user/fn.lua#L352
+        if require("lazy.core.config").plugins["nvim-tree.lua"]._.loaded and require("nvim-tree.view").is_visible() then
+          meta.nvimTreeOpen = true
+          meta.nvimTreeFocused = vim.fn.bufname(vim.fn.bufnr()) == "NvimTree"
+          local api = require "nvim-tree.api"
+          if api.tree.winid() then
             api.tree.close_in_this_tab()
           end
         end
@@ -35,18 +57,37 @@ M.config = function()
         if status_ok then
           vim.cmd [[ScopeSaveState]]
         end
+
+        require("treesitter-context").disable()
+        ------------------------------------------------
       end,
     },
     post_save_cmds = {
       function()
-        local status_ok, api = pcall(require, "nvim-tree.api")
-        if status_ok then
-          local winid = api.tree.winid()
+        -- local status_ok, api = pcall(require, "nvim-tree.api")
+        -- if status_ok then
+        --   local winid = api.tree.winid()
 
-          if not winid then
-            api.tree.toggle { focus = false, find_file = true }
+        --   if not winid then
+        --     api.tree.toggle { focus = false, find_file = true }
+        --   end
+        -- end
+
+        ------------------------------------------------
+        -- ref: https://github.com/b0o/nvim-conf/blob/3f9c92550f79921326a453f3140be9dcf843eb3d/lua/user/fn.lua#L352
+        require("treesitter-context").enable()
+
+        if meta.nvimTreeOpen then
+          local api = require "nvim-tree.api"
+          if not meta.nvimTreeFocused and vim.api.nvim_win_is_valid(meta.focused) then
+            if not winid then
+              api.tree.toggle { focus = false, find_file = true }
+            else
+              api.tree.open()
+            end
           end
         end
+        ------------------------------------------------
       end,
     },
     post_restore_cmds = {
