@@ -83,6 +83,7 @@ M.config = function()
     { name = "nvim_lua" },
     { name = "emoji" },
     { name = "nerdfont" },
+    { name = "treesitter", group_index = 2 },
     { name = "rg", keyword_length = 3, dup = 0 },
     { name = "dotenv" },
     { name = "git" },
@@ -90,18 +91,6 @@ M.config = function()
 
   local quoted_name = function(name)
     return "»" .. name .. "«"
-  end
-
-  -- Only enable `fonts` for `options.lua`
-  --             `treesitter` for small file
-  local buf_is_big = function(bufnr)
-    local max_filesize = 10 * 1024 -- 10 KB
-    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
-    if ok and stats and stats.size > max_filesize then
-      return true
-    else
-      return false
-    end
   end
 
   local buf_is_options_lua = function(bufnr)
@@ -125,9 +114,6 @@ M.config = function()
   vim.api.nvim_create_autocmd("BufReadPre", {
     callback = function(t)
       local sources = default_cmp_sources
-      -- if not buf_is_big(t.buf) then
-      --   sources[#sources + 1] = { name = "treesitter", group_index = 2 }
-      -- end
 
       if buf_is_options_lua(t.buf) or buf_is_ginit_vim(t.buf) then
         sources[#sources + 1] = { name = "fonts", option = { space_filter = "-" } }
