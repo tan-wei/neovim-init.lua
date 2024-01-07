@@ -237,7 +237,7 @@ M.config = function()
             calc = quoted_name "CALC",
             cmdline_history = quoted_name "CMD_HISTORY",
             dotenv = quoted_name "DOTENV",
-            dotenv = quoted_name "GIT",
+            git = quoted_name "GIT",
           })[entry.source.name]
           return vim_item
         end,
