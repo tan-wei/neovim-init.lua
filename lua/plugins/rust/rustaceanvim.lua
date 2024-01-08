@@ -5,7 +5,25 @@ local M = {
     "mfussenegger/nvim-dap",
   },
   ft = "rust",
-  cmd = "RustLsp",
 }
+
+M.config = function()
+  vim.g.rustaceanvim = {
+    server = {
+      on_attach = function(client, bufnr)
+        require("user.lsp.handlers").on_attach(client, bufnr)
+        vim.lsp.inlay_hint.enable(bufnr, true)
+      end,
+      settings = {
+        ["rust-analyzer"] = {
+          -- TODO
+        },
+      },
+    },
+    dap = {
+      -- TODO
+    },
+  }
+end
 
 return M
