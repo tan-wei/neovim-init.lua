@@ -1,7 +1,7 @@
 local M = {
   "lukas-reineke/indent-blankline.nvim",
   dependencies = {
-    "hiphish/rainbow-delimiters.nvim",
+    "HiPhish/rainbow-delimiters.nvim",
   },
   event = "BufReadPre",
 }
