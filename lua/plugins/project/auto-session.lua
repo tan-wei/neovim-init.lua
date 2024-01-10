@@ -107,7 +107,7 @@ M.config = function()
         end
       end,
     },
-    -- TODO: The problem is: LSP does not stop when switching CWD
+    -- TODO: The problem is: LSP does not stop when switching CWD, and SearchSession works well
     -- cwd_change_handling = {
     --   restore_upcoming_session = true,
     --   pre_cwd_changed_hook = function()
