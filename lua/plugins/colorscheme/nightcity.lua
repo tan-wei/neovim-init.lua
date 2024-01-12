@@ -5,14 +5,14 @@ local M = {
 
 M.init = function()
   local available_colorschemes = vim.g.available_colorschemes or {}
-  -- table.insert(available_colorschemes, "nightcity")
+  table.insert(available_colorschemes, "nightcity")
   vim.g.available_colorschemes = available_colorschemes
 end
 
 M.opts = {
   on_highlights = function(groups, colors)
-    groups.IblIndent = { fg = colors.xgray7, nocombine = true }
-    groups.IblScope = { fg = colors.magenta, nocombine = true }
+    -- NOTE: Make indent-blankline.nvim work, see: https://github.com/cryptomilk/nightcity.nvim/issues/4
+    groups.NonText = groups.Whitespace
   end,
 }
 
