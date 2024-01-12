@@ -9,11 +9,4 @@ M.init = function()
   vim.g.available_colorschemes = available_colorschemes
 end
 
-M.opts = {
-  on_highlights = function(groups, colors)
-    -- NOTE: Make indent-blankline.nvim work, see: https://github.com/cryptomilk/nightcity.nvim/issues/4
-    groups.NonText = groups.Whitespace
-  end,
-}
-
 return M
