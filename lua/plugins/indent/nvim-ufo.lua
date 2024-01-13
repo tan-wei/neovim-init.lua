@@ -64,6 +64,36 @@ M.config = function()
       { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
     },
   }
+
+  -- Disable automatic fold all for open a new buffer, ref: https://github.com/kevinhwang91/nvim-ufo/issues/83
+  local function applyFoldsAndThenCloseAllFolds(bufnr, providerName)
+    require "async"(function()
+      bufnr = bufnr or vim.api.nvim_get_current_buf()
+      -- make sure buffer is attached
+      require("ufo").attach(bufnr)
+      -- getFolds return Promise if providerName == 'lsp'
+      local ok, ranges = pcall(await, require("ufo").getFolds(bufnr, providerName))
+      if ok and ranges then
+        ok = require("ufo").applyFolds(bufnr, ranges)
+        if ok then
+          require("ufo").closeAllFolds()
+        end
+      else
+        local ranges = await(require("ufo").getFolds(bufnr, "indent"))
+        local ok = require("ufo").applyFolds(bufnr, ranges)
+        if ok then
+          require("ufo").closeAllFolds()
+        end
+      end
+    end)
+  end
+
+  vim.api.nvim_create_autocmd("BufRead", {
+    pattern = "*",
+    callback = function(e)
+      applyFoldsAndThenCloseAllFolds(e.buf, "lsp")
+    end,
+  })
 end
 
 return M
