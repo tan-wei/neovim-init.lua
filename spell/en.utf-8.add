@@ -24,3 +24,8 @@ lvalue
 ptr
 mixins
 mixin
+gsl
+bool
+toolchains
+errno
+ABIs
