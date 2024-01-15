@@ -27,7 +27,9 @@ local M = {
       dependencies = {
         "nvim-lua/plenary.nvim",
       },
-      config = true,
+      config = function()
+        require("cmp_git").setup()
+      end,
     },
   },
   event = { "InsertEnter", "CmdlineEnter" },
