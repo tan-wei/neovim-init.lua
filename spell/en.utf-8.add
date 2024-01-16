@@ -29,3 +29,5 @@ bool
 toolchains
 errno
 ABIs
+RTTI
+typeid
