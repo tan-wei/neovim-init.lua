@@ -4,7 +4,11 @@ local M = {
 }
 
 M.config = function()
-  require("smoothcursor").setup()
+  require("smoothcursor").setup {
+    disabled_filetypes = {
+      "lazy",
+    },
+  }
 end
 
 return M
