@@ -1,6 +1,7 @@
 local M = {
-  "andersevenrud/nordic.nvim",
+  "AlexvZyl/nordic.nvim",
   lazy = true,
+  config = true,
 }
 
 M.init = function()
