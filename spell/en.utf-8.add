@@ -32,3 +32,5 @@ ABIs
 RTTI
 typeid
 CRTP
+ADL
+Reusability
