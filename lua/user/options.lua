@@ -48,7 +48,7 @@ local options = {
   fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]], -- Set for foldcolumn
   sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions", -- Session save options
   textwidth = 512, -- Default text width
-  spellfile = vim.fn.stdpath "config" .. "/spell/en.utf-8.add", -- Spell file
+  spellfile = require("util.os").is_windows() and nil or vim.fn.stdpath "config" .. "/spell/en.utf-8.add", -- Spell file
 }
 
 for k, v in pairs(options) do
