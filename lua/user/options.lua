@@ -48,11 +48,23 @@ local options = {
   fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]], -- Set for foldcolumn
   sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions", -- Session save options
   textwidth = 512, -- Default text width
-  spellfile = require("util.os").is_windows() and "" or vim.fn.stdpath "config" .. "/spell/en.utf-8.add", -- Spell file
+  spellfile = vim.fn.stdpath "config" .. "/spell/en.utf-8.add", -- Spell file
 }
+
+local old_isfname = vim.o.isfname
+
+if require("util.os").is_windows() then
+  -- NOTE: Make spellfile could contain ":"
+  vim.o.isfname = vim.o.isfname .. ":"
+end
 
 for k, v in pairs(options) do
   vim.opt[k] = v
+end
+
+if require("util.os").is_windows() then
+  -- NOTE: Restore it
+  vim.o.isfname = old_isfname
 end
 
 -- vim.opt.shortmess = "ilmnrx"                        -- flags to shorten vim messages, see :help 'shortmess'
