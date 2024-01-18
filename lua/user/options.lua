@@ -55,7 +55,7 @@ local old_isfname = vim.o.isfname
 
 if require("util.os").is_windows() then
   -- NOTE: Make spellfile could contain ":"
-  vim.o.isfname = vim.o.isfname .. ":"
+  vim.o.isfname = vim.o.isfname .. ",:"
 end
 
 for k, v in pairs(options) do
@@ -64,7 +64,7 @@ end
 
 if require("util.os").is_windows() then
   -- NOTE: Restore it
-  vim.o.isfname = old_isfname
+  -- vim.o.isfname = old_isfname
 end
 
 -- vim.opt.shortmess = "ilmnrx"                        -- flags to shorten vim messages, see :help 'shortmess'
