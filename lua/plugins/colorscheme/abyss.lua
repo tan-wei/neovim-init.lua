@@ -1,8 +1,5 @@
 local M = {
   "barrientosvctor/abyss.nvim",
-  dependencies = {
-    "rktjmp/lush.nvim",
-  },
   lazy = true,
 }
 
