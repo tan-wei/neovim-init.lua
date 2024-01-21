@@ -35,3 +35,4 @@ CRTP
 ADL
 Reusability
 UB
+constexpr
