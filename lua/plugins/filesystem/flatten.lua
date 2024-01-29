@@ -45,12 +45,6 @@ M.config = function()
           if ret ~= nil then
             return ret
           end
-        else
-          local remote_unix_socket = vim.env.WEZTERM_UNIX_SOCKET
-          local ret = try_address(remote_unix_socket, true)
-          if ret ~= nil then
-            return ret
-          end
         end
       end
     end,
