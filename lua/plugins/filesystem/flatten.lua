@@ -8,7 +8,7 @@ M.config = function()
   require("flatten").setup {
     one_per = {
       kitty = require("util.client").is_kitty(),
-      wezterm = require("util.client").is_wezterm(),
+      -- wezterm = require("util.client").is_wezterm(),
     },
   }
 end
