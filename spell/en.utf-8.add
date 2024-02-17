@@ -39,3 +39,4 @@ constexpr
 enums
 accessor
 goto
+fallzthrough
