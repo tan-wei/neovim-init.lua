@@ -40,3 +40,4 @@ enums
 accessor
 goto
 fallzthrough
+fallthroughs
