@@ -103,7 +103,7 @@ M.config = function()
       lualine_a = { branch, diagnostics },
       lualine_b = { mode },
       lualine_c = { session, "lsp_progress" },
-      lualine_x = { diff, spaces, "encoding", filetype },
+      lualine_x = { "overseer", diff, spaces, "encoding", filetype },
       lualine_y = { location },
       lualine_z = { progress },
     },
