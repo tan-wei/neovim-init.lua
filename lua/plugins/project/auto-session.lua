@@ -153,7 +153,9 @@ M.config = function()
       if not status_ok then
         return nil
       end
-      if auto_session_lib.current_session_name() then
+
+      -- NOTE: Only if the current session name exist, we should save session
+      if pcall(auto_session_lib.current_session_name) then
         vim.cmd ":SessionSave"
       end
     end,
