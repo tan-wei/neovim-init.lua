@@ -234,7 +234,31 @@ M.which_key_mapping = {
   },
   Q = {},
   q = {},
-  R = {},
+  R = {
+    name = "REPL",
+    r = { "<cmd>IronRepl<cr>", "Run Repl" },
+    s = { "<cmd>IronRestart<cr>", "reStart Repl" },
+    f = { "<cmd>IronFocus<cr>", "Focus REPL" },
+    h = { "<cmd>IronHide<cr>", "Hide REPL" },
+    c = {
+      function()
+        require("iron.core").send_file()
+      end,
+      "send Current file to Repl",
+    },
+    l = {
+      function()
+        require("iron.core").send_line()
+      end,
+      "send the Line to Repl",
+    },
+    u = {
+      function()
+        require("iron.core").send_until_cursor()
+      end,
+      "send the buffer from start Until the line to Repl",
+    },
+  },
   r = {
     name = "Run",
     c = { "<cmd>RunFile<cr>", "Run Code based on file type with porject if supported" },
