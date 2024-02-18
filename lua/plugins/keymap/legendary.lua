@@ -5,7 +5,7 @@ local M = {
     "nvim-telescope/telescope.nvim",
     "stevearc/dressing.nvim",
   },
-  cmd = "Legendary", -- FIXME: Should be integrate with which-key
+  cmd = "Legendary",
 }
 
 M.opts = {
@@ -14,7 +14,8 @@ M.opts = {
     lazy_nvim = true,
     diffview = true,
     which_key = {
-      auto_register = true,
+      auto_register = false,
+      mappings = require("user.keymaps").which_key_mapping,
     },
   },
   lazy_nvim = {
