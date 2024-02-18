@@ -237,7 +237,9 @@ M.which_key_mapping = {
   R = {},
   r = {
     name = "Run",
-    -- TODO: Add key bindings here
+    c = { "<cmd>RunFile<cr>", "Run Code based on file type with porject if supported" },
+    f = { "<cmd>RunFile<cr>", "Run the current File" },
+    s = { "<cmd>RunClose<cr>", "Stop Runner" },
   },
   S = {},
   s = {
@@ -310,4 +312,3 @@ M.which_key_mapping = {
 }
 
 return M
-
