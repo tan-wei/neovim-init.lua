@@ -96,7 +96,7 @@ M.setup = function()
   keymap("", "<F8>", "<cmd>lua require('colorscheme-randomizer').randomize()<cr>", opts)
 end
 
-M.which_key_mapping = {
+M.which_key_leader_mapping = {
   A = { "<cmd>Alpha<cr>", "Alpha" },
   a = {},
   B = {},
@@ -333,6 +333,10 @@ M.which_key_mapping = {
   y = {},
   Z = {},
   z = {},
+}
+
+M.which_key_space_mapping = {
+  -- TODO
 }
 
 return M

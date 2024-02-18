@@ -15,7 +15,7 @@ M.opts = {
     diffview = true,
     which_key = {
       auto_register = false,
-      mappings = require("user.keymaps").which_key_mapping,
+      mappings = require("user.keymaps").which_key_leader_mapping,
     },
   },
   lazy_nvim = {

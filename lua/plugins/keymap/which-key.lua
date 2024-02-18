@@ -71,18 +71,25 @@ M.config = function()
       v = { "j", "k" },
     },
   }
+  which_key.setup(setup)
 
-  local opts = {
+  which_key.register(require("user.keymaps").which_key_leader_mapping, {
     mode = "n", -- NORMAL mode
     prefix = "<leader>",
     buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
     silent = true, -- use `silent` when creating keymaps
     noremap = true, -- use `noremap` when creating keymaps
     nowait = true, -- use `nowait` when creating keymaps
-  }
+  })
 
-  which_key.setup(setup)
-  which_key.register(require("user.keymaps").which_key_mapping, opts)
+  which_key.register(require("user.keymaps").which_key_space_mapping, {
+    mode = "n", -- NORMAL mode
+    prefix = "<space>",
+    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+    silent = true, -- use `silent` when creating keymaps
+    noremap = true, -- use `noremap` when creating keymaps
+    nowait = true, -- use `nowait` when creating keymaps
+  })
 end
 
 return M
