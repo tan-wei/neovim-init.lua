@@ -3,7 +3,7 @@ local M = {
   dependencies = {
     "williamboman/mason-lspconfig.nvim",
   },
-  event = "VeryLazy",
+  lazy = false,
 }
 
 M.config = function()
