@@ -1,6 +1,6 @@
 local M = {
   "micarmst/vim-spellsync",
-  event = "VeryLazy",
+  lazy = false,
 }
 
 M.init = function()
