@@ -1,0 +1,11 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+  "runtime": {
+    "version": "LuaJIT"
+  },
+  "workspace": {
+    "library": ["$VIMRUNTIME", "$LAZYROOT/lazy.nvim", "${3rd}/luv/library"],
+    "ignoreDir": []
+  },
+  "diagnostics.disable": ["missing-fields"]
+}
