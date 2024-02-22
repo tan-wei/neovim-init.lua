@@ -22,7 +22,7 @@ local servers = {
   "pyright",
   -- "bashls",
   "jsonls",
-  -- "yamlls",
+  "yamlls",
   "clangd",
   -- "ccls",
   "ltex",

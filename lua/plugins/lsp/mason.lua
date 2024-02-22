@@ -15,7 +15,7 @@ M.config = function()
     "pyright",
     -- "bashls",
     "jsonls",
-    -- "yamlls",
+    "yamlls",
     "clangd",
     "rust_analyzer",
     "marksman",
