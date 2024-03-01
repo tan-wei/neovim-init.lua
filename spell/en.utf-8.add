@@ -41,3 +41,4 @@ accessor
 goto
 fallzthrough
 fallthroughs
+mutex
