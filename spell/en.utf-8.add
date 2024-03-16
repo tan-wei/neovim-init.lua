@@ -42,3 +42,4 @@ goto
 fallzthrough
 fallthroughs
 mutex
+async
