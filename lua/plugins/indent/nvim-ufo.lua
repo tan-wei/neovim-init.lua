@@ -16,13 +16,14 @@ M.config = function()
     rust = { "lsp", "treesitter" },
     c = { "lsp", "treesitter" },
     cpp = { "lsp", "treesitter" },
+    default = { "imports", "comment" },
   }
 
   local ufo = require "ufo"
 
   ufo.setup {
     open_fold_hl_timeout = 150,
-    close_fold_kinds = { "imports", "comment" },
+    close_fold_kinds_for_ft = ftMap,
     preview = {
       win_config = {
         border = { "", "─", "", "", "", "─", "", "" },
