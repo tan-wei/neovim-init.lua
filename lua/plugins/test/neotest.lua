@@ -7,6 +7,7 @@ local M = {
     "vim-test/vim-test",
     "nvim-neotest/neotest-vim-test",
     "rouge8/neotest-rust",
+    "nvim-neotest/nvim-nio",
   },
   event = "VeryLazy",
 }
