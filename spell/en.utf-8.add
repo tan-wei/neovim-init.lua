@@ -44,3 +44,4 @@ fallthroughs
 mutex
 async
 ad-hoc
+extern
