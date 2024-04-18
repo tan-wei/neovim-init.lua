@@ -35,6 +35,7 @@ M.config = function()
       rust = { "rustfmt" },
       c = { "clang_format" },
       cpp = { "clang_format" },
+      scheme = { "schemat" },
       ["*"] = { "codespell" },
       ["_"] = { "trim_whitespace" },
     },
@@ -49,6 +50,14 @@ M.config = function()
     -- },
     log_level = vim.log.levels.ERROR,
     notify_on_error = true,
+    formatters = {
+      schemat = {
+        command = "schemat",
+        stdin = true,
+        exit_codes = { 0 },
+        inherit = true,
+      }
+    },
   }
 end
 
