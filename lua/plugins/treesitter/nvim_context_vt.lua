@@ -38,7 +38,7 @@ M.config = function()
         return nil
       end
 
-      return opts.prefix .. " " .. utils.get_node_text(node)[1]
+      return opts.prefix .. " " .. (utils.get_node_text(node)[1] or "")
     end,
 
     custom_validator = function(node, ft, opts)
