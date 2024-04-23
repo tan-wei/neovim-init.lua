@@ -12,7 +12,6 @@ M.config = function()
     server = {
       on_attach = function(client, bufnr)
         require("user.lsp.handlers").on_attach(client, bufnr)
-        vim.lsp.inlay_hint.enable(bufnr, true)
       end,
       settings = {
         ["rust-analyzer"] = {
