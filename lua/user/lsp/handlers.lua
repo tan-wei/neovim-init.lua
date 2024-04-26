@@ -26,7 +26,7 @@ M.setup = function()
   local config = {
     virtual_text = false, -- disable virtual text
     signs = {
-      active = signs,     -- show signs
+      active = signs, -- show signs
     },
     update_in_insert = true,
     underline = true,
@@ -83,7 +83,7 @@ M.on_attach = function(client, bufnr)
 
   if client.name == "clangd" then
     require("clangd_extensions.inlay_hints").setup_autocmd()
-    require("clangd_extensions.inlay_hints").set_inlay_hints()
+    -- require("clangd_extensions.inlay_hints").set_inlay_hints()
   end
 
   if client.server_capabilities.inlayHintProvider then
