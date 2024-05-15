@@ -16,9 +16,20 @@ local M = {
     "CBrabox",
     "CBy",
     "CBd",
+    "CBllline",
+    "CBlcline",
+    "CBlrline",
+    "CBclline",
+    "CBccline",
+    "CBcrline",
+    "CBrlline",
+    "CBrcline",
+    "CBrrline",
     "CBline",
     "CBcline",
     "CBrline",
+    "CBcatalog",
+    "CBcbox"
   },
 }
 

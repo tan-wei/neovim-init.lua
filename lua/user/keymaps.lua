@@ -129,7 +129,10 @@ M.which_key_leader_mapping = {
       "Toggle quick menu",
     },
   },
-  C = {},
+  C = {
+    name = "Commet Box",
+    -- TODO
+  },
   c = { "<cmd>Bdelete!<CR>", "Close Buffer" },
   D = {},
   d = { "<cmd>lua require('dropbar.api').pick()<cr>", "Dropbar pick" },
