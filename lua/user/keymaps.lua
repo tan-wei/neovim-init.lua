@@ -238,6 +238,7 @@ M.which_key_leader_mapping = {
     name = "REPL",
     r = { "<cmd>IronRepl<cr>", "Run Repl" },
     s = { "<cmd>IronRestart<cr>", "reStart Repl" },
+    S = { "<cmd>SnipRun<cr>", "Run Sniprun" },
     f = { "<cmd>IronFocus<cr>", "Focus REPL" },
     h = { "<cmd>IronHide<cr>", "Hide REPL" },
     c = {
