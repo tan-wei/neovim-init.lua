@@ -5,7 +5,10 @@ local M = {
 
 M.config = function()
   require("colorizer").setup {
-    filetypes = { "lua" },
+    filetypes = {
+      "lua",
+      markdown = { names = false }
+    },
   }
 
   -- execute colorizer as soon as possible
