@@ -90,6 +90,10 @@ M.config = function()
     return "session: " .. auto_session.current_session_name()
   end
 
+  local colorscheme = function()
+    return "colorscheme: " .. vim.g.colors_name
+  end
+
   local config = {
     options = {
       icons_enabled = true,
@@ -103,7 +107,7 @@ M.config = function()
       lualine_a = { branch, diagnostics },
       lualine_b = { mode },
       lualine_c = { session, "lsp_progress" },
-      lualine_x = { "overseer", diff, spaces, "encoding", filetype },
+      lualine_x = { colorscheme, "overseer", diff, spaces, "encoding", filetype },
       lualine_y = { location },
       lualine_z = { progress },
     },
