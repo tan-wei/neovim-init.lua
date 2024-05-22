@@ -1,6 +1,7 @@
 local M = {
   "kosayoda/nvim-lightbulb",
   event = "LspAttach",
+  enabled = false,
 }
 
 M.opts = {
