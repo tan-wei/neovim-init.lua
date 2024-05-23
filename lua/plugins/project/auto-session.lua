@@ -107,24 +107,24 @@ M.config = function()
         end
       end,
     },
-    -- TODO: The problem is: LSP does not stop when switching CWD, and SearchSession works well
-    -- cwd_change_handling = {
-    --   restore_upcoming_session = true,
-    --   pre_cwd_changed_hook = function()
-    --     vim.notify "pre_cwd_changed_hook"
-    --     vim.lsp.inlay_hint.enable(0, false)
-    --     vim.defer_fn(function()
-    --       vim.cmd "LspStop"
-    --     end, 0)
-    --   end,
-    --   post_cwd_changed_hook = function()
-    --     vim.notify "post_cwd_changed_hook"
-    --     require("lualine").refresh()
-    --     vim.defer_fn(function()
-    --       vim.cmd "filetype detect"
-    --     end, 1000)
-    --   end,
-    -- },
+
+    cwd_change_handling = {
+      restore_upcoming_session = true,
+      pre_cwd_changed_hook = function()
+        vim.notify "pre_cwd_changed_hook"
+
+        vim.defer_fn(function()
+          vim.cmd "LspStop"
+        end, 0)
+      end,
+      post_cwd_changed_hook = function()
+        vim.notify "post_cwd_changed_hook"
+        require("lualine").refresh()
+        vim.defer_fn(function()
+          vim.cmd "filetype detect"
+        end, 1000)
+      end,
+    },
   }
 
   -- Workaround for nvim-tree, see here: https://github.com/nvim-tree/nvim-tree.lua/wiki/Recipes
