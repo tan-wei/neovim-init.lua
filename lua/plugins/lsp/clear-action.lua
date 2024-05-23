@@ -3,8 +3,7 @@ local M = {
   event = "LspAttach",
 }
 
-
-M.config = {
+M.opts = {
   signs = {
     position = "eol",
     show_label = true,
