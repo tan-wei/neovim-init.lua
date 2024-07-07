@@ -109,8 +109,7 @@ M.config = function()
     },
 
     cwd_change_handling = {
-      -- TODO: Disable because the issue here: https://github.com/rmagatti/auto-session/issues/299
-      restore_upcoming_session = false,
+      restore_upcoming_session = true,
       pre_cwd_changed_hook = function()
         vim.notify "pre_cwd_changed_hook"
 
