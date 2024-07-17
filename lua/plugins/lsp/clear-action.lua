@@ -11,7 +11,7 @@ M.opts = {
   },
   popup = {
     enable = false,
-  }
+  },
 }
 
 return M

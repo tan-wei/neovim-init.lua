@@ -29,4 +29,3 @@ M.is_linux = function()
 end
 
 return M
-

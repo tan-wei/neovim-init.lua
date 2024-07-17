@@ -29,7 +29,7 @@ local M = {
     "CBcline",
     "CBrline",
     "CBcatalog",
-    "CBcbox"
+    "CBcbox",
   },
 }
 

@@ -24,7 +24,7 @@ M.config = function()
         error = "Error",
       },
       fire_event = { "CursorHold", "CursorHoldI" },
-    }
+    },
   }
 end
 

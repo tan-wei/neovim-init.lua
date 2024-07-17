@@ -7,7 +7,7 @@ M.config = function()
   require("colorizer").setup {
     filetypes = {
       "lua",
-      markdown = { names = false }
+      markdown = { names = false },
     },
   }
 

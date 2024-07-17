@@ -9,7 +9,7 @@ M.config = function()
     current_only = true,
     signs_on_startup = { "all" },
     diagnostics_severities = { vim.diagnostic.severity.ERROR },
-    mode = 'proper',
+    mode = "proper",
   }
 
   require("scrollview.contrib.gitsigns").setup {

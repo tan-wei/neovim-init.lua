@@ -2,7 +2,7 @@ local M = {
   "cbochs/portal.nvim",
   dependencies = {
     "cbochs/grapple.nvim",
-    "ThePrimeagen/harpoon"
+    "ThePrimeagen/harpoon",
   },
   cmd = { "Portal" },
 }

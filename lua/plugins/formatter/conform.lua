@@ -56,7 +56,7 @@ M.config = function()
         stdin = true,
         exit_codes = { 0 },
         inherit = true,
-      }
+      },
     },
   }
 end
