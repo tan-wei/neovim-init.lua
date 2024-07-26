@@ -182,10 +182,25 @@ M.which_key_leader_mapping = {
     "Jump",
     b = { "<cmd>Portal jumplist backward<cr>", "jump Backward" },
     f = { "<cmd>Portal jumplist forward<cr>", "jump Forward" },
-    l = {
+    c = {
       "+Changelist",
       b = { "<cmd>Portal changelist backward<cr>", "jump ChangeList Backward" },
-      f = { "<cmd>Portal changelist forward<cr>", "jump ChangeList Backward" },
+      f = { "<cmd>Portal changelist forward<cr>", "jump ChangeList Forward" },
+    },
+    g = {
+      "+Grapple",
+      b = { "<cmd>Portal grapple backward<cr>", "jump Grapple Backward" },
+      f = { "<cmd>Portal grapple forward<cr>", "jump Grapple Forward" },
+    },
+    h = {
+      "+Harpoon",
+      b = { "<cmd>Portal harpoon backward<cr>", "jump Harpoon Backward" },
+      f = { "<cmd>Portal harpoon forward<cr>", "jump Harpoon Forward" },
+    },
+    q = {
+      "+Quickfix",
+      b = { "<cmd>Portal quickfix backward<cr>", "jump Quickfix Backward" },
+      f = { "<cmd>Portal quickfix forward<cr>", "jump Quickfix Forward" },
     },
   },
   K = {},
