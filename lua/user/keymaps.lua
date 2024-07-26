@@ -181,7 +181,11 @@ M.which_key_leader_mapping = {
   j = {},
   K = {},
   k = {},
-  L = {},
+  L = {
+    name = "Line",
+    d = { "<cmd>Linediff<cr>", "line Different selection" },
+    r = { "<cmd>LinediffReset<cr>", "line different Reset" },
+  },
   l = {
     name = "LSP",
     a = { "<cmd>lua require('actions-preview').code_actions()<cr>", "Code Action" },
