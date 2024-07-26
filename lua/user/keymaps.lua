@@ -98,7 +98,14 @@ end
 
 M.which_key_leader_mapping = {
   A = { "<cmd>Alpha<cr>", "Alpha" },
-  a = {},
+  a = {
+    name = "Add new temporary file",
+    n = { "<cmd>lua require('attempt').new_select()<cr>", "New with selecting extension" },
+    i = { "<cmd>lua require('attempt').new_input_ext()<cr>", "new with Inputing extension" },
+    r = { "<cmd>lua require('attempt').run()<cr>", "Run temporary buffer" },
+    d = { "<cmd>lua require('attempt').delete_buf()<cr>", "Delete temporary buffer" },
+    c = { "<cmd>lua require('attempt').rename_buf()<cr>", "Rename temporary buffer" },
+  },
   B = {},
   b = {
     name = "Buffers",
