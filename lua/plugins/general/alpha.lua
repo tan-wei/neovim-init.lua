@@ -22,7 +22,7 @@ M.config = function()
     dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
     dashboard.button("p", "  Find project", ":Telescope projects <CR>"),
     dashboard.button("r", "  Recently used files", ":Telescope oldfiles <CR>"),
-    -- dashboard.button("z", "  Recently directories", ":Telescope zoxide list <CR>"),
+    dashboard.button("z", "  Recently directories", ":Telescope zoxide list <CR>"),
     dashboard.button("s", "󱌣  Session Lens", ":Telescope session-lens <CR>"),
     dashboard.button("t", "󱎸  Find text", ":Telescope live_grep <CR>"),
     dashboard.button("c", "  Configuration", ":e $MYVIMRC <CR>"),
