@@ -178,7 +178,11 @@ M.which_key_leader_mapping = {
   I = {},
   i = {},
   J = {},
-  j = {},
+  j = {
+    "Jump",
+    b = { "<cmd>Portal jumplist backward<cr>", "jump Backward" },
+    f = { "<cmd>Portal jumplist forward<cr>", "jump Forward" },
+  },
   K = {},
   k = {},
   L = {
