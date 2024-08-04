@@ -8,131 +8,83 @@ M.config = function()
   wk.setup()
 
   wk.add {
-    { "<leader>f", group = "file" }, -- group
-    { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
+    -- A --
+    { "<leader>A", "<cmd>Alpha<cr>", desc = "Alpha", mode = "n" },
+
+    -- a --
+    { "<leader>a", group = "add" },
     {
-      "<leader>fb",
-      function()
-        print "hello"
-      end,
-      desc = "Foobar",
+      "<leader>an",
+      "<cmd>lua require('attempt').new_select()<cr>",
+      desc = "New with selecting extension",
+      mode = "n",
     },
-    { "<leader>fn", desc = "New File" },
-    { "<leader>f1", hidden = true }, -- hide this keymap
-    { "<leader>w", proxy = "<c-w>", group = "windows" }, -- proxy to window mappings
     {
-      "<leader>b",
-      group = "buffers",
+      "<leader>ai",
+      "<cmd>lua require('attempt').new_input_ext()<cr>",
+      desc = "new with Inputing extension",
+      mode = "n",
+    },
+    { "<leader>ar", "<cmd>lua require('attempt').run()<cr>", desc = "Run temporary buffer", mode = "n" },
+    { "<leader>ad", "<cmd>lua require('attempt').delete_buf()<cr>", desc = "Delete temporary buffer", mode = "n" },
+    { "<leader>ae", "<cmd>lua require('attempt').rename_buf()<cr>", desc = "rEname temporary buffer", mode = "n" },
+
+    -- B --
+    {
+      "<leader>B",
+      group = "Buffers",
       expand = function()
         return require("which-key.extras").expand.buf()
       end,
     },
-    {
-      -- Nested mappings are allowed and can be added in any order
-      -- Most attributes can be inherited or overridden on any level
-      -- There's no limit to the depth of nesting
-      mode = { "n", "v" }, -- NORMAL and VISUAL mode
-      { "<leader>q", "<cmd>q<cr>", desc = "Quit" }, -- no need to specify mode since it's inherited
-      { "<leader>w", "<cmd>w<cr>", desc = "Write" },
-    },
+
+    -- b --
+    { "<leader>b", group = "buffer", mode = "n" },
+    { "<leader>bb", "<cmd>BufferLineCyclePrev<cr>", desc = "previous buffer", mode = "n" },
+    { "<leader>bn", "<cmd>BufferLineCycleNext<cr>", desc = "next buffer", mode = "n" },
+    { "<leader>bi", "<cmd>lua require 'ibl'.setup_buffer(0, { enabled = false })<cr>", desc = "disable Indent-blankline", mode = "n" },
+    { "<leader>bI", "<cmd>lua require 'ibl'.setup_buffer(0, { enabled = true })<cr>", desc = "enable Indent-blankline", mode = "n" },
+    { "<leader>bp", "<cmd>BufferLinePick<cr>", desc = "Pick buffer", mode = "n" },
+    { "<leader>bP", "<cmd>BufferLinePickClose<cr>", desc = "close Pick buffer", mode = "n" },
+    { "<leader>bf", "<cmd>Telescope buffers previewer=false<cr>", desc = "Find buffer", mode = "n" },
+
+    -- { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
+    -- {
+    --   "<leader>fb",
+    --   function()
+    --     print "hello"
+    --   end,
+    --   desc = "Foobar",
+    -- },
+    -- { "<leader>fn", desc = "New File" },
+    -- { "<leader>f1", hidden = true }, -- hide this keymap
+    -- { "<leader>w", proxy = "<c-w>", group = "windows" }, -- proxy to window mappings
+    -- {
+    --   "<leader>b",
+    --   group = "buffers",
+    --   expand = function()
+    --     return require("which-key.extras").expand.buf()
+    --   end,
+    -- },
+    -- {
+    --   -- Nested mappings are allowed and can be added in any order
+    --   -- Most attributes can be inherited or overridden on any level
+    --   -- There's no limit to the depth of nesting
+    --   mode = { "n", "v" }, -- NORMAL and VISUAL mode
+    --   { "<leader>q", "<cmd>q<cr>", desc = "Quit" }, -- no need to specify mode since it's inherited
+    --   { "<leader>w", "<cmd>w<cr>", desc = "Write" },
+    -- },
   }
 end
 
 -- M.config = function()
 --   local which_key = require "which-key"
 
---   local setup = {
---     plugins = {
---       marks = true, -- shows a list of your marks on ' and `
---       registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
---       spelling = {
---         enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
---         suggestions = 20, -- how many suggestions should be shown in the list?
---       },
---       -- the presets plugin, adds help for a bunch of default keybindings in Neovim
---       -- No actual key bindings are created
---       presets = {
---         operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
---         motions = true, -- adds help for motions
---         text_objects = true, -- help for text objects triggered after entering an operator
---         windows = true, -- default bindings on <c-w>
---         nav = true, -- misc bindings to work with windows
---         z = true, -- bindings for folds, spelling and others prefixed with z
---         g = true, -- bindings for prefixed with g
---       },
---     },
---     -- add operators that will trigger motion and text object completion
---     -- to enable all native operators, set the preset / operators plugin above
---     -- operators = { gc = "Comments" },
---     key_labels = {
---       -- override the label used to display some keys. It doesn't effect WK in any other way.
---       -- For example:
---       -- ["<space>"] = "SPC",
---       -- ["<cr>"] = "RET",
---       -- ["<tab>"] = "TAB",
---     },
---     icons = {
---       breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
---       separator = "➜", -- symbol used between a key and it's label
---       group = "+", -- symbol prepended to a group
---     },
---     popup_mappings = {
---       scroll_down = "<c-d>", -- binding to scroll down inside the popup
---       scroll_up = "<c-u>", -- binding to scroll up inside the popup
---     },
---     window = {
---       border = "rounded", -- none, single, double, shadow
---       position = "bottom", -- bottom, top
---       margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
---       padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
---       winblend = 0,
---     },
---     layout = {
---       height = { min = 4, max = 25 }, -- min and max height of the columns
---       width = { min = 20, max = 50 }, -- min and max width of the columns
---       spacing = 3, -- spacing between columns
---       align = "left", -- align columns left, center or right
---     },
---     ignore_missing = true, -- enable this to hide mappings for which you didn't specify a label
---     hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
---     show_help = true, -- show help message on the command line when the popup is visible
---     triggers = "auto", -- automatically setup triggers
---     -- triggers = {"<leader>"} -- or specify a list manually
---     triggers_blacklist = {
---       -- list of mode / prefixes that should never be hooked by WhichKey
---       -- this is mostly relevant for key maps that start with a native binding
---       -- most people should not need to change this
---       i = { "j", "k" },
---       v = { "j", "k" },
---     },
---   }
---   which_key.setup(setup)
-
 --   which_key.register({
---     A = { "<cmd>Alpha<cr>", "Alpha" },
---     a = {
---       name = "Add new temporary file",
---       n = { "<cmd>lua require('attempt').new_select()<cr>", "New with selecting extension" },
---       i = { "<cmd>lua require('attempt').new_input_ext()<cr>", "new with Inputing extension" },
---       r = { "<cmd>lua require('attempt').run()<cr>", "Run temporary buffer" },
---       d = { "<cmd>lua require('attempt').delete_buf()<cr>", "Delete temporary buffer" },
---       c = { "<cmd>lua require('attempt').rename_buf()<cr>", "Rename temporary buffer" },
---     },
---     B = {},
 --     b = {
 --       name = "Buffers",
---       i = { "<cmd>lua require 'ibl'.setup_buffer(0, { enabled = false })<cr>", "Disable indent-blankline" },
---       I = { "<cmd>lua require 'ibl'.setup_buffer(0, { enabled = true })<cr>", "Enable indent-blankline" },
---       j = { "<cmd>BufferLinePick<cr>", "Jump" },
---       f = { "<cmd>Telescope buffers previewer=false<cr>", "Find" },
---       b = { "<cmd>BufferLineCyclePrev<cr>", "Previous" },
---       n = { "<cmd>BufferLineCycleNext<cr>", "Next" },
 --       W = { "<cmd>noautocmd w<cr>", "Save without formatting (noautocmd)" },
 --       -- w = { "<cmd>BufferWipeout<cr>", "Wipeout" }, -- TODO: implement this for bufferline
---       e = {
---         "<cmd>BufferLinePickClose<cr>",
---         "Pick which buffer to close",
---       },
 --       h = { "<cmd>BufferLineCloseLeft<cr>", "Close all to the left" },
 --       l = { "<cmd>BufferLineCloseRight<cr>", "Close all to the right" },
 --       D = {
