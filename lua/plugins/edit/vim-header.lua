@@ -13,6 +13,7 @@ M.init = function()
   vim.g.header_field_timestamp = 1
   vim.g.header_field_timestamp_format = "%Y-%m-%d %H:%M:%S"
   vim.g.header_field_modified_by = 1
+  vim.g.header_alignment = 1
 end
 
 return M
