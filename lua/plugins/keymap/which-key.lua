@@ -42,11 +42,46 @@ M.config = function()
     { "<leader>b", group = "buffer", mode = "n" },
     { "<leader>bb", "<cmd>BufferLineCyclePrev<cr>", desc = "previous buffer", mode = "n" },
     { "<leader>bn", "<cmd>BufferLineCycleNext<cr>", desc = "next buffer", mode = "n" },
-    { "<leader>bi", "<cmd>lua require 'ibl'.setup_buffer(0, { enabled = false })<cr>", desc = "disable Indent-blankline", mode = "n" },
-    { "<leader>bI", "<cmd>lua require 'ibl'.setup_buffer(0, { enabled = true })<cr>", desc = "enable Indent-blankline", mode = "n" },
+    {
+      "<leader>bi",
+      "<cmd>lua require 'ibl'.setup_buffer(0, { enabled = false })<cr>",
+      desc = "disable Indent-blankline",
+      mode = "n",
+    },
+    { "<leader>bc", "<cmd>Bdelete!<cr>", desc = "Close buffer", mode = "n" },
+    {
+      "<leader>bI",
+      "<cmd>lua require 'ibl'.setup_buffer(0, { enabled = true })<cr>",
+      desc = "enable Indent-blankline",
+      mode = "n",
+    },
     { "<leader>bp", "<cmd>BufferLinePick<cr>", desc = "Pick buffer", mode = "n" },
     { "<leader>bP", "<cmd>BufferLinePickClose<cr>", desc = "close Pick buffer", mode = "n" },
     { "<leader>bf", "<cmd>Telescope buffers previewer=false<cr>", desc = "Find buffer", mode = "n" },
+    { "<leader>bh", "<cmd>BufferLineCloseLeft<cr>", desc = "close all to the left", mode = "n" },
+    { "<leader>bl", "<cmd>BufferLineCloseRight<cr>", desc = "close all to the right", mode = "n" },
+    {
+      "<leader>bm",
+      "<cmd>lua require('buffer_manager.ui').toggle_quick_menu()<cr>",
+      desc = "toggle quick Menu",
+      mode = "n",
+    },
+    { "<leader>bsd", "<cmd>BufferLineSortByDirectory<cr>", desc = "buffer Sort by Directory", mode = "n" },
+    { "<leader>bsl", "<cmd>BufferLineSortByExtension<cr>", desc = "buffer Sort by Language", mode = "n" },
+    { "<leader>bst", "<cmd>BufferLineSortByTabs<cr>", desc = "buffer Sort by Tabs", mode = "n" },
+    {
+      "<leader>bsr",
+      "<cmd>BufferLineSortByRelativeDirectory<cr>",
+      desc = "buffer Sort by Relative directory",
+      mode = "n",
+    },
+    -- C --
+
+    -- c --
+
+    -- D --
+
+    -- d --
 
     -- { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
     -- {
@@ -85,26 +120,11 @@ end
 --       name = "Buffers",
 --       W = { "<cmd>noautocmd w<cr>", "Save without formatting (noautocmd)" },
 --       -- w = { "<cmd>BufferWipeout<cr>", "Wipeout" }, -- TODO: implement this for bufferline
---       h = { "<cmd>BufferLineCloseLeft<cr>", "Close all to the left" },
---       l = { "<cmd>BufferLineCloseRight<cr>", "Close all to the right" },
---       D = {
---         "<cmd>BufferLineSortByDirectory<cr>",
---         "Sort by directory",
---       },
---       L = {
---         "<cmd>BufferLineSortByExtension<cr>",
---         "Sort by language",
---       },
---       t = {
---         "<cmd>lua require('buffer_manager.ui').toggle_quick_menu()<cr>",
---         "Toggle quick menu",
---       },
 --     },
 --     C = {
 --       name = "Commet Box",
 --       -- TODO
 --     },
---     c = { "<cmd>Bdelete!<CR>", "Close Buffer" },
 --     D = {},
 --     d = { "<cmd>lua require('dropbar.api').pick()<cr>", "Dropbar pick" },
 --     E = {},
