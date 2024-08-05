@@ -82,6 +82,9 @@ M.config = function()
     -- D --
 
     -- d --
+    { "<leader>d", "<cmd>lua require('dropbar.api').pick()<cr>", desc = "Dropbar pick", mode = "n" },
+
+    -- E --
 
     -- { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
     -- {
@@ -125,8 +128,6 @@ end
 --       name = "Commet Box",
 --       -- TODO
 --     },
---     D = {},
---     d = { "<cmd>lua require('dropbar.api').pick()<cr>", "Dropbar pick" },
 --     E = {},
 --     e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
 --     F = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
