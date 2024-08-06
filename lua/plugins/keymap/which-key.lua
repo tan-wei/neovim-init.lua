@@ -86,6 +86,9 @@ M.config = function()
 
     -- E --
 
+    -- e --
+    { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "toggle nvim-tree.lua Explorer", mode = "n" },
+
     -- { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
     -- {
     --   "<leader>fb",
@@ -128,8 +131,6 @@ end
 --       name = "Commet Box",
 --       -- TODO
 --     },
---     E = {},
---     e = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
 --     F = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
 --     f = {
 --       "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>",
