@@ -21,6 +21,7 @@ M.config = function()
     "marksman",
     "cmake",
     "ltex",
+    "solargraph",
   }
 
   local settings = {
