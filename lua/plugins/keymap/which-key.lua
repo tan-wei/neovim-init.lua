@@ -104,6 +104,55 @@ M.config = function()
 
     -- g --
     { "<leader>g", group = "git", mode = "n" },
+    { "<leader>gB", "<cmd>lua require 'gitsigns'.blame_line()<cr>", desc = "Blame", mode = "n" },
+    { "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "checkout Branch", mode = "n" },
+    { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "checkout Commit", mode = "n" },
+    { "<leader>gd", "<cmd>Gitsigns diffthis HEAD<cr>", desc = "Diff", mode = "n" },
+    { "<leader>gl", "<cmd>lua _LAZYGIT_TOGGLE()<cr>", desc = "Lazygit", mode = "n" },
+    { "<leader>gj", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", desc = "next hunk", mode = "n" },
+    { "<leader>gk", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", desc = "previous hunk", mode = "n" },
+    { "<leader>gp", "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", desc = "Preview hunk", mode = "n" },
+    { "<leader>gr", "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", desc = "Reset hunk", mode = "n" },
+    { "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", desc = "Reset buffer", mode = "n" },
+    { "<leader>gs", "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", desc = "Stage hunk", mode = "n" },
+    { "<leader>gu", "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", desc = "Undo stage hunk", mode = "n" },
+    { "<leader>go", "<cmd>Telescope git_status<cr>", desc = "Open changed file", mode = "n" },
+
+    -- H --
+
+    -- h --
+    { "<leader>h", "<cmd>nohlsearch<cr>", desc = "no Highlight search", mode = "n" },
+
+    -- I --
+
+    -- i --
+
+    -- J --
+
+    -- j --
+    { "<leader>j", group = "jump", mode = "n" },
+    { "<leader>jj", "<cmd>Portal jumplist forward<cr>", desc = "jump forward", mode = "n" },
+    { "<leader>jk", "<cmd>Portal jumplist backward<cr>", desc = "jump backward", mode = "n" },
+    { "<leader>jcj", "<cmd>Portal changelist forward<cr>", desc = "jump Changelist forward", mode = "n" },
+    { "<leader>jck", "<cmd>Portal changelist backward<cr>", desc = "jump Changelist backward", mode = "n" },
+    { "<leader>jgj", "<cmd>Portal grapple forward<cr>", desc = "jump Grapple forward", mode = "n" },
+    { "<leader>jgk", "<cmd>Portal grapple backward<cr>", desc = "jump Grapple backward", mode = "n" },
+    { "<leader>jhj", "<cmd>Portal harpoon forward<cr>", desc = "jump Harpoon forward", mode = "n" },
+    { "<leader>jhk", "<cmd>Portal harpoon backward<cr>", desc = "jump Harpoon backward", mode = "n" },
+    { "<leader>jqj", "<cmd>Portal quickfix forward<cr>", desc = "jump Quickfix forward", mode = "n" },
+    { "<leader>jqk", "<cmd>Portal quickfix backward<cr>", desc = "jump Quickfix backward", mode = "n" },
+
+    -- K --
+
+    -- k --
+
+    -- L --
+    { "<leader>L", group = "line", mode = "n" },
+    { "<leader>Ld", "<cmd>Linediff<cr>", desc = "line Different selection", mode = "n" },
+    { "<leader>Lr", "<cmd>LinediffReset<cr>", desc = "line different Reset", mode = "n" },
+
+    -- l --
+    { "<leader>l", group = "lsp", mode = "n" },
 
     -- { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
     -- {
@@ -147,66 +196,7 @@ end
 --       name = "Commet Box",
 --       -- TODO
 --     },
---     G = {},
---     g = {
---       name = "Git",
---       g = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
---       j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
---       k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
---       l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
---       p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
---       r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
---       R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
---       s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
---       u = {
---         "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>",
---         "Undo Stage Hunk",
---       },
---       o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
---       b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
---       c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
---       d = {
---         "<cmd>Gitsigns diffthis HEAD<cr>",
---         "Diff",
---       },
---     },
---     H = {},
---     h = { "<cmd>nohlsearch<CR>", "No Highlight" },
---     I = {},
---     i = {},
---     J = {},
---     j = {
---       "Jump",
---       b = { "<cmd>Portal jumplist backward<cr>", "jump Backward" },
---       f = { "<cmd>Portal jumplist forward<cr>", "jump Forward" },
---       c = {
---         "+Changelist",
---         b = { "<cmd>Portal changelist backward<cr>", "jump ChangeList Backward" },
---         f = { "<cmd>Portal changelist forward<cr>", "jump ChangeList Forward" },
---       },
---       g = {
---         "+Grapple",
---         b = { "<cmd>Portal grapple backward<cr>", "jump Grapple Backward" },
---         f = { "<cmd>Portal grapple forward<cr>", "jump Grapple Forward" },
---       },
---       h = {
---         "+Harpoon",
---         b = { "<cmd>Portal harpoon backward<cr>", "jump Harpoon Backward" },
---         f = { "<cmd>Portal harpoon forward<cr>", "jump Harpoon Forward" },
---       },
---       q = {
---         "+Quickfix",
---         b = { "<cmd>Portal quickfix backward<cr>", "jump Quickfix Backward" },
---         f = { "<cmd>Portal quickfix forward<cr>", "jump Quickfix Forward" },
---       },
---     },
---     K = {},
---     k = {},
---     L = {
---       name = "Line",
---       d = { "<cmd>Linediff<cr>", "line Different selection" },
---       r = { "<cmd>LinediffReset<cr>", "line different Reset" },
---     },
+
 --     l = {
 --       name = "LSP",
 --       a = { "<cmd>lua require('actions-preview').code_actions()<cr>", "Code Action" },
