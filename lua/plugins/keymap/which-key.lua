@@ -203,14 +203,26 @@ M.config = function()
 
     -- p --
     { "<leader>p", group = "plugins", mode = "n" },
-    { "<leader>pi", "<cmd><cmd>Lazy install<cr>", desc = "Install", mode = "n" },
-    { "<leader>ps", "<cmd><cmd>Lazy sync<cr>", desc = "Sync", mode = "n" },
-    { "<leader>pr", "<cmd><cmd>Lazy claer<cr>", desc = "cleaR", mode = "n" },
-    { "<leader>pc", "<cmd><cmd>Lazy clean<cr>", desc = "Clean", mode = "n" },
-    { "<leader>pu", "<cmd><cmd>Lazy update<cr>", desc = "Update", mode = "n" },
-    { "<leader>pp", "<cmd><cmd>Lazy profile<cr>", desc = "Profile", mode = "n" },
-    { "<leader>pl", "<cmd><cmd>Lazy log<cr>", desc = "Log", mode = "n" },
-    { "<leader>pd", "<cmd><cmd>Lazy debug<cr>", desc = "Debug", mode = "n" },
+    { "<leader>pi", "<cmd>Lazy install<cr>", desc = "Install", mode = "n" },
+    { "<leader>ps", "<cmd>Lazy sync<cr>", desc = "Sync", mode = "n" },
+    { "<leader>pr", "<cmd>Lazy claer<cr>", desc = "cleaR", mode = "n" },
+    { "<leader>pc", "<cmd>Lazy clean<cr>", desc = "Clean", mode = "n" },
+    { "<leader>pu", "<cmd>Lazy update<cr>", desc = "Update", mode = "n" },
+    { "<leader>pp", "<cmd>Lazy profile<cr>", desc = "Profile", mode = "n" },
+    { "<leader>pl", "<cmd>Lazy log<cr>", desc = "Log", mode = "n" },
+    { "<leader>pd", "<cmd>Lazy debug<cr>", desc = "Debug", mode = "n" },
+
+    -- Q --
+
+    -- q --
+
+    -- R --
+    { "<leader>R", group = "repl", mode = "n" },
+    { "<leader>Rr", "<cmd>IronRepl<cr>", desc = "Run repl", mode = "n" },
+    { "<leader>Rs", "<cmd>IronRestart<cr>", desc = "reStart repl", mode = "n" },
+    { "<leader>RS", "<cmd>SnipRun<cr>", desc = "Sniprun", mode = "n" },
+    { "<leader>Rf", "<cmd>IronFocus<cr>", desc = "Focus repl", mode = "n" },
+    { "<leader>Rh", "<cmd>IronHide<cr>", desc = "Hide repl", mode = "n" },
 
     -- { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
     -- {
@@ -263,15 +275,8 @@ end
 --         "Workspace Diagnostics",
 --       },
 --     },
---     Q = {},
---     q = {},
 --     R = {
 --       name = "REPL",
---       r = { "<cmd>IronRepl<cr>", "Run Repl" },
---       s = { "<cmd>IronRestart<cr>", "reStart Repl" },
---       S = { "<cmd>SnipRun<cr>", "Run Sniprun" },
---       f = { "<cmd>IronFocus<cr>", "Focus REPL" },
---       h = { "<cmd>IronHide<cr>", "Hide REPL" },
 --       c = {
 --         function()
 --           require("iron.core").send_file()
