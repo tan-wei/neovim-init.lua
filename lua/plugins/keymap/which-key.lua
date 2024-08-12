@@ -173,15 +173,25 @@ M.config = function()
 
     -- M --
     { "<leader>M", group = "marks", mode = "n" },
-    { "<leader>Mg", "<cmd>lua require('grapple').toggle()<cr>", desc = "toGgle grapple with annonymous tag", mode = "n" },
-    { "<leader>Mj", "<cmd>lua require('grapple').select({key = '{name}'})<cr>", desc = "select grapple tag", mode = "n" },
+    {
+      "<leader>Mg",
+      "<cmd>lua require('grapple').toggle()<cr>",
+      desc = "toGgle grapple with annonymous tag",
+      mode = "n",
+    },
+    {
+      "<leader>Mj",
+      "<cmd>lua require('grapple').select({key = '{name}'})<cr>",
+      desc = "select grapple tag",
+      mode = "n",
+    },
     { "<leader>Ms", "<cmd>lua require('grapple').popup_scopes()<cr>", desc = "open the Scopes popup menu", mode = "n" },
     { "<leader>Mt", "<cmd>lua require('grapple').popup_tags()<cr>", desc = "open the Tags popup menu", mode = "n" },
 
     -- m --
 
     -- N --
-    
+
     -- n --
 
     -- O --
