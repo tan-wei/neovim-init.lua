@@ -199,6 +199,18 @@ M.config = function()
     -- o --
 
     -- P --
+    { "<leader>P", "<cmd>lua require('telescope').extensions.projects.projects()<cr>", desc = "Projects", mode = "n" },
+
+    -- p --
+    { "<leader>p", group = "plugins", mode = "n" },
+    { "<leader>pi", "<cmd><cmd>Lazy install<cr>", desc = "Install", mode = "n" },
+    { "<leader>ps", "<cmd><cmd>Lazy sync<cr>", desc = "Sync", mode = "n" },
+    { "<leader>pr", "<cmd><cmd>Lazy claer<cr>", desc = "cleaR", mode = "n" },
+    { "<leader>pc", "<cmd><cmd>Lazy clean<cr>", desc = "Clean", mode = "n" },
+    { "<leader>pu", "<cmd><cmd>Lazy update<cr>", desc = "Update", mode = "n" },
+    { "<leader>pp", "<cmd><cmd>Lazy profile<cr>", desc = "Profile", mode = "n" },
+    { "<leader>pl", "<cmd><cmd>Lazy log<cr>", desc = "Log", mode = "n" },
+    { "<leader>pd", "<cmd><cmd>Lazy debug<cr>", desc = "Debug", mode = "n" },
 
     -- { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
     -- {
@@ -250,18 +262,6 @@ end
 --         "<cmd>Telescope diagnostics<cr>",
 --         "Workspace Diagnostics",
 --       },
---     },
---     P = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
---     p = {
---       name = "Plugins",
---       i = { "<cmd>Lazy install<cr>", "Install" },
---       s = { "<cmd>Lazy sync<cr>", "Sync" },
---       S = { "<cmd>Lazy clear<cr>", "Status" },
---       c = { "<cmd>Lazy clean<cr>", "Clean" },
---       u = { "<cmd>Lazy update<cr>", "Update" },
---       p = { "<cmd>Lazy profile<cr>", "Profile" },
---       l = { "<cmd>Lazy log<cr>", "Log" },
---       d = { "<cmd>Lazy debug<cr>", "Debug" },
 --     },
 --     Q = {},
 --     q = {},
