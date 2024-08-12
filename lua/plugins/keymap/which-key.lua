@@ -78,6 +78,7 @@ M.config = function()
     -- C --
 
     -- c --
+    { "<leader>c", "<cmd>Bdelete!<cr>", desc = "Close current buffer", mode = "n" },
 
     -- D --
 
@@ -153,6 +154,22 @@ M.config = function()
 
     -- l --
     { "<leader>l", group = "lsp", mode = "n" },
+    { "<leader>la", "<cmd>lua require('actions-preview').code_actions()<cr>", desc = "code Action", mode = "n" },
+    { "<leader>ld", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics", mode = "n" },
+    { "<leader>lD", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document symbols", mode = "n" },
+    { "<leader>lf", "<cmd>FormatEnable<cr>", desc = "enable Format", mode = "n" },
+    { "<leader>lF", "<cmd>FormatDisable!<cr>", desc = "disable Format", mode = "n" },
+    { "<leader>lh", "<cmd>lua vim.lsp.buf.hover()<cr>", desc = "Hover", mode = "n" },
+    { "<leader>li", "<cmd>LspInfo<cr>", desc = "LSP Information", mode = "n" },
+    { "<leader>lI", "<cmd>LspInstallInfo<cr>", desc = "LSP install Information", mode = "n" },
+    { "<leader>lj", "<cmd>lua vim.diagnostic.goto_next()<cr>", desc = "next diagostic", mode = "n" },
+    { "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "previous diagostic", mode = "n" },
+    { "<leader>ll", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "codeLens action", mode = "n" },
+    { "<leader>lo", "<cmd>SymbolsOutline<cr>", desc = "toggle symbols Outline", mode = "n" },
+    { "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Quickfix", mode = "n" },
+    { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename", mode = "n" },
+    { "<leader>ls", "<cmd>lua require('lsp_signature').toggle_float_win()<cr>", desc = "toggle Signature", mode = "n" },
+    { "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "workspace Symbols", mode = "n" },
 
     -- { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
     -- {
@@ -199,38 +216,10 @@ end
 
 --     l = {
 --       name = "LSP",
---       a = { "<cmd>lua require('actions-preview').code_actions()<cr>", "Code Action" },
 --       c = { "<cmd>lua require('treesitter-context').go_to_context()<cr>", "Jump to context" },
---       d = {
---         "<cmd>Telescope diagnostics bufnr=0<cr>",
---         "Document Diagnostics",
---       },
---       D = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
 --       w = {
 --         "<cmd>Telescope diagnostics<cr>",
 --         "Workspace Diagnostics",
---       },
---       f = { "<cmd>FormatEnable<cr>", "Enable Format" },
---       F = { "<cmd>FormatDisable!<cr>", "Disable Format" },
---       h = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover" },
---       i = { "<cmd>LspInfo<cr>", "Info" },
---       I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
---       j = {
---         "<cmd>lua vim.diagnostic.goto_next()<CR>",
---         "Next Diagnostic",
---       },
---       k = {
---         "<cmd>lua vim.diagnostic.goto_prev()<cr>",
---         "Prev Diagnostic",
---       },
---       l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
---       o = { "<cmd>SymbolsOutline<cr>", "Symbols Outline " },
---       q = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Quickfix" },
---       r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
---       s = { "<cmd>lua require('lsp_signature').toggle_float_win()<cr>", "Toggle Signature" },
---       S = {
---         "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
---         "Workspace Symbols",
 --       },
 --     },
 --     M = {
