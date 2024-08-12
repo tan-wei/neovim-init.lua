@@ -171,6 +171,25 @@ M.config = function()
     { "<leader>ls", "<cmd>lua require('lsp_signature').toggle_float_win()<cr>", desc = "toggle Signature", mode = "n" },
     { "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "workspace Symbols", mode = "n" },
 
+    -- M --
+    { "<leader>M", group = "marks", mode = "n" },
+    { "<leader>Mg", "<cmd>lua require('grapple').toggle()<cr>", desc = "toGgle grapple with annonymous tag", mode = "n" },
+    { "<leader>Mj", "<cmd>lua require('grapple').select({key = '{name}'})<cr>", desc = "select grapple tag", mode = "n" },
+    { "<leader>Ms", "<cmd>lua require('grapple').popup_scopes()<cr>", desc = "open the Scopes popup menu", mode = "n" },
+    { "<leader>Mt", "<cmd>lua require('grapple').popup_tags()<cr>", desc = "open the Tags popup menu", mode = "n" },
+
+    -- m --
+
+    -- N --
+    
+    -- n --
+
+    -- O --
+
+    -- o --
+
+    -- P --
+
     -- { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
     -- {
     --   "<leader>fb",
@@ -222,18 +241,6 @@ end
 --         "Workspace Diagnostics",
 --       },
 --     },
---     M = {
---       name = "Marks",
---       g = { "<cmd>lua require('grapple').toggle()<cr>", "Toggle grapple with annoymous tag" },
---       j = { "<cmd>lua require('grapple').select({key = '{name}'})<cr>", "Select grapple tag" },
---       s = { "<cmd>lua require('grapple').popup_scopes()<cr>", "Open the scopes popup menu" },
---       t = { "<cmd>lua require('grapple').popup_tags()<cr>", "Open the tags popup menu" },
---     },
---     m = {},
---     N = {},
---     n = {},
---     O = {},
---     o = {},
 --     P = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
 --     p = {
 --       name = "Plugins",
