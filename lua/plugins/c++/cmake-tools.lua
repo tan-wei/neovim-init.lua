@@ -54,7 +54,7 @@ M.opts = {
   },
   cmake_runner = {
     name = "toggleterm",
-  }
+  },
 }
 
 return M

@@ -5,7 +5,7 @@ local M = {
 
 M.init = function()
   vim.g.templates_no_autocmd = 0
-  vim.g.templates_directory = {vim.fn.stdpath "config" .. "/templates/vim-template/"}
+  vim.g.templates_directory = { vim.fn.stdpath "config" .. "/templates/vim-template/" }
   vim.g.templates_name_prefix = ".vim-template:"
   vim.g.templates_global_name_prefix = "=template="
   vim.g.templates_no_builtin_templates = 0

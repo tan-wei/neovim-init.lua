@@ -105,6 +105,13 @@ M.config = function()
             api.tree.toggle { focus = false, find_file = true }
           end
         end
+
+        if require("util.package").is_loaded "cmake-tools.nvim" then
+          vim.notify("Change CWD to " .. vim.fn.getcwd() .. " for cmake-tools.nvim")
+          local cmake_tools = require "cmake-tools"
+          cmake_tools.select_cwd(vim.fn.getcwd())
+          require("lualine").refresh()
+        end
       end,
     },
 
