@@ -52,6 +52,9 @@ M.opts = {
       terminal = {},
     },
   },
+  cmake_runner = {
+    name = "toggleterm",
+  }
 }
 
 return M
