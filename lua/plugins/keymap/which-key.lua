@@ -223,6 +223,129 @@ M.config = function()
     { "<leader>RS", "<cmd>SnipRun<cr>", desc = "Sniprun", mode = "n" },
     { "<leader>Rf", "<cmd>IronFocus<cr>", desc = "Focus repl", mode = "n" },
     { "<leader>Rh", "<cmd>IronHide<cr>", desc = "Hide repl", mode = "n" },
+    {
+      "<leader>Rc",
+      function()
+        require("iron.core").send_file()
+      end,
+      desc = "send Current file to repl",
+      mode = "n",
+    },
+    {
+      "<leader>Rl",
+      function()
+        require("iron.core").send_until_cursor()
+      end,
+      desc = "send the buffer from start Until the line to repl",
+      mode = "n",
+    },
+
+    -- r --
+    { "<leader>r", group = "run", mode = "n" },
+    { "<leader>rc", "<cmd>RunCode<cr>", desc = "run Code based on file type with porject if supported", mode = "n" },
+    { "<leader>rf", "<cmd>RunFile<cr>", desc = "run the current File", mode = "n" },
+    { "<leader>rs", "<cmd>RunClose<cr>", desc = "Stop runner", mode = "n" },
+
+    -- S --
+
+    -- s --
+    { "<leader>s", group = "search", mode = "n" },
+    {
+      "<leader>ss",
+      function()
+        require("flash").jump()
+      end,
+      desc = "Search",
+      mode = "n",
+    },
+    {
+      "<leader>sS",
+      function()
+        require("flash").treesitter()
+      end,
+      desc = "Search treesitter",
+      mode = "n",
+    },
+
+    -- T --
+    { "<leader>T", group = "terminal", mode = "n" },
+    { "<leader>Tf", "<cmd>ToggleTerm direction=float<cr>", desc = "terminal Float", mode = "n" },
+    { "<leader>Th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", desc = "terminal Horizontal", mode = "n" },
+    { "<leader>Tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", desc = "terminal Vertical", mode = "n" },
+
+    -- t --
+    { "<leader>t", group = "table/toc/test", mode = "n" },
+    { "<leader>tm", "<cmd>TableModeToggle<cr>", desc = "table Mode toggle", mode = "n" },
+    { "<leader>tg", "<cmd>GenTocGFM<cr>", desc = "Generate toc", mode = "n" },
+    { "<leader>tr", "<cmd>RemoveToc<cr>", desc = "Remove toc", mode = "n" },
+    { "<leader>tu", "<cmd>UpdateToc<cr>", desc = "Update toc", mode = "n" },
+    { "<leader>tn", "<cmd>lua require('neotest').run.run()<cr>", desc = "run the Nearest test", mode = "n" },
+    { "<leader>tl", "<cmd>lua require('neotest').run.run_last()<cr>", desc = "re-run the Last", mode = "n" },
+    {
+      "<leader>tc",
+      "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>",
+      desc = "run the Current file",
+      mode = "n",
+    },
+    { "<leader>ts", "<cmd>lua require('neotest').summary.toggle()<<cr>", desc = "toggle test Summary", mode = "n" },
+    {
+      "<leader>to",
+      "<cmd>lua require('neotest').output.open({ enter = false })<cr>",
+      desc = "open the Output of a test result",
+      mode = "n",
+    },
+    {
+      "<leader>tp",
+      "<cmd>lua require('neotest').output_panel.toggle()<cr>",
+      desc = "toggle the out Panel",
+      mode = "n",
+    },
+    {
+      "<leader>tw",
+      "<cmd>lua require('neotest').watch.toggle(vim.fn.expand('%'))<cr>",
+      desc = "toggle Watching the current file",
+      mode = "n",
+    },
+    {
+      "<leader>tj",
+      "<cmd>llua require('neotest').jump.next({ status = 'failed' })<cr>",
+      desc = "jump to next failed test",
+      mode = "n",
+    },
+    {
+      "<leader>tk",
+      "<cmd>llua require('neotest').jump.prev({ status = 'failed' })<cr>",
+      desc = "jump to previous failed test",
+      mode = "n",
+    },
+
+    -- U --
+
+    -- u --
+
+    -- V --
+
+    -- v --
+
+    -- W --
+
+    -- w --
+    { "<leader>w", group = "workspace", mode = "n" },
+    { "<leader>wl", "<cmd>Telescope session-lens<cr>", desc = "session Lens", mode = "n" },
+    { "<leader>ws", "<cmd>SessionSave<cr>", desc = "session Save", mode = "n" },
+    { "<leader>wd", "<cmd>Autosession delete<cr>", desc = "Delete a selected session", mode = "n" },
+
+    -- X --
+
+    -- x --
+
+    -- Y --
+
+    -- y --
+
+    -- Z --
+
+    -- z --
 
     -- { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
     -- {
@@ -275,33 +398,6 @@ end
 --         "Workspace Diagnostics",
 --       },
 --     },
---     R = {
---       name = "REPL",
---       c = {
---         function()
---           require("iron.core").send_file()
---         end,
---         "send Current file to Repl",
---       },
---       l = {
---         function()
---           require("iron.core").send_line()
---         end,
---         "send the Line to Repl",
---       },
---       u = {
---         function()
---           require("iron.core").send_until_cursor()
---         end,
---         "send the buffer from start Until the line to Repl",
---       },
---     },
---     r = {
---       name = "Run",
---       c = { "<cmd>RunFile<cr>", "Run Code based on file type with porject if supported" },
---       f = { "<cmd>RunFile<cr>", "Run the current File" },
---       s = { "<cmd>RunClose<cr>", "Stop Runner" },
---     },
 --     S = {},
 --     s = {
 --       name = "Search",
@@ -313,19 +409,6 @@ end
 --       -- R = { "<cmd>Telescope registers<cr>", "Registers" },
 --       -- k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
 --       -- C = { "<cmd>Telescope commands<cr>", "Commands" },
---       s = {
---         function()
---           require("flash").jump()
---         end,
---         "Flash",
---       },
---       S = {
---         function()
---           require("flash").treesitter()
---         end,
---         "Flash Treesitter",
---       },
---       r = { "<cmd>lua require('spectre').toggle()<cr>", "Toggle Spectre" },
 --     },
 --     T = {
 --       name = "Terminal",
@@ -333,60 +416,6 @@ end
 --       u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" },
 --       t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
 --       p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python" },
---       f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
---       h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
---       v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
 --     },
---     t = {
---       name = "Table/TOC/Test",
---       m = { "<cmd>TableModeToggle<cr>", "Table Mode Toggle" },
---       g = { "<cmd>GenTocGFM<cr>", "Generate TOC" },
---       r = { "<cmd>RemoveToc<cr>", "Remove TOC" },
---       u = { "<cmd>UpdateToc<cr>", "Update TOC" },
---       n = { "<cmd>lua require('neotest').run.run()<cr>", "Run the Nearest test" },
---       l = { "<cmd>lua require('neotest').run.run_last()<cr>", "Re-run the Last position test that was run" },
---       c = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", "Run the Current file" },
---       s = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Toggle test Summary" },
---       o = { "<cmd>lua require('neotest').output.open({ enter = false })<cr>", "Open the Output of a test result" },
---       p = { "<cmd>lua require('neotest').output_panel.toggle()<cr>", "Toggle the output Panel" },
---       w = { "<cmd>lua require('neotest').watch.toggle(vim.fn.expand('%'))<cr>", "Toggle Watching the current file" },
---       j = { "<cmd>lua require('neotest').jump.next({ status = 'failed' })<cr>", "Jump to next falied test" },
---       k = { "<cmd>lua require('neotest').jump.prev({ status = 'failed' })<cr>", "Jump to previous falied test" },
---     },
---     U = {},
---     u = {},
---     V = {},
---     v = {},
---     W = {},
---     w = {
---       name = "Workspace",
---       l = { "<cmd>Telescope session-lens<cr>", "Session Lens" },
---       s = { "<cmd>SessionSave<cr>", "Save Session" },
---       d = { "<cmd>Autosession delete<cr>", "Delete a selected Session" },
---     },
---     X = {},
---     x = {},
---     Y = {},
---     y = {},
---     Z = {},
---     z = {},
---   }, {
---     mode = "n", -- NORMAL mode
---     prefix = "<leader>",
---     buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
---     silent = true, -- use `silent` when creating keymaps
---     noremap = true, -- use `noremap` when creating keymaps
---     nowait = true, -- use `nowait` when creating keymaps
---   })
-
---   which_key.register({}, {
---     mode = "n", -- NORMAL mode
---     prefix = "<space>",
---     buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
---     silent = true, -- use `silent` when creating keymaps
---     noremap = true, -- use `noremap` when creating keymaps
---     nowait = true, -- use `nowait` when creating keymaps
---   })
--- end
 
 return M
