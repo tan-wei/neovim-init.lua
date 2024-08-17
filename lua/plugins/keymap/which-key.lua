@@ -78,6 +78,25 @@ M.config = function()
     { "<leader>Cs", "<cmd>ClangdSymbolInfo<cr>", desc = "view Symbol information", mode = "n" },
     { "<leader>Ct", "<cmd>ClangdTypeHierarchy<cr>", desc = "view Type hierarchy information", mode = "n" },
     { "<leader>Cm", "<cmd>ClangdMemoryUsage<cr>", desc = "view Memory usage", mode = "n" },
+    { "<leader>Cf", "<cmd>TSCppDefineClassFunc<cr>", desc = "implement out of class member Functions", mode = "n" },
+    {
+      "<leader>Cc",
+      "<cmd>TSCppMakeConcreteClass<cr>",
+      desc = "implement a concrete class implementing all the pure virtual functions",
+      mode = "n",
+    },
+    {
+      "<leader>C3",
+      "<cmd>TSCppRuleOf3<cr>",
+      desc = "adds the missing function declarations to the class to boeth the rule of 3",
+      mode = "n",
+    },
+    {
+      "<leader>C5",
+      "<cmd>TSCppRuleOf5<cr>",
+      desc = "adds the missing function declarations to the class to boeth the rule of 5",
+      mode = "n",
+    },
 
     -- c --
     { "<leader>c", "<cmd>Bdelete!<cr>", desc = "Close current buffer", mode = "n" },
