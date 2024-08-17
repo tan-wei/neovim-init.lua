@@ -30,13 +30,6 @@ M.config = function()
     { "<leader>ae", "<cmd>lua require('attempt').rename_buf()<cr>", desc = "rEname temporary buffer", mode = "n" },
 
     -- B --
-    {
-      "<leader>B",
-      group = "Buffers",
-      expand = function()
-        return require("which-key.extras").expand.buf()
-      end,
-    },
 
     -- b --
     { "<leader>b", group = "buffer", mode = "n" },
@@ -75,7 +68,16 @@ M.config = function()
       desc = "buffer Sort by Relative directory",
       mode = "n",
     },
+
     -- C --
+    { "<leader>C", group = "cpp", mode = "n" },
+    { "<leader>Cs", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch between source/header", mode = "n" },
+    { "<leader>Ci", "<cmd>ClangdDisableInlayHints<cr>", desc = "disable Inlay hints", mode = "n" },
+    { "<leader>CI", "<cmd>ClangdSetInlayHints<cr>", desc = "enable Inlay hints", mode = "n" },
+    { "<leader>Ca", "<cmd>ClangdAST<cr>", desc = "view Abstract sytax tree", mode = "n" },
+    { "<leader>Cs", "<cmd>ClangdSymbolInfo<cr>", desc = "view Symbol information", mode = "n" },
+    { "<leader>Ct", "<cmd>ClangdTypeHierarchy<cr>", desc = "view Type hierarchy information", mode = "n" },
+    { "<leader>Cm", "<cmd>ClangdMemoryUsage<cr>", desc = "view Memory usage", mode = "n" },
 
     -- c --
     { "<leader>c", "<cmd>Bdelete!<cr>", desc = "Close current buffer", mode = "n" },
