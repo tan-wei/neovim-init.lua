@@ -31,6 +31,13 @@ local M = {
         require("cmp_git").setup()
       end,
     },
+    {
+    "paopaol/cmp-doxygen",
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+        "nvim-treesitter/nvim-treesitter-textobjects"
+      },
+    }
   },
   event = { "InsertEnter", "CmdlineEnter" },
 }
@@ -89,6 +96,7 @@ M.config = function()
     { name = "rg", keyword_length = 3, dup = 0 },
     { name = "dotenv" },
     { name = "git" },
+    { name = "doxygen" },
   }
 
   local quoted_name = function(name)
@@ -226,6 +234,7 @@ M.config = function()
             cmdline_history = quoted_name "CMD_HISTORY",
             dotenv = quoted_name "DOTENV",
             git = quoted_name "GIT",
+            doxygen = quoted_name "DOXYGEN",
           })[entry.source.name]
           return vim_item
         end,
