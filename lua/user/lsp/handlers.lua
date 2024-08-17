@@ -85,6 +85,9 @@ M.on_attach = function(client, bufnr)
     require("clangd_extensions.inlay_hints").setup_autocmd()
     require("clangd_extensions.inlay_hints").set_inlay_hints()
   end
+  if client.name == "rust-analyzer" then
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+  end
 
   if client.server_capabilities.inlayHintProvider then
     -- vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })

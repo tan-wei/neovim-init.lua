@@ -32,12 +32,12 @@ local M = {
       end,
     },
     {
-    "paopaol/cmp-doxygen",
-    dependencies = {
+      "paopaol/cmp-doxygen",
+      dependencies = {
         "nvim-treesitter/nvim-treesitter",
-        "nvim-treesitter/nvim-treesitter-textobjects"
+        "nvim-treesitter/nvim-treesitter-textobjects",
       },
-    }
+    },
   },
   event = { "InsertEnter", "CmdlineEnter" },
 }
