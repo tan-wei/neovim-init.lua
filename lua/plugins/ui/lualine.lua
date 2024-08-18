@@ -83,11 +83,12 @@ M.config = function()
   end
 
   local session = function()
-    local status_ok, auto_session = pcall(require, "auto-session.lib")
-    if not status_ok then
-      return nil
+    local status_ok, auto_session = pcall(require, "auto-session")
+    if status_ok and auto_session.session_exists_for_cwd() then
+      return "session: " .. require("auto-session.lib").current_session_name()
     end
-    return "session: " .. auto_session.current_session_name()
+
+    return ""
   end
 
   local colorscheme = function()

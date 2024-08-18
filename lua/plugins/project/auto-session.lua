@@ -156,14 +156,12 @@ M.config = function()
   vim.api.nvim_create_autocmd({ "QuitPre" }, {
     pattern = "*.*", -- Try to filter out some special buffer
     callback = function()
-      local status_ok, auto_session_lib = pcall(require, "auto-session.lib")
-      if not status_ok then
-        return nil
-      end
-
-      -- NOTE: Only if the current session name exist, we should save session
-      if pcall(auto_session_lib.current_session_name) then
-        vim.cmd ":SessionSave"
+      local status_ok, auto_session = pcall(require, "auto-session")
+      if status_ok then
+        -- NOTE: Only if the current session name exist, we should save session
+        if auto_session.session_exists_for_cwd() then
+          vim.cmd ":SessionSave"
+        end
       end
     end,
   })
