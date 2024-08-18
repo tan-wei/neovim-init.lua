@@ -85,7 +85,7 @@ M.config = function()
   local session = function()
     local status_ok, auto_session = pcall(require, "auto-session")
     if status_ok and auto_session.session_exists_for_cwd() then
-      return "session: " .. require("auto-session.lib").current_session_name()
+      return "session: " .. require("auto-session.lib").current_session_name(true)
     end
 
     return ""
