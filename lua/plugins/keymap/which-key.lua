@@ -363,6 +363,10 @@ M.config = function()
     -- Y --
 
     -- y --
+    { "<leader>y", group = "yazi", mode = "n" },
+    { "<leader>yc", "<cmd>Yazi cwd<cr>", desc = "yazi with Cwd", mode = "n" },
+    { "<leader>yy", "<cmd>Yazi<cr>", desc = "open Yazi at the current file", mode = "n" },
+    { "<leader>yt", "<cmd>Yazi toggle<cr>", desc = "Toggle the last yazi session", mode = "n" },
 
     -- Z --
 

@@ -2,7 +2,7 @@ local M = {}
 
 local cmp_nvim_lsp = require "cmp_nvim_lsp"
 
-M.capabilities = require('cmp_nvim_lsp').default_capabilities()
+M.capabilities = require("cmp_nvim_lsp").default_capabilities()
 M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 M.capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,
