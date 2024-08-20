@@ -46,7 +46,7 @@ local options = {
   foldlevelstart = 99, -- Avoid auto fold
   foldenable = true, -- Default not fold any thing
   fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]], -- Set for foldcolumn
-  sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions", -- Session save options
+  sessionoptions = "blank,buffers,curdir,folds,globals,help,tabpages,winsize,winpos,terminal,localoptions", -- Session save options
   textwidth = 512, -- Default text width
   spellfile = vim.fn.stdpath "config" .. "/spell/en.utf-8.add", -- Spell file
 }
@@ -72,11 +72,7 @@ vim.opt.shortmess:append "c" -- don't give |ins-completion-menu| messages
 vim.opt.iskeyword:append "-" -- hyphenated words recognized by searches
 vim.opt.formatoptions:remove { "c", "r", "o" } -- don't insert the current comment leader automatically for auto-wrapping comments using 'textwidth', hitting <Enter> in insert mode, or hitting 'o' or 'O' in normal mode.
 vim.opt.runtimepath:remove "/usr/share/vim/vimfiles" -- separate vim plugins from neovim in case vim still in use
-vim.opt.sessionoptions = { -- required for scope.nvim
-  "buffers",
-  "tabpages",
-  "globals",
-}
+vim.opt.sessionoptions = options.sessionoptions
 vim.loader.enable() -- Enables the experimental Lua module loader
 
 -- neovide related configure
