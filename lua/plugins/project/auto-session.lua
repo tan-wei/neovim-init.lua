@@ -112,6 +112,9 @@ M.config = function()
           cmake_tools.select_cwd(vim.fn.getcwd())
           require("lualine").refresh()
         end
+
+        -- NOTE: Ensure dropbar.nvim is launched
+        require('dropbar')
       end,
     },
 
