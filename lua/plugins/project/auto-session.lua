@@ -113,7 +113,7 @@ M.config = function()
           require("lualine").refresh()
         end
 
-        -- NOTE: Ensure dropbar.nvim is launched
+        -- NOTE: Ensure dropbar.nvim is launched, similar issue: https://github.com/rmagatti/auto-session/issues/353
         require "dropbar"
       end,
     },
