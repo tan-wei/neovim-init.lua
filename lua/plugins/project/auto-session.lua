@@ -114,7 +114,7 @@ M.config = function()
         end
 
         -- NOTE: Ensure dropbar.nvim is launched
-        require('dropbar')
+        require "dropbar"
       end,
     },
 

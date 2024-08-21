@@ -83,9 +83,11 @@ M.config = function()
   end
 
   local session = function()
-    local auto_session = require "auto-session"
-    if auto_session.session_exists_for_cwd() then
-      return "session: " ..  require("auto-session.lib").current_session_name(true)
+    local auto_session_lib = require "auto-session.lib"
+    local session_name = auto_session_lib.current_session_name(true)
+
+    if session_name ~= "" then
+      return "session: " .. session_name
     else
       return ""
     end
