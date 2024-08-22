@@ -12,22 +12,6 @@ M.config = function()
     { "<leader>A", "<cmd>Alpha<cr>", desc = "Alpha", mode = "n" },
 
     -- a --
-    { "<leader>a", group = "add" },
-    {
-      "<leader>an",
-      "<cmd>lua require('attempt').new_select()<cr>",
-      desc = "New with selecting extension",
-      mode = "n",
-    },
-    {
-      "<leader>ai",
-      "<cmd>lua require('attempt').new_input_ext()<cr>",
-      desc = "new with Inputing extension",
-      mode = "n",
-    },
-    { "<leader>ar", "<cmd>lua require('attempt').run()<cr>", desc = "Run temporary buffer", mode = "n" },
-    { "<leader>ad", "<cmd>lua require('attempt').delete_buf()<cr>", desc = "Delete temporary buffer", mode = "n" },
-    { "<leader>ae", "<cmd>lua require('attempt').rename_buf()<cr>", desc = "rEname temporary buffer", mode = "n" },
 
     -- B --
 
