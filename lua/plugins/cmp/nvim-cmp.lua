@@ -38,6 +38,9 @@ local M = {
         "nvim-treesitter/nvim-treesitter-textobjects",
       },
     },
+    {
+      "f3fora/cmp-spell",
+    },
   },
   event = { "InsertEnter", "CmdlineEnter" },
 }
@@ -97,6 +100,16 @@ M.config = function()
     { name = "dotenv" },
     { name = "git" },
     { name = "doxygen" },
+    {
+      name = "spell",
+      option = {
+        keep_all_entries = false,
+        enable_in_context = function()
+          return require("cmp.config.context").in_treesitter_capture "spell"
+        end,
+        preselect_correct_word = true,
+      },
+    },
   }
 
   local quoted_name = function(name)
@@ -235,6 +248,7 @@ M.config = function()
             dotenv = quoted_name "DOTENV",
             git = quoted_name "GIT",
             doxygen = quoted_name "DOXYGEN",
+            spell = quoted_name "SPELL",
           })[entry.source.name]
           return vim_item
         end,
