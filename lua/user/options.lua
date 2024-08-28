@@ -83,3 +83,7 @@ end
 
 -- other options
 vim.g.rust_recommended_style = 0
+
+-- wo related options
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
