@@ -80,6 +80,7 @@ M.config = function()
         if meta.nvimTreeOpen then
           local api = require "nvim-tree.api"
           if not meta.nvimTreeFocused and vim.api.nvim_win_is_valid(meta.focused) then
+            local winid = api.tree.winid()
             if not winid then
               api.tree.toggle { focus = false, find_file = true }
             else
