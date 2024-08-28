@@ -1,5 +1,5 @@
 local M = {
-  "arcticicestudio/nord-vim",
+  "shaunsingh/nord.nvim",
   lazy = true,
 }
 
