@@ -116,7 +116,7 @@ M.config = function()
         -- NOTE: Ensure dropbar.nvim is launched, similar issue: https://github.com/rmagatti/auto-session/issues/353
         require "dropbar"
 
-        vim.cmd [[TSContextEnable]]
+        require("treesitter-context").enabled()
       end,
     },
 
