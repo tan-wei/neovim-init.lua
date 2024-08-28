@@ -7,7 +7,7 @@ M.config = function()
   require("scrollview").setup {
     excluded_filetypes = {},
     current_only = true,
-    signs_on_startup = { "all" },
+    -- signs_on_startup = { "all" }, Enable all is too slow now
     diagnostics_severities = { vim.diagnostic.severity.ERROR },
     mode = "proper",
   }
