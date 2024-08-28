@@ -65,6 +65,9 @@ M.config = function()
         include_match_words = true,
       },
     },
+    endwise = {
+      enable = true,
+    },
   }
 end
 
