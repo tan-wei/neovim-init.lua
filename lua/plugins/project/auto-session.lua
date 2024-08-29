@@ -84,7 +84,7 @@ M.config = function()
             if not winid then
               api.tree.toggle { focus = false, find_file = true }
             else
-              api.tree.open()
+              api.tree.open { focus = false }
             end
           end
         end
