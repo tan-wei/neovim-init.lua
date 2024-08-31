@@ -109,6 +109,7 @@ M.config = function()
         end,
         preselect_correct_word = true,
       },
+      dup = 0,
     },
   }
 
@@ -142,7 +143,7 @@ M.config = function()
         sources[#sources + 1] = { name = "fonts", option = { space_filter = "-" } }
       end
 
-      if buf_is_options_lua(t.buf) then
+      if buf_is_cargo_toml(t.buf) then
         sources[#sources + 1] = { name = "crates" }
       end
 
@@ -227,7 +228,7 @@ M.config = function()
         -- so that we can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
         before = function(entry, vim_item)
           -- Remove duplicate when the source is from rg and buffer
-          if entry.source.name == "rg" or entry.source.name == "buffer" then
+          if entry.source.name == "rg" or entry.source.name == "buffer" or entry.source.name == "spell" then
             vim_item.dup = nil
           end
           vim_item.menu = ({
