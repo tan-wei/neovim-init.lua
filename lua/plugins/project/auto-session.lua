@@ -15,12 +15,12 @@ local meta = {
 M.config = function()
   require("auto-session").setup {
     log_level = vim.log.levels.ERROR,
-    auto_session_root_dir = vim.fn.stdpath "data" .. "/sessions/",
-    auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
-    auto_session_use_git_branch = true,
-    auto_session_enable_last_session = false,
+    root_dir = vim.fn.stdpath "data" .. "/sessions/",
+    suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+    use_git_branch = true,
+    enable_last_session = false,
     auto_save_enabled = true,
-    auto_session_create_enabled = false,
+    create_enabled = false,
     session_lens = {
       load_on_setup = true,
       theme_conf = { border = true },
