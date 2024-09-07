@@ -20,7 +20,7 @@ M.config = function()
     use_git_branch = true,
     enable_last_session = false,
     auto_save = true,
-    create_enabled = false,
+    auto_create = false,
     session_lens = {
       load_on_setup = true,
       theme_conf = { border = true },
