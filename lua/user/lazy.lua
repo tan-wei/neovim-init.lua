@@ -23,6 +23,7 @@ require("lazy").setup {
     { import = "plugins.colorscheme" },
     { import = "plugins.config" },
     { import = "plugins.csv" },
+    { import = "plugins.dap" },
     { import = "plugins.edit" },
     { import = "plugins.filesystem" },
     { import = "plugins.formatter" },
