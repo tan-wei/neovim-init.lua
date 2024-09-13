@@ -31,7 +31,7 @@ M.config = function()
     formatters_by_ft = {
       lua = { "stylua" },
       python = { "isort", "black" },
-      javascript = { "prettierd", "prettier" , stop_after_first = true },
+      javascript = { "prettierd", "prettier", stop_after_first = true },
       rust = { "rustfmt" },
       c = { "clang_format" },
       cpp = { "clang_format" },
