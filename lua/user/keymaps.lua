@@ -71,11 +71,6 @@ M.setup = function()
   -- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
   -- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
-  -- clever-f --
-  -- Keeping the functionality of ; and , via mappings
-  keymap("", ";", "<Plug>(clever-f-repeat-forward)", opts)
-  keymap("", ",", "<Plug>(clever-f-repeat-back)", opts)
-
   -- high-str --
   keymap("v", "<F3>", ":<c-u>HSHighlight 1<CR>", opts)
 
