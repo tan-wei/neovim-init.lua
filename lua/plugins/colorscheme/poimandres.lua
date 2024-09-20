@@ -9,4 +9,13 @@ M.init = function()
   vim.g.available_colorschemes = available_colorschemes
 end
 
+M.config = function()
+  local p = require "poimandres.palette"
+  require("poimandres").setup {
+    highlight_groups = {
+      CodeBlock = { bg = p.backgroud1 },
+    },
+  }
+end
+
 return M
