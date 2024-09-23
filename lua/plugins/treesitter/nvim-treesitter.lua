@@ -55,12 +55,12 @@ M.config = function()
           goto_previous_usage = "<a-#>",
         },
       },
-      matchup = {
-        enable = true,
-        disable = {},
-        disable_virtual_text = false,
-        include_match_words = true,
-      },
+    },
+    matchup = {
+      enable = true,
+      disable = {},
+      disable_virtual_text = false,
+      include_match_words = true,
     },
     endwise = {
       enable = true,
