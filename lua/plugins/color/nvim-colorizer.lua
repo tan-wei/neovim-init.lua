@@ -8,7 +8,9 @@ M.config = function()
     filetypes = {
       "lua",
       markdown = { names = false },
+      cpp = { names = false },
     },
+    user_default_options = { mode = "background" },
   }
 
   -- execute colorizer as soon as possible
