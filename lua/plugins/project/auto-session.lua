@@ -26,6 +26,7 @@ M.config = function()
       theme_conf = { border = true },
       previewer = true,
     },
+    bypass_save_filetypes = { "alpha", "dashboard" },
     pre_save_cmds = {
       function()
         -- local status_ok, api = pcall(require, "nvim-tree.api")
