@@ -1,8 +1,8 @@
 #pragma once
 
-#ifndef %GUARD%
-#define %GUARD%
+#ifndef %GUARD_WITH_PROJECT_AND_DIRECTORY%
+#define %GUARD_WITH_PROJECT_AND_DIRECTORY%
 
 %HERE%
 
-#endif /* !%GUARD% */
+#endif /* !%GUARD_WITH_PROJECT_AND_DIRECTORY% */
