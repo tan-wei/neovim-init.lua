@@ -11,7 +11,7 @@ local M = {
     "CBrcbox",
     "CBrrbox",
     "CBlabox",
-    "CBbcaox",
+    "CBcabox",
     "CBrabox",
     "CBllline",
     "CBlcline",
