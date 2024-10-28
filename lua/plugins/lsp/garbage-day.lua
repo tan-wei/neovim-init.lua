@@ -10,7 +10,7 @@ M.opts = {
   aggressive_mode_ignore = false,
   notifications = true,
   excluded_lsp_clients = {},
-  grace_period = 15 * 60,
+  grace_period = 30 * 60,
 }
 
 return M
