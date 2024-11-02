@@ -15,7 +15,7 @@ M.config = function()
     show_hidden = false,
     silent_chdir = true,
     ignore_lsp = {},
-    scope_chdir = 'global', -- global, tab, win
+    scope_chdir = "global", -- global, tab, win
     datapath = vim.fn.stdpath "data",
   }
 
