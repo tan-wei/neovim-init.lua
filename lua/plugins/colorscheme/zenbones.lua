@@ -1,5 +1,5 @@
 local M = {
-  "mcchrish/zenbones.nvim",
+  "zenbones-theme/zenbones.nvim",
   lazy = true,
 }
 
