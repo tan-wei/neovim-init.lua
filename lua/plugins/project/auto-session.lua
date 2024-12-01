@@ -92,6 +92,12 @@ M.config = function()
         ------------------------------------------------
       end,
     },
+    pre_restore_cmds = {
+      function()
+        -- NOTE: Ensure dropbar.nvim is launched, similar issue: https://github.com/rmagatti/auto-session/issues/353
+        require "dropbar"
+      end,
+    },
     post_restore_cmds = {
       function()
         local status_ok, _ = pcall(require, "scope")
@@ -114,9 +120,6 @@ M.config = function()
           cmake_tools.select_cwd(vim.fn.getcwd())
           require("lualine").refresh()
         end
-
-        -- NOTE: Ensure dropbar.nvim is launched, similar issue: https://github.com/rmagatti/auto-session/issues/353
-        require "dropbar"
 
         require("treesitter-context").enable()
       end,
