@@ -10,6 +10,7 @@ local M = {
       config = true,
     },
     { "hrsh7th/cmp-nvim-lsp" },
+    { "ranjithshegde/ccls.nvim" }, -- FIXME: Trewaky now
   },
   event = { "BufReadPre", "BufNewFile" },
 }
@@ -24,7 +25,7 @@ local servers = {
   "jsonls",
   "yamlls",
   "clangd",
-  -- "ccls",
+  "ccls",
   "ltex",
   -- "rust_analyzer", -- rust-tools.nvim automatically sets up nvim-lspconfig for rust_analyzer
   "marksman",
@@ -51,7 +52,33 @@ M.config = function()
     else
       vim.notify("Server [" .. server .. "] is not available")
     end
+
     lspconfig[server].setup(opts)
+
+    -- FIXME: Tricky now
+    if server == "ccls" then
+      -- vim.print(opts)
+
+      require("ccls").setup {
+        lsp = {
+          lspconfig = opts,
+          disable_capabilities = {
+            completionProvider = true,
+            documentFormattingProvider = true,
+            documentRangeFormattingProvider = true,
+            documentHighlightProvider = true,
+            documentSymbolProvider = true,
+            workspaceSymbolProvider = true,
+            renameProvider = true,
+            hoverProvider = true,
+            codeActionProvider = true,
+          },
+          disable_diagnostics = true,
+          disable_signature = true,
+          codelens = { enable = true },
+        },
+      }
+    end
   end
 end
 
