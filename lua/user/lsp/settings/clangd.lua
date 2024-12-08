@@ -3,6 +3,8 @@ return {
     "clangd",
     "--background-index",
     "--compile-commands-dir=build",
+    "--suggest-missing-includes",
+    "--offset-encoding=utf-16",
     "-j=2",
     "--clang-tidy",
     "--clang-tidy-checks=performance-*,bugprone-*",
@@ -10,6 +12,8 @@ return {
     "--completion-style=detailed",
     "--header-insertion=iwyu",
     "--pch-storage=disk",
+    "--clang-tidy-checks=-*,llvm-*,clang-analyzer-*",
+    "--cross-file-rename",
   },
   init_options = {
     usePlaceholders = true,
