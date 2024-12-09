@@ -8,7 +8,7 @@ local M = {
   event = "LspAttach",
 }
 
-M.init = function ()
+M.init = function()
   vim.g.navbuddy_silence = true
 end
 
