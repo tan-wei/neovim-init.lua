@@ -13,6 +13,12 @@ M.config = function()
   }
 
   require("telescope").load_extension "projections"
+
+  local workspace = require "projections.workspace"
+  -- Add workspace command
+  vim.api.nvim_create_user_command("AddWorkspace", function()
+    workspace.add(vim.loop.cwd())
+  end, {})
 end
 
 return M
