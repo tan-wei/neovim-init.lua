@@ -167,10 +167,14 @@ M.config = function()
     pattern = "*",
     callback = function()
       local status_ok, auto_session = pcall(require, "auto-session")
+
       if status_ok then
+        local auto_session_lib = require "auto-session.lib"
+        local session_name = auto_session_lib.current_session_name(true)
         -- NOTE: Only if the current session name exist, we should save session
-        if auto_session.session_exists_for_cwd() then
+        if session_name ~= "" then
           -- vim.cmd ":SessionSave"
+
           auto_session.SaveSession()
         end
       end
