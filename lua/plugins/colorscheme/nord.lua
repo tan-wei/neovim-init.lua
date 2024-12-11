@@ -1,5 +1,5 @@
 local M = {
-  "shaunsingh/nord.nvim",
+  "gbprod/nord.nvim",
   lazy = true,
 }
 
@@ -8,5 +8,7 @@ M.init = function()
   table.insert(available_colorschemes, "nord")
   vim.g.available_colorschemes = available_colorschemes
 end
+
+M.config = true
 
 return M
