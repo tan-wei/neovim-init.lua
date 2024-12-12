@@ -163,7 +163,7 @@ M.config = function()
   })
 
   -- Make sure save session, because if nvim-tree is the last buffer, neovim will exit without save session
-  vim.api.nvim_create_autocmd({ "QuitPre", "ExitPre", "VimLeavePre", "BufWritePost" }, {
+  vim.api.nvim_create_autocmd({ "QuitPre", "ExitPre", "VimLeavePre" }, {
     pattern = "*",
     callback = function()
       local status_ok, auto_session = pcall(require, "auto-session")
