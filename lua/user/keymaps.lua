@@ -45,9 +45,8 @@ M.setup = function()
   -- Buffer related
   keymap("n", "[b", "<Plug>(CybuPrev)", opts)
   keymap("n", "]b", "<Plug>(CybuNext)")
-  keymap("n", "<S-Tab>", "<plug>(CybuLastusedPrev)", opts)
-  keymap("n", "<Tab>", "<plug>(CybuLastusedNext)", opts)
-  keymap("n", "<C-I>", "<C-I>", opts)
+  -- keymap("n", "<S-Tab>", "<plug>(CybuLastusedPrev)", opts)
+  -- keymap("n", "<Tab>", "<plug>(CybuLastusedNext)", opts)
 
   -- Insert --
   -- Press jk fast to exit insert mode
