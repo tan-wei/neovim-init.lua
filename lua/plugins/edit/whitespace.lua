@@ -20,6 +20,7 @@ M.config = function()
       "lspinfo",
       "lazy",
       "Outline",
+      "fzf",
     },
     ignore_terminal = true,
   }
