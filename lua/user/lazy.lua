@@ -53,4 +53,7 @@ require("lazy").setup {
     { import = "plugins.ui" },
   },
   concurrency = 16,
+  change_detection = {
+    enabled = false,
+  },
 }
