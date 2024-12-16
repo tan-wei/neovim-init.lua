@@ -2,7 +2,8 @@
 set mouse=a
 
 if has("win64") || has("win32") || has("win16")
-    source $VIMRUNTIME/mswin.vim
+    " NOTE: Not needed now, and it will cause error when start neovim-qt or neovide
+    " source $VIMRUNTIME/mswin.vim
 endif
 
 " Set Editor Font
