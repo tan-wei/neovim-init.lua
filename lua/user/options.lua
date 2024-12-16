@@ -87,3 +87,25 @@ vim.g.rust_recommended_style = 0
 -- wo related options
 vim.wo.foldmethod = "expr"
 vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
+-- clipboard related configuration
+local function paste()
+  return {
+    vim.split(vim.fn.getreg "", "\n"),
+    vim.fn.getregtype "",
+  }
+end
+
+if vim.env.SSH_TTY then
+  vim.g.clipboard = {
+    name = "OSC 52",
+    copy = {
+      ["+"] = require("vim.ui.clipboard.osc52").copy "+",
+      ["*"] = require("vim.ui.clipboard.osc52").copy "*",
+    },
+    paste = {
+      ["+"] = paste,
+      ["*"] = paste,
+    },
+  }
+end
