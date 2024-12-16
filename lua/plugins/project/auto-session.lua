@@ -124,24 +124,21 @@ M.config = function()
         require("treesitter-context").enable()
       end,
     },
+    cwd_change_handling = true,
+    pre_cwd_changed_cmds = function()
+      vim.notify "pre_cwd_changed_hook"
 
-    cwd_change_handling = {
-      restore_upcoming_session = true,
-      pre_cwd_changed_hook = function()
-        vim.notify "pre_cwd_changed_hook"
-
-        vim.defer_fn(function()
-          vim.cmd "LspStop"
-        end, 0)
-      end,
-      post_cwd_changed_hook = function()
-        vim.notify "post_cwd_changed_hook"
-        require("lualine").refresh()
-        vim.defer_fn(function()
-          vim.cmd "filetype detect"
-        end, 1000)
-      end,
-    },
+      vim.defer_fn(function()
+        vim.cmd "LspStop"
+      end, 0)
+    end,
+    post_cwd_changed_cmds = function()
+      vim.notify "post_cwd_changed_hook"
+      require("lualine").refresh()
+      vim.defer_fn(function()
+        vim.cmd "filetype detect"
+      end, 1000)
+    end,
   }
 
   -- Workaround for nvim-tree, see here: https://github.com/nvim-tree/nvim-tree.lua/wiki/Recipes
