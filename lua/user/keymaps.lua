@@ -96,6 +96,12 @@ M.setup = function()
 
   keymap("", "<F8>", "<cmd>lua require('colorscheme-randomizer').randomize()<cr>", opts)
 
+  -- Treewalker.nvim
+  keymap("n", "<C-j>", ":Treewalker Down<CR>", opts)
+  keymap("n", "<C-k>", ":Treewalker Up<CR>", opts)
+  keymap("n", "<C-h>", ":Treewalker Left<CR>", opts)
+  keymap("n", "<C-l>", ":Treewalker Right<CR>", opts)
+
   local harpoon = require "harpoon"
 
   -- TODO: Should be change to our own keymaps
