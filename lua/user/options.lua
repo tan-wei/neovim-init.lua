@@ -49,6 +49,7 @@ local options = {
   sessionoptions = "blank,buffers,curdir,folds,globals,help,tabpages,winsize,winpos,terminal,localoptions", -- Session save options
   textwidth = 512, -- Default text width
   spellfile = vim.fn.stdpath "config" .. "/spell/en.utf-8.add", -- Spell file
+  -- jumpoptions = "stack", -- make jump stack
 }
 
 local old_isfname = vim.o.isfname
