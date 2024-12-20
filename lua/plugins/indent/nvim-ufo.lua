@@ -8,7 +8,7 @@ local M = {
 }
 
 M.config = function()
-  local ftMap = {
+  local ft_map = {
     vim = "indent",
     python = { "indent" },
     git = "",
@@ -23,7 +23,7 @@ M.config = function()
 
   ufo.setup {
     open_fold_hl_timeout = 150,
-    close_fold_kinds_for_ft = ftMap,
+    close_fold_kinds_for_ft = ft_map,
     preview = {
       win_config = {
         border = { "", "─", "", "", "", "─", "", "" },
@@ -41,7 +41,7 @@ M.config = function()
       if vim.bo[bufnr].buftype == "nofile" then
         return ""
       end
-      return ftMap[filetype] or { "treesitter", "indent" }
+      return ft_map[filetype] or { "treesitter", "indent" }
     end,
   }
 
