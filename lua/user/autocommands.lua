@@ -36,3 +36,12 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     -- TODO: Do something related to colorscheme changed
   end,
 })
+
+-- Make them winfixbuf, alternative to stickybuf.nvim
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    if vim.list_contains({ "NvimTree", "OverseerList", "aerial", "toggleterm", "dbui", "dbout" }, vim.bo.filetype) then
+      vim.wo.winfixbuf = true
+    end
+  end,
+})
