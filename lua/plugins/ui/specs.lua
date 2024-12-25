@@ -1,5 +1,5 @@
 local M = {
-  "edluffy/specs.nvim",
+  "cxwx/specs.nvim",
   event = "VeryLazy",
   enabled = false,
 }
