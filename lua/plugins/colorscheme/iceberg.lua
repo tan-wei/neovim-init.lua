@@ -1,5 +1,5 @@
 local M = {
-  "cocopon/iceberg.vim",
+  "oahlen/iceberg.nvim",
   lazy = true,
 }
 
