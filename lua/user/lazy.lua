@@ -39,6 +39,7 @@ require("lazy").setup {
     { import = "plugins.media" },
     { import = "plugins.motion" },
     { import = "plugins.project" },
+    { import = "plugins.python" },
     { import = "plugins.refactor" },
     { import = "plugins.register" },
     { import = "plugins.rust" },
