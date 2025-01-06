@@ -6,6 +6,7 @@ M.config = function()
   require("mason-tool-installer").setup {
     ensure_installed = {
       "black",
+      "shfmt",
     },
     auto_update = true,
     start_delay = 3000,
