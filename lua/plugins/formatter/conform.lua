@@ -36,6 +36,7 @@ M.config = function()
       c = { "clang_format" },
       cpp = { "clang_format" },
       scheme = { "schemat" },
+      bash = { "shfmt" },
       ["*"] = { "codespell" },
       ["_"] = { "trim_whitespace" },
     },
