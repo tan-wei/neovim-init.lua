@@ -40,11 +40,11 @@ M.config = function()
       ["*"] = { "codespell" },
       ["_"] = { "trim_whitespace" },
     },
-    format_on_save = function(bufnr)
+    format_after_save = function(bufnr)
       if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
         return
       end
-      return { timeout_ms = 1000, lsp_fallback = true }
+      return { timeout_ms = 1000, lsp_fallback = true, async = true }
     end,
     -- format_after_save = {
     -- lsp_fallback = true,
