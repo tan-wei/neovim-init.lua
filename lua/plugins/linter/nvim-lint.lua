@@ -15,6 +15,10 @@ M.config = function()
     table.insert(cpp_exist_executables, "cppcheck")
   end
 
+  if require("util.provider").executable_exist "cpplint" then
+    table.insert(cpp_exist_executables, "cpplint")
+  end
+
   require("lint").linters_by_ft = {
     cpp = cpp_exist_executables,
   }
