@@ -102,6 +102,11 @@ M.setup = function()
   keymap("n", "<C-h>", ":Treewalker Left<CR>", opts)
   keymap("n", "<C-l>", ":Treewalker Right<CR>", opts)
 
+  -- inc-rename.nvim
+  keymap("n", "<F2>", function()
+    return ":IncRename " .. vim.fn.expand "<cword>"
+  end, { expr = true })
+
   local status_ok, harpoon = pcall(require, "harpoon")
 
   if status_ok then
