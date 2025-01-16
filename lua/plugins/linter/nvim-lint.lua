@@ -1,6 +1,7 @@
 local M = {
   "mfussenegger/nvim-lint",
   event = "BufEnter",
+  cond = false,
 }
 
 -- TODO: Add lint progress by require("lint").get_running()
