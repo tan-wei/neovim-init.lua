@@ -110,10 +110,10 @@ M.config = function()
     sections = {
       lualine_a = { "fancy_branch", "fancy_diagnostics" },
       lualine_b = { { "fancy_mode", width = 8 } },
-      lualine_c = { session, "fancy_macro", "lsp_progress" },
+      lualine_c = { "fancy_cwd", session, "fancy_macro", "lsp_progress" },
       lualine_x = { colorscheme, "overseer", "fancy_searchcount", spaces, "encoding", "fancy_filetype" },
-      lualine_y = { "fancy_cwd" },
-      lualine_z = { "fancy_lsp_servers", progress },
+      lualine_y = { "fancy_location", progress },
+      lualine_z = { "fancy_lsp_servers" },
     },
     inactive_sections = {
       lualine_a = {},
