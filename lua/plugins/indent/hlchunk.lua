@@ -1,7 +1,7 @@
 local M = {
   "shellRaining/hlchunk.nvim",
-
   event = { "CursorHold", "CursorHoldI" },
+  enabled = false,
 }
 
 M.config = function()
