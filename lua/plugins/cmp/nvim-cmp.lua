@@ -41,6 +41,7 @@ local M = {
     {
       "f3fora/cmp-spell",
     },
+    "davidsierradz/cmp-conventionalcommits",
   },
   event = { "InsertEnter", "CmdlineEnter" },
 }
@@ -304,6 +305,14 @@ M.config = function()
         },
       },
     }),
+  })
+
+  -- Set conifguration for specific filetype
+  cmp.setup.filetype("gitcommit", {
+    sources = cmp.config.sources {
+      { name = "git" },
+      { name = "conventionalcommits" },
+    },
   })
 end
 
