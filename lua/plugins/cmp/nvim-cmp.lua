@@ -19,6 +19,7 @@ local M = {
     "kristijanhusak/vim-dadbod-completion",
     "lukas-reineke/cmp-under-comparator",
     "onsails/lspkind.nvim",
+    "xzbdmw/colorful-menu.nvim",
     "L3MON4D3/LuaSnip",
     "dmitmel/cmp-cmdline-history",
     "SergioRibera/cmp-dotenv",
@@ -251,6 +252,14 @@ M.config = function()
             doxygen = quoted_name "DOXYGEN",
             spell = quoted_name "SPELL",
           })[entry.source.name]
+
+          local highlights_info = require("colorful-menu").cmp_highlights(entry)
+
+          if highlights_info ~= nil then
+            vim_item.abbr_hl_group = highlights_info.highlights
+            vim_item.abbr = highlights_info.text
+          end
+
           return vim_item
         end,
       },
