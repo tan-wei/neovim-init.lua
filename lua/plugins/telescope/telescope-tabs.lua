@@ -4,7 +4,7 @@ local M = {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope.nvim",
   },
-  cmd = "Telescope telescope-tabs list_tabs",
+  event = "VeryLazy",
 }
 
 M.config = function()

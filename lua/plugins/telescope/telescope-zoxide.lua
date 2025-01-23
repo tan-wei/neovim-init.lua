@@ -5,7 +5,7 @@ local M = {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope.nvim",
   },
-  cmd = "Telescope zoxide list",
+  event = "VeryLazy",
 }
 
 M.config = function()
