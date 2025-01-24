@@ -3,10 +3,13 @@ local M = {
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
   },
-  cmd = { "ISwap", "ISwapWith", "ISwapNode", "ISwapNodeWith", "IMove" },
+  event = "VeryLazy",
 }
 
--- TODO: This plugin should write more configurations
-M.config = true
+M.config = function()
+  require("iswap").setup {
+    flash_style = "simultaneous", -- 'sequential'
+  }
+end
 
 return M
