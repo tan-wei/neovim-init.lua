@@ -139,6 +139,32 @@ M.setup = function()
       harpoon:list():next()
     end)
   end
+
+  -- dial.nvim
+  keymap("n", "<C-a>", function()
+    require("dial.map").manipulate("increment", "normal")
+  end)
+  keymap("n", "<C-x>", function()
+    require("dial.map").manipulate("decrement", "normal")
+  end)
+  keymap("n", "g<C-a>", function()
+    require("dial.map").manipulate("increment", "gnormal")
+  end)
+  keymap("n", "g<C-x>", function()
+    require("dial.map").manipulate("decrement", "gnormal")
+  end)
+  keymap("v", "<C-a>", function()
+    require("dial.map").manipulate("increment", "visual")
+  end)
+  keymap("v", "<C-x>", function()
+    require("dial.map").manipulate("decrement", "visual")
+  end)
+  keymap("v", "g<C-a>", function()
+    require("dial.map").manipulate("increment", "gvisual")
+  end)
+  keymap("v", "g<C-x>", function()
+    require("dial.map").manipulate("decrement", "gvisual")
+  end)
 end
 
 return M
