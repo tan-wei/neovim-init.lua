@@ -12,6 +12,7 @@ M.config = function()
     { "<leader>A", "<cmd>Alpha<cr>", desc = "Alpha", mode = "n" },
 
     -- a --
+    { "<leader>a", "<cmd>NodeAction<cr>", desc = "node action", mode = "n" },
 
     -- B --
 
