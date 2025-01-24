@@ -26,7 +26,7 @@ M.config = function()
       augend.constant.alias.bool,
     },
     cpp = {
-      augend.ponstant.alias.bool,
+      augend.constant.alias.bool,
     },
     python = {
       augend.constant.new { elements = { "True", "False" } },
