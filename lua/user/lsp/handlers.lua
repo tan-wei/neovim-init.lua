@@ -99,6 +99,8 @@ M.on_attach = function(client, bufnr)
   if status_navbuddy_ok then
     navbuddy.attach(client, bufnr)
   end
+
+  require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
 end
 
 return M
