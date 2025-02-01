@@ -28,6 +28,7 @@ M.config = function()
     filetypes_denylist = {
       "dirvish",
       "fugitive",
+      "NvimTree",
     },
   }
 end
