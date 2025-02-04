@@ -37,6 +37,7 @@ M.config = function()
       cpp = { "clang_format" },
       scheme = { "schemat" },
       bash = { "shfmt" },
+      toml = { "taplo" },
       ["*"] = { "codespell" },
       ["_"] = { "trim_whitespace" },
     },

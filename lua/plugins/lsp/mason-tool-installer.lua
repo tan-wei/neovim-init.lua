@@ -9,6 +9,7 @@ M.config = function()
       "commitlint",
       "cpplint",
       "shfmt",
+      "taplo",
     },
     auto_update = true,
     start_delay = 3000,
