@@ -82,8 +82,7 @@ M.on_attach = function(client, bufnr)
   end
 
   if client.name == "clangd" then
-    require("clangd_extensions.inlay_hints").setup_autocmd()
-    require("clangd_extensions.inlay_hints").set_inlay_hints()
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
   end
   if client.name == "rust-analyzer" then
     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
@@ -99,8 +98,6 @@ M.on_attach = function(client, bufnr)
   if status_navbuddy_ok then
     navbuddy.attach(client, bufnr)
   end
-
-  require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
 end
 
 return M
