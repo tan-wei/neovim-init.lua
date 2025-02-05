@@ -15,7 +15,7 @@ M.init = function()
   table.insert(available_colorschemes, "highlite-papercolor")
   table.insert(available_colorschemes, "highlite-seoul256")
   table.insert(available_colorschemes, "highlite-solarized8")
-  table.insert(available_colorschemes, "highlitesonokai")
+  table.insert(available_colorschemes, "highlite-sonokai")
   vim.g.available_colorschemes = available_colorschemes
 end
 
