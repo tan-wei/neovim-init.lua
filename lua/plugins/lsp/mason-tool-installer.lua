@@ -6,6 +6,8 @@ M.config = function()
   require("mason-tool-installer").setup {
     ensure_installed = {
       "black",
+      "cmakelint",
+      "cmakelang",
       "commitlint",
       "cpplint",
       "shfmt",

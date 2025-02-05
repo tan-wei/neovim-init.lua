@@ -38,6 +38,7 @@ M.config = function()
       scheme = { "schemat" },
       bash = { "shfmt" },
       toml = { "taplo" },
+      cmake = { "cmake_format" },
       ["*"] = { "codespell" },
       ["_"] = { "trim_whitespace" },
     },
