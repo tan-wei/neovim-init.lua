@@ -25,7 +25,7 @@ M.is_gui_client = function()
 end
 
 M.is_kitty = function()
-  return vim.env.TERM == "kitty"
+  return vim.env.TERM == "kitty" or vim.env.TERM == "xterm-kitty"
 end
 
 M.is_wezterm = function()
