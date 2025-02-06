@@ -1,0 +1,3 @@
+[submodule "Pandoc-Themes"]
+	path = Pandoc-Themes
+	url = https://github.com/cab-1729/Pandoc-Themes
