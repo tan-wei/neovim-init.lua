@@ -21,6 +21,7 @@ M.config = function()
       "lazy",
       "Outline",
       "fzf",
+      "nofile",
     },
     ignore_terminal = true,
   }
