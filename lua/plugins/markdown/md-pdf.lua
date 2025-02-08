@@ -1,6 +1,6 @@
 local M = {
   "arminveres/md-pdf.nvim",
-  enabled = require("util.os").is_linux() or require("util.os").is_macos(),
+  enabled = require("util.os").is_linux()
   ft = { "markdown" },
 }
 local function directory_exists(path)
