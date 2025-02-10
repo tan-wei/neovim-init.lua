@@ -1,6 +1,5 @@
 local M = {
-  -- "RRethy/nvim-treesitter-endwise",
-  "metiulekm/nvim-treesitter-endwise", -- Fix #41
+  "RRethy/nvim-treesitter-endwise",
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
   },
