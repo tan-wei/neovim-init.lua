@@ -9,7 +9,7 @@ M.config = function()
     ignored_filetypes = {
       "TelescopePrompt",
       "TelescopeResults",
-      "Trouble",
+      "trouble",
       "help",
       "alpha",
       "toggleterm",
