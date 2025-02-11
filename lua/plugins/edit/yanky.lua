@@ -15,6 +15,8 @@ M.config = function()
       history_length = 200,
     },
     highlight = {
+      on_put = false,
+      on_yank = false,
       timer = 1000,
     },
   }
