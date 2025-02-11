@@ -48,7 +48,7 @@ M.config = function()
         end
       end
     end,
-    one_per = {
+    integrations = {
       kitty = is_kitty,
       wezterm = is_wezterm,
     },
