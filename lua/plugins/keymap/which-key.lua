@@ -208,16 +208,6 @@ M.config = function()
     { "<leader>P", "<cmd>lua require('telescope').extensions.projects.projects()<cr>", desc = "Projects", mode = "n" },
 
     -- p --
-    -- { "<leader>p", group = "plugins", mode = "n" },
-    -- { "<leader>pi", "<cmd>Lazy install<cr>", desc = "Install", mode = "n" },
-    -- { "<leader>ps", "<cmd>Lazy sync<cr>", desc = "Sync", mode = "n" },
-    -- { "<leader>pr", "<cmd>Lazy claer<cr>", desc = "cleaR", mode = "n" },
-    -- { "<leader>pc", "<cmd>Lazy clean<cr>", desc = "Clean", mode = "n" },
-    -- { "<leader>pu", "<cmd>Lazy update<cr>", desc = "Update", mode = "n" },
-    -- { "<leader>pp", "<cmd>Lazy profile<cr>", desc = "Profile", mode = "n" },
-    -- { "<leader>pl", "<cmd>Lazy log<cr>", desc = "Log", mode = "n" },
-    -- { "<leader>pd", "<cmd>Lazy debug<cr>", desc = "Debug", mode = "n" },
-    { "<leader>p", "<cmd>lua require('nabla').popup()<cr>", desc = "Preview", mode = "n" },
 
     -- Q --
 
@@ -294,7 +284,7 @@ M.config = function()
       desc = "run the Current file",
       mode = "n",
     },
-    { "<leader>ts", "<cmd>lua require('neotest').summary.toggle()<<cr>", desc = "toggle test Summary", mode = "n" },
+    { "<leader>ts", "<cmd>lua require('neotest').summary.toggle()<cr>", desc = "toggle test Summary", mode = "n" },
     {
       "<leader>to",
       "<cmd>lua require('neotest').output.open({ enter = false })<cr>",
