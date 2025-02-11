@@ -23,6 +23,7 @@ end
 M.config = function()
   local is_kitty = require("util.client").is_kitty()
   local is_wezterm = require("util.client").is_wezterm()
+  local saved_terminal = nil
 
   require("flatten").setup {
     pipe_path = function()
