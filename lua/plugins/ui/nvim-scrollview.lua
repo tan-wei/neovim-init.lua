@@ -22,7 +22,10 @@ M.config = function()
       -- "textwidth",
       -- "trail",
     },
-    diagnostics_severities = { vim.diagnostic.severity.ERROR },
+    diagnostics_severities = {
+      vim.diagnostic.severity.ERROR,
+      vim.diagnostic.severity.WARN,
+    },
     mode = "proper",
   }
 
