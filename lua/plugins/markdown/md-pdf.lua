@@ -26,6 +26,8 @@ M.config = function()
     fonts = nil,
     pandoc_user_args = {
       "--template=" .. template,
+      "--mathml",
+      "--wrap=preserve",
     },
     output_path = ".",
     pdf_engine = "xelatex",
