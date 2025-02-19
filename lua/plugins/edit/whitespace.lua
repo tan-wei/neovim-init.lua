@@ -22,6 +22,7 @@ M.config = function()
       "Outline",
       "fzf",
       "nofile",
+      "mason",
     },
     ignore_terminal = true,
   }
