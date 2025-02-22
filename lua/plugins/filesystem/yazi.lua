@@ -1,5 +1,8 @@
 local M = {
   "mikavilpas/yazi.nvim",
+  dependencies = {
+    "folke/snacks.nvim",
+  },
   cmd = { "Yazi" },
 }
 
