@@ -37,6 +37,7 @@ require("lazy").setup {
     { import = "plugins.markdown" },
     { import = "plugins.marks" },
     { import = "plugins.media" },
+    { import = "plugins.miscellaneous" },
     { import = "plugins.motion" },
     { import = "plugins.project" },
     { import = "plugins.python" },

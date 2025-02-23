@@ -7,6 +7,6 @@ local M = {
 }
 
 -- TODO: This plugin should write more configurations
-M.opts = true
+M.config = true
 
 return M
