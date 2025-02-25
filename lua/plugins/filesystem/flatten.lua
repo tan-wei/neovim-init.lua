@@ -2,6 +2,7 @@ local M = {
   "willothy/flatten.nvim",
   lazy = false,
   priority = 1001,
+  enabled = false, -- Buggy with neotest now, see: https://github.com/willothy/flatten.nvim/issues/106
 }
 local try_address = function(addr, startserver)
   if not addr:find "/" then
