@@ -8,7 +8,7 @@ local M = {
     "nvim-neotest/neotest-vim-test",
     "rouge8/neotest-rust",
     "nvim-neotest/nvim-nio",
-    "alfaix/neotest-gtest",
+    "orjangj/neotest-ctest",
   },
   event = "VeryLazy",
 }
@@ -17,7 +17,7 @@ M.config = function()
   require("neotest").setup {
     adapters = {
       require "neotest-rust" { allow_file_types = { "rust" } },
-      require("neotest-gtest").setup {
+      require("neotest-ctest").setup {
         is_test_file = function(file)
           return string.find(file, "[tT][eE][sS][tT][sS]?_") ~= nil
             or string.find(file, "_[tT][eE][sS][tT][sS]?") ~= nil
