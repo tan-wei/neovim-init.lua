@@ -83,7 +83,12 @@ if vim.g.neovide then
   else
     vim.o.guifont = "DejaVuSansM Nerd Font:h8"
   end
+
   vim.g.neovide_remember_window_size = true
+  vim.g.neovide_text_gamma = 0.0
+  vim.g.neovide_text_contrast = 0.5
+  vim.g.neovide_cursor_vfx_mode = "wireframe"
+  vim.g.neovide_refresh_rate = 80
 end
 
 -- other options
