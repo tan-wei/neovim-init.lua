@@ -108,8 +108,8 @@ M.setup = function()
   end, { expr = true })
 
   -- vim-easy-align
-  keymap("n", "ga", "<Plug>EasyAlign", opts)
-  keymap("x", "ga", "<Plug>EasyAlign", opts)
+  keymap("n", "ga", "<Plug>(EasyAlign)", opts)
+  keymap("x", "ga", "<Plug>(EasyAlign)", opts)
 
   local status_ok, harpoon = pcall(require, "harpoon")
 
