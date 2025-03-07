@@ -89,6 +89,7 @@ if vim.g.neovide then
   vim.g.neovide_text_contrast = 0.5
   vim.g.neovide_cursor_vfx_mode = "wireframe"
   vim.g.neovide_refresh_rate = 80
+  vim.g.neovide_cursor_animate_in_insert_mode = true
 end
 
 -- other options
