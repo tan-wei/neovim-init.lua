@@ -1,6 +1,5 @@
 local M = {
   "oneslash/helix-nvim",
-  name = "helix",
   lazy = true,
 }
 
