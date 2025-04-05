@@ -1,5 +1,5 @@
 local M = {
-  "numToStr/Sakura.nvim",
+  "anAcc22/sakura.nvim",
   lazy = true,
 }
 
