@@ -34,6 +34,7 @@ local M = {
 
 M.opts = {
   cmake_build_directory = "build/${kit}/${kitGenerator}/${variant:buildType}",
+  cmake_build_options = { "-j$(nproc)" },
   cmake_soft_link_compile_commands = false,
   cmake_compile_commands_from_lsp = true,
   cmake_executor = {
