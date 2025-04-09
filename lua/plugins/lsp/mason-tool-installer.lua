@@ -12,6 +12,8 @@ M.config = function()
       "cpplint",
       "shfmt",
       "taplo",
+      "prettierd",
+      "prettier",
     },
     auto_update = true,
     start_delay = 3000,
