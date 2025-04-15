@@ -31,10 +31,24 @@ local M = {
     "CMakeTargetSettings",
   },
 }
+local function get_number_of_cores()
+  local handle = io.popen "nproc"
+  local result = handle:read "*a"
+  handle:close()
+  return tonumber(result)
+end
+
+local function build_options()
+  if require("util.os").is_windows() then
+    return nil
+  else
+    return { "-j" .. get_number_of_cores() }
+  end
+end
 
 M.opts = {
   cmake_build_directory = "build/${kit}/${kitGenerator}/${variant:buildType}",
-  cmake_build_options = { "-j$(nproc)" },
+  cmake_build_options = build_options(),
   cmake_soft_link_compile_commands = false,
   cmake_compile_commands_from_lsp = true,
   cmake_executor = {
