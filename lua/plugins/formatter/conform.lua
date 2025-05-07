@@ -39,6 +39,7 @@ M.config = function()
       bash = { "shfmt" },
       toml = { "taplo" },
       cmake = { "cmake_format" },
+      json = { "jq" },
       ["*"] = { "codespell" },
       ["_"] = { "trim_whitespace" },
     },

@@ -10,6 +10,7 @@ M.config = function()
       "cmakelang",
       "commitlint",
       "cpplint",
+      "jq",
       "shfmt",
       "taplo",
       "prettierd",
