@@ -4,7 +4,13 @@ local M = {
   lazy = false,
 }
 
--- TODO: This plugin should write more configurations
-M.opts = {}
+M.opts = {
+  bigfile = {
+    enabled = true,
+    notify = true,
+    size = 1.5 * 1024 * 1024,
+    line_length = 10000,
+  },
+}
 
 return M
