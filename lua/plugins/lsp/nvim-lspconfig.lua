@@ -34,8 +34,6 @@ local servers = {
 }
 
 M.config = function()
-  local lspconfig = require "lspconfig"
-
   -- FIXME: Lazy load lspconfig will cause buffers are not attached, please see: https://github.com/wookayin/dotfiles/blob/e2fe550ec3e29584992c20d732b32144dc6a3fd9/nvim/lua/config/lsp.lua#L438
 
   for _, server in pairs(servers) do
@@ -53,7 +51,8 @@ M.config = function()
       vim.notify("Server [" .. server .. "] is not available")
     end
 
-    lspconfig[server].setup(opts)
+    vim.lsp.enable(server)
+    vim.lsp.config(server, opts)
 
     -- FIXME: Tricky now
     if server == "ccls" then
