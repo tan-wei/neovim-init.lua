@@ -1,6 +1,7 @@
 local M = {
   "jake-stewart/multicursor.nvim",
   event = "VeryLazy",
+  enabled = false,
 }
 
 M.config = function()
