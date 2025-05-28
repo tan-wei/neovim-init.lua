@@ -4,7 +4,7 @@ local M = {
     "nvim-lua/plenary.nvim",
   },
   ft = "markdown",
-  enabled = false,
+  -- enabled = false,
 }
 
 M.opts = {
