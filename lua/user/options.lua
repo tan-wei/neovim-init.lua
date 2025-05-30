@@ -81,7 +81,7 @@ if vim.g.neovide then
   if require("util.os").is_macos() then
     vim.o.guifont = "DejaVuSansM Nerd Font:h14"
   else
-    vim.o.guifont = "DejaVuSansM Nerd Font:h7"
+    vim.o.guifont = "DejaVuSansM Nerd Font:h8"
   end
 
   vim.g.neovide_remember_window_size = true
