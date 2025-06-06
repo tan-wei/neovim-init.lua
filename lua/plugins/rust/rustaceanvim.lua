@@ -4,7 +4,7 @@ local M = {
     "nvim-lua/plenary.nvim",
     "mfussenegger/nvim-dap",
   },
-  ft = "rust",
+  lazy = false,
 }
 
 M.config = function()
