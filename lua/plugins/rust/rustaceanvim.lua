@@ -7,7 +7,7 @@ local M = {
   lazy = false,
 }
 
-M.config = function()
+M.init = function()
   vim.g.rustaceanvim = {
     server = {
       on_attach = function(client, bufnr)
