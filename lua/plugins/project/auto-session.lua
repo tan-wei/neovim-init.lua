@@ -45,7 +45,7 @@ M.config = function()
 
         ------------------------------------------------
         -- ref: https://github.com/b0o/nvim-conf/blob/3f9c92550f79921326a453f3140be9dcf843eb3d/lua/user/fn.lua#L352
-        if require("util.package").is_loaded "nvim-tree.lua" and require("nvim-tree.view").is_visible() then
+        if require("util.package").is_loaded "nvim-tree.lua" and require("nvim-tree.api").tree.is_visible() then
           meta.nvimTreeOpen = true
           meta.nvimTreeFocused = vim.fn.bufname(vim.fn.bufnr()) == "NvimTree"
           local api = require "nvim-tree.api"
