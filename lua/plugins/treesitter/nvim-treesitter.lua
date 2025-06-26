@@ -1,5 +1,8 @@
 local M = {
   "nvim-treesitter/nvim-treesitter",
+  dependencies = {
+    "OXY2DEV/markview.nvim",
+  },
   build = ":TSUpdate",
   event = "VeryLazy",
 }
