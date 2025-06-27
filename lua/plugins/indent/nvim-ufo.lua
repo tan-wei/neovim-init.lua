@@ -64,6 +64,8 @@ M.config = function()
       { text = { "%s" }, click = "v:lua.ScSa" },
       { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
     },
+    foldfunc = "builtin",
+    setopt = true,
   }
 
   -- Disable automatic fold all for open a new buffer, ref: https://github.com/kevinhwang91/nvim-ufo/issues/83
