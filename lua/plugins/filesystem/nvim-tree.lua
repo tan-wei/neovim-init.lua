@@ -113,6 +113,9 @@ M.config = function()
     filters = {
       git_ignored = false,
     },
+    git = {
+      timeout = 2000,
+    },
   }
 end
 
