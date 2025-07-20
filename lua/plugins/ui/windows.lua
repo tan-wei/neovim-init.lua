@@ -31,6 +31,7 @@ M.config = function()
         "neo-tree",
         "undotree",
         "gundo",
+        "qf",
       },
     },
     animation = {

@@ -43,6 +43,9 @@ M.config = function()
       },
       signcolumn = false,
     },
+    autoresize = {
+      height_quickfix = 30,
+    },
   }
 end
 
