@@ -3,7 +3,7 @@ local M = {
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },
-  cmd = { "Oil" },
+  lazy = false,
 }
 
 M.init = function()
@@ -12,6 +12,14 @@ M.init = function()
   vim.g.loaded_netrwPlugin = 1
 end
 
-M.opts = {}
+M.opts = {
+  default_file_explorer = false,
+  columns = {
+    "icon",
+    -- "permissions",
+    -- "size",
+    -- "mtime",
+  },
+}
 
 return M
