@@ -1,6 +1,6 @@
 local M = {
   "sQVe/sort.nvim",
-  cmd = "Sort",
+  event = "VeryLazy",
 }
 
 M.opts = {
@@ -11,6 +11,17 @@ M.opts = {
     ":",
     "s", -- Space
     "t", -- Tab
+  },
+  mappings = {
+    operator = "go",
+    textobject = {
+      inner = "io",
+      around = "ao",
+    },
+    motion = {
+      next_delimiter = "]o",
+      prev_delimiter = "[o",
+    },
   },
 }
 
