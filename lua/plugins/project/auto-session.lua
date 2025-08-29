@@ -26,7 +26,7 @@ M.config = function()
       picker_opts = { border = true },
       previewer = true,
     },
-    bypass_save_filetypes = { "alpha", "dashboard" },
+    bypass_save_filetypes = { "alpha", "dashboard", "oil", "telescope" },
     pre_save_cmds = {
       function()
         -- local status_ok, api = pcall(require, "nvim-tree.api")
