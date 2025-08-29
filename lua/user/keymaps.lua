@@ -170,7 +170,7 @@ M.setup = function()
     require("dial.map").manipulate("decrement", "gvisual")
   end)
 
-  -- move.neim
+  -- move.nvim
   keymap("n", "<A-j>", ":MoveLine(1)<CR>", opts)
   keymap("n", "<A-k>", ":MoveLine(-1)<CR>", opts)
   keymap("n", "<A-h>", ":MoveHChar(-1)<CR>", opts)
@@ -183,12 +183,10 @@ M.setup = function()
   keymap("v", "<A-h>", ":MoveHBlock(-1)<CR>", opts)
   keymap("v", "<A-l>", ":MoveHBlock(1)<CR>", opts)
 
-
+  -- oil.nvim
   keymap("n", "-", function()
-    require('oil').toggle_float()
+    require("oil").toggle_float()
   end)
 end
-
-
 
 return M
