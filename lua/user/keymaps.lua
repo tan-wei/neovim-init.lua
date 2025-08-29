@@ -182,6 +182,13 @@ M.setup = function()
   keymap("v", "<A-k>", ":MoveBlock(-1)<CR>", opts)
   keymap("v", "<A-h>", ":MoveHBlock(-1)<CR>", opts)
   keymap("v", "<A-l>", ":MoveHBlock(1)<CR>", opts)
+
+
+  keymap("n", "-", function()
+    require('oil').toggle_float()
+  end)
 end
+
+
 
 return M
