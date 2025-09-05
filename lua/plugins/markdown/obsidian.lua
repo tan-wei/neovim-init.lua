@@ -4,7 +4,7 @@ local M = {
     "nvim-lua/plenary.nvim",
   },
   ft = "markdown",
-  -- enabled = false,
+  enabled = false,
 }
 
 M.opts = {
@@ -35,6 +35,7 @@ M.opts = {
   ui = {
     enable = false, -- NOTE: Enable it requires conceallevel set 1 or 2
   },
+  legacy_commands = false,
 }
 
 return M
