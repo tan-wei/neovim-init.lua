@@ -10,6 +10,7 @@ M.opts = {
     "TelescopePrompt",
     "mason",
     "NvimTree",
+    "alpha",
   },
 }
 
