@@ -6,10 +6,12 @@ local M = {
     "sindrets/diffview.nvim",
     "ibhagwan/fzf-lua",
   },
-  cmd = "Neogit",
+  cmd = { "Neogit", "NeogitLog", "NeogitCommit" },
 }
 
--- TODO: This plugin should write more configurations
-M.config = true
+M.opts = {
+  graph_style = "unicode",
+  kind = "floating",
+}
 
 return M
