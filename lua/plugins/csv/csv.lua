@@ -1,6 +1,7 @@
 local M = {
   "chrisbra/csv.vim",
   ft = { "csv" },
+  enabled = false,
 }
 
 M.config = function()
