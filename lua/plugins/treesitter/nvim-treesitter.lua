@@ -12,7 +12,10 @@ M.config = function()
     ensure_installed = "all",
     highlight = {
       enable = true,
-      disable = { "css" },
+      disable = {
+        "css",
+        "csv", -- NOTE: To make rainbow_csv work
+      },
     },
     auto_install = true,
     autopairs = {
