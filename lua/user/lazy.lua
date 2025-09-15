@@ -31,6 +31,7 @@ require("lazy").setup {
     { import = "plugins.git" },
     { import = "plugins.indent" },
     { import = "plugins.keymap" },
+    { import = "plugins.latex" },
     { import = "plugins.linter" },
     { import = "plugins.log" },
     { import = "plugins.lsp" },
