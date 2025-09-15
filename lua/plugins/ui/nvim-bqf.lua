@@ -7,7 +7,14 @@ local M = {
   ft = "qf",
 }
 
--- TODO: This plugin should write more configurations
-M.config = true
+M.config = function()
+  require("bqf").setup {
+    auto_enable = true,
+    auto_resize_height = true,
+    preview = {
+      auto_preview = false,
+    },
+  }
+end
 
 return M
