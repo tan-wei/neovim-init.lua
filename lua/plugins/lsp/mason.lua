@@ -20,7 +20,7 @@ M.config = function()
     "rust_analyzer",
     "marksman",
     "cmake",
-    "ltex",
+    "ltex_plus",
     "solargraph",
   }
 
