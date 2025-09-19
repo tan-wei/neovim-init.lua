@@ -48,6 +48,10 @@ M.setup = function()
   -- keymap("n", "<S-Tab>", "<plug>(CybuLastusedPrev)", opts)
   -- keymap("n", "<Tab>", "<plug>(CybuLastusedNext)", opts)
 
+  -- nvim-scrollview related
+  keymap("n", "[S", "<Plug>(ScrollViewPrev)", opts)
+  keymap("n", "]S", "<Plug>(ScrollViewNext)")
+
   -- Insert --
   -- Press jk fast to exit insert mode
   keymap("i", "jk", "<ESC>", opts)
