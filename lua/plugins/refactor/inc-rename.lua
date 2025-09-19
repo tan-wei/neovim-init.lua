@@ -1,6 +1,7 @@
 local M = {
   "smjonas/inc-rename.nvim",
   cmd = "IncRename",
+  enabled = false,
 }
 
 M.opts = {

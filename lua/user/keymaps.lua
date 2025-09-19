@@ -103,9 +103,19 @@ M.setup = function()
   keymap("n", "<C-l>", ":Treewalker Right<CR>", opts)
 
   -- inc-rename.nvim
+  -- keymap("n", "<F2>", function()
+  --   return ":IncRename " .. vim.fn.expand "<cword>"
+  -- end, { expr = true })
+
+  -- live-rename.nvim
   keymap("n", "<F2>", function()
-    return ":IncRename " .. vim.fn.expand "<cword>"
-  end, { expr = true })
+    require("live-rename").rename { cursorpos = -1 }
+
+    -- put into append mode immediately, as insert-mode is placing cursor before
+    vim.schedule(function()
+      vim.api.nvim_feedkeys("A", "n", false)
+    end)
+  end, opts)
 
   -- vim-easy-align
   keymap("n", "ga", "<Plug>(EasyAlign)", opts)
