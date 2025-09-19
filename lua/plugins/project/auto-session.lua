@@ -172,7 +172,7 @@ M.config = function()
         if session_name ~= "" then
           -- vim.cmd ":SessionSave"
 
-          auto_session.SaveSession()
+          auto_session.save_session()
         end
       end
     end,
