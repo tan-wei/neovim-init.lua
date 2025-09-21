@@ -1,14 +1,6 @@
 local M = {
   "neovim/nvim-lspconfig",
   dependencies = {
-    {
-      "antosha417/nvim-lsp-file-operations",
-      dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-tree/nvim-tree.lua",
-      },
-      config = true,
-    },
     { "hrsh7th/cmp-nvim-lsp" },
     { "ranjithshegde/ccls.nvim" }, -- FIXME: Trewaky now
   },
@@ -34,9 +26,6 @@ local servers = {
 }
 
 M.config = function()
-  local lspconfig = require "lspconfig"
-  -- FIXME: Lazy load lspconfig will cause buffers are not attached, please see: https://github.com/wookayin/dotfiles/blob/e2fe550ec3e29584992c20d732b32144dc6a3fd9/nvim/lua/config/lsp.lua#L438
-
   for _, server in pairs(servers) do
     local opts = {
       on_attach = require("user.lsp.handlers").on_attach,
@@ -51,10 +40,6 @@ M.config = function()
     else
       vim.notify("Server [" .. server .. "] is not available")
     end
-
-    -- vim.lsp.enable(server)
-    -- vim.lsp.config(server, opts)
-    lspconfig[server].setup(opts)
 
     -- FIXME: Tricky now
     if server == "ccls" then
@@ -79,6 +64,9 @@ M.config = function()
           codelens = { enable = true },
         },
       }
+    else
+      vim.lsp.config(server, opts)
+      vim.lsp.enable(server)
     end
   end
 end
