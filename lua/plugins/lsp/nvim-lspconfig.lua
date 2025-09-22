@@ -2,7 +2,7 @@ local M = {
   "neovim/nvim-lspconfig",
   dependencies = {
     { "hrsh7th/cmp-nvim-lsp" },
-    { "ranjithshegde/ccls.nvim" }, -- FIXME: Trewaky now
+    -- { "ranjithshegde/ccls.nvim" }, -- FIXME: Trewaky now
   },
   event = { "BufReadPre", "BufNewFile" },
 }
@@ -45,25 +45,25 @@ M.config = function()
     if server == "ccls" then
       -- vim.print(opts)
 
-      require("ccls").setup {
-        lsp = {
-          lspconfig = opts,
-          disable_capabilities = {
-            completionProvider = true,
-            documentFormattingProvider = true,
-            documentRangeFormattingProvider = true,
-            documentHighlightProvider = true,
-            documentSymbolProvider = true,
-            workspaceSymbolProvider = true,
-            renameProvider = true,
-            hoverProvider = true,
-            codeActionProvider = true,
-          },
-          disable_diagnostics = true,
-          disable_signature = true,
-          codelens = { enable = true },
-        },
-      }
+      -- require("ccls").setup {
+      --   lsp = {
+      --     lspconfig = opts,
+      --     disable_capabilities = {
+      --       completionProvider = true,
+      --       documentFormattingProvider = true,
+      --       documentRangeFormattingProvider = true,
+      --       documentHighlightProvider = true,
+      --       documentSymbolProvider = true,
+      --       workspaceSymbolProvider = true,
+      --       renameProvider = true,
+      --       hoverProvider = true,
+      --       codeActionProvider = true,
+      --     },
+      --     disable_diagnostics = true,
+      --     disable_signature = true,
+      --     codelens = { enable = true },
+      --   },
+      -- }
     else
       vim.lsp.config(server, opts)
       vim.lsp.enable(server)
