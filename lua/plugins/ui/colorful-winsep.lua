@@ -1,7 +1,6 @@
 local M = {
   "nvim-zh/colorful-winsep.nvim",
   event = { "WinLeave" },
-  enabled = false,
 }
 
 M.opts = {
