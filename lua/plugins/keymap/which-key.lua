@@ -44,6 +44,12 @@ M.config = function()
       desc = "toggle quick Menu",
       mode = "n",
     },
+    {
+      "<leader>bM",
+      "<cmd>lua require('snipe').open_buffer_menu()<cr>",
+      desc = "open buffer Menu",
+      mode = "n",
+    },
     { "<leader>bsd", "<cmd>BufferLineSortByDirectory<cr>", desc = "buffer Sort by Directory", mode = "n" },
     { "<leader>bsl", "<cmd>BufferLineSortByExtension<cr>", desc = "buffer Sort by Language", mode = "n" },
     { "<leader>bst", "<cmd>BufferLineSortByTabs<cr>", desc = "buffer Sort by Tabs", mode = "n" },
