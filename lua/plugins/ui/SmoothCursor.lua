@@ -8,6 +8,7 @@ M.config = function()
     disabled_filetypes = {
       "lazy",
     },
+    disable_float_win = true,
   }
 end
 
