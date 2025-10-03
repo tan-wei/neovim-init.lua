@@ -7,6 +7,7 @@ M.config = function()
   require("smoothcursor").setup {
     disabled_filetypes = {
       "lazy",
+      "NvimTree",
     },
     disable_float_win = true,
   }
