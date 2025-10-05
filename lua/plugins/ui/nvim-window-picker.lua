@@ -5,7 +5,13 @@ local M = {
 
 -- TODO: This plugin should write more configurations
 M.config = function()
-  require("window-picker").setup()
+  require("window-picker").setup {
+    filter_rules = {
+      bo = {
+        filetype = { "smear-cursor" },
+      },
+    },
+  }
 end
 
 return M

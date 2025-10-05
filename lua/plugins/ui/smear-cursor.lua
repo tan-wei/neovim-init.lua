@@ -1,5 +1,5 @@
 local M = {
-  "sphamba/smear-cursor.nvim", -- Fork to fix #38
+  "sphamba/smear-cursor.nvim",
   event = "VeryLazy",
   cond = require("util.client").is_cui_client() and not require("util.client").is_kitty(),
 }
