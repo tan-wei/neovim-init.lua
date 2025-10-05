@@ -5,6 +5,9 @@ local M = {
 
 M.config = function()
   require("smoothcursor").setup {
+    fancy = {
+      enable = true,
+    },
     disabled_filetypes = {
       "lazy",
       "NvimTree",
