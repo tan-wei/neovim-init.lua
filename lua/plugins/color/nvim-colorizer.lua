@@ -1,6 +1,7 @@
 local M = {
   "catgoose/nvim-colorizer.lua",
   event = "VeryLazy",
+  enabled = false,
 }
 
 M.config = function()
