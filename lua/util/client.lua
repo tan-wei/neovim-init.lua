@@ -1,27 +1,15 @@
 local M = {}
 
 M.is_neovide = function()
-  if vim.g.neovide then
-    return true
-  else
-    return false
-  end
+  return vim.g.neovide ~= nil
 end
 
 M.is_neovim_qt = function()
-  if not vim.env.TERM or vim.env.TERM == "" then
-    if vim.g.neovide then
-      return false
-    else
-      return true
-    end
-  else
-    return false
-  end
+  return vim.g.nvim_qt ~= nil or vim.env.NVIM_QT_RUNNING == "1"
 end
 
 M.is_gui_client = function()
-  return M.is_neovide() or M.is_neovim_qt()
+  return M.is_neovide() or M.is_neovim_qt() or vim.fn.has "gui_running" == 1
 end
 
 M.is_kitty = function()
@@ -43,27 +31,18 @@ end
 M.is_windows_terminal = function()
   if vim.fn.has "win32" == 1 then
     local wt_session = os.getenv "WT_SESSION"
-    if wt_session ~= nil then
-      return true
-    else
-      return false
-    end
+    return wt_session ~= nil
   else
     return false
   end
 end
 
-M.is_other_terminal = function()
-  return vim.env.TERM == "xterm-256color"
+M.is_iterm = function()
+  return vim.env.ITERM_SESSION_ID ~= nil
 end
 
 M.is_cui_client = function()
-  return M.is_other_terminal()
-    or M.is_wezterm()
-    or M.is_kitty()
-    or M.is_ghostty()
-    or M.is_alacritty()
-    or M.is_windows_terminal()
+  return not M.is_gui_client()
 end
 
 return M

@@ -12,6 +12,10 @@ M.is_windows = function()
   end
 end
 
+M.is_wsl = function()
+  return vim.fn.has "wsl" == 1 or os.getenv "WSL_DISTRO_NAME" ~= nil
+end
+
 M.is_macos = function()
   if get_os_name() == "Darwin" then
     return true
