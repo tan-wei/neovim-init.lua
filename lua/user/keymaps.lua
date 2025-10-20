@@ -204,7 +204,6 @@ M.setup = function()
 
   keymap("", "<F9>", "<cmd>CellularAutomaton make_it_rain<cr>", opts)
   keymap("", "<F10>", "<cmd>CellularAutomaton game_of_life<cr>", opts)
-
 end
 
 return M
