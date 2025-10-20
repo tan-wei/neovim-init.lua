@@ -10,7 +10,7 @@ M.init = function()
 end
 
 M.config = function()
-  require('lytmode').setup()
+  require("lytmode").setup()
 end
 
 return M
