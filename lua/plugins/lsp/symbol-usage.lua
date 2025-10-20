@@ -124,19 +124,22 @@ M.config = function()
   end
 
   local text_format_according_term = function(symbol)
-    if vim.env.TERM == "xterm-256color" then
-      return plain_text_format(symbol)
-    elseif vim.env.TERM == "wezterm" then
-      return bubble_text_format(symbol)
-    elseif vim.env.TERM == "kitty" then
-      return bubble_text_format(symbol)
-    elseif not vim.env.TERM or vim.env.TERM == "" then
-      -- Use GUI
-      if vim.g.neovide then
-        return bubble_text_format(symbol)
-      else
-        return plain_text_format(symbol)
-      end
+    local client_map = {
+      ["neovide"] = bubble_text_format,
+      ["neovim-qt"] = plain_text_format,
+      ["wezterm"] = bubble_text_format,
+      ["kitty"] = bubble_text_format,
+      ["ghostty"] = label_text_format,
+      ["alacritty"] = plain_text_format,
+      ["default"] = plain_text_format,
+    }
+
+    local renderer = client_map[require("util.client").get_client()]
+
+    if renderer then
+      return renderer(symbol)
+    else
+      plain_text_format(symbol)
     end
   end
 

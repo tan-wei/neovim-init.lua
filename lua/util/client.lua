@@ -46,28 +46,28 @@ M.is_cui_client = function()
 end
 
 M.get_client = function()
-  if is_gui_client() then
-    if is_neovide() then
+  if M.is_gui_client() then
+    if M.is_neovide() then
       return "neovide"
     end
 
-    if is_neovim_qt() then
+    if M.is_neovim_qt() then
       return "neovim-qt"
     end
   else
-    if is_wezterm() then
+    if M.is_wezterm() then
       return "wezterm"
     end
 
-    if is_ghostty() then
+    if M.is_ghostty() then
       return "ghostty"
     end
 
-    if is_alacritty() then
+    if M.is_alacritty() then
       return "alacritty"
     end
 
-    if is_windows_terminal() then
+    if M.is_windows_terminal() then
       return "windows terminal"
     end
   end
