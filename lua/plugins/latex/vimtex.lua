@@ -4,9 +4,8 @@ local M = {
 }
 
 -- TODO: Add custom keymaps for other plugins
-M.init = function ()
+M.init = function()
   vim.g.vimtex_view_method = "zathura"
 end
-
 
 return M
