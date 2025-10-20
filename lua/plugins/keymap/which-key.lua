@@ -336,7 +336,8 @@ M.config = function()
     { "<leader>w", group = "workspace", mode = "n" },
     { "<leader>wl", "<cmd>Telescope session-lens<cr>", desc = "session Lens", mode = "n" },
     { "<leader>ws", "<cmd>AutoSession save<cr>", desc = "session Save", mode = "n" },
-    { "<leader>wd", "<cmd>AutoSession delete<cr>", desc = "Delete a selected session", mode = "n" },
+    { "<leader>wd", "<cmd>AutoSession deletePicker<cr>", desc = "Delete a selected session", mode = "n" },
+    { "<leader>wt", "<cmd>AutoSession toggle<cr>", desc = "session Toggle", mode = "n" },
 
     -- X --
 
