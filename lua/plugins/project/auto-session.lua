@@ -122,6 +122,10 @@ M.config = function()
         end
 
         require("treesitter-context").enable()
+
+        local session_name = require("auto-session.lib").current_session_name(true)
+
+        vim.opt.titlestring = "session: " .. session_name
       end,
     },
     cwd_change_handling = true,

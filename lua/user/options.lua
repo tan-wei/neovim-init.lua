@@ -49,6 +49,8 @@ local options = {
   sessionoptions = "blank,buffers,curdir,folds,globals,help,tabpages,winsize,winpos,terminal,localoptions", -- Session save options
   textwidth = 512, -- Default text width
   spellfile = vim.fn.stdpath "config" .. "/spell/en.utf-8.add", -- Spell file
+  title = true, -- Always print title
+  titlestring = "cwd: " .. vim.fn.getcwd(), -- Default print current directory
   -- jumpoptions = "stack", -- make jump stack
 }
 
