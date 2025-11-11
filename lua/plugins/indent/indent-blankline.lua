@@ -43,7 +43,7 @@ M.config = function()
   vim.g.rainbow_delimiters = { highlight = highlight }
 
   ibl.setup {
-    indent = { char = { "|", "¦", "┆", "┊", "┋" }, tab_char = { "»" }, smart_indent_cap = true, priority = 50 },
+    indent = { char = { "|", "¦", "┆", "┊" }, tab_char = { "»" }, smart_indent_cap = true, priority = 50 },
     scope = {
       show_start = true,
       show_end = true,
