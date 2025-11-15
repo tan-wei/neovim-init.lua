@@ -9,7 +9,7 @@ local M = {
 }
 
 M.config = function()
-  require("telescope").load_extension "telescope-tabs"
+  require("telescope").load_extension "smart_open"
 end
 
 return M
