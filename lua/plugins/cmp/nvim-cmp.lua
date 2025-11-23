@@ -39,9 +39,7 @@ local M = {
         "nvim-treesitter/nvim-treesitter-textobjects",
       },
     },
-    {
-      "f3fora/cmp-spell",
-    },
+    "f3fora/cmp-spell",
     "davidsierradz/cmp-conventionalcommits",
   },
   event = { "InsertEnter", "CmdlineEnter" },
