@@ -95,6 +95,8 @@ M.config = function()
       },
     },
   }
+
+  telescope.load_extension "fzf"
 end
 
 return M
