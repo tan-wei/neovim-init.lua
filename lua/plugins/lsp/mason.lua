@@ -22,6 +22,7 @@ M.config = function()
     "cmake",
     "ltex_plus",
     "solargraph",
+    "tombi",
   }
 
   local settings = {

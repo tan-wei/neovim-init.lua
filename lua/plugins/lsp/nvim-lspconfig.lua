@@ -23,6 +23,7 @@ local servers = {
   "marksman",
   "cmake",
   "solargraph",
+  "tombi",
 }
 
 M.config = function()
