@@ -204,6 +204,17 @@ M.setup = function()
 
   keymap("", "<F9>", "<cmd>CellularAutomaton make_it_rain<cr>", opts)
   keymap("", "<F10>", "<cmd>CellularAutomaton game_of_life<cr>", opts)
+
+  -- fold-cycle.nvim
+  keymap("n", "<tab>", function()
+    return require("fold-cycle").open()
+  end, { silent = true, desc = "Fold-cycle: open folds" })
+  keymap("n", "<s-tab>", function()
+    return require("fold-cycle").close()
+  end, { silent = true, desc = "Fold-cycle: close folds" })
+  keymap("n", "zC", function()
+    return require("fold-cycle").close_all()
+  end, { remap = true, silent = true, desc = "Fold-cycle: close all folds" })
 end
 
 return M
