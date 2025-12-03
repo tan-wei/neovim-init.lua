@@ -45,3 +45,18 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 --     end
 --   end,
 -- })
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = "*.sample",
+  callback = function(args)
+    local fname = vim.fn.expand "%:t"
+    local real_name = fname:gsub("%.sample$", "")
+    if real_name == "" then
+      return
+    end
+    local ft = vim.filetype.match { filename = real_name }
+    if ft then
+      vim.bo.filetype = ft
+    end
+  end,
+})
