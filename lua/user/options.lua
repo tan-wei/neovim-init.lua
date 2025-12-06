@@ -78,20 +78,10 @@ vim.opt.runtimepath:remove "/usr/share/vim/vimfiles" -- separate vim plugins fro
 vim.opt.sessionoptions = options.sessionoptions
 vim.loader.enable() -- Enables the experimental Lua module loader
 
--- neovide related configure
-if vim.g.neovide then
-  if require("util.os").is_macos() then
-    vim.o.guifont = "DejaVuSansM Nerd Font:h14"
-  else
-    vim.o.guifont = "Hasklug Nerd Font:h8:#e-subpixelantialias"
-  end
+-- client related configure
 
-  vim.g.neovide_remember_window_size = true
-  vim.g.neovide_text_gamma = 0.0
-  vim.g.neovide_text_contrast = 0.5
-  vim.g.neovide_cursor_vfx_mode = "wireframe"
-  vim.g.neovide_refresh_rate = 80
-  vim.g.neovide_cursor_animate_in_insert_mode = true
+if require("util.client").is_neovide() then
+  require("user.neovide").setup()
 end
 
 -- other options
