@@ -8,8 +8,12 @@ M.is_neovim_qt = function()
   return vim.g.nvim_qt ~= nil or vim.env.NVIM_QT_RUNNING == "1"
 end
 
+M.is_goneovim = function()
+  return vim.g.goneovim ~= nil
+end
+
 M.is_gui_client = function()
-  return M.is_neovide() or M.is_neovim_qt() or vim.fn.has "gui_running" == 1
+  return M.is_neovide() or M.is_neovim_qt() or M.is_goneovim() or vim.fn.has "gui_running" == 1
 end
 
 M.is_kitty = function()
@@ -53,6 +57,10 @@ M.get_client = function()
 
     if M.is_neovim_qt() then
       return "neovim-qt"
+    end
+
+    if M.is_goneovim() then
+      return "goneovim"
     end
   else
     if M.is_wezterm() then
