@@ -82,6 +82,8 @@ vim.loader.enable() -- Enables the experimental Lua module loader
 
 if require("util.client").is_neovide() then
   require("user.neovide").setup()
+elseif require("util.client").is_goneovim() then
+  require("user.goneovim").setup()
 end
 
 -- other options
