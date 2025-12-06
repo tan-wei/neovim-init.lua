@@ -42,7 +42,7 @@ MouseScrollingUnit = "smart"
 ## Launch goneovim with full screen window size.
 # StartFullscreen = false
 ## Launch goneovim with maximized window size.
-# StartMaximizedWindow = false
+StartMaximizedWindow = true
 
 ## Enabling WindowGeometryBasedOnFontmetrics sets the minimum unit of window geometry change 
 ## to the width and height values specified by font metrics.
