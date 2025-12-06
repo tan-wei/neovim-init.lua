@@ -283,7 +283,7 @@ SmoothMove = true
 ## To view the minimap, launch an additional nvim instance;
 ## setting Disable to true will not launch this additional nvim instance
 ## and will completely disable the minimap feature.
-Disable = false
+# Disable = true
 
 ## Specifies whether to show the minimap or not.
 Visible = true
