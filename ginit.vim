@@ -61,8 +61,16 @@ if exists('g:fvim_loaded')
     else
       set guifont=Iosevka\ Slab:h28
     endif
+
+    FVimToggleFullScreen
       
     FVimCursorSmoothMove v:true
     FVimCursorSmoothBlink v:true
     FVimUIPopupMenu v:false
+    FVimFontAntialias v:true
+    FVimFontAutohint v:true
+    FVimFontHintLevel 'full'
+    FVimFontLigature v:true
+    FVimFontSubpixel v:true
+    FVimFontNoBuiltinSymbols v:true
 endif
