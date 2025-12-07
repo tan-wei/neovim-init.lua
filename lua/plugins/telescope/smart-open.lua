@@ -6,7 +6,7 @@ local M = {
     "nvim-telescope/telescope-fzy-native.nvim",
   },
   event = "VeryLazy",
-  enabled = ~require("util.os").is_windows(),
+  enabled = not require("util.os").is_windows(),
 }
 
 M.config = function()
