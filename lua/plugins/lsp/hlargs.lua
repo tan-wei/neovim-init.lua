@@ -16,11 +16,12 @@ M.config = function()
     paint_arg_declarations = true,
     paint_arg_usages = true,
     paint_catch_blocks = {
-      declarations = false,
-      usages = false,
+      declarations = true,
+      usages = true,
     },
     extras = {
-      named_parameters = false,
+      named_parameters = true,
+      unused_args = true,
     },
     hl_priority = 10000,
     excluded_argnames = {
