@@ -21,7 +21,9 @@ M.config = function()
     },
     extras = {
       named_parameters = true,
-      unused_args = true,
+      unused_args = {
+        link = "DiagnosticUnnecessary",
+      },
     },
     hl_priority = 10000,
     excluded_argnames = {
