@@ -52,3 +52,17 @@ if exists(':GuiScrollBar')
     xnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>gv
     snoremap <silent><RightMouse> <C-G>:call GuiShowContextMenu()<CR>gv
 endif
+
+if exists('g:fvim_loaded')
+    if g:fvim_os == 'windows'
+      set guifont=DejaVuSansMono\ Nerd\ Font:h12
+    elseif g:fvim_os == 'osx'
+      set guifont=DejaVuSansM\ Nerd\ Font:h14
+    else
+      set guifont=Iosevka\ Slab:h28
+    endif
+      
+    FVimCursorSmoothMove v:true
+    FVimCursorSmoothBlink v:true
+    FVimUIPopupMenu v:false
+endif

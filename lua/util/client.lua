@@ -12,8 +12,12 @@ M.is_goneovim = function()
   return vim.g.goneovim ~= nil
 end
 
+M.is_fvim = function()
+  return vim.g.fvim_loaded ~= nil
+end
+
 M.is_gui_client = function()
-  return M.is_neovide() or M.is_neovim_qt() or M.is_goneovim() or vim.fn.has "gui_running" == 1
+  return M.is_neovide() or M.is_neovim_qt() or M.is_goneovim() or M.is_fvim() or vim.fn.has "gui_running" == 1
 end
 
 M.is_kitty = function()
