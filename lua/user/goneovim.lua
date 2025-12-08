@@ -1,7 +1,7 @@
 local M = {}
 
 M.setup = function()
-  if require("util.os").is_windows() then
+  if require("util.os").is_windows() or require("util.os").is_wsl() then
     vim.cmd "set guifont=DejaVuSansMono\\ Nerd\\ Font:h12"
   elseif require("util.os").is_macos() then
     vim.cmd "set guifont=DejaVuSansM\\ Nerd\\ Font:h14"
