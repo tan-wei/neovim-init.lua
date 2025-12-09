@@ -1,8 +1,10 @@
 local M = {}
 
 M.setup = function()
-  if require("util.os").is_windows() or require("util.os").is_wsl() then
+  if require("util.os").is_windows() then
     vim.cmd "set guifont=DejaVuSansMono\\ Nerd\\ Font:h12"
+  elseif require("util.os").is_wsl() then
+    -- NOTE: Do nothing, use font in toml file locates in Windows
   elseif require("util.os").is_macos() then
     vim.cmd "set guifont=DejaVuSansM\\ Nerd\\ Font:h14"
   else
