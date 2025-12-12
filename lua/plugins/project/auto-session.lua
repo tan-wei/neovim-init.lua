@@ -136,6 +136,8 @@ M.config = function()
         vim.defer_fn(function()
           vim.cmd "LspStop"
         end, 0)
+
+        vim.cmd "Winsep disable"
       end,
     },
     post_cwd_changed_cmds = {
@@ -145,6 +147,8 @@ M.config = function()
         vim.defer_fn(function()
           vim.cmd "filetype detect"
         end, 1000)
+
+        vim.cmd "Winsep enable"
       end,
     },
   }
