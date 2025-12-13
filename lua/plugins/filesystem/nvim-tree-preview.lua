@@ -9,7 +9,7 @@ local M = {
 
 M.opts = {
   image_preview = {
-    enable = true,
+    enable = require("util.provider").image_protocol_support(),
     patterns = {
       ".*%.avif$",
       ".*%.bmp$",
@@ -28,4 +28,3 @@ M.opts = {
 }
 
 return M
-
