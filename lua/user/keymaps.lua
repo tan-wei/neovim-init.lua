@@ -50,7 +50,11 @@ M.setup = function()
 
   -- nvim-scrollview related
   keymap("n", "[S", "<Plug>(ScrollViewPrev)", opts)
-  keymap("n", "]S", "<Plug>(ScrollViewNext)")
+  keymap("n", "]S", "<Plug>(ScrollViewNext)", opts)
+
+  -- gitsigns related
+  keymap("n", "[g", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", opts)
+  keymap("n", "]g", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", opts)
 
   -- Insert --
   -- Press jk fast to exit insert mode
