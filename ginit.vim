@@ -59,11 +59,11 @@ if exists('g:fvim_loaded')
     elseif g:fvim_os == 'osx'
       set guifont=DejaVuSansM\ Nerd\ Font:h14
     else
-      set guifont=Iosevka\ Slab:h28
+      set guifont=VictorMono\ Nerd\ Font:h8
     endif
 
     FVimToggleFullScreen
-      
+
     FVimCursorSmoothMove v:true
     FVimCursorSmoothBlink v:true
     FVimUIPopupMenu v:false
