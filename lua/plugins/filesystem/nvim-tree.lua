@@ -3,10 +3,6 @@ local M = {
   dependencies = {
     "nvim-tree/nvim-web-devicons",
     "b0o/nvim-tree-preview.lua",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "3rd/image.nvim",
-    },
   },
   event = "VimEnter",
 }
@@ -20,6 +16,7 @@ end
 M.config = function()
   local nvim_tree = require "nvim-tree"
   local nvim_tree_api = require "nvim-tree.api"
+  local preview = require "nvim-tree-preview"
   local nvim_tree_open = {}
 
   nvim_tree_api.events.subscribe(nvim_tree_api.events.Event.TreeOpen, function()
@@ -77,6 +74,73 @@ M.config = function()
     end,
   })
 
+  -- QuickFixDecorator
+  -- Credit: https://github.com/b0o/dotfiles/blob/ae8391421e025fb22dacad47eb1bb954b04bfa40/config/nvim/lua/user/plugins/nvim-tree/decorator-quickfix.lua
+  local QuickfixDecorator = require("nvim-tree.api").decorator.UserDecorator:extend()
+
+  local augroup = vim.api.nvim_create_augroup("nvim-tree-decorator-quickfix", { clear = true })
+
+  local autocmds_setup = false
+  local function setup_autocmds()
+    if autocmds_setup then
+      return
+    end
+    autocmds_setup = true
+    vim.api.nvim_create_autocmd("QuickfixCmdPost", {
+      group = augroup,
+      callback = function()
+        require("nvim-tree.api").tree.reload()
+      end,
+    })
+
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "qf",
+      group = augroup,
+      callback = function(evt)
+        vim.api.nvim_create_autocmd("TextChanged", {
+          buffer = evt.buf,
+          group = augroup,
+          callback = function()
+            require("nvim-tree.api").tree.reload()
+          end,
+        })
+      end,
+    })
+  end
+
+  function QuickfixDecorator:new()
+    self.enabled = true
+    self.highlight_range = "none"
+    self.icon_placement = "signcolumn"
+    self.qf_icon = { str = "", hl = { "QuickFixLine" } }
+    self:define_sign(self.qf_icon)
+    setup_autocmds()
+  end
+
+  local function is_qf_item(node)
+    if node.name == ".." or node.type == "directory" then
+      return false
+    end
+    local bufnr = vim.fn.bufnr(node.absolute_path)
+    return bufnr ~= -1 and vim.iter(vim.fn.getqflist()):any(function(qf)
+      return qf.bufnr == bufnr
+    end)
+  end
+
+  function QuickfixDecorator:icons(node)
+    if is_qf_item(node) then
+      return { self.qf_icon }
+    end
+    return nil
+  end
+
+  function QuickfixDecorator:highlight_group(node)
+    if is_qf_item(node) then
+      return "QuickFixLine"
+    end
+    return nil
+  end
+
   nvim_tree.setup {
     sync_root_with_cwd = true,
     respect_buf_cwd = false,
@@ -112,6 +176,17 @@ M.config = function()
           },
         },
       },
+      decorators = {
+        "Git",
+        "Open",
+        "Hidden",
+        "Modified",
+        "Bookmark",
+        "Diagnostics",
+        QuickfixDecorator,
+        "Copied",
+        "Cut",
+      },
     },
     diagnostics = {
       enable = true,
@@ -127,7 +202,7 @@ M.config = function()
       git_ignored = false,
     },
     git = {
-      timeout = 2000,
+      timeout = 5000,
     },
     on_attach = function(bufnr)
       local api = require "nvim-tree.api"
@@ -137,8 +212,6 @@ M.config = function()
       local function opts(desc)
         return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
       end
-
-      local preview = require "nvim-tree-preview"
 
       vim.keymap.set("n", "P", preview.watch, opts "Preview (Watch)")
       vim.keymap.set("n", "<Esc>", preview.unwatch, opts "Close Preview/Unwatch")
