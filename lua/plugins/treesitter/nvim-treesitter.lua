@@ -4,6 +4,7 @@ local M = {
     "OXY2DEV/markview.nvim",
   },
   build = ":TSUpdate",
+  branch = "master",
   event = "VeryLazy",
 }
 
