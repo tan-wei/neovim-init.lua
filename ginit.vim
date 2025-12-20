@@ -73,4 +73,6 @@ if exists('g:fvim_loaded')
     FVimFontLigature v:true
     FVimFontSubpixel v:true
     FVimFontNoBuiltinSymbols v:true
+    FVimFontAutoSnap v:true
+    FVimCustomTitleBar v:true
 endif
