@@ -58,11 +58,13 @@ M.config = function()
       separator_style = "thick",
       enforce_regular_tabs = false,
       always_show_bufferline = true,
+      auto_toggle_bufferline = true,
       hover = {
         enabled = true,
         delay = 100,
         reveal = { "close" },
       },
+      sort_by = 'insert_after_current'
     },
   }
 end
