@@ -93,6 +93,14 @@ M.config = function()
         match_algorithm = "fzf",
         disable_devicons = false,
       },
+      ast_grep = {
+        command = {
+          "ast-grep",
+          "--json=stream",
+        },
+        grep_open_files = true,
+        lang = nil,
+      },
     },
   }
 

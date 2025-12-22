@@ -5,6 +5,7 @@ local M = {
 M.config = function()
   require("mason-tool-installer").setup {
     ensure_installed = {
+      "ast_grep",
       "black",
       "cmakelint",
       "cmakelang",
