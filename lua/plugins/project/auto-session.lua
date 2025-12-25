@@ -134,7 +134,7 @@ M.config = function()
         vim.notify "pre_cwd_changed_hook"
 
         vim.defer_fn(function()
-          vim.cmd "LspStop"
+          vim.cmd "lsp stop"
         end, 0)
 
         vim.cmd "Winsep disable"
