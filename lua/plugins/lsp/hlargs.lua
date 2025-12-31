@@ -9,6 +9,8 @@ M.config = function()
   require("hlargs").setup {
     color = "#ef9062",
     highlight = {},
+    use_colorpalette = false,
+    sequential_colorpalette = false,
     excluded_filetypes = excluded_filetypes,
     disable = function(lang, bufnr) -- If changed, `excluded_filetypes` will be ignored
       return vim.tbl_contains(excluded_filetypes, lang)
