@@ -1,5 +1,5 @@
 local M = {
-  "m15a/nvim-srcerite",
+  "https://codeberg.org/m15a/nvim-srcerite",
   dependencies = {
     "Iron-E/nvim-highlite",
   },
