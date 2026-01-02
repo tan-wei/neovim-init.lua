@@ -16,24 +16,16 @@ local M = {
       end,
     },
     "neovim/nvim-lspconfig",
+    "nvim-treesitter/nvim-treesitter",
   },
-  cmd = {
-    "LspToggleFmt",
-    "LspKeymaps",
-    "Nctags",
-    "LspRestart",
-    "LspToggleFmt",
-    "LspSymbols",
-    "LspAndDiag",
-    "NRefPanel",
-    "TSymbols",
-    "TsAndDiag",
-    "Calltree",
-  },
-  enabled = false, -- TODO: Now disable it, we should configure for it firstly
+  event = "LspAttach",
+  enabled = false, -- NOTE: Now it depends on main banch with nvim-treesitter
 }
 
--- TODO: This plugin should write more configurations
-M.config = true
+M.opts = {
+  lsp = {
+    disable_lsp = "all",
+  }
+}
 
 return M
