@@ -32,18 +32,23 @@ local M = {
   },
 }
 local function get_number_of_cores()
-  local handle = io.popen "nproc"
-  local result = handle:read "*a"
-  handle:close()
-  return tonumber(result)
+  if require("util.os").is_linux() then
+    local handle = io.popen "nproc"
+    local result = handle:read "*a"
+    handle:close()
+    return tonumber(result)
+  elseif require("util.os").is_macos() then
+    local handle = io.popen "sysctl -n hw.ncpu"
+    local result = handle:read "*a"
+    handle:close()
+    return tonumber(result)
+  else
+    return 1
+  end
 end
 
 local function build_options()
-  if require("util.os").is_windows() then
-    return nil
-  else
-    return { "-j" .. get_number_of_cores() }
-  end
+  return { "-j" .. get_number_of_cores() }
 end
 
 M.opts = {
