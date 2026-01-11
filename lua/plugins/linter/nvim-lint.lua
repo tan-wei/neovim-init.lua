@@ -22,6 +22,7 @@ M.config = function()
 
   require("lint").linters_by_ft = {
     cpp = cpp_exist_executables,
+    envfile = { "dotenv_linter" },
   }
 
   vim.api.nvim_create_autocmd({ "BufWritePost" }, {

@@ -11,6 +11,7 @@ M.config = function()
       "cmakelang",
       "commitlint",
       "cpplint",
+      "dotenv-linter",
       "jq",
       "shfmt",
       "taplo",
