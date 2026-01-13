@@ -21,7 +21,8 @@ local servers = {
   "ltex_plus",
   -- "rust_analyzer", -- rust-tools.nvim automatically sets up nvim-lspconfig for rust_analyzer
   "marksman",
-  "cmake",
+  -- "cmake",
+  "neocmake",
   "solargraph",
   "tombi",
 }
