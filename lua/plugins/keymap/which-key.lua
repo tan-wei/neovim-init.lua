@@ -214,6 +214,34 @@ M.config = function()
     { "<leader>P", "<cmd>lua require('telescope').extensions.projects.projects()<cr>", desc = "Projects", mode = "n" },
 
     -- p --
+    {
+      "<leader>pd",
+      function()
+        require("overlook.api").peek_definition()
+      end,
+      desc = "Overlook: Peek definition",
+    },
+    {
+      "<leader>pc",
+      function()
+        require("overlook.api").close_all()
+      end,
+      desc = "Overlook: Close all popup",
+    },
+    {
+      "<leader>pu",
+      function()
+        require("overlook.api").restore_popup()
+      end,
+      desc = "Overlook: Restore popup",
+    },
+    { "<leader>pU", require("overlook.api").restore_all_popups, { desc = "Restore all popups" } },
+    { "<leader>pc", require("overlook.api").close_all, { desc = "Close all popups" } },
+    { "<leader>pf", require("overlook.api").switch_focus, { desc = "Switch focus" } },
+    { "<leader>ps", require("overlook.api").open_in_split, { desc = "Open popup in split" } },
+    { "<leader>pv", require("overlook.api").open_in_vsplit, { desc = "Open popup in vsplit" } },
+    { "<leader>pt", require("overlook.api").open_in_tab, { desc = "Open popup in tab" } },
+    { "<leader>po", require("overlook.api").open_in_original_window, { desc = "Open popup in current window" } },
 
     -- Q --
 
