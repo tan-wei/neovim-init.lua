@@ -17,6 +17,9 @@ M.config = function()
       numbers = function(opts)
         return string.format("%s·%s", opts.raise(opts.ordinal), opts.lower(opts.id))
       end,
+      -- name_formatter = function(buf) 
+      --   return buf.name
+      -- end,
       close_command = "Bdelete! %d",
       right_mouse_command = "Bdelete! %d",
       left_mouse_command = "buffer %d",
