@@ -17,9 +17,16 @@ M.config = function()
       numbers = function(opts)
         return string.format("%s·%s", opts.raise(opts.ordinal), opts.lower(opts.id))
       end,
-      -- name_formatter = function(buf) 
-      --   return buf.name
-      -- end,
+      name_formatter = function(buf)
+        local is_set, set_true = pcall(buf.bufnr, "ignore_early_retirement")
+		    local is_pin = is_set and set_true
+
+        if is_pin then
+          return "📌" .. buf.name
+        end
+
+        return buf.name
+      end,
       close_command = "Bdelete! %d",
       right_mouse_command = "Bdelete! %d",
       left_mouse_command = "buffer %d",
