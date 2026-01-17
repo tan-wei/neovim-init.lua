@@ -1,7 +1,6 @@
 local M = {
   "blazkowolf/gruber-darker.nvim",
   lazy = true,
-  config = true,
 }
 
 M.init = function()
@@ -9,5 +8,7 @@ M.init = function()
   table.insert(available_colorschemes, "gruber-darker")
   vim.g.available_colorschemes = available_colorschemes
 end
+
+M.config = true,
 
 return M
