@@ -9,6 +9,6 @@ M.init = function()
   vim.g.available_colorschemes = available_colorschemes
 end
 
-M.config = true,
+M.config = true
 
 return M
