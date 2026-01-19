@@ -18,7 +18,7 @@ M.config = function()
         return string.format("%s·%s", opts.raise(opts.ordinal), opts.lower(opts.id))
       end,
       name_formatter = function(buf)
-        local is_set, set_true = pcall(buf.bufnr, "ignore_early_retirement")
+        local is_set, set_true = pcall(vim.api.nvim_buf_get_var, buf.bufnr, "ignore_early_retirement")
 		    local is_pin = is_set and set_true
 
         if is_pin then
