@@ -39,8 +39,9 @@ M.config = function()
     local stats = require("lazy").stats()
     local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
     return string.format(
-      "%d plugins  %s %d.%d.%d  %s, %d plugins loaded in %d ms",
+      "%d plugins %d colorschemes  %s %d.%d.%d  %s, %d plugins loaded in %d ms",
       stats.count,
+      #vim.g.available_colorschemes,
       platform,
       v.major,
       v.minor,
