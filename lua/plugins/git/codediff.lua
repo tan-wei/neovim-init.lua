@@ -6,7 +6,7 @@ local M = {
   cmd = {
     "CodeDiff",
   },
-  build = "CodeDiff install",
+  build = ":CodeDiff install",
 }
 
 -- TODO: This plugin should write more configurations
