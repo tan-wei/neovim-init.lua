@@ -8,22 +8,22 @@ local M = {
 
 M.config = function()
   local ensure_installed_servers = {
-    "lua_ls",
+    -- "bashls",
+    "clangd",
+    -- "cmake",
     -- "cssls",
     -- "html",
-    -- "tsserver",
-    "pyright",
-    -- "bashls",
     "jsonls",
-    "yamlls",
-    "clangd",
-    "rust_analyzer",
-    "marksman",
-    -- "cmake",
-    "neocmake",
     "ltex_plus",
+    "lua_ls",
+    "marksman",
+    "neocmake",
+    "pyright",
+    "rust_analyzer",
     "solargraph",
     "tombi",
+    -- "tsserver",
+    "yamlls",
   }
 
   local settings = {
