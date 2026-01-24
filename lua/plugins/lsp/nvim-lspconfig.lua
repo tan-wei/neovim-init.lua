@@ -25,6 +25,7 @@ local servers = {
   "neocmake",
   "solargraph",
   "tombi",
+  "jq-lsp",
 }
 
 M.config = function()

@@ -13,6 +13,7 @@ M.config = function()
       "cpplint",
       "dotenv-linter",
       "jq",
+      "jq-lsp",
       "shfmt",
       "taplo",
       "prettierd",
