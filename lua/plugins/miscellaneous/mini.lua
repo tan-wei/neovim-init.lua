@@ -1,5 +1,5 @@
 local M = {
-  "echasnovski/mini.nvim",
+  "nvim-mini/mini.nvim",
   enabled = false,
 }
 

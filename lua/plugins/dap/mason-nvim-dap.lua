@@ -1,7 +1,7 @@
 local M = {
   "jay-babu/mason-nvim-dap.nvim",
   dependencies = {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
   },
 }
 

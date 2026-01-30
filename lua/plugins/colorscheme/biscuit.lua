@@ -1,5 +1,5 @@
 local M = {
-  "Biscuit-Colorscheme/nvim",
+  "Biscuit-Theme/nvim",
   name = "biscuit",
   lazy = true,
 }

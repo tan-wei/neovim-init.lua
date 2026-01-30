@@ -1,5 +1,5 @@
 local M = {
-  "glepnir/zephyr-nvim",
+  "nvimdev/zephyr-nvim",
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
   },

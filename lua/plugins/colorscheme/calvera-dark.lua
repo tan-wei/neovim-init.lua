@@ -1,5 +1,5 @@
 local M = {
-  "hoprr/calvera-dark.nvim",
+  "niyabits/calvera-dark.nvim",
   lazy = true,
 }
 

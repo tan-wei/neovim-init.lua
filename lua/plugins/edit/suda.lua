@@ -1,5 +1,5 @@
 local M = {
-  "lambdalisue/suda.vim",
+  "lambdalisue/vim-suda",
   cmd = { "SudaRead", "SudaWrite" },
 }
 

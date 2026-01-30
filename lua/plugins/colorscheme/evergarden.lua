@@ -1,5 +1,6 @@
 local M = {
-  "crispybaccoon/evergarden",
+  "everviolet/nvim",
+  name = "evergarden",
   lazy = true,
 }
 

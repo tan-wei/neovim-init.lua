@@ -1,5 +1,5 @@
 local M = {
-  "kamwitsta/vinyl.nvim",
+  "kamil-stachowski/vinyl.nvim",
   lazy = true,
 }
 

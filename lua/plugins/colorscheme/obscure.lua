@@ -1,5 +1,5 @@
 local M = {
-  "killitar/obscure.nvim",
+  "mslvx/obscure.nvim",
   lazy = true,
 }
 

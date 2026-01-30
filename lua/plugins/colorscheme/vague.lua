@@ -1,5 +1,5 @@
 local M = {
-  "vague2k/vague.nvim",
+  "vague-theme/vague.nvim",
   lazy = true,
 }
 

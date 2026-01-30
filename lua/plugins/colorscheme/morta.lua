@@ -1,5 +1,5 @@
 local M = {
-  "ssstba/morta.nvim",
+  "ph1losof/morta.nvim",
   lazy = true,
 }
 

@@ -1,5 +1,6 @@
 local M = {
-  "BrunoCiccarino/nekonight",
+  "neko-night/nvim",
+  name = "nekonight",
   lazy = true,
 }
 

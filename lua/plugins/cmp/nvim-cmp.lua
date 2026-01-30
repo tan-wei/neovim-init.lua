@@ -14,7 +14,7 @@ local M = {
     "hrsh7th/cmp-nvim-lua",
     "lukas-reineke/cmp-rg",
     "ray-x/cmp-treesitter",
-    "amarakon/nvim-cmp-fonts",
+    "amarz45/nvim-cmp-fonts",
     "saadparwaiz1/cmp_luasnip",
     "kristijanhusak/vim-dadbod-completion",
     "lukas-reineke/cmp-under-comparator",

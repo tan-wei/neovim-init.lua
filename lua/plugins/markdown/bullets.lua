@@ -1,5 +1,5 @@
 local M = {
-  "dkarter/bullets.vim",
+  "bullets-vim/bullets.vim",
   ft = "markdown",
 }
 
