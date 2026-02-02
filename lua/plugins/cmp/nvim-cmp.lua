@@ -41,6 +41,15 @@ local M = {
     },
     "f3fora/cmp-spell",
     "davidsierradz/cmp-conventionalcommits",
+    {
+      "zbirenbaum/copilot-cmp",
+      dependencies = {
+        "zbirenbaum/copilot.lua",
+      },
+      config = function()
+        require("copilot_cmp").setup()
+      end,
+    },
   },
   event = { "InsertEnter", "CmdlineEnter" },
 }
@@ -111,6 +120,7 @@ M.config = function()
       },
       dup = 0,
     },
+    { name = "copilot", group_index = 2 },
   }
 
   local quoted_name = function(name)
@@ -204,6 +214,7 @@ M.config = function()
 
     sorting = {
       comparators = {
+        require("copilot_cmp.comparators").prioritize,
         cmp.config.compare.recently_used,
         cmp.config.compare.offset,
         cmp.config.compare.exact,
@@ -251,6 +262,7 @@ M.config = function()
             git = quoted_name "GIT",
             doxygen = quoted_name "DOXYGEN",
             spell = quoted_name "SPELL",
+            copilot = quoted_name "COPILOT",
           })[entry.source.name]
 
           local highlights_info = require("colorful-menu").cmp_highlights(entry)
