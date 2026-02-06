@@ -25,7 +25,7 @@ local M = {
 M.opts = {
   lsp = {
     disable_lsp = "all",
-  }
+  },
 }
 
 return M
