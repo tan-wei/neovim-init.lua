@@ -1,7 +1,7 @@
 local M = {
   "sailorfe/moonqueen.nvim",
   dependencies = {
-    "rktjmp/lush.nvim"
+    "rktjmp/lush.nvim",
   },
   lazy = true,
 }
