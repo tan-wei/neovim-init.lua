@@ -11,7 +11,7 @@ end
 
 M.opts = {
   transparent = false,
-  palette = "tinta-darker"
+  palette = "tinta-darker",
 }
 
 return M

@@ -1,7 +1,7 @@
 local M = {
   "sailorfe/perona.nvim",
-  dependencies = { 
-    "rktjmp/lush.nvim" 
+  dependencies = {
+    "rktjmp/lush.nvim",
   },
   lazy = true,
 }
