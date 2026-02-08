@@ -1,8 +1,8 @@
 local M = {
   "Pair-of-dice/Alienocean.nvim",
   dependencies = {
-		"Pair-of-dice/Alienocean-lualine",
-	},
+    "Pair-of-dice/Alienocean-lualine",
+  },
   lazy = true,
 }
 
