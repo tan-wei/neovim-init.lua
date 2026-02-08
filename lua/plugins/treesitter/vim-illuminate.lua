@@ -29,6 +29,7 @@ M.config = function()
       "dirvish",
       "fugitive",
       "NvimTree",
+      "alpha",
     },
   }
 end
