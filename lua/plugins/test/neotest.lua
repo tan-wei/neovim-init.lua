@@ -32,8 +32,10 @@ M.config = function()
       require("neotest-ctest").setup {
         is_test_file = function(file)
           -- File name begins or ends with test[s]
+          -- FIle name begins with s%d%d%d%d_
           return string.find(file, "[tT][eE][sS][tT][sS]?_") ~= nil
             or string.find(file, "_[tT][eE][sS][tT][sS]?") ~= nil
+            or string.find(file, "s%d%d%d%d_") ~= nil
         end,
       },
     },
