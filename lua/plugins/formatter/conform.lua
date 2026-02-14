@@ -41,6 +41,7 @@ M.config = function()
       toml = { "taplo" },
       cmake = { "cmake_format" },
       json = { "jq" },
+      just = { "just" },
       ["*"] = { "codespell" },
       ["_"] = { "trim_whitespace" },
     },
