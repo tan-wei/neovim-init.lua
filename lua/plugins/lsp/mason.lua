@@ -14,6 +14,7 @@ M.config = function()
     -- "cssls",
     -- "html",
     "jsonls",
+    "just",
     "ltex_plus",
     "lua_ls",
     "marksman",

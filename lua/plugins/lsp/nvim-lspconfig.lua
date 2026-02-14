@@ -26,6 +26,7 @@ local servers = {
   "solargraph",
   "tombi",
   "jq-lsp",
+  "just",
 }
 
 M.config = function()
