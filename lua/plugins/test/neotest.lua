@@ -35,7 +35,7 @@ M.config = function()
           -- FIle name begins with s%d%d%d%d_
           return string.find(file, "[tT][eE][sS][tT][sS]?_") ~= nil
             or string.find(file, "_[tT][eE][sS][tT][sS]?") ~= nil
-            or string.find(file, "s%d%d%d%d_") ~= nil
+            or string.find(file, "s%d%d%d%d_.*.[cC]?[pP][pP]") ~= nil
         end,
       },
     },
