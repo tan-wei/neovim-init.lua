@@ -34,6 +34,10 @@ local M = {
     },
     {
       "paopaol/cmp-doxygen",
+      -- STATUS: [TEMPORARILY DISABLED] Incompatible with nvim-treesitter main branch.
+      -- Requires removed module 'nvim-treesitter.textobjects.shared'.
+      -- Lost feature: doxygen tag completion in nvim-cmp.
+      enabled = false,
       dependencies = {
         "nvim-treesitter/nvim-treesitter",
         "nvim-treesitter/nvim-treesitter-textobjects",
