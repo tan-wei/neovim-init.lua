@@ -1,4 +1,13 @@
 return {
+  -- before_init must be at the top level, NOT inside settings.
+  -- settings gets JSON-serialized for workspace/didChangeConfiguration,
+  -- and functions cannot be serialized.
+  before_init = function(_, config)
+    local ok, cmake = pcall(require, "cmake-tools")
+    if ok then
+      cmake.clangd_on_new_config(config)
+    end
+  end,
   settings = {
     cmd = {
       "clangd",
@@ -24,11 +33,5 @@ return {
     flags = { debounce_text_changes = 150 },
     filetypes = { "c", "cpp", "cxx", "h", "hpp", "objc", "objcpp", "cuda", "proto" },
     single_file_support = true,
-    before_init = function(_, config)
-      local ok, cmake = pcall(require, "cmake-tools")
-      if ok then
-        cmake.clangd_on_new_config(config)
-      end
-    end,
   },
 }

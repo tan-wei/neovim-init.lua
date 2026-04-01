@@ -45,13 +45,18 @@ M.config = function()
 
         ------------------------------------------------
         -- ref: https://github.com/b0o/nvim-conf/blob/3f9c92550f79921326a453f3140be9dcf843eb3d/lua/user/fn.lua#L352
-        if require("util.package").is_loaded "nvim-tree.lua" and require("nvim-tree.api").tree.is_visible() then
-          meta.nvimTreeOpen = true
-          meta.nvimTreeFocused = vim.fn.bufname(vim.fn.bufnr()) == "NvimTree"
+        meta.nvimTreeOpen = false
+        meta.nvimTreeFocused = false
+        if require("util.package").is_loaded "nvim-tree.lua" then
           local api = require "nvim-tree.api"
-          if api.tree.winid() then
-            api.tree.close_in_this_tab()
+          -- Check current tab for focus tracking
+          if api.tree.is_visible() then
+            meta.nvimTreeOpen = true
+            meta.nvimTreeFocused = vim.fn.bufname(vim.fn.bufnr()) == "NvimTree"
+            meta.focused = vim.api.nvim_get_current_win()
           end
+          -- Close nvim-tree in ALL tabs to prevent it from leaking into the session file
+          api.tree.close_in_all_tabs()
         end
 
         local status_ok, _ = pcall(require, "scope")
@@ -80,13 +85,13 @@ M.config = function()
 
         if meta.nvimTreeOpen then
           local api = require "nvim-tree.api"
+          local winid = api.tree.winid()
+          if not winid then
+            api.tree.toggle { focus = false, find_file = true }
+          end
+          -- Restore focus to the previously focused window (not nvim-tree)
           if not meta.nvimTreeFocused and vim.api.nvim_win_is_valid(meta.focused) then
-            local winid = api.tree.winid()
-            if not winid then
-              api.tree.toggle { focus = false, find_file = true }
-            else
-              api.tree.open { focus = false }
-            end
+            vim.api.nvim_set_current_win(meta.focused)
           end
         end
         ------------------------------------------------
@@ -133,9 +138,18 @@ M.config = function()
       function()
         vim.notify "pre_cwd_changed_hook"
 
-        vim.defer_fn(function()
-          vim.cmd "lsp stop"
-        end, 0)
+        -- Close nvim-tree before cwd change to avoid stale directory state
+        local ok, api = pcall(require, "nvim-tree.api")
+        if ok then
+          api.tree.close_in_all_tabs()
+        end
+
+        -- Stop LSP clients synchronously before cwd change.
+        -- Using vim.defer_fn causes a race: auto-session wipes buffers before
+        -- LSP has fully detached, leading to "Failed to delete autocmd" errors.
+        for _, client in ipairs(vim.lsp.get_clients()) do
+          client:stop()
+        end
 
         vim.cmd "Winsep disable"
       end,
@@ -149,6 +163,13 @@ M.config = function()
         end, 1000)
 
         vim.cmd "Winsep enable"
+
+        -- Re-open nvim-tree in new cwd (use open, not toggle —
+        -- post_restore_cmds may have already opened it, and toggle would close it again)
+        local ok, api = pcall(require, "nvim-tree.api")
+        if ok and not api.tree.is_visible() then
+          api.tree.open { focus = false, find_file = true }
+        end
       end,
     },
   }
@@ -166,7 +187,7 @@ M.config = function()
       -- vim.print("winid = " .. tostring(winid))
 
       if not winid then
-        api.tree.open { cureent_window = true }
+        api.tree.open { current_window = true }
       end
     end,
   })
