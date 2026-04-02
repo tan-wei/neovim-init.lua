@@ -1,15 +1,25 @@
 local M = {}
 
-local cmp_nvim_lsp = require "cmp_nvim_lsp"
-
-M.capabilities = require("cmp_nvim_lsp").default_capabilities()
-M.capabilities.textDocument.completion.completionItem.snippetSupport = true
-M.capabilities.textDocument.foldingRange = {
-  dynamicRegistration = false,
-  lineFoldingOnly = true,
-}
-
-M.capabilities = cmp_nvim_lsp.default_capabilities(M.capabilities)
+if vim.g.completion_engine == "blink" then
+  M.capabilities = require("blink.cmp").get_lsp_capabilities {
+    textDocument = {
+      completion = { completionItem = { snippetSupport = true } },
+      foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      },
+    },
+  }
+else
+  local cmp_nvim_lsp = require "cmp_nvim_lsp"
+  M.capabilities = cmp_nvim_lsp.default_capabilities()
+  M.capabilities.textDocument.completion.completionItem.snippetSupport = true
+  M.capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true,
+  }
+  M.capabilities = cmp_nvim_lsp.default_capabilities(M.capabilities)
+end
 
 M.setup = function()
   local signs = {

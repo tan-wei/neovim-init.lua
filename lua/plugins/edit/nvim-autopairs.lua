@@ -1,8 +1,6 @@
 local M = {
   "windwp/nvim-autopairs",
-  dependencies = {
-    "hrsh7th/nvim-cmp",
-  },
+  dependencies = vim.g.completion_engine ~= "blink" and { "hrsh7th/nvim-cmp" } or {},
   event = "InsertEnter",
 }
 
@@ -35,15 +33,17 @@ M.config = function()
   -- TODO: Add rules here
   npairs.add_rules {}
 
-  local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-  require("cmp").event:on(
-    "confirm_done",
-    cmp_autopairs.on_confirm_done {
-      map_char = {
-        tex = "",
-      },
-    }
-  )
+  if vim.g.completion_engine ~= "blink" then
+    local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+    require("cmp").event:on(
+      "confirm_done",
+      cmp_autopairs.on_confirm_done {
+        map_char = {
+          tex = "",
+        },
+      }
+    )
+  end
 end
 
 return M

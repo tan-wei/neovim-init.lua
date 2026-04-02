@@ -1,5 +1,8 @@
 local M = {
   "hrsh7th/nvim-cmp",
+  cond = function()
+    return vim.g.completion_engine ~= "blink"
+  end,
   dependencies = {
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-nvim-lsp",

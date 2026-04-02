@@ -1,7 +1,18 @@
 local M = {
   "neovim/nvim-lspconfig",
   dependencies = {
-    { "hrsh7th/cmp-nvim-lsp" },
+    {
+      "hrsh7th/cmp-nvim-lsp",
+      cond = function()
+        return vim.g.completion_engine ~= "blink"
+      end,
+    },
+    {
+      "saghen/blink.cmp",
+      cond = function()
+        return vim.g.completion_engine == "blink"
+      end,
+    },
     -- { "ranjithshegde/ccls.nvim" }, -- FIXME: Trewaky now
   },
   event = { "BufReadPre", "BufNewFile" },
