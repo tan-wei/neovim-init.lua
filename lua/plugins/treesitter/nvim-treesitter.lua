@@ -132,6 +132,7 @@ local parsers = {
   "javascript",
   "jinja",
   "jinja_inline",
+  "jjdescription",
   "jq",
   "jsdoc",
   "json",
