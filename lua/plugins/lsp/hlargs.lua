@@ -7,10 +7,18 @@ M.config = function()
   local excluded_filetypes = {}
 
   require("hlargs").setup {
-    color = "#ef9062",
-    highlight = {},
-    use_colorpalette = false,
+    use_colorpalette = true,
     sequential_colorpalette = false,
+    colorpalette = {
+      { link = "@variable.parameter" },
+      { link = "Function" },
+      { link = "Type" },
+      { link = "Keyword" },
+      { link = "Constant" },
+      { link = "String" },
+      { link = "Special" },
+      { link = "PreProc" },
+    },
     excluded_filetypes = excluded_filetypes,
     disable = function(lang, bufnr) -- If changed, `excluded_filetypes` will be ignored
       return vim.tbl_contains(excluded_filetypes, lang)
@@ -22,7 +30,7 @@ M.config = function()
       usages = true,
     },
     extras = {
-      named_parameters = true,
+      named_parameters = { link = "@variable.parameter" },
       unused_args = {
         link = "DiagnosticUnnecessary",
       },
