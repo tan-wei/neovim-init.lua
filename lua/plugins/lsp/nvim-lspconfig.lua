@@ -41,10 +41,13 @@ local servers = {
 }
 
 M.config = function()
+  local handlers = require "user.lsp.handlers"
+  handlers.setup()
+
   for _, server in pairs(servers) do
     local opts = {
-      on_attach = require("user.lsp.handlers").on_attach,
-      capabilities = require("user.lsp.handlers").capabilities,
+      on_attach = handlers.on_attach,
+      capabilities = handlers.capabilities,
     }
 
     server = vim.split(server, "@")[1]
