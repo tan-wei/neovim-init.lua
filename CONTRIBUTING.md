@@ -1,82 +1,79 @@
-# How to Contribute? ✍
+# Contributing
 
-There are currently errors showing up in some branches some of the time (currently>=`08-treesitter`) due to plugin updates to names, `patterns` and `options`.  When a plugin updates, instructions can be found in it's vimdoc (usually kept in doc/), README, or by searching through Issues and unmerged Pull Requests of the project page. 
+This repository is a personal Neovim configuration, not a general-purpose distribution. Contributions are still welcome, but the bar is different from a starter template: small, well-scoped fixes are much more likely to land than broad changes to defaults or taste-driven rewrites.
 
-If you want to fix a branch with errors, it can be as mundane as taking the fixes already made in `master` and re-applying them. It's up to the community if you want update the branches. On the plus side, it's a good way to practice being a nerd 🤓
+## Good contribution candidates
 
-For example: 
- 
-1. When we started using mason, the lsp folder structure changed. 
+- Fixes for breakage caused by upstream plugin or Neovim API changes
+- Documentation corrections or missing setup notes
+- Isolated improvements to existing modules under `lua/plugins/` or `lua/user/`
+- Portability fixes for frontends and terminals already handled by the repo
+- Small quality-of-life improvements that do not force a new workflow on every user of the config
 
-2. the dreaded 
-```sh
-[nvim-cmp] Please use window.documentation = cmp.config.window.bordered() instead.
--- and 
-cmp_nvim_lsp.update_capabilities is deprecated, use cmp_nvim_lsp.default_capabilities instead. See :h depr
-ecated
-```
+Less likely to be a fit:
 
-3. nerdfonts v3.0 requires some updated icons. 
+- Large opinionated remaps
+- Wide plugin swaps without a clear maintenance or functional win
+- Mass dependency churn without a concrete reason
+- Refactors that mostly rename or rearrange code without improving behavior
 
-4. plugins could probably be re-pinned to later versions (like the later pinned versions used in [nvim-basic-ide](https://github.com/LunarVim/nvim-basic-ide/tree/master/lua/user) with Neovim v0.9).
+## Before you open a PR
 
+- Read [README.md](README.md) first so the repository structure and current scope are clear.
+- If the change is large or changes defaults, open an issue or draft PR first to check whether it fits the direction of the repo.
+- Keep the change focused. Separate bug fixes, formatting changes, and unrelated cleanups into different PRs.
 
-## 1. Fork the Project 🍴
+## Suggested workflow
 
-Click on `Fork`. Uncheck `Copy the master branch only` to get all the branches. 
+1. Fork the repo and clone your fork.
+2. Create a topic branch for one change.
+3. Make the smallest change that solves the actual problem.
+4. Validate the affected workflow in Neovim.
+5. Update docs if the behavior, requirements, or keymaps changed.
+6. Open a PR with a clear summary of what changed and how you validated it.
 
-![forked](https://user-images.githubusercontent.com/63325246/138092106-83ca7ed0-1ec3-4d01-a90c-ae3362bef4f5.jpg)
-
-## Clone to your machine 🤖
-
-Clone your repository (back up your current nvim config first!).  Typically:
-
-`git clone git@github.com:mygithandle/Neovim-from-scratch.git ~/.config/nvim`
-
-If you created the fork sometime in the past, you want to make sure it is up-to-date with any recent changes. Smash the `Sync Fork` button on your project page, or do it from the commandline. Say you're working on a certain branch. 
-
-```sh
-git remote add upstream git@github.com:LunarVim/Neovim-from-scratch.git
-git fetch upstream
-git checkout 11-gitsigns
-git merge upstream/11-gitsigns
-```
-
-## 3. Create a new branch 🌵
-
-Give it a name 
-`git branch my11-gitsigns`
-
-## 4. Start hacking 🪄
+Example clone flow:
 
 ```sh
-git checkout my11-gitsigns
-nvim
+git clone https://github.com/<your-user>/neovim-init.lua.git ~/.config/nvim
+cd ~/.config/nvim
+git checkout -b fix/<short-description>
 ```
 
-## 5. Test and re-test 🔬
+## Validation expectations
 
-```sh
-:wq
-nvim ~/.config/nvim
-```
+There is no heavy CI pipeline here, so manual verification matters.
 
-## 6. Push to your fork on Github ✋
+For most changes, check the following:
 
-```sh
-git add .
-git commit -m "replace outdated GitSigns icons"
-git push origin mygitsigns-11
-```
+- Start Neovim successfully
+- Run `:checkhealth`
+- Exercise the feature you changed
+- Confirm there are no new warnings or obvious regressions
 
-## 7. Open PR 🎁
+If your change touches a specific area, validate that area directly:
 
-When the new branch on your fork is ready to publish, click the `Contribute` button on your forks' project page and select the `Open pull request` option from the drop-down. Select the branch you're working on. 
+- LSP changes: verify against at least one real language server setup
+- UI or highlight changes: test with the relevant colorscheme or frontend
+- Terminal/frontend-specific code: say which client you tested, for example Neovide, Kitty, WezTerm, or Ghostty
+- External tool config under `external/`: explain any OS or host assumptions in the PR
 
-*Making a pull request, be sure to reference any `Issue #` or other `PR #` in the description.*
+## Style guidelines
 
-<hr>
+- Prefer minimal patches over broad rewrites.
+- Preserve the existing module layout unless there is a strong reason not to.
+- Avoid bundling unrelated lockfile churn with functional changes.
+- Keep documentation in sync when you change behavior that users are expected to notice.
+- When touching highly personal workflow areas such as keymaps, theme behavior, or frontend-specific UI, explain the tradeoff clearly.
 
-_Hurray!_ **You've just made a valuable contribution! :partying_face:🎉**
+## PR notes
 
-***Thank You***
+Useful PR descriptions usually include:
+
+- The problem being fixed
+- Why the current behavior is wrong or fragile
+- The approach taken
+- How the change was tested
+- Any follow-up work that is intentionally out of scope
+
+If the change is intentionally narrow, say so explicitly. That makes review much easier.

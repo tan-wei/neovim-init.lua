@@ -1,91 +1,91 @@
-# Neovim from scratch
+# neovim-init.lua
 
-When I initially created this repo I didn't anticipate the amount of breaking changes introduced by the rapidly developing plugin ecosystem.  All packages are pinned in `master` so it will remain stable and you can always follow the [videos](https://www.youtube.com/watch?v=ctH-a-1eUME&list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ)
-there if you're getting errors in other branches.   
+Personal Neovim configuration repository.
 
-🔍 If you see an error that you can fix [here's how](CONTRIBUTING.md) 🎉.
+This repo started from the broader "Neovim from scratch" style of setup, but it has diverged heavily and should now be treated as a standalone personal config rather than a tutorial or general-purpose starter.
 
-**Update** For a simple IDE that builds on these principles and is under active development, I recommend my newer repo: [nvim-basic-ide](https://github.com/LunarVim/nvim-basic-ide) as well as [lunarvim](https://www.lunarvim.org/) which is mature and fully-featured.
+## Overview
 
-General support is available on our [Matrix channels](https://matrix.to/#/#neovim-atmachine:matrix.org).
+The configuration is organized around `lazy.nvim` and split into many small plugin specs under `lua/plugins/`. User-specific bootstrapping and behavior live under `lua/user/`.
 
-## Try out this config
+Highlights of the current setup:
 
-This config requires >= [Neovim v0.8.0](https://github.com/neovim/neovim/releases). Please [upgrade](#upgrade-to-neovim-v080) if you're on an earlier version of the editor.
+- `lazy.nvim` auto-bootstrap in [lua/user/lazy.lua](lua/user/lazy.lua)
+- LSP, completion, treesitter, testing, task, search, terminal, UI, and language-specific modules
+- Default completion engine set in [lua/user/config.lua](lua/user/config.lua) (`blink` by default, optional `nvim-cmp`)
+- Mason-based LSP/tool management in [lua/plugins/lsp/mason.lua](lua/plugins/lsp/mason.lua)
+- Theme-heavy setup with many colorschemes, a randomizer, and theme-aware custom highlight logic
+- Frontend-aware behavior for GUI clients and modern terminals
+- Extra non-Neovim tool configs under `external/` and file templates under `templates/`
 
-Clone the repository into the correct location (make a backup your current `nvim` directory if you want to keep it).
+## Distinctive parts
 
+- Theme-first workflow: [lua/plugins/general/colorscheme-randomizer.lua](lua/plugins/general/colorscheme-randomizer.lua) is wired into a large colorscheme collection, and several custom highlight paths derive their colors from the active scheme instead of pinning a fixed palette.
+- Semantic token styling is unusually opinionated: [lua/user/lsp/semantic_tokens.lua](lua/user/lsp/semantic_tokens.lua) generates ccls-style `id0..id19` rainbow semantic token groups from existing theme colors, so semantic highlighting stays aligned with the current colorscheme.
+- UI rendering changes based on the current frontend or terminal. [lua/util/client.lua](lua/util/client.lua) detects Neovide, Neovim-Qt, Goneovim, Kitty, WezTerm, Ghostty, Alacritty, and others; [lua/plugins/lsp/symbol-usage.lua](lua/plugins/lsp/symbol-usage.lua) switches between bubble, label, and plain-text renderers accordingly.
+- The repo tracks surrounding tooling as part of the setup, not as an afterthought: `external/config/` keeps related GUI and terminal configs, and [templates/vim-template](templates/vim-template) stores file templates for common C and C++ entry points.
+- Personal workflow keymaps are part of the repo identity, especially quick theme rotation and lightweight selection highlighting in [lua/user/keymaps.lua](lua/user/keymaps.lua).
+
+## Requirements
+
+Use a recent Neovim version. This config uses newer APIs such as `vim.lsp.config`, `vim.lsp.enable`, and modern semantic token handling, so `0.11+` is the practical baseline.
+
+Recommended dependencies:
+
+- `git`
+- a Nerd Font
+- `ripgrep`
+- `fd` or another fast file finder
+- language runtimes and external tools you actually use (`python`, `node`, `clangd`, `latex`, etc.)
+
+Some plugins have extra optional requirements. For example, workspace substitution with `nvim-rip-substitute` benefits from `ripgrep` with `pcre2` support.
+
+## Installation
+
+Clone the repo into Neovim's config directory:
+
+```sh
+git clone https://github.com/tan-wei/neovim-init.lua.git ~/.config/nvim
 ```
-git clone https://github.com/LunarVim/Neovim-from-scratch.git ~/.config/nvim
+
+Start Neovim:
+
+```sh
+nvim
 ```
 
-Run `nvim` in your terminal and wait for the plugins to be installed. You will notice treesitter pulling in a bunch of language parsers the next time you open Neovim.
+On first launch, `lazy.nvim` will bootstrap itself and install plugins automatically.
 
-**NOTE** [Mason](https://github.com/williamboman/mason.nvim) is used to install and manage LSP servers, DAP servers, linters, and formatters via the `:Mason` command.
+After startup, these commands are usually the first things worth checking:
 
-This config assumes that you have Nerd Fonts v3.0.0 or higher. If you are using an older version then please update your [Nerd Fonts](https://github.com/ryanoasis/nerd-fonts) otherwise there will be missing or wrong glyphs
-
-## Get healthy
-
-Open `nvim` and enter the following:
-
-```
+```vim
 :checkhealth
+:Mason
 ```
 
-You'll probably notice you don't have support for copy/paste also that python and node haven't been setup
+## Layout
 
-So let's fix that
+- [init.lua](init.lua): startup entrypoint
+- [lua/user](lua/user): user config, options, keymaps, autocommands, LSP setup, semantic token customization
+- [lua/plugins](lua/plugins): modular plugin specs grouped by domain
+- [lazy-lock.json](lazy-lock.json): pinned plugin versions
+- `external/`: related tool configs such as kitty and goneovim
+- `templates/`: file templates
+- `spell/`: custom spell additions
 
-First we'll fix copy/paste
+## Customization
 
-- On mac `pbcopy` should be builtin
+The lowest-friction entry points are:
 
-- On Ubuntu
+- [lua/user/config.lua](lua/user/config.lua): top-level user switches such as completion engine
+- [lua/user/keymaps.lua](lua/user/keymaps.lua): personal mappings
+- [lua/user/options.lua](lua/user/options.lua): editor defaults
+- [lua/user/lsp](lua/user/lsp): LSP handlers, per-server settings, semantic token styling
 
-  ```
-  sudo apt install xsel
-  ```
+If you want to remove or swap functionality, the corresponding plugin specs are usually under a matching folder in `lua/plugins/`.
 
-- On Arch Linux
+## Notes
 
-  ```
-  sudo pacman -S xsel
-  ```
-  
-- Wayland users
-
-  [wl-clipboard](https://github.com/bugaevc/wl-clipboard)
-
-
-Next we need to install python support (node is optional)
-
-- Neovim python support
-
-  ```
-  pip install pynvim
-  ```
-
-- Neovim node support
-
-  ```
-  npm i -g neovim
-  ```
----
-
-**NOTE** make sure you have [node](https://nodejs.org/en/) installed, I recommend a node manager like [fnm](https://github.com/Schniz/fnm).
-
-### Upgrade to Neovim v0.9
-
-Assuming you [built from source](https://github.com/neovim/neovim/wiki/Building-Neovim#quick-start), `cd` into the folder where you cloned `neovim` and run the following commands. 
-```
-git pull
-git checkout release-0.9
-make distclean && make CMAKE_BUILD_TYPE=Release
-sudo make install
-nvim -v
-```
-
-> The computing scientist's main challenge is not to get confused by the complexities of his own making. 
-
-\- Edsger W. Dijkstra
+- This is a personal config repo, not a polished distribution.
+- The code is a more reliable source of truth than old documentation copied from upstream templates.
+- `lazy-lock.json` is committed, so plugin versions are intentionally pinned.
