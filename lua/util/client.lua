@@ -67,6 +67,10 @@ M.get_client = function()
       return "goneovim"
     end
   else
+    if M.is_kitty() then
+      return "kitty"
+    end
+
     if M.is_wezterm() then
       return "wezterm"
     end
