@@ -6,19 +6,12 @@ local M = {
 M.config = function()
   require("lsp_signature").setup {
     log_path = vim.fn.stdpath "cache" .. "/lsp_signature.log",
-    debug = true,
+    debug = false,
     handler_opts = { border = "rounded" },
     max_width = 80,
-    noice = false, -- TODO: Will cause error, and the author consider to deprecate this option
-    ignore_error = function(err, ctx, config)
-      local client = vim.lsp.get_client_by_id(ctx.client_id)
-      if client and vim.tbl_contains({ "rust-analyer", "clangd", "ccls" }, client.name) then
-        return true
-      end
-
-      if vim.tbl_contains({}, err.code_name) then
-        return true
-      end
+    ignore_error = function(_, ctx)
+      local client = ctx and ctx.client_id and vim.lsp.get_client_by_id(ctx.client_id)
+      return client and vim.tbl_contains({ "rust-analyzer", "clangd", "ccls" }, client.name) or false
     end,
   }
 end
