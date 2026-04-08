@@ -27,24 +27,37 @@ M.init = function()
 end
 
 M.config = function()
+  local has_schemat = vim.fn.executable "schemat" == 1
+  local formatters_by_ft = {
+    lua = { "stylua" },
+    python = { "isort", "black" },
+    javascript = { "prettierd", "prettier", stop_after_first = true },
+    rust = { "rustfmt" },
+    c = { "clang_format" },
+    cpp = { "clang_format" },
+    sh = { "shfmt" },
+    bash = { "shfmt" },
+    toml = { "taplo" },
+    cmake = { "cmake_format" },
+    json = { "jq" },
+    just = { "just" },
+    ["*"] = { "codespell" },
+    ["_"] = { "trim_whitespace" },
+  }
+  local formatters = {}
+
+  if has_schemat then
+    formatters_by_ft.scheme = { "schemat" }
+    formatters.schemat = {
+      command = "schemat",
+      stdin = true,
+      exit_codes = { 0 },
+      inherit = true,
+    }
+  end
+
   require("conform").setup {
-    formatters_by_ft = {
-      lua = { "stylua" },
-      python = { "isort", "black" },
-      javascript = { "prettierd", "prettier", stop_after_first = true },
-      rust = { "rustfmt" },
-      c = { "clang_format" },
-      cpp = { "clang_format" },
-      scheme = { "schemat" },
-      sh = { "shfmt" },
-      bash = { "shfmt" },
-      toml = { "taplo" },
-      cmake = { "cmake_format" },
-      json = { "jq" },
-      just = { "just" },
-      ["*"] = { "codespell" },
-      ["_"] = { "trim_whitespace" },
-    },
+    formatters_by_ft = formatters_by_ft,
     format_after_save = function(bufnr)
       if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
         return
@@ -56,14 +69,7 @@ M.config = function()
     -- },
     log_level = vim.log.levels.ERROR,
     notify_on_error = true,
-    formatters = {
-      schemat = {
-        command = "schemat",
-        stdin = true,
-        exit_codes = { 0 },
-        inherit = true,
-      },
-    },
+    formatters = formatters,
   }
 end
 
