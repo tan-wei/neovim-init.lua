@@ -5,4 +5,6 @@
 return {
   -- Completion engine: "nvim-cmp" or "blink"
   completion_engine = "blink",
+  mapleader = "\\",
+  maplocalleader = "\\",
 }

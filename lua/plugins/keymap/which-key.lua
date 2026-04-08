@@ -5,7 +5,31 @@ local M = {
 
 M.config = function()
   local wk = require "which-key"
-  wk.setup()
+  wk.setup {
+    triggers = {
+      { "<auto>", mode = "nixsotc" },
+      { "<leader>", mode = { "n", "v" } },
+      { "<localleader>", mode = { "n", "v" } },
+    },
+  }
+
+  local function show_prefix(prefix)
+    return function()
+      wk.show { keys = prefix, delay = 200 }
+    end
+  end
+
+  vim.keymap.set({ "n", "v" }, "<leader>", show_prefix "<leader>", {
+    desc = "which-key-trigger",
+    nowait = true,
+    silent = true,
+  })
+
+  vim.keymap.set({ "n", "v" }, "<localleader>", show_prefix "<localleader>", {
+    desc = "which-key-trigger",
+    nowait = true,
+    silent = true,
+  })
 
   wk.add {
     -- A --

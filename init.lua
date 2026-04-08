@@ -1,6 +1,8 @@
 -- Load user config (must be first, before plugins read vim.g values)
 local config = require "user.config"
 vim.g.completion_engine = config.completion_engine
+vim.g.mapleader =  config.mapleader
+vim.g.maplocalleader = config.maplocalleader
 
 require "user.options"
 require "user.lazy"
