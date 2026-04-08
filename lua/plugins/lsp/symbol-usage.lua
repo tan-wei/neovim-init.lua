@@ -5,9 +5,68 @@ local M = {
 
 M.config = function()
   local symbol_usage = require "symbol-usage"
+  local symbol_usage_state = require "symbol-usage.state"
+  local client = require "util.client"
 
   local function h(name)
-    return vim.api.nvim_get_hl(0, { name = name })
+    local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = name })
+    if not ok or vim.tbl_isempty(hl) then
+      return {}
+    end
+    return hl
+  end
+
+  local function hl_value(names, key)
+    for _, name in ipairs(names) do
+      local value = h(name)[key]
+      if value ~= nil then
+        return value
+      end
+    end
+  end
+
+  local function refresh_bubble_highlights()
+    local cursorline_bg = hl_value({ "CursorLine", "CursorColumn", "ColorColumn", "Normal" }, "bg")
+    local content_fg = hl_value({ "Comment", "NonText", "Normal" }, "fg")
+    local ref_fg = hl_value({ "Function", "@function", "Identifier", "Comment" }, "fg")
+    local def_fg = hl_value({ "Type", "@type", "Identifier", "Comment" }, "fg")
+    local impl_fg = hl_value({ "@keyword", "Keyword", "Statement", "Comment" }, "fg")
+
+    vim.api.nvim_set_hl(0, "SymbolUsageRounding", { fg = cursorline_bg, italic = true })
+    vim.api.nvim_set_hl(0, "SymbolUsageContent", { bg = cursorline_bg, fg = content_fg, italic = true })
+    vim.api.nvim_set_hl(0, "SymbolUsageRef", { fg = ref_fg, bg = cursorline_bg, italic = true })
+    vim.api.nvim_set_hl(0, "SymbolUsageDef", { fg = def_fg, bg = cursorline_bg, italic = true })
+    vim.api.nvim_set_hl(0, "SymbolUsageImpl", { fg = impl_fg, bg = cursorline_bg, italic = true })
+  end
+
+  local function refresh_label_highlights()
+    local normal_bg = hl_value({ "Normal", "NormalFloat", "CursorLine" }, "bg")
+    local ref_bg = hl_value({ "Type", "@type", "Identifier", "Comment" }, "fg")
+    local def_bg = hl_value({ "Function", "@function", "Identifier", "Comment" }, "fg")
+    local impl_bg = hl_value({ "@parameter", "@keyword", "Identifier", "Comment" }, "fg")
+
+    vim.api.nvim_set_hl(0, "SymbolUsageRef", { bg = ref_bg, fg = normal_bg, bold = true })
+    vim.api.nvim_set_hl(0, "SymbolUsageRefRound", { fg = ref_bg })
+
+    vim.api.nvim_set_hl(0, "SymbolUsageDef", { bg = def_bg, fg = normal_bg, bold = true })
+    vim.api.nvim_set_hl(0, "SymbolUsageDefRound", { fg = def_bg })
+
+    vim.api.nvim_set_hl(0, "SymbolUsageImpl", { bg = impl_bg, fg = normal_bg, bold = true })
+    vim.api.nvim_set_hl(0, "SymbolUsageImplRound", { fg = impl_bg })
+  end
+
+  local function refresh_renderer_highlights()
+    local refreshers = {
+      ["neovide"] = refresh_bubble_highlights,
+      ["wezterm"] = refresh_bubble_highlights,
+      ["kitty"] = refresh_bubble_highlights,
+      ["ghostty"] = refresh_label_highlights,
+    }
+
+    local refresher = refreshers[client.get_client()]
+    if refresher then
+      refresher()
+    end
   end
 
   local function plain_text_format(symbol)
@@ -31,13 +90,6 @@ M.config = function()
   end
 
   local function bubble_text_format(symbol)
-    -- TODO: Every time colorscheme should refresh
-    vim.api.nvim_set_hl(0, "SymbolUsageRounding", { fg = h("CursorLine").bg, italic = true })
-    vim.api.nvim_set_hl(0, "SymbolUsageContent", { bg = h("CursorLine").bg, fg = h("Comment").fg, italic = true })
-    vim.api.nvim_set_hl(0, "SymbolUsageRef", { fg = h("Function").fg, bg = h("CursorLine").bg, italic = true })
-    vim.api.nvim_set_hl(0, "SymbolUsageDef", { fg = h("Type").fg, bg = h("CursorLine").bg, italic = true })
-    vim.api.nvim_set_hl(0, "SymbolUsageImpl", { fg = h("@keyword").fg, bg = h("CursorLine").bg, italic = true })
-
     local res = {}
 
     local round_start = { "", "SymbolUsageRounding" }
@@ -76,16 +128,6 @@ M.config = function()
   end
 
   local function label_text_format(symbol)
-    -- TODO: Every time colorscheme should refresh
-    vim.api.nvim_set_hl(0, "SymbolUsageRef", { bg = h("Type").fg, fg = h("Normal").bg, bold = true })
-    vim.api.nvim_set_hl(0, "SymbolUsageRefRound", { fg = h("Type").fg })
-
-    vim.api.nvim_set_hl(0, "SymbolUsageDef", { bg = h("Function").fg, fg = h("Normal").bg, bold = true })
-    vim.api.nvim_set_hl(0, "SymbolUsageDefRound", { fg = h("Function").fg })
-
-    vim.api.nvim_set_hl(0, "SymbolUsageImpl", { bg = h("@parameter").fg, fg = h("Normal").bg, bold = true })
-    vim.api.nvim_set_hl(0, "SymbolUsageImplRound", { fg = h("@parameter").fg })
-
     local res = {}
 
     -- Indicator that shows if there are any other symbols in the same line
@@ -138,13 +180,9 @@ M.config = function()
       ["default"] = plain_text_format,
     }
 
-    local renderer = client_map[require("util.client").get_client()]
+    local renderer = client_map[client.get_client()] or plain_text_format
 
-    if renderer then
-      return renderer(symbol)
-    else
-      plain_text_format(symbol)
-    end
+    return renderer(symbol)
   end
 
   symbol_usage.setup {
@@ -158,6 +196,21 @@ M.config = function()
     implementation = { enabled = true },
     text_format = text_format_according_term,
   }
+
+  refresh_renderer_highlights()
+
+  vim.api.nvim_create_autocmd("ColorScheme", {
+    group = vim.api.nvim_create_augroup("SymbolUsageCustomHighlights", { clear = true }),
+    callback = function()
+      refresh_renderer_highlights()
+
+      if next(symbol_usage_state.get_buf_workers(vim.api.nvim_get_current_buf())) ~= nil then
+        vim.schedule(function()
+          symbol_usage.refresh()
+        end)
+      end
+    end,
+  })
 end
 
 return M
