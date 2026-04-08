@@ -52,7 +52,7 @@ M.config = function()
   vim.keymap.set("n", "K", function()
     local winid = ufo.peekFoldedLinesUnderCursor()
     if not winid then
-      vim.lsp.buf.hover()
+      vim.lsp.buf.hover { border = "rounded" }
     end
   end)
 

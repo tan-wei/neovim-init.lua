@@ -66,7 +66,7 @@ M.config = function()
     { "<leader>Ci", "<cmd>ClangdDisableInlayHints<cr>", desc = "disable Inlay hints", mode = "n" },
     { "<leader>CI", "<cmd>ClangdSetInlayHints<cr>", desc = "enable Inlay hints", mode = "n" },
     { "<leader>Ca", "<cmd>ClangdAST<cr>", desc = "view Abstract sytax tree", mode = "n" },
-    { "<leader>Cs", "<cmd>ClangdSymbolInfo<cr>", desc = "view Symbol information", mode = "n" },
+    { "<leader>CS", "<cmd>ClangdSymbolInfo<cr>", desc = "view Symbol information", mode = "n" },
     { "<leader>Ct", "<cmd>ClangdTypeHierarchy<cr>", desc = "view Type hierarchy information", mode = "n" },
     { "<leader>Cm", "<cmd>ClangdMemoryUsage<cr>", desc = "view Memory usage", mode = "n" },
     { "<leader>Cf", "<cmd>TSCppDefineClassFunc<cr>", desc = "implement out of class member Functions", mode = "n" },
@@ -171,7 +171,7 @@ M.config = function()
     { "<leader>lD", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document symbols", mode = "n" },
     { "<leader>lf", "<cmd>FormatEnable<cr>", desc = "enable Format", mode = "n" },
     { "<leader>lF", "<cmd>FormatDisable!<cr>", desc = "disable Format", mode = "n" },
-    { "<leader>lh", "<cmd>lua vim.lsp.buf.hover()<cr>", desc = "Hover", mode = "n" },
+    { "<leader>lh", "<cmd>lua vim.lsp.buf.hover({ border = 'rounded' })<cr>", desc = "Hover", mode = "n" },
     { "<leader>li", "<cmd>LspInfo<cr>", desc = "LSP Information", mode = "n" },
     { "<leader>lI", "<cmd>LspInstallInfo<cr>", desc = "LSP install Information", mode = "n" },
     { "<leader>lj", "<cmd>lua vim.diagnostic.goto_next()<cr>", desc = "next diagostic", mode = "n" },
@@ -214,19 +214,22 @@ M.config = function()
     { "<leader>P", "<cmd>lua require('telescope').extensions.projects.projects()<cr>", desc = "Projects", mode = "n" },
 
     -- p --
+    { "<leader>p", group = "peek/popup", mode = "n" },
     {
       "<leader>pd",
       function()
         require("overlook.api").peek_definition()
       end,
       desc = "Overlook: Peek definition",
+      mode = "n",
     },
     {
       "<leader>pc",
       function()
         require("overlook.api").close_all()
       end,
-      desc = "Overlook: Close all popup",
+      desc = "Overlook: Close all popups",
+      mode = "n",
     },
     {
       "<leader>pu",
@@ -234,14 +237,56 @@ M.config = function()
         require("overlook.api").restore_popup()
       end,
       desc = "Overlook: Restore popup",
+      mode = "n",
     },
-    { "<leader>pU", require("overlook.api").restore_all_popups, { desc = "Restore all popups" } },
-    { "<leader>pc", require("overlook.api").close_all, { desc = "Close all popups" } },
-    { "<leader>pf", require("overlook.api").switch_focus, { desc = "Switch focus" } },
-    { "<leader>ps", require("overlook.api").open_in_split, { desc = "Open popup in split" } },
-    { "<leader>pv", require("overlook.api").open_in_vsplit, { desc = "Open popup in vsplit" } },
-    { "<leader>pt", require("overlook.api").open_in_tab, { desc = "Open popup in tab" } },
-    { "<leader>po", require("overlook.api").open_in_original_window, { desc = "Open popup in current window" } },
+    {
+      "<leader>pU",
+      function()
+        require("overlook.api").restore_all_popups()
+      end,
+      desc = "Overlook: Restore all popups",
+      mode = "n",
+    },
+    {
+      "<leader>pf",
+      function()
+        require("overlook.api").switch_focus()
+      end,
+      desc = "Overlook: Switch focus",
+      mode = "n",
+    },
+    {
+      "<leader>ps",
+      function()
+        require("overlook.api").open_in_split()
+      end,
+      desc = "Overlook: Open popup in split",
+      mode = "n",
+    },
+    {
+      "<leader>pv",
+      function()
+        require("overlook.api").open_in_vsplit()
+      end,
+      desc = "Overlook: Open popup in vsplit",
+      mode = "n",
+    },
+    {
+      "<leader>pt",
+      function()
+        require("overlook.api").open_in_tab()
+      end,
+      desc = "Overlook: Open popup in tab",
+      mode = "n",
+    },
+    {
+      "<leader>po",
+      function()
+        require("overlook.api").open_in_original_window()
+      end,
+      desc = "Overlook: Open popup in current window",
+      mode = "n",
+    },
 
     -- Q --
 
