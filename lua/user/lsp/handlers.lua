@@ -116,6 +116,9 @@ M.on_attach = function(client, bufnr)
   if client.name == "rust-analyzer" then
     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
   end
+  if client.name == "ccls" then
+    vim.lsp.codelens.enable(true, { client_id = client.id })
+  end
 
   if client.server_capabilities.inlayHintProvider then
     -- vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })

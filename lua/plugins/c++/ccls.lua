@@ -1,27 +1,11 @@
 local M = {
   "ranjithshegde/ccls.nvim",
-  enabled = false,
+  ft = { "c", "cpp", "objc", "objcpp" },
+  config = function()
+    -- Only initialize tree/hierarchy UI features.
+    -- LSP setup is handled via vim.lsp.config/vim.lsp.enable in nvim-lspconfig.
+    require("ccls").setup {}
+  end,
 }
-
-M.config = function()
-  require("ccls").setup {
-    lsp = {
-      disable_capabilities = {
-        completionProvider = true,
-        documentFormattingProvider = true,
-        documentRangeFormattingProvider = true,
-        documentHighlightProvider = true,
-        documentSymbolProvider = true,
-        workspaceSymbolProvider = true,
-        renameProvider = true,
-        hoverProvider = true,
-        codeActionProvider = true,
-      },
-      disable_diagnostics = true,
-      disable_signature = true,
-      codelens = { enable = true },
-    },
-  }
-end
 
 return M
