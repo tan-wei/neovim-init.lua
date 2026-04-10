@@ -13,24 +13,6 @@ M.config = function()
     },
   }
 
-  local function show_prefix(prefix)
-    return function()
-      wk.show { keys = prefix, delay = 200 }
-    end
-  end
-
-  vim.keymap.set({ "n", "v" }, "<leader>", show_prefix "<leader>", {
-    desc = "which-key-trigger",
-    nowait = true,
-    silent = true,
-  })
-
-  vim.keymap.set({ "n", "v" }, "<localleader>", show_prefix "<localleader>", {
-    desc = "which-key-trigger",
-    nowait = true,
-    silent = true,
-  })
-
   wk.add {
     -- A --
     { "<leader>A", "<cmd>Alpha<cr>", desc = "Alpha", mode = "n" },
@@ -50,7 +32,7 @@ M.config = function()
       desc = "disable Indent-blankline",
       mode = "n",
     },
-    { "<leader>bc", "<cmd>Bdelete!<cr>", desc = "Close buffer", mode = "n" },
+    { "<leader>bc", "<cmd>BdeleteOrClose<cr>", desc = "Close buffer", mode = "n" },
     {
       "<leader>bI",
       "<cmd>lua require 'ibl'.setup_buffer(0, { enabled = true })<cr>",
@@ -114,7 +96,7 @@ M.config = function()
     },
 
     -- c --
-    { "<leader>c", "<cmd>Bdelete!<cr>", desc = "Close current buffer", mode = "n" },
+    { "<leader>c", "<cmd>BdeleteOrClose<cr>", desc = "Close current buffer", mode = "n" },
 
     -- D --
 

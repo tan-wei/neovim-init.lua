@@ -19,6 +19,34 @@ M.config = function()
   local preview = require "nvim-tree-preview"
   local nvim_tree_open = {}
 
+  -- Smart buffer close: Bdelete, then close tab/quit if nothing real remains
+  vim.api.nvim_create_user_command("BdeleteOrClose", function(opts)
+    local bufnr = opts.args ~= "" and tonumber(opts.args) or 0
+    local ok, _ = pcall(vim.cmd, "Bdelete! " .. (bufnr ~= 0 and bufnr or ""))
+    if not ok then
+      return
+    end
+    -- After Bdelete, check if any real file buffer remains in this tab
+    local has_real = false
+    for _, w in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+      if vim.api.nvim_win_get_config(w).relative == "" then
+        local buf = vim.api.nvim_win_get_buf(w)
+        local name = vim.api.nvim_buf_get_name(buf)
+        if name ~= "" and not name:match "NvimTree_" then
+          has_real = true
+          break
+        end
+      end
+    end
+    if not has_real then
+      if #vim.api.nvim_list_tabpages() > 1 then
+        vim.cmd "tabclose"
+      else
+        vim.cmd "qa"
+      end
+    end
+  end, { nargs = "?" })
+
   nvim_tree_api.events.subscribe(nvim_tree_api.events.Event.TreeOpen, function()
     local winid = nvim_tree_api.tree.winid { tabpage = 0 }
     nvim_tree_open[winid] = true
@@ -50,25 +78,37 @@ M.config = function()
     end,
   })
 
-  -- Auto close
+  -- Auto close: when :q on the last real window, close everything so Neovim exits
   vim.api.nvim_create_autocmd("QuitPre", {
     callback = function()
-      local tree_wins = {}
-      local floating_wins = {}
-      local wins = vim.api.nvim_list_wins()
-      for _, w in ipairs(wins) do
-        local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(w))
-        if bufname:match "NvimTree_" ~= nil then
-          table.insert(tree_wins, w)
-        end
-        if vim.api.nvim_win_get_config(w).relative ~= "" then
-          table.insert(floating_wins, w)
+      local normal_wins = {}
+      for _, w in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        if vim.api.nvim_win_is_valid(w)
+          and vim.api.nvim_win_get_config(w).relative == ""
+          and not vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(w)):match "NvimTree_"
+        then
+          table.insert(normal_wins, w)
         end
       end
-      if 1 == #wins - #floating_wins - #tree_wins then
-        -- Should quit, so we close all invalid windows.
-        for _, w in ipairs(tree_wins) do
-          vim.api.nvim_win_close(w, true)
+      -- Current window is about to be :q'd; if it's the only normal one,
+      -- close all other windows (nvim-tree, other tabs) so :q exits Neovim.
+      if #normal_wins == 1 then
+        -- Save session with all tabs intact before we close anything
+        local as_ok, auto_session = pcall(require, "auto-session")
+        if as_ok then
+          auto_session.auto_save_session()
+          -- Prevent VimLeavePre from overwriting with a single-tab session
+          require("auto-session.config").enabled = false
+        end
+
+        local curwin = vim.api.nvim_get_current_win()
+        for _, w in ipairs(vim.api.nvim_list_wins()) do
+          if w ~= curwin and vim.api.nvim_win_is_valid(w) then
+            local ok, cfg = pcall(vim.api.nvim_win_get_config, w)
+            if ok and cfg.relative == "" then
+              pcall(vim.api.nvim_win_close, w, true)
+            end
+          end
         end
       end
     end,

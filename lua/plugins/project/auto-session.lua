@@ -183,8 +183,16 @@ M.config = function()
         return
       end
 
+      -- Don't force-open if we're the last normal window (about to quit)
+      local normal_wins = vim.tbl_filter(function(w)
+        return vim.api.nvim_win_get_config(w).relative == ""
+          and not vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(w)):match "NvimTree_"
+      end, vim.api.nvim_list_wins())
+      if #normal_wins == 0 then
+        return
+      end
+
       local winid = api.tree.winid()
-      -- vim.print("winid = " .. tostring(winid))
 
       if not winid then
         api.tree.open { current_window = true }

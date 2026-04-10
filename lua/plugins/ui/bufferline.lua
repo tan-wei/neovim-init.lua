@@ -27,8 +27,8 @@ M.config = function()
 
         return buf.name
       end,
-      close_command = "Bdelete! %d",
-      right_mouse_command = "Bdelete! %d",
+      close_command = "BdeleteOrClose %d",
+      right_mouse_command = "BdeleteOrClose %d",
       left_mouse_command = "buffer %d",
       middle_mouse_command = nil,
       indicator = { style = "icon", icon = "▎" },
