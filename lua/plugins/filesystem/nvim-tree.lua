@@ -83,7 +83,8 @@ M.config = function()
     callback = function()
       local normal_wins = {}
       for _, w in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-        if vim.api.nvim_win_is_valid(w)
+        if
+          vim.api.nvim_win_is_valid(w)
           and vim.api.nvim_win_get_config(w).relative == ""
           and not vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(w)):match "NvimTree_"
         then

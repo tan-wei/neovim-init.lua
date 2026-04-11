@@ -8,7 +8,7 @@ return {
       cmake.clangd_on_new_config(config)
     elseif vim.uv.fs_stat(config.root_dir .. "/compile_commands.json") then
       for i, v in ipairs(config.cmd) do
-        if v:find("%-%-compile%-commands%-dir=") then
+        if v:find "%-%-compile%-commands%-dir=" then
           table.remove(config.cmd, i)
           break
         end

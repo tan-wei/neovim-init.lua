@@ -218,9 +218,7 @@ local function hsl_to_rgb(hue, saturation, lightness)
     return lightness, lightness, lightness
   end
 
-  local upper = lightness < 0.5
-      and lightness * (1 + saturation)
-    or lightness + saturation - lightness * saturation
+  local upper = lightness < 0.5 and lightness * (1 + saturation) or lightness + saturation - lightness * saturation
   local lower = 2 * lightness - upper
 
   return hue_to_rgb(lower, upper, hue + 1 / 3), hue_to_rgb(lower, upper, hue), hue_to_rgb(lower, upper, hue - 1 / 3)
