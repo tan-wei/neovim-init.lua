@@ -1,5 +1,5 @@
 local M = {
-  "hyperb1iss/silkcircuit-nvim",
+  "hyperb1iss/silkcircuit",
   lazy = true,
 }
 
