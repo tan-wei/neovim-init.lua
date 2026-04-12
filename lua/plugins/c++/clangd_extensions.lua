@@ -1,5 +1,5 @@
 local M = {
-  "p00f/clangd_extensions.nvim",
+  "https://git.sr.ht/~chinmay/clangd_extensions.nvim",
   ft = { "c", "cpp" },
   cmd = {
     "ClangdSwitchSourceHeader",
