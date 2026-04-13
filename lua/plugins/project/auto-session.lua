@@ -12,6 +12,27 @@ local meta = {
   nvimTreeFocused = false,
 }
 
+--- Save pinned buffer state (vim-early-retirement) so it survives session restore.
+--- Returns a list of Lua commands that re-pin each buffer by setting b:ignore_early_retirement.
+local function save_early_retirement_pins()
+  local cmds = {}
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(buf) then
+      local ok, val = pcall(vim.api.nvim_buf_get_var, buf, "ignore_early_retirement")
+      if ok and val then
+        local name = vim.api.nvim_buf_get_name(buf)
+        if name ~= "" then
+          table.insert(cmds, string.format(
+            "lua vim.api.nvim_buf_set_var(vim.fn.bufnr([[%s]]), 'ignore_early_retirement', true)",
+            name
+          ))
+        end
+      end
+    end
+  end
+  return cmds
+end
+
 M.config = function()
   require("auto-session").setup {
     log_level = vim.log.levels.ERROR,
@@ -27,6 +48,9 @@ M.config = function()
       previewer = true,
     },
     bypass_save_filetypes = { "alpha", "dashboard", "oil", "telescope" },
+    save_extra_cmds = {
+      save_early_retirement_pins,
+    },
     pre_save_cmds = {
       function()
         -- local status_ok, api = pcall(require, "nvim-tree.api")
