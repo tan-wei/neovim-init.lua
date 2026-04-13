@@ -5,9 +5,26 @@ return {
     local ok, cmake = pcall(require, "cmake-tools")
     if ok then
       cmake.ccls_on_new_config(config)
-    elseif vim.uv.fs_stat(config.root_dir .. "/compile_commands.json") then
-      config.init_options.compilationDatabaseDirectory = config.root_dir
+      return
     end
+
+    local root_dir = config.root_dir
+    if not root_dir or root_dir == "" then
+      return
+    end
+
+    if vim.uv.fs_stat(root_dir .. "/compile_commands.json") then
+      config.init_options.compilationDatabaseDirectory = root_dir
+      return
+    end
+
+    local build_dir = root_dir .. "/build"
+    if vim.uv.fs_stat(build_dir .. "/compile_commands.json") then
+      config.init_options.compilationDatabaseDirectory = build_dir
+      return
+    end
+
+    config.init_options.compilationDatabaseDirectory = build_dir
   end,
   -- Disable capabilities that conflict with clangd
   -- (mirrors what ccls.nvim's disable_capabilities did in on_init)
@@ -29,7 +46,6 @@ return {
     ["textDocument/signatureHelp"] = noopfn,
   },
   init_options = {
-    compilationDatabaseDirectory = "build",
     index = {
       threads = 2,
     },
