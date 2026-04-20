@@ -12,6 +12,8 @@ M.opts = {
     "NvimTree",
     "alpha",
     "checkhealth",
+    "Outline",
+    "toggleterm",
   },
 }
 

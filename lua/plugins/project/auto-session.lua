@@ -47,7 +47,7 @@ M.config = function()
       picker_opts = { border = true },
       previewer = true,
     },
-    bypass_save_filetypes = { "alpha", "dashboard", "oil", "telescope" },
+    bypass_save_filetypes = { "alpha", "dashboard", "oil", "telescope", "Outline" },
     save_extra_cmds = {
       save_early_retirement_pins,
     },
@@ -69,6 +69,11 @@ M.config = function()
 
         ------------------------------------------------
         -- ref: https://github.com/b0o/nvim-conf/blob/3f9c92550f79921326a453f3140be9dcf843eb3d/lua/user/fn.lua#L352
+        -- Close Outline before saving session to prevent exit hang
+        if require("util.package").is_loaded "outline.nvim" then
+          pcall(vim.cmd, "OutlineClose")
+        end
+
         meta.nvimTreeOpen = false
         meta.nvimTreeFocused = false
         if require("util.package").is_loaded "nvim-tree.lua" then
@@ -118,6 +123,13 @@ M.config = function()
             vim.api.nvim_set_current_win(meta.focused)
           end
         end
+
+        -- Clear stale winsep separators after session save window changes
+        vim.schedule(function()
+          pcall(function()
+            require("colorful-winsep.view").hide_all()
+          end)
+        end)
         ------------------------------------------------
       end,
     },
