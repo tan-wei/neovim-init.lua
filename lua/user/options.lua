@@ -50,6 +50,7 @@ local options = {
   textwidth = 512, -- Default text width
   spellfile = vim.fn.stdpath "config" .. "/spell/en.utf-8.add", -- Spell file
   title = true, -- Always print title
+  display = "lastline", -- show partial wrapped lines instead of filling them with @
   titlestring = "Neovim @ [cwd: " .. vim.fn.getcwd() .. "]", -- Default print current directory
   -- jumpoptions = "stack", -- make jump stack
 }
@@ -71,8 +72,10 @@ if require("util.os").is_windows() then
 end
 
 -- vim.opt.shortmess = "ilmnrx"                        -- flags to shorten vim messages, see :help 'shortmess'
+-- Options that use :append/:remove must stay outside the table
 vim.opt.shortmess:append "c" -- don't give |ins-completion-menu| messages
 vim.opt.iskeyword:append "-" -- hyphenated words recognized by searches
+vim.opt.fillchars:append "lastline:…" -- show … instead of @@@ for truncated lines
 vim.opt.formatoptions:remove { "c", "r", "o" } -- don't insert the current comment leader automatically for auto-wrapping comments using 'textwidth', hitting <Enter> in insert mode, or hitting 'o' or 'O' in normal mode.
 vim.opt.runtimepath:remove "/usr/share/vim/vimfiles" -- separate vim plugins from neovim in case vim still in use
 vim.opt.sessionoptions = options.sessionoptions
