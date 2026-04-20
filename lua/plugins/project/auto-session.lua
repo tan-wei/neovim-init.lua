@@ -22,10 +22,10 @@ local function save_early_retirement_pins()
       if ok and val then
         local name = vim.api.nvim_buf_get_name(buf)
         if name ~= "" then
-          table.insert(cmds, string.format(
-            "lua vim.api.nvim_buf_set_var(vim.fn.bufnr([[%s]]), 'ignore_early_retirement', true)",
-            name
-          ))
+          table.insert(
+            cmds,
+            string.format("lua vim.api.nvim_buf_set_var(vim.fn.bufnr([[%s]]), 'ignore_early_retirement', true)", name)
+          )
         end
       end
     end
