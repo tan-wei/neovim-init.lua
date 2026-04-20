@@ -98,6 +98,43 @@ M.config = function(_, opts)
 
   cmake_tools.setup(opts)
 
+  -- After CMakeGenerate/CMakeBuild completes successfully, restart C++ LSP
+  -- so it picks up the new/updated compile_commands.json.
+  local function on_cmake_done(result)
+    if result:is_ok() then
+      vim.schedule(function()
+        local restarted = {}
+        local bufnr = vim.api.nvim_get_current_buf()
+        for _, client in pairs(vim.lsp.get_clients { bufnr = bufnr }) do
+          if client.name == "clangd" or client.name == "ccls" then
+            table.insert(restarted, client.name)
+            client:stop()
+          end
+        end
+        if #restarted > 0 then
+          vim.defer_fn(function()
+            -- Re-attach by triggering FileType event on current buffer only
+            vim.api.nvim_exec_autocmds("FileType", { buffer = bufnr })
+            vim.notify(
+              "LSP restarted: " .. table.concat(restarted, ", ") .. " (compile_commands.json updated)",
+              vim.log.levels.INFO
+            )
+          end, 500)
+        end
+      end)
+    end
+  end
+
+  pcall(vim.api.nvim_del_user_command, "CMakeGenerate")
+  vim.api.nvim_create_user_command("CMakeGenerate", function(cmd_opts)
+    cmake_tools.generate({ bang = cmd_opts.bang, fargs = cmd_opts.fargs }, on_cmake_done)
+  end, { bang = true, nargs = "*", desc = "CMake Generate (with LSP restart)" })
+
+  pcall(vim.api.nvim_del_user_command, "CMakeBuild")
+  vim.api.nvim_create_user_command("CMakeBuild", function(cmd_opts)
+    cmake_tools.build({ bang = cmd_opts.bang, fargs = cmd_opts.fargs }, on_cmake_done)
+  end, { bang = true, nargs = "*", desc = "CMake Build (with LSP restart)" })
+
   pcall(vim.api.nvim_del_user_command, "CMakeClearSession")
   vim.api.nvim_create_user_command("CMakeClearSession", function()
     local cwd = vim.loop.cwd()
