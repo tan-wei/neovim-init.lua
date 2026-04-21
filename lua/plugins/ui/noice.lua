@@ -30,6 +30,18 @@ M.config = function()
         enabled = false,
       },
     },
+    routes = {
+      {
+        filter = {
+          event = { "msg_show", "notify" },
+          cond = function(message)
+            local content = message:content()
+            return content:find("UnhandledPromiseRejection", 1, true) and content:find("not indexed", 1, true)
+          end,
+        },
+        opts = { skip = true },
+      },
+    },
     presets = {
       bottom_search = true,
       command_palette = true,
