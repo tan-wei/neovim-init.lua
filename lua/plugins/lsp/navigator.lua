@@ -19,7 +19,6 @@ local M = {
     "nvim-treesitter/nvim-treesitter",
   },
   event = "LspAttach",
-  enabled = false, -- NOTE: Now it depends on main banch with nvim-treesitter
 }
 
 M.opts = {
