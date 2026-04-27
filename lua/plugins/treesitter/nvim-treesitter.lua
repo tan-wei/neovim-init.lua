@@ -332,9 +332,6 @@ local indent_disable = { python = true, css = true }
 
 local M = {
   "nvim-treesitter/nvim-treesitter",
-  dependencies = {
-    "OXY2DEV/markview.nvim",
-  },
   build = ":TSUpdate",
   branch = "main",
   lazy = false,
