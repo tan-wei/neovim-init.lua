@@ -1,6 +1,6 @@
 local M = {
   "error311/wayfinder.nvim",
-  cmd = {"Wayfinder"},
+  cmd = { "Wayfinder" },
 }
 
 M.opts = {}
