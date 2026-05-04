@@ -69,7 +69,7 @@ return {
   end)(),
   init_options = {
     index = {
-      threads = 2,
+      threads = require("util.os").get_parallel_job_count(4, 1),
     },
     cache = {
       directory = vim.fn.stdpath "cache" .. "/.ccls-cache",
