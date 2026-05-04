@@ -57,6 +57,29 @@ local M = {
 }
 
 M.config = function()
+  local quoted_name = function(name)
+    return "»" .. name .. "«"
+  end
+
+  local source_labels = {
+    lsp = "LSP",
+    snippets = "SNIPPET",
+    buffer = "BUFFER",
+    path = "PATH",
+    calc = "CALC",
+    nvim_lua = "NVIM_LUA",
+    emoji = "EMOJI",
+    nerdfont = "NERD_FONT",
+    rg = "RG",
+    ecolog = "ECOLOG",
+    git = "GIT",
+    spell = "SPELL",
+    copilot = "COPILOT",
+    conventional_commits = "CONVENTIONAL_COMMITS",
+    dadbod = "DADBOD",
+    cmdline = "CMDLINE",
+  }
+
   require("blink.cmp").setup {
     -- Use LuaSnip as snippet engine
     snippets = { preset = "luasnip" },
@@ -78,34 +101,35 @@ M.config = function()
     },
 
     appearance = {
+      use_nvim_cmp_as_default = true,
       nerd_font_variant = "mono",
       kind_icons = {
-        Copilot = "",
+        Copilot = "",
         Text = "󰉿",
         Method = "󰆧",
         Function = "󰊕",
-        Constructor = "",
-        Field = " ",
+        Constructor = "",
+        Field = "",
         Variable = "󰀫",
         Class = "󰠱",
-        Interface = "",
-        Module = "",
+        Interface = "",
+        Module = "",
         Property = "󰜢",
         Unit = "󰑭",
         Value = "󰎠",
-        Enum = "",
+        Enum = "",
         Keyword = "󰌋",
-        Snippet = "",
+        Snippet = "",
         Color = "󰏘",
         File = "󰈙",
-        Reference = "",
+        Reference = "",
         Folder = "󰉋",
-        EnumMember = "",
+        EnumMember = "",
         Constant = "󰏿",
-        Struct = "",
-        Event = "",
+        Struct = "",
+        Event = "",
         Operator = "󰆕",
-        TypeParameter = " ",
+        TypeParameter = "",
       },
     },
 
@@ -128,10 +152,11 @@ M.config = function()
         draw = {
           -- Use colorful-menu.nvim for treesitter-highlighted labels
           components = {
-            kind_icon = {
+            kind = {
+              width = { max = 24 },
               ellipsis = false,
               text = function(ctx)
-                return ctx.kind_icon .. ctx.icon_gap
+                return ctx.kind .. " " .. ctx.kind_icon
               end,
               highlight = function(ctx)
                 return { { group = ctx.kind_hl, priority = 20000 } }
@@ -147,16 +172,20 @@ M.config = function()
               end,
             },
             source_name = {
-              width = { max = 30 },
+              width = { max = 12 },
               text = function(ctx)
-                return "»" .. ctx.source_name .. "«"
+                local label = source_labels[ctx.source_id]
+                if label ~= nil then
+                  return quoted_name(label)
+                end
+                return quoted_name((ctx.source_name or ctx.source_id):gsub("%s+", "_"):upper())
               end,
               highlight = "BlinkCmpSource",
             },
           },
           columns = {
-            { "kind_icon" },
-            { "label", "label_description", gap = 1 },
+            { "label", gap = 1 },
+            { "kind", gap = 1 },
             { "source_name" },
           },
         },
