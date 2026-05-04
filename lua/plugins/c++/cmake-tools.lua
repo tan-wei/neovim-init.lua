@@ -32,24 +32,9 @@ local M = {
     "CMakeClearSession",
   },
 }
-local function get_number_of_cores()
-  if require("util.os").is_linux() then
-    local handle = io.popen "nproc"
-    local result = handle:read "*a"
-    handle:close()
-    return tonumber(result)
-  elseif require("util.os").is_macos() then
-    local handle = io.popen "sysctl -n hw.ncpu"
-    local result = handle:read "*a"
-    handle:close()
-    return tonumber(result)
-  else
-    return 1
-  end
-end
 
 local function build_options()
-  return { "-j" .. get_number_of_cores() }
+  return { "-j" .. require("util.os").get_cpu_count() }
 end
 
 local function get_session_cache_dir()
