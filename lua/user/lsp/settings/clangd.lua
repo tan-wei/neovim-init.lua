@@ -1,3 +1,5 @@
+local compile_commands = require "util.compile_commands"
+
 local function get_compile_commands_arg_index(cmd)
   for i, value in ipairs(cmd) do
     if value:find "%-%-compile%-commands%-dir=" then
@@ -47,49 +49,9 @@ local function normalize_dir(root_dir, dir)
   return vim.fs.normalize(root_dir .. "/" .. dir)
 end
 
-local function has_compile_commands(dir)
-  return dir and vim.uv.fs_stat(dir .. "/compile_commands.json") ~= nil
-end
-
 local function has_project_compile_config(root_dir)
   local root = vim.fs.normalize(root_dir)
-  return vim.uv.fs_stat(root .. "/.clangd") ~= nil or has_compile_commands(root)
-end
-
-local function find_compile_commands_dir(root_dir)
-  local root = vim.fs.normalize(root_dir)
-  local candidates = {
-    root,
-    root .. "/build",
-    root .. "/build/Debug",
-    root .. "/build/Release",
-    root .. "/build/RelWithDebInfo",
-    root .. "/build/MinSizeRel",
-  }
-
-  for _, candidate in ipairs(candidates) do
-    if has_compile_commands(candidate) then
-      return candidate
-    end
-  end
-
-  local build_root = root .. "/build"
-  if vim.uv.fs_stat(build_root) == nil then
-    return nil
-  end
-
-  local matches = vim.fs.find("compile_commands.json", {
-    path = build_root,
-    upward = false,
-    limit = 1,
-    type = "file",
-  })
-
-  if #matches == 0 then
-    return nil
-  end
-
-  return vim.fs.dirname(matches[1])
+  return vim.uv.fs_stat(root .. "/.clangd") ~= nil or compile_commands.has_compile_commands(root)
 end
 
 local function clangd_parallelism()
@@ -112,12 +74,12 @@ return {
     end
 
     local compile_commands_dir = normalize_dir(config.root_dir, get_compile_commands_dir(config.cmd))
-    if has_compile_commands(compile_commands_dir) then
+    if compile_commands.has_compile_commands(compile_commands_dir) then
       set_compile_commands_dir(config.cmd, compile_commands_dir)
       return
     end
 
-    local fallback_dir = find_compile_commands_dir(config.root_dir)
+    local fallback_dir = compile_commands.find_compile_commands_dir(config.root_dir)
     if fallback_dir then
       set_compile_commands_dir(config.cmd, fallback_dir)
       return

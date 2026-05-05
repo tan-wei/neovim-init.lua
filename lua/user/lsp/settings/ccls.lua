@@ -1,3 +1,5 @@
+local compile_commands = require "util.compile_commands"
+
 local noopfn = function() end
 
 return {
@@ -13,18 +15,13 @@ return {
       return
     end
 
-    if vim.uv.fs_stat(root_dir .. "/compile_commands.json") then
-      config.init_options.compilationDatabaseDirectory = root_dir
+    local compile_commands_dir = compile_commands.find_compile_commands_dir(root_dir)
+    if compile_commands_dir then
+      config.init_options.compilationDatabaseDirectory = compile_commands_dir
       return
     end
 
-    local build_dir = root_dir .. "/build"
-    if vim.uv.fs_stat(build_dir .. "/compile_commands.json") then
-      config.init_options.compilationDatabaseDirectory = build_dir
-      return
-    end
-
-    config.init_options.compilationDatabaseDirectory = build_dir
+    config.init_options.compilationDatabaseDirectory = root_dir .. "/build"
   end,
   -- Disable capabilities that conflict with clangd
   -- (mirrors what ccls.nvim's disable_capabilities did in on_init)
