@@ -78,7 +78,7 @@ M.config = function()
     compiler = "clang",
     compile_commands = true,
   }
-    
+
   local augroup = vim.api.nvim_create_augroup("classlayout-prepare-compile-commands", { clear = true })
 
   -- vim.api.nvim_create_autocmd({ "BufEnter", "DirChanged" }, {

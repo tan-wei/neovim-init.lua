@@ -4,6 +4,7 @@ local M = {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
     "antoinemadec/FixCursorHold.nvim",
+    "stevearc/overseer.nvim",
     "vim-test/vim-test",
     "nvim-neotest/neotest-vim-test",
     "rouge8/neotest-rust",
@@ -27,6 +28,9 @@ M.config = function()
   }, neotest_ns)
 
   require("neotest").setup {
+    consumers = {
+      overseer = require "neotest.consumers.overseer",
+    },
     adapters = {
       require "neotest-rust" { allow_file_types = { "rust" } },
       require("neotest-ctest").setup {

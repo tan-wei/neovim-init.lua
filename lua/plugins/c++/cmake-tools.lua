@@ -8,6 +8,7 @@ local M = {
     "CMakeGenerate",
     "CMakeBuild",
     "CMakeRun",
+    "CMakeRunTest",
     "CMakeDebug",
     "CMakeLaunchArgs",
     "CMakeSelectBuildType",
@@ -37,6 +38,13 @@ local function build_options()
   return { "-j" .. require("util.os").get_cpu_count() }
 end
 
+local function open_overseer_task_list()
+  local ok, overseer = pcall(require, "overseer")
+  if ok then
+    overseer.open { enter = false, direction = "right" }
+  end
+end
+
 local function get_session_cache_dir()
   if require("util.os").is_windows() then
     return vim.fn.expand "~" .. "/AppData/Local/cmake_tools_nvim/"
@@ -58,7 +66,7 @@ M.opts = {
   cmake_soft_link_compile_commands = false,
   cmake_compile_commands_from_lsp = true,
   cmake_executor = {
-    name = "quickfix",
+    name = "overseer",
     opts = {},
     default_opts = {
       quickfix = {
@@ -68,13 +76,36 @@ M.opts = {
       },
       overseer = {
         new_task_opts = {},
-        on_new_task = function(task) end,
+        on_new_task = function(task)
+          open_overseer_task_list()
+        end,
       },
       terminal = {},
     },
   },
   cmake_runner = {
-    name = "toggleterm",
+    name = "overseer",
+    opts = {},
+    default_opts = {
+      quickfix = {
+        show = "only_on_error",
+        position = "belowright",
+        size = 10,
+      },
+      toggleterm = {
+        direction = "float",
+        close_on_exit = false,
+        auto_scroll = true,
+        singleton = true,
+      },
+      overseer = {
+        new_task_opts = {},
+        on_new_task = function(task)
+          open_overseer_task_list()
+        end,
+      },
+      terminal = {},
+    },
   },
 }
 

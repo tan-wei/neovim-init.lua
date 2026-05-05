@@ -111,7 +111,7 @@ M.config = function()
       lualine_a = { "fancy_branch", "fancy_diagnostics" },
       lualine_b = { { "fancy_mode", width = 8 } },
       lualine_c = { "fancy_cwd", session, "fancy_macro", "lsp_progress" },
-      lualine_x = { colorscheme, "overseer", "fancy_searchcount", spaces, "encoding", "fancy_filetype" },
+      lualine_x = { "overseer", colorscheme, "fancy_searchcount", spaces, "encoding", "fancy_filetype" },
       lualine_y = { "fancy_location", progress },
       lualine_z = { "fancy_lsp_servers" },
     },

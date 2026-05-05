@@ -12,6 +12,51 @@ local meta = {
   nvimTreeFocused = false,
 }
 
+--- Adapted from Overseer's third_party.md auto-session example.
+--- Current auto-session persists auxiliary restore commands through
+--- save_extra_cmds, which writes to the companion x.vim file.
+local function save_overseer_tasks()
+  local ok, task_list = pcall(require, "overseer.task_list")
+  if not ok then
+    return nil
+  end
+
+  local tasks = task_list.list_tasks { include_ephemeral = false, unique = false }
+  if #tasks == 0 then
+    return nil
+  end
+
+  local cmds = {}
+  for _, task in ipairs(tasks) do
+    local ok_serialize, serialized = pcall(task.serialize, task)
+    if ok_serialize and serialized then
+      local ok_json, json = pcall(vim.json.encode, serialized)
+      if ok_json and json then
+        json = json:gsub("\\/", "/")
+        json = json:gsub("'", "\\'")
+        table.insert(cmds, string.format("lua require('overseer').new_task(vim.json.decode('%s')):start()", json))
+      end
+    end
+  end
+
+  if #cmds == 0 then
+    return nil
+  end
+
+  return cmds
+end
+
+local function clear_overseer_tasks()
+  local ok, overseer = pcall(require, "overseer")
+  if not ok then
+    return
+  end
+
+  for _, task in ipairs(overseer.list_tasks { include_ephemeral = true, unique = false }) do
+    task:dispose(true)
+  end
+end
+
 --- Save pinned buffer state (vim-early-retirement) so it survives session restore.
 --- Returns a list of Lua commands that re-pin each buffer by setting b:ignore_early_retirement.
 local function save_early_retirement_pins()
@@ -50,6 +95,7 @@ M.config = function()
     bypass_save_filetypes = { "alpha", "dashboard", "oil", "telescope", "Outline" },
     save_extra_cmds = {
       save_early_retirement_pins,
+      save_overseer_tasks,
     },
     pre_save_cmds = {
       function()
@@ -134,6 +180,7 @@ M.config = function()
       end,
     },
     pre_restore_cmds = {
+      clear_overseer_tasks,
       function()
         -- NOTE: Ensure dropbar.nvim is launched, similar issue: https://github.com/rmagatti/auto-session/issues/353
         require "dropbar"

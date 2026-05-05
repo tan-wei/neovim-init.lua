@@ -47,7 +47,7 @@ end
 
 M.keys = {
   {
-    "<F5>",
+    "<F6>",
     function()
       require("dap").continue()
     end,

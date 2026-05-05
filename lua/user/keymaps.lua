@@ -90,6 +90,11 @@ M.setup = function()
 
   keymap("v", "<F4>", ":<c-u>HSRmHighlight<CR>", opts)
 
+  keymap("n", "<F5>", function()
+    require("lazy").load { plugins = { "overseer.nvim" } }
+    vim.cmd.OverseerRun()
+  end, opts)
+
   -- bufferline.nvim --
   -- keymap("", "<Leader>1", ":BufferLineGoToBuffer 1<CR>", opts)
   -- keymap("", "<Leader>2", ":BufferLineGoToBuffer 2<CR>", opts)

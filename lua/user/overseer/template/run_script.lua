@@ -1,5 +1,6 @@
 return {
-  name = "run script",
+  name = "run current file",
+  aliases = { "run script" },
   builder = function()
     local file = vim.fn.expand "%:p"
     local cmd = { file }
