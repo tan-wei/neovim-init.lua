@@ -84,6 +84,80 @@ The lowest-friction entry points are:
 
 If you want to remove or swap functionality, the corresponding plugin specs are usually under a matching folder in `lua/plugins/`.
 
+## Project-local config
+
+This repo also supports project-local configuration through `klen/nvim-config-local`.
+The current setup looks for these files in the current working directory and
+its parent directories:
+
+- `.nvim.lua`
+- `.nvimrc`
+- `.exrc`
+- `.nvim/nvim.lua`
+
+The simplest starting point is `.nvim.lua` in your project root.
+
+Use project-local config when something should only apply to one repository,
+such as:
+
+- setting `vim.g.*` globals for Vim plugins
+- enabling or disabling repo-specific linters
+- adding project-only autocommands, keymaps, or environment tweaks
+
+Typical flow:
+
+1. Create `.nvim.lua` in the project root.
+2. Open the project in Neovim.
+3. When prompted, inspect the file and allow it.
+
+If the file contents or path change later, Neovim will ask you to trust it
+again.
+
+Useful commands:
+
+- `:ConfigLocalEdit` to open or create the local config file
+- `:ConfigLocalSource` to source the current project config again
+- `:ConfigLocalTrust` to mark the current project config as trusted
+- `:ConfigLocalDeny` to deny the current project config
+
+Example: plugin globals for one project only
+
+```lua
+vim.g.tex_flavor = "latex"
+vim.g.vim_markdown_folding_disabled = 1
+```
+
+Example: repo-specific linter toggles
+
+```lua
+vim.g.linters = {
+	clangtidy = true,
+	cppcheck = false,
+	cpplint = false,
+}
+```
+
+This config is read by [lua/plugins/linter/nvim-lint.lua](lua/plugins/linter/nvim-lint.lua).
+
+Example: arbitrary project-local Lua
+
+```lua
+vim.env.CC = "clang"
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "markdown",
+	callback = function()
+		vim.opt_local.wrap = true
+		vim.opt_local.spell = true
+	end,
+})
+```
+
+The main tradeoff is flexibility versus discoverability: these files can run
+arbitrary Lua or Vimscript, which makes them powerful, but they do not have the
+schema validation and completion that more structured project-local config
+systems provide.
+
 ## Notes
 
 - This is a personal config repo, not a polished distribution.
