@@ -5,7 +5,7 @@ local M = {
 
 M.opts = {
   files = {
-    "*.todo",
+    "todo.md",
   },
 }
 
