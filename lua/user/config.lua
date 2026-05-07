@@ -7,4 +7,5 @@ return {
   completion_engine = "blink",
   mapleader = "\\",
   maplocalleader = "\\",
+  restore_overseer_tasks = false,
 }
