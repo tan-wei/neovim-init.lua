@@ -10,8 +10,28 @@ local M = {
 M.config = function()
   local lualine = require "lualine"
 
+  local wider_than = function(width)
+    return vim.fn.winwidth(0) > width
+  end
+
   local hide_in_width = function()
-    return vim.fn.winwidth(0) > 80
+    return wider_than(80)
+  end
+
+  local function truncate(text, max_len)
+    if #text > max_len then
+      return text:sub(1, max_len - 1) .. "…"
+    end
+
+    return text
+  end
+
+  local function badge(component, color)
+    return vim.tbl_extend("force", {
+      separator = { left = "", right = "" },
+      padding = { left = 1, right = 1 },
+      color = color or "PmenuSel",
+    }, component)
   end
 
   local diagnostics = {
@@ -79,24 +99,88 @@ M.config = function()
     return chars[index]
   end
 
-  local spaces = function()
-    return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
-  end
+  local spaces = {
+    function()
+      return "↹" .. vim.api.nvim_buf_get_option(0, "shiftwidth")
+    end,
+    cond = function()
+      return wider_than(110)
+    end,
+  }
 
-  local session = function()
-    local auto_session_lib = require "auto-session.lib"
-    local session_name = auto_session_lib.current_session_name(true)
+  local session = {
+    function()
+      local auto_session_lib = require "auto-session.lib"
+      local session_name = auto_session_lib.current_session_name(true)
 
-    if session_name ~= "" then
-      return "session: " .. session_name
-    else
-      return ""
-    end
-  end
+      if session_name == "" then
+        return ""
+      end
 
-  local colorscheme = function()
-    return "colorscheme: " .. vim.g.colors_name
-  end
+      local max_len = wider_than(140) and 28 or wider_than(100) and 18 or 12
+      return "󱂬 " .. truncate(session_name, max_len)
+    end,
+  }
+
+  local colorscheme = badge({
+    function()
+      local scheme = vim.g.colors_name or "none"
+
+      if not wider_than(95) then
+        return ""
+      end
+
+      local max_len = wider_than(140) and 16 or 10
+      return " " .. truncate(scheme, max_len)
+    end,
+    on_click = function(_, mouse_button)
+      if mouse_button ~= "l" then
+        return
+      end
+
+      vim.schedule(function()
+        local ok, randomizer = pcall(require, "colorscheme-randomizer")
+        if not ok then
+          return
+        end
+
+        randomizer.randomize()
+        pcall(function()
+          require("lualine").refresh { place = { "statusline" } }
+        end)
+      end)
+    end,
+  }, "PmenuSel")
+
+  local project_config = badge({
+    function()
+      return ""
+    end,
+    cond = function()
+      return vim.g.project_config_local_active == true
+    end,
+    on_click = function(_, mouse_button)
+      if mouse_button ~= "l" then
+        return
+      end
+
+      local filename = vim.g.project_config_local_file
+      if type(filename) ~= "string" or filename == "" then
+        return
+      end
+
+      vim.schedule(function()
+        vim.cmd("edit " .. vim.fn.fnameescape(filename))
+      end)
+    end,
+  }, "PmenuSel")
+
+  local encoding = {
+    "encoding",
+    cond = function()
+      return wider_than(130)
+    end,
+  }
 
   local config = {
     options = {
@@ -110,8 +194,8 @@ M.config = function()
     sections = {
       lualine_a = { "fancy_branch", "fancy_diagnostics" },
       lualine_b = { { "fancy_mode", width = 8 } },
-      lualine_c = { "fancy_cwd", session, "fancy_macro", "lsp_progress" },
-      lualine_x = { "overseer", colorscheme, "fancy_searchcount", spaces, "encoding", "fancy_filetype" },
+      lualine_c = { "fancy_cwd", project_config, session, "fancy_macro", "lsp_progress" },
+      lualine_x = { "overseer", colorscheme, "fancy_searchcount", spaces, encoding, "fancy_filetype" },
       lualine_y = { "fancy_location", progress },
       lualine_z = { "fancy_lsp_servers" },
     },
