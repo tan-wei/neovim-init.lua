@@ -12,10 +12,30 @@ local meta = {
   nvimTreeFocused = false,
 }
 
+local function should_restore_overseer_tasks()
+  return vim.g.restore_overseer_tasks == true
+end
+
+local function source_project_local_config()
+  if vim.fn.exists ":ConfigLocalSource" > 0 then
+    pcall(vim.cmd, "silent ConfigLocalSource")
+    return
+  end
+
+  local ok, config_local = pcall(require, "config-local")
+  if ok then
+    pcall(config_local.source)
+  end
+end
+
 --- Adapted from Overseer's third_party.md auto-session example.
 --- Current auto-session persists auxiliary restore commands through
 --- save_extra_cmds, which writes to the companion x.vim file.
 local function save_overseer_tasks()
+  if not should_restore_overseer_tasks() then
+    return nil
+  end
+
   local ok, task_list = pcall(require, "overseer.task_list")
   if not ok then
     return nil
@@ -34,7 +54,13 @@ local function save_overseer_tasks()
       if ok_json and json then
         json = json:gsub("\\/", "/")
         json = json:gsub("'", "\\'")
-        table.insert(cmds, string.format("lua require('overseer').new_task(vim.json.decode('%s')):start()", json))
+        table.insert(
+          cmds,
+          string.format(
+            "lua if vim.g.restore_overseer_tasks == true then require('overseer').new_task(vim.json.decode('%s')):start() end",
+            json
+          )
+        )
       end
     end
   end
@@ -180,6 +206,7 @@ M.config = function()
       end,
     },
     pre_restore_cmds = {
+      source_project_local_config,
       clear_overseer_tasks,
       function()
         -- NOTE: Ensure dropbar.nvim is launched, similar issue: https://github.com/rmagatti/auto-session/issues/353
@@ -187,6 +214,7 @@ M.config = function()
       end,
     },
     post_restore_cmds = {
+      source_project_local_config,
       function()
         local status_ok, _ = pcall(require, "scope")
         if status_ok then
