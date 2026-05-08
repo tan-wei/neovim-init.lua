@@ -22,6 +22,7 @@ local M = {
 }
 
 M.opts = {
+  default_mapping = false,
   lsp = {
     disable_lsp = "all",
   },
