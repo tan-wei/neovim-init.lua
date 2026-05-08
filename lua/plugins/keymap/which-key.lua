@@ -5,6 +5,18 @@ local M = {
 
 M.config = function()
   local wk = require "which-key"
+
+  local function with_harpoon(callback)
+    return function()
+      local ok, harpoon = pcall(require, "harpoon")
+      if not ok then
+        return
+      end
+
+      callback(harpoon, harpoon:list())
+    end
+  end
+
   wk.setup {
     triggers = {
       { "<auto>", mode = "nixsotc" },
@@ -207,6 +219,82 @@ M.config = function()
     { "<leader>Mt", "<cmd>lua require('grapple').popup_tags()<cr>", desc = "open the Tags popup menu", mode = "n" },
 
     -- m --
+    { "<leader>m", group = "harpoon", mode = "n" },
+    {
+      "<leader>ma",
+      with_harpoon(function(_, list)
+        local item = list.config.create_list_item(list.config)
+        if item.value == nil or item.value == "" then
+          return
+        end
+
+        local _, index = list:get_by_value(item.value)
+        if index then
+          list:remove_at(index)
+          return
+        end
+
+        list:add(item)
+      end),
+      desc = "toggle current file",
+      mode = "n",
+    },
+    {
+      "<leader>mm",
+      with_harpoon(function(harpoon, list)
+        harpoon.ui:toggle_quick_menu(list)
+      end),
+      desc = "menu",
+      mode = "n",
+    },
+    {
+      "<leader>mn",
+      with_harpoon(function(_, list)
+        list:next { ui_nav_wrap = true }
+      end),
+      desc = "next file",
+      mode = "n",
+    },
+    {
+      "<leader>mp",
+      with_harpoon(function(_, list)
+        list:prev { ui_nav_wrap = true }
+      end),
+      desc = "previous file",
+      mode = "n",
+    },
+    {
+      "<leader>m1",
+      with_harpoon(function(_, list)
+        list:select(1)
+      end),
+      desc = "select file 1",
+      mode = "n",
+    },
+    {
+      "<leader>m2",
+      with_harpoon(function(_, list)
+        list:select(2)
+      end),
+      desc = "select file 2",
+      mode = "n",
+    },
+    {
+      "<leader>m3",
+      with_harpoon(function(_, list)
+        list:select(3)
+      end),
+      desc = "select file 3",
+      mode = "n",
+    },
+    {
+      "<leader>m4",
+      with_harpoon(function(_, list)
+        list:select(4)
+      end),
+      desc = "select file 4",
+      mode = "n",
+    },
 
     -- N --
 

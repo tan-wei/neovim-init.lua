@@ -122,6 +122,90 @@ M.config = function()
     end,
   }
 
+  local function get_harpoon_state()
+    local ok, harpoon = pcall(require, "harpoon")
+    if not ok then
+      return nil
+    end
+
+    local list = harpoon:list()
+    local length = list:length()
+    if length == 0 then
+      return {
+        harpoon = harpoon,
+        list = list,
+        length = 0,
+        index = nil,
+      }
+    end
+
+    local name = vim.api.nvim_buf_get_name(0)
+    if name == "" then
+      return {
+        harpoon = harpoon,
+        list = list,
+        length = length,
+        index = nil,
+      }
+    end
+
+    local root = list.config.get_root_dir()
+    local relative = require("plenary.path"):new(name):make_relative(root)
+    local _, index = list:get_by_value(relative)
+
+    return {
+      harpoon = harpoon,
+      list = list,
+      length = length,
+      index = index,
+    }
+  end
+
+  local harpoon_status = badge({
+    function()
+      local state = get_harpoon_state()
+      if state == nil or state.length == 0 then
+        return ""
+      end
+
+      if state.index then
+        return string.format("󰀱 %d/%d", state.index, state.length)
+      end
+
+      if wider_than(110) then
+        return string.format("󰀱 -/%d", state.length)
+      end
+
+      return string.format("󰀱 %d", state.length)
+    end,
+    cond = function()
+      local state = get_harpoon_state()
+      return state ~= nil and state.length > 0
+    end,
+    color = function()
+      local state = get_harpoon_state()
+      if state and state.index then
+        return "PmenuSel"
+      end
+
+      return "StatusLine"
+    end,
+    on_click = function(_, mouse_button)
+      if mouse_button ~= "l" then
+        return
+      end
+
+      local state = get_harpoon_state()
+      if state == nil then
+        return
+      end
+
+      vim.schedule(function()
+        state.harpoon.ui:toggle_quick_menu(state.list)
+      end)
+    end,
+  })
+
   local colorscheme = badge({
     function()
       local scheme = vim.g.colors_name or "none"
@@ -194,7 +278,7 @@ M.config = function()
     sections = {
       lualine_a = { "fancy_branch", "fancy_diagnostics" },
       lualine_b = { { "fancy_mode", width = 8 } },
-      lualine_c = { "fancy_cwd", project_config, session, "fancy_macro", "lsp_progress" },
+      lualine_c = { "fancy_cwd", project_config, session, harpoon_status, "fancy_macro", "lsp_progress" },
       lualine_x = { "overseer", colorscheme, "fancy_searchcount", spaces, encoding, "fancy_filetype" },
       lualine_y = { "fancy_location", progress },
       lualine_z = { "fancy_lsp_servers" },
