@@ -161,7 +161,7 @@ M.config = function()
     }
   end
 
-  local harpoon_status = badge({
+  local harpoon_status = badge {
     function()
       local state = get_harpoon_state()
       if state == nil or state.length == 0 then
@@ -204,7 +204,7 @@ M.config = function()
         state.harpoon.ui:toggle_quick_menu(state.list)
       end)
     end,
-  })
+  }
 
   local colorscheme = badge({
     function()
