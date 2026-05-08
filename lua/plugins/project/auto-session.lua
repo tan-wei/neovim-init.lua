@@ -83,6 +83,30 @@ local function clear_overseer_tasks()
   end
 end
 
+local function ensure_plugin_loaded_for_restore(plugin)
+  local ok_config, lazy_config = pcall(require, "lazy.core.config")
+  if not ok_config then
+    return false
+  end
+
+  local spec = lazy_config.plugins[plugin]
+  if not spec or spec.enabled == false then
+    return false
+  end
+
+  if spec._.loaded then
+    return true
+  end
+
+  local ok_lazy, lazy = pcall(require, "lazy")
+  if not ok_lazy then
+    return false
+  end
+
+  lazy.load { plugins = { plugin } }
+  return spec._.loaded
+end
+
 --- Save pinned buffer state (vim-early-retirement) so it survives session restore.
 --- Returns a list of Lua commands that re-pin each buffer by setting b:ignore_early_retirement.
 local function save_early_retirement_pins()
@@ -209,8 +233,9 @@ M.config = function()
       source_project_local_config,
       clear_overseer_tasks,
       function()
-        -- NOTE: Ensure dropbar.nvim is launched, similar issue: https://github.com/rmagatti/auto-session/issues/353
-        require "dropbar"
+        -- Session restore replays local winbar options. If a session contains
+        -- dropbar's v:lua expression, load the plugin through lazy first.
+        ensure_plugin_loaded_for_restore "dropbar.nvim"
       end,
     },
     post_restore_cmds = {
