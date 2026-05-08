@@ -78,6 +78,26 @@ M.config = function()
     end,
   })
 
+  -- nvim-tree is loaded on VimEnter, so the VimEnter autocmd above is too late
+  -- for the initial alpha screen. Run one deferred startup check just for that case.
+  vim.schedule(function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    if vim.bo[bufnr].filetype ~= "alpha" then
+      return
+    end
+
+    local alpha_win = vim.api.nvim_get_current_win()
+    local winid = nvim_tree_api.tree.winid { tabpage = 0 }
+
+    if not winid then
+      nvim_tree_api.tree.open { focus = false, find_file = false }
+    end
+
+    if vim.api.nvim_win_is_valid(alpha_win) then
+      vim.api.nvim_set_current_win(alpha_win)
+    end
+  end)
+
   -- Auto close: when :q on the last real window, close everything so Neovim exits
   vim.api.nvim_create_autocmd("QuitPre", {
     callback = function()
