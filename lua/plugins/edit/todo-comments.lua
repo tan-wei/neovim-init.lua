@@ -21,7 +21,7 @@ M.opts = {
     PERF = { icon = "󰅒 ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
     NOTE = { icon = "󰍨 ", color = "hint", alt = { "INFO" } },
     TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
-    SEE = { icon = ' ', color = 'info', alt = { 'REF' } },
+    SEE = { icon = " ", color = "info", alt = { "REF" } },
   },
   highlight = {
     exclude = {},
