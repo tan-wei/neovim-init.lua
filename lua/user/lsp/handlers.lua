@@ -130,6 +130,12 @@ M.on_attach = function(client, bufnr)
   if status_navbuddy_ok then
     navbuddy.attach(client, bufnr)
   end
+
+  if client:supports_method("workspace/diagnostic", bufnr) then
+    vim.lsp.buf.workspace_diagnostics { client_id = client.id }
+  else
+    require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
+  end
 end
 
 return M
