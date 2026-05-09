@@ -193,8 +193,8 @@ M.setup = function()
   end, { remap = true, silent = true, desc = "Fold-cycle: close all folds" })
 
   -- gx.nvim
-    keymap("n", "gx", "<cmd>Browse<CR>", opts)
-    keymap("x", "gx", "<cmd>Browse<CR>", opts)
+  keymap("n", "gx", "<cmd>Browse<CR>", opts)
+  keymap("x", "gx", "<cmd>Browse<CR>", opts)
 end
 
 return M
