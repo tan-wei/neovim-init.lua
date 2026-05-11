@@ -6,25 +6,6 @@ local M = {
   cmd = "Justice",
 }
 
-M.opts = {
-  recipeModes = {
-    streaming = {
-      name = {},
-      comment = {},
-    },
-    terminal = {
-      name = {},
-      comment = {},
-    },
-    quickfix = {
-      name = {},
-      comment = {},
-    },
-    ignore = {
-      name = {},
-      comment = {},
-    },
-  },
-}
+M.opts = {}
 
 return M
