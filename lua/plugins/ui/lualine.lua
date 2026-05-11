@@ -9,6 +9,10 @@ local M = {
 
 M.config = function()
   local lualine = require "lualine"
+  local lualine_highlight = require "lualine.highlight"
+  local lualine_utils = require "lualine.utils.utils"
+  local devicons = require "nvim-web-devicons"
+  local indent_icon = devicons.get_icon_by_filetype("editorconfig", { default = true }) or "↹"
 
   local wider_than = function(width)
     return vim.fn.winwidth(0) > width
@@ -27,10 +31,77 @@ M.config = function()
   end
 
   local function badge(component, color)
+    local fmt = component.fmt
+
+    local function highlight_name(stl_hl)
+      if type(stl_hl) ~= "string" then
+        return nil
+      end
+
+      return stl_hl:match("^%%#(.-)#$")
+    end
+
+    local function rendered_background(group)
+      local hl = lualine_utils.extract_highlight_colors(group)
+      if type(hl) ~= "table" then
+        return nil
+      end
+
+      if hl.reverse then
+        return hl.fg or hl.bg
+      end
+
+      return hl.bg
+    end
+
     return vim.tbl_extend("force", {
-      separator = { left = "", right = "" },
-      padding = { left = 1, right = 1 },
+      padding = 0,
       color = color or "PmenuSel",
+      fmt = function(str, self)
+        if fmt then
+          str = fmt(str, self)
+        end
+
+        if str == nil or str == "" then
+          return ""
+        end
+
+        local button_hl = self:get_default_hl()
+        local section_hl = self.default_hl or lualine_highlight.format_highlight(self.options.self.section)
+        local button_group = highlight_name(button_hl)
+        local section_group = highlight_name(section_hl)
+
+        if not button_group or not section_group then
+          return str
+        end
+
+        local button_bg = rendered_background(button_group)
+        local section_bg = rendered_background(section_group)
+
+        if not button_bg or not section_bg or button_bg == section_bg then
+          return str
+        end
+
+        local edge_hl_name = table.concat({
+          "lualine_badge_edge",
+          self.options.component_name,
+          tostring(button_bg):gsub("#", ""),
+          tostring(section_bg):gsub("#", ""),
+        }, "_")
+        lualine_highlight.highlight(edge_hl_name, button_bg, section_bg, nil, nil)
+
+        local edge_hl = "%#" .. edge_hl_name .. "#"
+        return table.concat {
+          edge_hl,
+          "",
+          button_hl,
+          " ",
+          str,
+          " ",
+          edge_hl,
+          "",
+        }
+      end,
     }, component)
   end
 
@@ -101,7 +172,7 @@ M.config = function()
 
   local spaces = {
     function()
-      return "↹" .. vim.api.nvim_buf_get_option(0, "shiftwidth")
+      return indent_icon .. " " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
     end,
     cond = function()
       return wider_than(110)
@@ -260,7 +331,9 @@ M.config = function()
   }, "PmenuSel")
 
   local encoding = {
-    "encoding",
+    function()
+      return "󰈙 " .. vim.opt.fileencoding:get()
+    end,
     cond = function()
       return wider_than(130)
     end,
