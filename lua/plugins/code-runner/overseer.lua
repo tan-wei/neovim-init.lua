@@ -10,9 +10,14 @@ local M = {
 M.config = function()
   local overseer = require "overseer"
 
-  overseer.setup()
+  overseer.setup {
+    disable_template_modules = {
+      "overseer.template.just",
+    },
+  }
 
   overseer.register_template(require "user.overseer.template.cmake_tools")
+  overseer.register_template(require "user.overseer.template.just")
   overseer.register_template(require "user.overseer.template.neotest")
   overseer.register_template(require "user.overseer.template.run_script")
 end
