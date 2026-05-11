@@ -134,7 +134,15 @@ M.on_attach = function(client, bufnr)
   if client:supports_method("workspace/diagnostic", bufnr) then
     vim.lsp.buf.workspace_diagnostics { client_id = client.id }
   else
-    require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
+    vim.defer_fn(function()
+      if not vim.lsp.get_client_by_id(client.id) then
+        return
+      end
+      local ok, workspace_diagnostics = pcall(require, "workspace-diagnostics")
+      if ok then
+        pcall(workspace_diagnostics.populate_workspace_diagnostics, client, bufnr)
+      end
+    end, 300)
   end
 end
 
