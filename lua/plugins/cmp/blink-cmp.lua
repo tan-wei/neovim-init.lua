@@ -61,6 +61,17 @@ M.config = function()
     return "»" .. name .. "«"
   end
 
+  local compare_leading_underscores = function(a, b)
+    local _, a_underscores = a.label:find "^_+"
+    local _, b_underscores = b.label:find "^_+"
+    a_underscores = a_underscores or 0
+    b_underscores = b_underscores or 0
+    if a_underscores == b_underscores then
+      return
+    end
+    return a_underscores < b_underscores
+  end
+
   local source_labels = {
     lsp = "LSP",
     snippets = "SNIPPET",
@@ -345,6 +356,17 @@ M.config = function()
 
     fuzzy = {
       implementation = "prefer_rust_with_warning",
+      -- Approximate the old nvim-cmp comparator chain with blink's sort list.
+      -- `score` already includes blink's frecency/proximity bonuses, while
+      -- per-provider `score_offset` keeps source-level priority tweaks.
+      sorts = {
+        "exact",
+        "score",
+        compare_leading_underscores,
+        "sort_text",
+        "kind",
+        "label",
+      },
     },
   }
 end
