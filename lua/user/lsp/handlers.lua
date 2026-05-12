@@ -138,7 +138,7 @@ M.on_attach = function(client, bufnr)
       if not vim.lsp.get_client_by_id(client.id) then
         return
       end
-      local ok, workspace_diagnostics = pcall(require, "workspace-diagnostics")
+      local ok, workspace_diagnostics = pcall(require, "util.workspace_diagnostics")
       if ok then
         pcall(workspace_diagnostics.populate_workspace_diagnostics, client, bufnr)
       end
