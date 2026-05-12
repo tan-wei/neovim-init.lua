@@ -38,7 +38,7 @@ M.config = function()
         return nil
       end
 
-      return stl_hl:match("^%%#(.-)#$")
+      return stl_hl:match "^%%#(.-)#$"
     end
 
     local function rendered_background(group)
