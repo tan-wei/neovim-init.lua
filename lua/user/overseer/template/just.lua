@@ -1,5 +1,5 @@
-local log = require("overseer.log")
-local overseer = require("overseer")
+local log = require "overseer.log"
+local overseer = require "overseer"
 
 ---@param name string
 ---@return boolean
@@ -81,7 +81,7 @@ end
 ---@param recipe_namepath string
 ---@return nil|string
 local function get_module_path(recipe_namepath)
-  return recipe_namepath:match("^(.*)::[^:]+$")
+  return recipe_namepath:match "^(.*)::[^:]+$"
 end
 
 ---@param recipe_namepath string
@@ -172,10 +172,9 @@ local function evaluate_variable_default(justfile, recipe_namepath, variable_nam
     return cache[scoped_name]
   end
 
-  local result = vim.system(
-    { "just", "--justfile=" .. justfile, "--evaluate", scoped_name },
-    { cwd = vim.fs.dirname(justfile), text = true }
-  ):wait()
+  local result = vim
+    .system({ "just", "--justfile=" .. justfile, "--evaluate", scoped_name }, { cwd = vim.fs.dirname(justfile), text = true })
+    :wait()
 
   if result.code ~= 0 then
     log.warn("Failed to evaluate just variable '%s': %s", scoped_name, result.stderr or result.stdout or "")
@@ -361,7 +360,7 @@ return {
     return vim.fs.find(is_justfile, { upward = true, path = opts.dir })[1]
   end,
   generator = function(opts, cb)
-    if vim.fn.executable("just") == 0 then
+    if vim.fn.executable "just" == 0 then
       return 'Command "just" not found'
     end
     local candidates = vim.fs.find(is_justfile, { upward = true, path = opts.dir, limit = math.huge })
