@@ -63,7 +63,7 @@ M.opts = {
       return type(chunk) == "string" and chunk:find("\0", 1, true) ~= nil
     end
 
-    local files = vim.fn.systemlist({ "git", "-C", root, "ls-files" })
+    local files = vim.fn.systemlist { "git", "-C", root, "ls-files" }
     if vim.v.shell_error ~= 0 then
       return {}
     end
@@ -99,7 +99,7 @@ M.opts = {
         return false
       end
 
-      local filetype = vim.filetype.match({ filename = fullpath })
+      local filetype = vim.filetype.match { filename = fullpath }
       if not filetype then
         return false
       end

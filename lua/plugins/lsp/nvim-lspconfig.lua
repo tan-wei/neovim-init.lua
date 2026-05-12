@@ -39,6 +39,10 @@ local servers = {
   "just",
 }
 
+local function is_server_enabled(server, opts)
+  return type(opts) ~= "table" or opts.enabled ~= false
+end
+
 M.config = function()
   local handlers = require "user.lsp.handlers"
   handlers.setup()
@@ -58,8 +62,16 @@ M.config = function()
       vim.notify("Server [" .. server .. "] is not available")
     end
 
+    if not is_server_enabled(server, opts) then
+      goto continue
+    end
+
+    opts.enabled = nil
+
     vim.lsp.config(server, opts)
     vim.lsp.enable(server)
+
+    ::continue::
   end
 end
 
