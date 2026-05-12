@@ -257,8 +257,7 @@ M.config = function()
 
         if require("util.package").is_loaded "cmake-tools.nvim" then
           vim.notify("Change CWD to " .. vim.fn.getcwd() .. " for cmake-tools.nvim")
-          local cmake_tools = require "cmake-tools"
-          cmake_tools.select_cwd(vim.fn.getcwd())
+          require("util.cmake_project").select_root(vim.fn.getcwd())
           require("lualine").refresh()
         end
 
