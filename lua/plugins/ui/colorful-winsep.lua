@@ -14,6 +14,8 @@ M.opts = {
     "checkhealth",
     "Outline",
     "toggleterm",
+    "OverseerList",
+    "OverseerForm",
   },
 }
 
