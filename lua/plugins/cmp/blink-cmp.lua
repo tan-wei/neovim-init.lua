@@ -233,7 +233,7 @@ M.config = function()
         lsp = {
           name = "LSP",
           fallbacks = {}, -- always show buffer alongside LSP
-          score_offset = 10,
+          score_offset = 15,
         },
         buffer = {
           name = "Buffer",
@@ -241,7 +241,7 @@ M.config = function()
         },
         snippets = {
           name = "Snippet",
-          score_offset = -1,
+          score_offset = 8,
         },
         path = {
           name = "Path",
