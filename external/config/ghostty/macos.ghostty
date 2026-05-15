@@ -1,0 +1,8 @@
+# macOS-specific Ghostty settings.
+
+font-family = Agave Nerd Font
+font-family = Sarasa Gothic SC
+font-size = 14
+
+macos-titlebar-style = transparent
+window-theme = auto

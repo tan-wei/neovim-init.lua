@@ -1,0 +1,8 @@
+# Linux-specific Ghostty settings.
+
+font-family = Fira Code Nerd Font
+font-family = Sarasa Gothic Mono
+font-size = 8
+
+gtk-single-instance = detect
+window-theme = system

@@ -1,0 +1,37 @@
+# Alacritty starter config.
+#
+# To keep platform settings split out, copy one of linux.toml, macos.toml,
+# or wsl.toml to platform.toml in the same directory.
+
+[general]
+import = ["platform.toml"]
+live_config_reload = true
+
+[window]
+dimensions = { columns = 120, lines = 32 }
+padding = { x = 4, y = 4 }
+dynamic_padding = true
+decorations = "Full"
+opacity = 1.0
+startup_mode = "Windowed"
+dynamic_title = true
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[font]
+builtin_box_drawing = true
+
+[selection]
+save_to_clipboard = true
+
+[cursor]
+style = { shape = "Block", blinking = "Off" }
+unfocused_hollow = true
+
+[mouse]
+hide_when_typing = true
+
+[terminal]
+osc52 = "OnlyCopy"

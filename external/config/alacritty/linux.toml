@@ -1,0 +1,17 @@
+# Linux-specific Alacritty settings.
+
+[font]
+size = 8.0
+
+[font.normal]
+family = "Fira Code Nerd Font"
+style = "Regular"
+
+[font.bold]
+style = "Bold"
+
+[font.italic]
+style = "Italic"
+
+[font.bold_italic]
+style = "Bold Italic"

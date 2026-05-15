@@ -69,7 +69,7 @@ After startup, these commands are usually the first things worth checking:
 - [lua/user](lua/user): user config, options, keymaps, autocommands, LSP setup, semantic token customization
 - [lua/plugins](lua/plugins): modular plugin specs grouped by domain
 - [lazy-lock.json](lazy-lock.json): pinned plugin versions
-- `external/`: related tool configs such as kitty and goneovim
+- `external/`: related tool configs such as kitty, ghostty, alacritty, wezterm, and goneovim
 - `templates/`: file templates
 - `spell/`: custom spell additions
 

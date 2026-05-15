@@ -1,0 +1,21 @@
+# macOS-specific Alacritty settings.
+
+[window]
+decorations = "Transparent"
+option_as_alt = "OnlyLeft"
+
+[font]
+size = 14.0
+
+[font.normal]
+family = "Agave Nerd Font"
+style = "Regular"
+
+[font.bold]
+style = "Bold"
+
+[font.italic]
+style = "Italic"
+
+[font.bold_italic]
+style = "Bold Italic"
