@@ -87,6 +87,7 @@ M.config = function()
     { "<leader>CS", "<cmd>ClangdSymbolInfo<cr>", desc = "view Symbol information", mode = "n" },
     { "<leader>Ct", "<cmd>ClangdTypeHierarchy<cr>", desc = "view Type hierarchy information", mode = "n" },
     { "<leader>Cm", "<cmd>ClangdMemoryUsage<cr>", desc = "view Memory usage", mode = "n" },
+    { "<leader>CD", "<cmd>DogeGenerate<cr>", desc = "Generate docblock", mode = "n" },
     { "<leader>Cf", "<cmd>TSCppDefineClassFunc<cr>", desc = "implement out of class member Functions", mode = "n" },
     {
       "<leader>Cc",
