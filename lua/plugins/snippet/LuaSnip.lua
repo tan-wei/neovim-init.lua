@@ -24,6 +24,27 @@ local M = {
 M.config = function()
   local luasnip = require "luasnip"
 
+  luasnip.config.setup {
+    delete_check_events = "TextChanged",
+    enable_autosnippets = true,
+    region_check_events = "InsertEnter",
+  }
+
+  -- Keep choice switching off Tab so it doesn't fight blink's menu navigation.
+  -- Use plain function mappings here: the expr+fallback variant can interfere
+  -- with select-mode choice cycling after snippet expansion.
+  vim.keymap.set({ "i", "s" }, "<C-n>", function()
+    if luasnip.choice_active() then
+      luasnip.change_choice(1)
+    end
+  end, { silent = true, desc = "LuaSnip next choice" })
+
+  vim.keymap.set({ "i", "s" }, "<C-p>", function()
+    if luasnip.choice_active() then
+      luasnip.change_choice(-1)
+    end
+  end, { silent = true, desc = "LuaSnip previous choice" })
+
   require("luasnip/loaders/from_vscode").lazy_load()
 
   local snippets = require "user.snippets"
