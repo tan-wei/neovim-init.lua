@@ -1,39 +1,76 @@
-vim.cmd [[
-  augroup _general_settings
-    autocmd!
-    autocmd FileType qf,help,man,lspinfo nnoremap <silent> <buffer> q :close<CR>
-    autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({higroup = 'Visual', timeout = 200})
-    autocmd BufWinEnter * :set formatoptions-=cro
-    autocmd FileType qf set nobuflisted
-  augroup end
+local function augroup(name)
+  return vim.api.nvim_create_augroup("user_" .. name, { clear = true })
+end
 
-  augroup _git
-    autocmd!
-    autocmd FileType gitcommit setlocal wrap
-    autocmd FileType gitcommit setlocal spell
-  augroup end
+local general_group = augroup "general"
 
-  augroup _markdown
-    autocmd!
-    autocmd FileType markdown setlocal wrap
-    autocmd FileType markdown setlocal spell
-  augroup end
+vim.api.nvim_create_autocmd("FileType", {
+  group = general_group,
+  pattern = { "qf", "help", "man", "lspinfo" },
+  desc = "Close auxiliary windows with q",
+  callback = function(args)
+    vim.keymap.set("n", "q", "<cmd>close<cr>", {
+      buffer = args.buf,
+      silent = true,
+    })
+  end,
+})
 
-  augroup _auto_resize
-    autocmd!
-    autocmd VimResized * tabdo wincmd =
-  augroup end
-
-  augroup _alpha
-    autocmd!
-    autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
-  augroup end
-]]
-
-vim.api.nvim_create_autocmd("ColorScheme", {
-  pattern = "*",
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = general_group,
+  desc = "Highlight yanked text",
   callback = function()
-    -- TODO: Do something related to colorscheme changed
+    vim.highlight.on_yank {
+      higroup = "Visual",
+      timeout = 200,
+    }
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  group = general_group,
+  desc = "Avoid continuing comments on new lines",
+  callback = function()
+    vim.opt_local.formatoptions:remove { "c", "r", "o" }
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = general_group,
+  pattern = "qf",
+  desc = "Keep quickfix windows out of buffer lists",
+  callback = function(args)
+    vim.bo[args.buf].buflisted = false
+  end,
+})
+
+vim.api.nvim_create_autocmd("VimResized", {
+  group = augroup "auto_resize",
+  desc = "Equalize split sizes after resizing Neovim",
+  callback = function()
+    vim.cmd "tabdo wincmd ="
+  end,
+})
+
+vim.api.nvim_create_autocmd("User", {
+  group = augroup "alpha",
+  pattern = "AlphaReady",
+  desc = "Hide the tabline while Alpha is visible",
+  callback = function(args)
+    local buffer = args.buf ~= 0 and args.buf or vim.api.nvim_get_current_buf()
+    local previous_showtabline = vim.o.showtabline
+
+    vim.o.showtabline = 0
+
+    vim.api.nvim_create_autocmd("BufUnload", {
+      group = augroup "alpha_restore",
+      buffer = buffer,
+      once = true,
+      desc = "Restore the tabline after Alpha closes",
+      callback = function()
+        vim.o.showtabline = previous_showtabline
+      end,
+    })
   end,
 })
 
@@ -47,16 +84,18 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 -- })
 
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  group = augroup "sample_filetype",
   pattern = "*.sample",
+  desc = "Detect filetype from sample file basename",
   callback = function(args)
-    local fname = vim.fn.expand "%:t"
+    local fname = vim.fn.fnamemodify(args.match, ":t")
     local real_name = fname:gsub("%.sample$", "")
     if real_name == "" then
       return
     end
     local ft = vim.filetype.match { filename = real_name }
     if ft then
-      vim.bo.filetype = ft
+      vim.bo[args.buf].filetype = ft
     end
   end,
 })

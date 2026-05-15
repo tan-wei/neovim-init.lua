@@ -9,6 +9,7 @@ local M = {
 
 M.config = function()
   local bufferline = require "bufferline"
+
   bufferline.setup {
     options = {
       mod = "tabs",

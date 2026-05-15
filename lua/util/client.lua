@@ -49,6 +49,10 @@ M.is_iterm = function()
   return vim.env.ITERM_SESSION_ID ~= nil
 end
 
+M.is_ssh = function()
+  return vim.env.SSH_TTY ~= nil or vim.env.SSH_CONNECTION ~= nil or vim.env.SSH_CLIENT ~= nil
+end
+
 M.is_cui_client = function()
   return not M.is_gui_client()
 end
