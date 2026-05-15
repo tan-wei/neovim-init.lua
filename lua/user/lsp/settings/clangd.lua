@@ -46,10 +46,18 @@ local function normalize_dir(root_dir, dir)
     return vim.fs.normalize(dir)
   end
 
+  if not root_dir or root_dir == "" then
+    return nil
+  end
+
   return vim.fs.normalize(root_dir .. "/" .. dir)
 end
 
 local function has_project_compile_config(root_dir)
+  if not root_dir or root_dir == "" then
+    return false
+  end
+
   local root = vim.fs.normalize(root_dir)
   return vim.uv.fs_stat(root .. "/.clangd") ~= nil or compile_commands.has_compile_commands(root)
 end
@@ -68,18 +76,25 @@ return {
       cmake.clangd_on_new_config(config)
     end
 
-    if has_project_compile_config(config.root_dir) then
+    local root_dir = config.root_dir
+
+    if has_project_compile_config(root_dir) then
       remove_compile_commands_dir(config.cmd)
       return
     end
 
-    local compile_commands_dir = normalize_dir(config.root_dir, get_compile_commands_dir(config.cmd))
+    local compile_commands_dir = normalize_dir(root_dir, get_compile_commands_dir(config.cmd))
     if compile_commands.has_compile_commands(compile_commands_dir) then
       set_compile_commands_dir(config.cmd, compile_commands_dir)
       return
     end
 
-    local fallback_dir = compile_commands.find_compile_commands_dir(config.root_dir)
+    if not root_dir or root_dir == "" then
+      remove_compile_commands_dir(config.cmd)
+      return
+    end
+
+    local fallback_dir = compile_commands.find_compile_commands_dir(root_dir)
     if fallback_dir then
       set_compile_commands_dir(config.cmd, fallback_dir)
       return
