@@ -1,6 +1,6 @@
 local M = {
   "akinsho/toggleterm.nvim",
-  cmd = { "Toggleterm" },
+  cmd = { "ToggleTerm" },
 }
 
 M.config = function()
