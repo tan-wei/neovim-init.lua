@@ -12,7 +12,7 @@ local function split_commentstring(commentstring)
     return { "//", "" }
   end
 
-  local left, right = commentstring:match("^(.*)%%s(.*)$")
+  local left, right = commentstring:match "^(.*)%%s(.*)$"
   if left == nil then
     return { vim.trim(commentstring), "" }
   end
@@ -68,7 +68,7 @@ local function mark_choices()
   local username = vim.env.USER or "user"
 
   return {
-    t(""),
+    t "",
     sn(nil, fmt(" <{}>", { i(1, username) })),
     sn(nil, fmt(" <{}>", { i(1, os.date "%F") })),
     sn(nil, fmt(" <{}, {}>", { i(1, os.date "%F"), i(2, username) })),
@@ -126,7 +126,7 @@ local function box_nodes(opts)
 
       return left .. string.rep(fill, #args[1][1] + 2 * padding_length) .. right
     end, { 1 }),
-    t({ "", "" }),
+    t { "", "" },
     f(function()
       local left = pick_edges()
       return left .. string.rep(" ", padding_length)
@@ -136,7 +136,7 @@ local function box_nodes(opts)
       local _, right = pick_edges()
       return string.rep(" ", padding_length) .. right
     end),
-    t({ "", "" }),
+    t { "", "" },
     f(function(args)
       local left, right = pick_edges()
       local fill = string.sub(right, 1, 1)
@@ -154,10 +154,16 @@ end
 
 return {
   todo_snippet({ trig = "todo", name = "TODO comment", dscr = "Comment-aware TODO" }, "TODO"),
-  todo_snippet({ trig = "fix", name = "FIX comment", dscr = "Comment-aware FIX/BUG" }, { "FIX", "BUG", "ISSUE", "FIXIT" }),
+  todo_snippet(
+    { trig = "fix", name = "FIX comment", dscr = "Comment-aware FIX/BUG" },
+    { "FIX", "BUG", "ISSUE", "FIXIT" }
+  ),
   todo_snippet({ trig = "warn", name = "WARN comment", dscr = "Comment-aware WARN" }, { "WARN", "WARNING", "XXX" }),
   todo_snippet({ trig = "note", name = "NOTE comment", dscr = "Comment-aware NOTE" }, { "NOTE", "INFO" }),
   todo_snippet({ trig = "todob", name = "Block TODO comment", dscr = "Block-comment TODO" }, "TODO", { ctype = 2 }),
   s({ trig = "box", name = "Comment Box", dscr = "Comment-aware box comment" }, box_nodes { padding_length = 6 }),
-  s({ trig = "bbox", name = "Wide Comment Box", dscr = "Comment-aware wide box comment" }, box_nodes { padding_length = 12 }),
+  s(
+    { trig = "bbox", name = "Wide Comment Box", dscr = "Comment-aware wide box comment" },
+    box_nodes { padding_length = 12 }
+  ),
 }

@@ -22,7 +22,7 @@ tex.in_beamer = function()
 
   local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
   for _, line in ipairs(lines) do
-    if line:match("\\documentclass%b{}") and line:match("beamer") then
+    if line:match "\\documentclass%b{}" and line:match "beamer" then
       return true
     end
   end
@@ -31,15 +31,11 @@ tex.in_beamer = function()
 end
 
 return {
-  s(
-    {
-      trig = "mk",
-      name = "Inline Math",
-      dscr = "Inline math, only in text",
-    },
-    fmt("${}$", { i(1) }),
-    { condition = tex.in_text }
-  ),
+  s({
+    trig = "mk",
+    name = "Inline Math",
+    dscr = "Inline math, only in text",
+  }, fmt("${}$", { i(1) }), { condition = tex.in_text }),
 
   s(
     {
@@ -58,25 +54,17 @@ return {
     { condition = tex.in_text }
   ),
 
-  s(
-    {
-      trig = "ff",
-      name = "Fraction",
-      dscr = "Fraction, only in math mode",
-    },
-    fmt("\\frac{{{}}}{{{}}}", { i(1), i(2) }),
-    { condition = tex.in_mathzone }
-  ),
+  s({
+    trig = "ff",
+    name = "Fraction",
+    dscr = "Fraction, only in math mode",
+  }, fmt("\\frac{{{}}}{{{}}}", { i(1), i(2) }), { condition = tex.in_mathzone }),
 
-  s(
-    {
-      trig = "txt",
-      name = "Text In Math",
-      dscr = "Text wrapper, only in math mode",
-    },
-    fmt("\\text{{{}}}", { i(1) }),
-    { condition = tex.in_mathzone }
-  ),
+  s({
+    trig = "txt",
+    name = "Text In Math",
+    dscr = "Text wrapper, only in math mode",
+  }, fmt("\\text{{{}}}", { i(1) }), { condition = tex.in_mathzone }),
 
   s(
     {

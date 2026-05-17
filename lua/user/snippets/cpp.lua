@@ -82,9 +82,9 @@ local function include_choice_node()
   end
 
   table.insert(choices, sn(nil, fmt('#include "{}"', { i(1, matching_header_name()) })))
-  table.insert(choices, sn(nil, fmt('#include <{}>', { i(1, "vector") })))
+  table.insert(choices, sn(nil, fmt("#include <{}>", { i(1, "vector") })))
 
-  for _, system_header in ipairs({
+  for _, system_header in ipairs {
     "algorithm",
     "array",
     "cassert",
@@ -100,7 +100,7 @@ local function include_choice_node()
     "unordered_map",
     "utility",
     "vector",
-  }) do
+  } do
     add_text_choice(string.format("#include <%s>", system_header))
   end
 
@@ -260,14 +260,11 @@ class {} {{
     )
   ),
 
-  s(
-    {
-      trig = "inc",
-      name = "C++ Include",
-      dscr = "Choice-based include with companion and local headers",
-    },
-    d(1, include_choice_node, {})
-  ),
+  s({
+    trig = "inc",
+    name = "C++ Include",
+    dscr = "Choice-based include with companion and local headers",
+  }, d(1, include_choice_node, {})),
 
   s(
     {

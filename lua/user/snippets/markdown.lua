@@ -23,25 +23,25 @@ local function markdown_table(_, snip)
 
   for column = 1, column_count do
     insert_index = insert_index + 1
-    table.insert(nodes, t("| "))
+    table.insert(nodes, t "| ")
     table.insert(nodes, i(insert_index, "Column" .. column))
-    table.insert(nodes, t(" "))
+    table.insert(nodes, t " ")
   end
 
-  table.insert(nodes, t({ "|", separator_line(column_count), "" }))
+  table.insert(nodes, t { "|", separator_line(column_count), "" })
 
   for row = 1, row_count do
     for _ = 1, column_count do
       insert_index = insert_index + 1
-      table.insert(nodes, t("| "))
+      table.insert(nodes, t "| ")
       table.insert(nodes, i(insert_index))
-      table.insert(nodes, t(" "))
+      table.insert(nodes, t " ")
     end
 
     if row == row_count then
-      table.insert(nodes, t("|"))
+      table.insert(nodes, t "|")
     else
-      table.insert(nodes, t({ "|", "" }))
+      table.insert(nodes, t { "|", "" })
     end
   end
 
@@ -49,13 +49,10 @@ local function markdown_table(_, snip)
 end
 
 return {
-  s(
-    {
-      trig = "table(%d+)x(%d+)",
-      regTrig = true,
-      name = "Markdown Table",
-      dscr = "Dynamic markdown table from rows x cols",
-    },
-    d(1, markdown_table, {})
-  ),
+  s({
+    trig = "table(%d+)x(%d+)",
+    regTrig = true,
+    name = "Markdown Table",
+    dscr = "Dynamic markdown table from rows x cols",
+  }, d(1, markdown_table, {})),
 }

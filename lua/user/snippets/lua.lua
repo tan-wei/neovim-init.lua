@@ -21,7 +21,7 @@ local function returned_module_name()
   local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 
   for line_index = #lines, 1, -1 do
-    local module_name = lines[line_index]:match("^%s*return%s+([%a_][%w_]*)%s*$")
+    local module_name = lines[line_index]:match "^%s*return%s+([%a_][%w_]*)%s*$"
     if module_name ~= nil then
       return module_name
     end
