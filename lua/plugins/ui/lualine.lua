@@ -1,6 +1,7 @@
 local M = {
   "nvim-lualine/lualine.nvim",
   dependencies = {
+    "folke/noice.nvim",
     "nvim-tree/nvim-web-devicons",
     "meuter/lualine-so-fancy.nvim",
   },
@@ -12,6 +13,7 @@ M.config = function()
   local lualine_highlight = require "lualine.highlight"
   local lualine_utils = require "lualine.utils.utils"
   local devicons = require "nvim-web-devicons"
+  local has_noice, noice = pcall(require, "noice")
   local has_recorder, recorder = pcall(require, "recorder")
   local indent_icon = devicons.get_icon_by_filetype("editorconfig", { default = true }) or "↹"
 
@@ -353,6 +355,23 @@ M.config = function()
     return " " .. reg
   end
 
+  local noice_components_x = {}
+
+  if has_noice then
+    noice_components_x = {
+      {
+        noice.api.status.command.get,
+        cond = noice.api.status.command.has,
+        color = { fg = "#ff9e64" },
+      },
+      {
+        noice.api.status.mode.get,
+        cond = noice.api.status.mode.has,
+        color = { fg = "#ff9e64" },
+      },
+    }
+  end
+
   local macro_components_c = { "fancy_macro" }
   local macro_components_z = {}
 
@@ -379,14 +398,17 @@ M.config = function()
       theme = "auto",
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
-      disabled_filetypes = { "alpha", "dashboard", "NvimTree", "Outline" },
+      disabled_filetypes = { "alpha", "dashboard", "NvimTree", "Outline", "grug-far", "oil" },
       always_divide_middle = true,
     },
     sections = {
       lualine_a = { "fancy_branch", "fancy_diagnostics" },
       lualine_b = { { "fancy_mode", width = 8 } },
       lualine_c = vim.list_extend({ "fancy_cwd", project_config, session, harpoon_status }, macro_components_c),
-      lualine_x = { "overseer", colorscheme, "fancy_searchcount", spaces, encoding, "fancy_filetype" },
+      lualine_x = vim.list_extend(
+        noice_components_x,
+        { "overseer", colorscheme, "fancy_searchcount", spaces, encoding, "fancy_filetype" }
+      ),
       lualine_y = { "fancy_location", progress },
       lualine_z = vim.list_extend(macro_components_z, { "fancy_lsp_servers" }),
     },
