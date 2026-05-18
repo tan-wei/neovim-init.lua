@@ -1,6 +1,7 @@
 local M = {}
 
 local opts = { noremap = true, silent = true }
+local yanky_plug_opts = { remap = true, silent = true }
 
 local term_opts = { silent = true }
 
@@ -55,6 +56,24 @@ M.setup = function()
   -- gitsigns related
   keymap("n", "[g", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", opts)
   keymap("n", "]g", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", opts)
+
+  -- yanky.nvim
+  keymap({ "n", "x" }, "y", "<Plug>(YankyYank)", yanky_plug_opts)
+  keymap("n", "p", "<Plug>(YankyPutAfter)", yanky_plug_opts)
+  keymap("n", "P", "<Plug>(YankyPutBefore)", yanky_plug_opts)
+  keymap("n", "gp", "<Plug>(YankyGPutAfter)", yanky_plug_opts)
+  keymap("n", "<C-p>", "<Plug>(YankyPreviousEntry)", yanky_plug_opts)
+  keymap("n", "<C-n>", "<Plug>(YankyNextEntry)", yanky_plug_opts)
+  keymap("n", "]p", "<Plug>(YankyPutIndentAfterLinewise)", yanky_plug_opts)
+  keymap("n", "[p", "<Plug>(YankyPutIndentBeforeLinewise)", yanky_plug_opts)
+  keymap("n", "]P", "<Plug>(YankyPutIndentAfterLinewise)", yanky_plug_opts)
+  keymap("n", "[P", "<Plug>(YankyPutIndentBeforeLinewise)", yanky_plug_opts)
+  keymap("n", ">p", "<Plug>(YankyPutIndentAfterShiftRight)", yanky_plug_opts)
+  keymap("n", "<p", "<Plug>(YankyPutIndentAfterShiftLeft)", yanky_plug_opts)
+  keymap("n", ">P", "<Plug>(YankyPutIndentBeforeShiftRight)", yanky_plug_opts)
+  keymap("n", "<P", "<Plug>(YankyPutIndentBeforeShiftLeft)", yanky_plug_opts)
+  keymap("n", "=p", "<Plug>(YankyPutAfterFilter)", yanky_plug_opts)
+  keymap("n", "=P", "<Plug>(YankyPutBeforeFilter)", yanky_plug_opts)
 
   -- Insert --
   -- Press jk fast to exit insert mode
