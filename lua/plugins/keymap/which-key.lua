@@ -1,6 +1,6 @@
 local M = {
   "folke/which-key.nvim",
-  event = "VeryLazy",
+  lazy = false,
 }
 
 M.config = function()
@@ -14,6 +14,12 @@ M.config = function()
       end
 
       callback(harpoon, harpoon:list())
+    end
+  end
+
+  local function feed_normal(keys)
+    return function()
+      vim.api.nvim_feedkeys(vim.keycode(keys), "m", false)
     end
   end
 
@@ -386,6 +392,13 @@ M.config = function()
     -- Q --
 
     -- q --
+    { "<leader>q", group = "macro", mode = "n" },
+    { "<leader>qq", feed_normal "q", desc = "Start/stop recording", mode = "n" },
+    { "<leader>qp", feed_normal "Q", desc = "Play macro", mode = "n" },
+    { "<leader>qs", feed_normal "<C-q>", desc = "Switch macro slot", mode = "n" },
+    { "<leader>qe", feed_normal "cq", desc = "Edit macro", mode = "n" },
+    { "<leader>qy", feed_normal "yq", desc = "Yank macro", mode = "n" },
+    { "<leader>qd", feed_normal "dq", desc = "Delete all macros", mode = "n" },
 
     -- R --
     { "<leader>R", group = "repl", mode = "n" },
@@ -436,6 +449,14 @@ M.config = function()
       end,
       desc = "Search treesitter",
       mode = "n",
+    },
+    {
+      "<leader>sy",
+      function()
+        require("telescope").extensions.yank_history.yank_history()
+      end,
+      desc = "Search yank history",
+      mode = { "n", "x" },
     },
 
     -- T --
