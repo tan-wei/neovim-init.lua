@@ -12,6 +12,7 @@ M.config = function()
   local lualine_highlight = require "lualine.highlight"
   local lualine_utils = require "lualine.utils.utils"
   local devicons = require "nvim-web-devicons"
+  local has_recorder, recorder = pcall(require, "recorder")
   local indent_icon = devicons.get_icon_by_filetype("editorconfig", { default = true }) or "↹"
 
   local wider_than = function(width)
@@ -339,6 +340,39 @@ M.config = function()
     end,
   }
 
+  local function compact_recorder_recording_status()
+    local reg = vim.fn.reg_recording()
+    if reg == "" then
+      return ""
+    end
+
+    if wider_than(120) then
+      return " [" .. reg .. "]"
+    end
+
+    return " " .. reg
+  end
+
+  local macro_components_c = { "fancy_macro" }
+  local macro_components_z = {}
+
+  if has_recorder then
+    macro_components_c = {
+      {
+        function()
+          return recorder.displaySlots()
+        end,
+      },
+    }
+    macro_components_z = {
+      {
+        function()
+          return compact_recorder_recording_status()
+        end,
+      },
+    }
+  end
+
   local config = {
     options = {
       icons_enabled = true,
@@ -351,10 +385,10 @@ M.config = function()
     sections = {
       lualine_a = { "fancy_branch", "fancy_diagnostics" },
       lualine_b = { { "fancy_mode", width = 8 } },
-      lualine_c = { "fancy_cwd", project_config, session, harpoon_status, "fancy_macro", "lsp_progress" },
+      lualine_c = vim.list_extend({ "fancy_cwd", project_config, session, harpoon_status }, macro_components_c),
       lualine_x = { "overseer", colorscheme, "fancy_searchcount", spaces, encoding, "fancy_filetype" },
       lualine_y = { "fancy_location", progress },
-      lualine_z = { "fancy_lsp_servers" },
+      lualine_z = vim.list_extend(macro_components_z, { "fancy_lsp_servers" }),
     },
     inactive_sections = {
       lualine_a = {},
