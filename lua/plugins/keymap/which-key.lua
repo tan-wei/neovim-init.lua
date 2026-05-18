@@ -128,13 +128,26 @@ M.config = function()
     { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "toggle nvim-tree.lua Explorer", mode = "n" },
 
     -- F --
-    { "<leader>F", "<cmd>Telescope live_grep theme=ivy<cr>", desc = "Find texts", mode = "n" },
+    {
+      "<leader>F",
+      "<cmd>Telescope live_grep_args live_grep_args theme=ivy<cr>",
+      desc = "Find texts (rg args)",
+      mode = "n",
+    },
 
     -- f --
     {
       "<leader>f",
       "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>",
       desc = "Find files",
+      mode = "n",
+    },
+
+    -- O --
+    {
+      "<leader>o",
+      "<cmd>Telescope smart_open<cr>",
+      desc = "Smart open",
       mode = "n",
     },
 
@@ -458,6 +471,67 @@ M.config = function()
       desc = "Search yank history",
       mode = { "n", "x" },
     },
+    {
+      "<leader>sg",
+      function()
+        require("grug-far").open()
+      end,
+      desc = "Search replace",
+      mode = "n",
+    },
+    {
+      "<leader>sg",
+      function()
+        require("grug-far").with_visual_selection()
+      end,
+      desc = "Search replace selection",
+      mode = "x",
+    },
+    {
+      "<leader>sf",
+      function()
+        require("grug-far").open {
+          prefills = {
+            paths = vim.fn.expand "%",
+          },
+        }
+      end,
+      desc = "Search replace file",
+      mode = "n",
+    },
+    {
+      "<leader>sf",
+      function()
+        require("grug-far").with_visual_selection {
+          prefills = {
+            paths = vim.fn.expand "%",
+          },
+        }
+      end,
+      desc = "Search replace selection in file",
+      mode = "x",
+    },
+    {
+      "<leader>si",
+      function()
+        require("grug-far").open {
+          visualSelectionUsage = "auto-detect",
+        }
+      end,
+      desc = "Search within range",
+      mode = "x",
+    },
+    { "<leader>sa", "<cmd>Telescope ast_grep<cr>", desc = "Search AST grep", mode = "n" },
+    { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Search buffer", mode = "n" },
+    { "<leader>sc", "<cmd>Telescope colorscheme<cr>", desc = "Search colorschemes", mode = "n" },
+    { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Search commands", mode = "n" },
+    { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Search help", mode = "n" },
+    { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Search keymaps", mode = "n" },
+    { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Search man pages", mode = "n" },
+    { "<leader>so", "<cmd>Telescope smart_open<cr>", desc = "Search smart open", mode = "n" },
+    { "<leader>sp", "<cmd>Telescope builtin include_extensions=true<cr>", desc = "Search pickers", mode = "n" },
+    { "<leader>sr", "<cmd>Telescope oldfiles<cr>", desc = "Search recent files", mode = "n" },
+    { "<leader>sR", "<cmd>Telescope registers<cr>", desc = "Search registers", mode = "n" },
 
     -- T --
     { "<leader>T", group = "terminal", mode = "n" },
