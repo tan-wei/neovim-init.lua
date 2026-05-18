@@ -22,11 +22,12 @@ M.config = function()
   dashboard.section.buttons.val = {
     dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
     dashboard.button("f", "  Find file", ":Telescope find_files <CR>"),
-    -- dashboard.button("p", "  Find project", ":Telescope projects <CR>"), -- Not that useful, because session is much more useful
+    dashboard.button("o", "󰍉  Smart open", ":Telescope smart_open <CR>"),
+    dashboard.button("p", "  Pickers", ":Telescope builtin include_extensions=true <CR>"),
     dashboard.button("r", "  Recently used files", ":Telescope oldfiles <CR>"),
     dashboard.button("z", "  Recently directories", ":Telescope zoxide list <CR>"),
     dashboard.button("s", "󱌣  Session Lens", ":Telescope session-lens <CR>"),
-    dashboard.button("t", "󱎸  Find text", ":Telescope live_grep <CR>"),
+    dashboard.button("t", "󱎸  Find text", ":Telescope live_grep_args live_grep_args theme=ivy <CR>"),
     dashboard.button("c", "  Configuration", ":e $MYVIMRC <CR>"),
     dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
   }
