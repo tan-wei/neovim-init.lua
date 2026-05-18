@@ -8,6 +8,8 @@ local M = {
 
 M.opts = {
   mapping = {
+    slots = { "a", "b", "c", "d", "e", "f" },
+    dynamicSlots = "rotate",
     startStopRecording = "q",
     playMacro = "Q",
     switchSlot = "<C-q>",
@@ -15,6 +17,7 @@ M.opts = {
     yankMacro = "yq",
     deleteAllMacros = "dq",
     addBreakPoint = "##",
+    clear = true,
   },
 }
 
