@@ -1,9 +1,11 @@
 local M = {
   "MagicDuck/grug-far.nvim",
-  cmd = "GrugFar",
+  cmd = { "GrugFar", "GrugFarWithin" },
 }
 
--- TODO: This plugin should write more configurations
-M.opts = true
+M.opts = {
+  transient = true,
+  windowCreationCommand = "botright vsplit",
+}
 
 return M
