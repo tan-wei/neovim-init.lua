@@ -355,6 +355,67 @@ M.config = function()
     return " " .. reg
   end
 
+  local function get_current_linters()
+    local ok, lint = pcall(require, "lint")
+    if not ok or type(lint.linters_by_ft) ~= "table" then
+      return {}
+    end
+
+    local filetype = vim.bo[0].filetype
+    if filetype == "" then
+      return {}
+    end
+
+    local linters = {}
+    local seen = {}
+
+    local function add_linters(ft)
+      if ft == nil or ft == "" then
+        return
+      end
+
+      local configured = lint.linters_by_ft[ft]
+      if type(configured) ~= "table" then
+        return
+      end
+
+      for _, name in ipairs(configured) do
+        if not seen[name] then
+          seen[name] = true
+          table.insert(linters, name)
+        end
+      end
+    end
+
+    add_linters("_")
+    add_linters("*")
+    add_linters(filetype)
+
+    for _, ft in ipairs(vim.split(filetype, ".", { plain = true, trimempty = true })) do
+      add_linters(ft)
+    end
+
+    table.sort(linters)
+
+    return linters
+  end
+
+  local linter_status = {
+    icon = "",
+    function()
+      local linters = get_current_linters()
+      if #linters == 0 then
+        return ""
+      end
+
+      local max_len = wider_than(160) and 30 or wider_than(120) and 18 or 12
+      return truncate(table.concat(linters, ","), max_len)
+    end,
+    cond = function()
+      return #get_current_linters() > 0
+    end,
+  }
+
   local noice_components_x = {}
 
   if has_noice then
@@ -410,7 +471,7 @@ M.config = function()
         { "overseer", colorscheme, "fancy_searchcount", spaces, encoding, "fancy_filetype" }
       ),
       lualine_y = { "fancy_location", progress },
-      lualine_z = vim.list_extend(macro_components_z, { "fancy_lsp_servers" }),
+      lualine_z = vim.list_extend(macro_components_z, { "fancy_lsp_servers", linter_status }),
     },
     inactive_sections = {
       lualine_a = {},
