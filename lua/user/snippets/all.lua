@@ -152,7 +152,8 @@ local function box_nodes(opts)
   }
 end
 
-return {
+---@type any[]
+local M = {
   todo_snippet({ trig = "todo", name = "TODO comment", dscr = "Comment-aware TODO" }, "TODO"),
   todo_snippet(
     { trig = "fix", name = "FIX comment", dscr = "Comment-aware FIX/BUG" },
@@ -167,3 +168,5 @@ return {
     box_nodes { padding_length = 12 }
   ),
 }
+
+return M

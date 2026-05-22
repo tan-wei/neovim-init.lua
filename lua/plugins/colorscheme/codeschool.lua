@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "adisen99/codeschool.nvim",
   lazy = true,

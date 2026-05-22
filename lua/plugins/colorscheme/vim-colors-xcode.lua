@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "lunacookies/vim-colors-xcode",
   lazy = true,

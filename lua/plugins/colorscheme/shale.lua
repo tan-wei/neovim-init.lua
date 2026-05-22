@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "smit4k/shale.nvim",
   lazy = true,

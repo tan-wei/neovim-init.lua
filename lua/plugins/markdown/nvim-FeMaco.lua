@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "AckslD/nvim-FeMaco.lua",
   cmd = "FeMaco",

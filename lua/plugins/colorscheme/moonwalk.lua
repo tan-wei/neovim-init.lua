@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "theJian/nvim-moonwalk",
   lazy = true,

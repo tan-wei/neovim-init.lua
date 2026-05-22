@@ -1,3 +1,4 @@
+---@type table<string, fun(...: any): any>
 local M = {}
 
 local get_os_name = function()

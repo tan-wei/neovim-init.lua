@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "blazkowolf/gruber-darker.nvim",
   lazy = true,

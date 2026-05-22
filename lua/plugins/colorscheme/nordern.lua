@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "fcancelinha/nordern.nvim",
   lazy = true,

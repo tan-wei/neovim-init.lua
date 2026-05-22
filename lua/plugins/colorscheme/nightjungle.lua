@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "tx3stn/nightjungle.nvim",
   lazy = true,

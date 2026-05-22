@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "gmr458/cold.nvim",
   lazy = true,

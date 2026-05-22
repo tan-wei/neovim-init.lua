@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "nvim-focus/focus.nvim",
   event = "VeryLazy",

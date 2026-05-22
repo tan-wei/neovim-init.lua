@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "mcauley-penney/visual-whitespace.nvim",
   event = "ModeChanged *:[vV\22]",

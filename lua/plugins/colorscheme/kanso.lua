@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "webhooked/kanso.nvim",
   lazy = true,

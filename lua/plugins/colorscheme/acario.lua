@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "0x-ximon/acario.nvim",
   lazy = true,

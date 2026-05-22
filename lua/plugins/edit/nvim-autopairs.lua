@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "windwp/nvim-autopairs",
   dependencies = vim.g.completion_engine ~= "blink" and { "hrsh7th/nvim-cmp" } or {},

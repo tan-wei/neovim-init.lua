@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "szammyboi/dune.nvim",
   lazy = true,

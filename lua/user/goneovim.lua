@@ -1,3 +1,4 @@
+---@type { setup: fun() }
 local M = {}
 
 M.setup = function()

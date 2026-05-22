@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "sainnhe/gruvbox-material",
   lazy = true,

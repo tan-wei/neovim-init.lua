@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "kevinhwang91/nvim-hlslens",
   event = "VeryLazy",

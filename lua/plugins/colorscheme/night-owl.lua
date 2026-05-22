@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "oxfist/night-owl.nvim",
   lazy = true,

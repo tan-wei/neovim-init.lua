@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "dgrco/mokka.nvim",
   lazy = true,

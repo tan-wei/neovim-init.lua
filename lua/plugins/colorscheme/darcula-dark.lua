@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "xiantang/darcula-dark.nvim",
   lazy = true,

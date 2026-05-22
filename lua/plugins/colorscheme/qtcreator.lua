@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Nyvyme/qtcreator.nvim",
   lazy = true,

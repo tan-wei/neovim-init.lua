@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "windwp/nvim-ts-autotag",
   dependencies = {

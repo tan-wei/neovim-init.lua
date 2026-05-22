@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "GnikDroy/projections.nvim",
   branch = "pre_release",

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "armannikoyan/rusty",
   lazy = true,

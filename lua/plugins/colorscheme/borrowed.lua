@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "myypo/borrowed.nvim",
   lazy = true,

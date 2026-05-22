@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "akinsho/horizon.nvim",
   lazy = true,

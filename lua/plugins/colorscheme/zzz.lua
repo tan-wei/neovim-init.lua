@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "r1cardohj/zzz.vim",
   lazy = true,

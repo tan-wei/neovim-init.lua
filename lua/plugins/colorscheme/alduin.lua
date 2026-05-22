@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "bakageddy/alduin.nvim",
   lazy = true,

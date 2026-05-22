@@ -48,7 +48,8 @@ local function markdown_table(_, snip)
   return sn(nil, nodes)
 end
 
-return {
+---@type any[]
+local M = {
   s({
     trig = "table(%d+)x(%d+)",
     regTrig = true,
@@ -56,3 +57,5 @@ return {
     dscr = "Dynamic markdown table from rows x cols",
   }, d(1, markdown_table, {})),
 }
+
+return M

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "mhartington/oceanic-next",
   lazy = true,

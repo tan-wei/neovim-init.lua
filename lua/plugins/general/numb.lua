@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "nacro90/numb.nvim",
   event = { "CmdlineChanged" },

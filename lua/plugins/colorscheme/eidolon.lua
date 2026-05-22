@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Vallen217/eidolon.nvim",
   lazy = true,

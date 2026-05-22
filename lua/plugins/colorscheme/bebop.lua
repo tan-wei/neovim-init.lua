@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ATTron/bebop.nvim",
   lazy = true,

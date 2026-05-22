@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "mistweaverco/vhs-era-theme.nvim",
   lazy = true,

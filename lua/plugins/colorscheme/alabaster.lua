@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "p00f/alabaster.nvim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "lmburns/kimbox",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "idr4n/andromeda.nvim",
   lazy = true,

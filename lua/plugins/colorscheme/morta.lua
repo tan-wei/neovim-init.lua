@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ph1losof/morta.nvim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "jvgrootveld/telescope-zoxide",
   dependencies = {

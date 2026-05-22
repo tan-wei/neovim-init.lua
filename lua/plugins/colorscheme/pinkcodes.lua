@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "houssamouhra/pinkcodes.nvim",
   lazy = true,

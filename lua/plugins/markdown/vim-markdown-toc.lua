@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "mzlogin/vim-markdown-toc",
   ft = { "markdown" },

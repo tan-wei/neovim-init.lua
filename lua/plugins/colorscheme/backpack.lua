@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Mitch1000/backpack.nvim",
   lazy = true,

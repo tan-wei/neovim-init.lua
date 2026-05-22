@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "kylechui/nvim-surround",
   dependencies = {

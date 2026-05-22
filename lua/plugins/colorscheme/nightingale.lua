@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "xeind/nightingale.nvim",
   lazy = true,

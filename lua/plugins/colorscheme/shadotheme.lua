@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Shadorain/shadotheme",
   lazy = true,

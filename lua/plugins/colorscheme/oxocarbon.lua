@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "nyoom-engineering/oxocarbon.nvim",
   lazy = true,

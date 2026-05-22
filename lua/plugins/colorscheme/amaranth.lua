@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "kshinya7/amaranth.nvim",
   lazy = true,

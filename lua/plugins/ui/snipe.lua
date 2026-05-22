@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "leath-dub/snipe.nvim",
   event = "VeryLazy",

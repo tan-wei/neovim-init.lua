@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "forest-nvim/sequoia.nvim",
   lazy = true,

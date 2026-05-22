@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "nxvu699134/vn-night.nvim",
   lazy = true,

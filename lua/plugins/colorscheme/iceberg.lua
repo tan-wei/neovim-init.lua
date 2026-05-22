@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "oahlen/iceberg.nvim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "niyabits/calvera-dark.nvim",
   lazy = true,

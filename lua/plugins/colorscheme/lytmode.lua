@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "github-main-user/lytmode.nvim",
   lazy = true,

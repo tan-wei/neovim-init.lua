@@ -30,7 +30,8 @@ tex.in_beamer = function()
   return false
 end
 
-return {
+---@type any[]
+local M = {
   s({
     trig = "mk",
     name = "Inline Math",
@@ -87,3 +88,5 @@ return {
     { condition = tex.in_beamer }
   ),
 }
+
+return M

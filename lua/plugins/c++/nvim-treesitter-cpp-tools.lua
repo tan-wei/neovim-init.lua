@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Badhi/nvim-treesitter-cpp-tools",
   dependencies = {

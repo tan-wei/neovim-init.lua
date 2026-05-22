@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "datsfilipe/min-theme.nvim",
   lazy = true,

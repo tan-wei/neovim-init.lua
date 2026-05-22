@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "folke/which-key.nvim",
   lazy = false,

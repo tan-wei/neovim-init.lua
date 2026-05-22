@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "LukasPietzschmann/telescope-tabs",
   dependencies = {

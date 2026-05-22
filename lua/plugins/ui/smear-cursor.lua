@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "sphamba/smear-cursor.nvim",
   event = "VeryLazy",

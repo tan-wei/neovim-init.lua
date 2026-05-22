@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "1995parham/naz.vim",
   lazy = true,

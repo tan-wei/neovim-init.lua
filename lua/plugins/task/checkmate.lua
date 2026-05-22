@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "bngarren/checkmate.nvim",
   ft = "markdown",

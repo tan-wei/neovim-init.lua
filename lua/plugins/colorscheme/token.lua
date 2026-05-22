@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ThorstenRhau/token",
   lazy = true,

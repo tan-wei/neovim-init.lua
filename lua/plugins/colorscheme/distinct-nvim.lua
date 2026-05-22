@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "https://gitlab.com/bartekjaszczak/distinct-nvim",
   lazy = true,

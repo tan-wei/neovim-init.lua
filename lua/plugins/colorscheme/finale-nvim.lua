@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "https://gitlab.com/bartekjaszczak/finale-nvim",
   lazy = true,

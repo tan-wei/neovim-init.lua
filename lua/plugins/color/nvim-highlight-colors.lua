@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "brenoprata10/nvim-highlight-colors",
   event = "VeryLazy",

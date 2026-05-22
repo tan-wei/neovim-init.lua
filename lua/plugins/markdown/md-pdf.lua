@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "arminveres/md-pdf.nvim",
   enabled = require("util.os").is_linux(),

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ranjithshegde/ccls.nvim",
   ft = { "c", "cpp", "objc", "objcpp" },

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ribru17/bamboo.nvim",
   lazy = true,

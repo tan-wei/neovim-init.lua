@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "adibhanna/forest-night.nvim",
   lazy = true,

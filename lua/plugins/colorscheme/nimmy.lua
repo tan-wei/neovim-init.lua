@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "NopAngel/nimmy.vim",
   lazy = true,

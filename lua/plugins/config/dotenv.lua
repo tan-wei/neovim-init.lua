@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ellisonleao/dotenv.nvim",
   event = { "VimEnter" },

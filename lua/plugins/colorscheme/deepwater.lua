@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "dgrco/deepwater.nvim",
   lazy = true,

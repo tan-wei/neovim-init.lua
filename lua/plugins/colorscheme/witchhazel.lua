@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "theacodes/witchhazel",
   lazy = true,

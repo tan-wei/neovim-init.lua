@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "loganswartz/sunburn.nvim",
   dependencies = {

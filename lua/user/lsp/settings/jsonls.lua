@@ -1,4 +1,5 @@
-return {
+---@type vim.lsp.Config
+local M = {
   settings = {
     json = {
       schemas = require("schemastore").json.schemas(),
@@ -15,3 +16,5 @@ return {
     },
   },
 }
+
+return M

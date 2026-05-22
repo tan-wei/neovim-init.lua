@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Tsuzat/NeoSolarized.nvim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "barrettruth/diffs.nvim",
   lazy = false, -- NOTE: diffs.nvim lazy-loads itself

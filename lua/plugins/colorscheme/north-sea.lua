@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "terkelg/north-sea.nvim",
   lazy = true,

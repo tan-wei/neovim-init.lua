@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "GasimGasimzada/intent.nvim",
   lazy = true,

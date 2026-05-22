@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ptdewey/darkearth-nvim",
   lazy = true,

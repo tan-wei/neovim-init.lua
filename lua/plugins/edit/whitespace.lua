@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "johnfrankmorgan/whitespace.nvim",
   event = "VeryLazy",

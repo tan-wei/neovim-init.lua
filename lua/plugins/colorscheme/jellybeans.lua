@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "nanotech/jellybeans.vim",
   lazy = true,

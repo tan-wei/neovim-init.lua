@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Old-Farmer/noctis-nvim",
   lazy = true,

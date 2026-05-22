@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "AndrewRadev/linediff.vim",
   cmd = { "Linediff", "LinediffReset" },

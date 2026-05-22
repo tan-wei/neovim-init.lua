@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Mofiqul/adwaita.nvim",
   lazy = true,

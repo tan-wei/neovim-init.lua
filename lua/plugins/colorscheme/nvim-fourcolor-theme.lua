@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "zanshin/nvim-fourcolor-theme",
   lazy = true,

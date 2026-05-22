@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "codeomnium-x/nox.nvim",
   lazy = true,

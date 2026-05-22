@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "HoNamDuong/hybrid.nvim",
   lazy = true,

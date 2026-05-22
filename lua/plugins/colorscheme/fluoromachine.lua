@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "maxmx03/fluoromachine.nvim",
   lazy = true,

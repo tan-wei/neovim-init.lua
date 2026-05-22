@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "KijitoraFinch/nanode.nvim",
   lazy = true,

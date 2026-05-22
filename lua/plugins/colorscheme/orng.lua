@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "roerohan/orng.nvim",
   lazy = true,

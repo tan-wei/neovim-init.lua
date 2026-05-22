@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "RRethy/nvim-treesitter-endwise",
   dependencies = {

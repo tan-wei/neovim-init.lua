@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "masisz/wisteria.nvim",
   lazy = true,

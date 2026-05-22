@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "devoc09/sphere.vim",
   lazy = true,

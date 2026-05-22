@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "rockerBOO/boo-colorscheme-nvim",
   lazy = true,

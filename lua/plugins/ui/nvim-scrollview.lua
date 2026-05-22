@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "dstein64/nvim-scrollview",
   event = "VeryLazy",

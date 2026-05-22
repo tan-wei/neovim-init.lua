@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "BoilingSoup/fruitypebbles.nvim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "rachartier/tiny-glimmer.nvim",
   event = "VeryLazy",

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Mr-LLLLL/interestingwords.nvim",
   enabled = false,

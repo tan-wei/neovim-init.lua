@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "embark-theme/vim",
   name = "embark",

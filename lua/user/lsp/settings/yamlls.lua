@@ -1,4 +1,5 @@
-return {
+---@type vim.lsp.Config
+local M = {
   settings = {
     yaml = {
       schemaStore = {
@@ -9,3 +10,5 @@ return {
     },
   },
 }
+
+return M

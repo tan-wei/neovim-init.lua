@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "bluz71/vim-nightfly-colors",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "bullets-vim/bullets.vim",
   ft = "markdown",

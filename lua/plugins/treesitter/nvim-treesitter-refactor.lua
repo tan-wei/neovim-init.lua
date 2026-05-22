@@ -7,6 +7,7 @@
 --   - refactor.smart_rename            (rename symbol within current scope, was mapped to 'grr')
 --   - refactor.navigation              (goto definition 'gnd', list definitions 'gnD'/'gO',
 --                                       goto next/prev usage '<a-*>'/'<a-#>')
+---@type LazyPluginSpec
 local M = {
   "nvim-treesitter/nvim-treesitter-refactor",
   enabled = false,

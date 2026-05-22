@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "bergholmm/cursor-dark.nvim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "jay-babu/mason-nvim-dap.nvim",
   dependencies = {

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "oskarnurm/koda.nvim",
   lazy = true,

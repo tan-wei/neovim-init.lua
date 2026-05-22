@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "lervag/vimtex",
   lazy = false, -- NOTE: Do not lazy load the plugin

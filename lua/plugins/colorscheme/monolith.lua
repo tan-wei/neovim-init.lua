@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "dgrco/monolith.nvim",
   lazy = true,

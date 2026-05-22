@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "thallada/farout.nvim",
   lazy = true,

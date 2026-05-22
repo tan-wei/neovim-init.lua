@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "AckslD/muren.nvim",
   cmd = { "MurenToggle", "MurenOpen", "MurenClose", "MurenFresh", "MurenFresh", "MurenUnique" },

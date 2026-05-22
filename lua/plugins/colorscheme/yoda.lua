@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "kuri-sun/yoda.nvim",
   lazy = true,

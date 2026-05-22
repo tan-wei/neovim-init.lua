@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "cshuaimin/ssr.nvim",
   dependencies = {

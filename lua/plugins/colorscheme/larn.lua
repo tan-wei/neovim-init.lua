@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "tourcoder/larn.nvim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "omacom-io/lumon.nvim",
   lazy = true,

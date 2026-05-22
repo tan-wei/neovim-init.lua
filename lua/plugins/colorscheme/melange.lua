@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "savq/melange-nvim",
   lazy = true,

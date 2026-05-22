@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "mtendekuyokwa19/stoics.nvim",
   lazy = true,

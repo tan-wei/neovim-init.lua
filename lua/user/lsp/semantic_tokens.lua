@@ -1,3 +1,4 @@
+---@type { setup: fun() }
 local M = {}
 
 local rainbow_token_types = {

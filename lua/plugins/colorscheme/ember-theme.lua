@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ember-theme/nvim",
   name = "ember",

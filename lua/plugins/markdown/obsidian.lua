@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "obsidian-nvim/obsidian.nvim",
   dependencies = {

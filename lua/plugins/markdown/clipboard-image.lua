@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   -- "ekickx/clipboard-image.nvim",
   "dfendr/clipboard-image.nvim",

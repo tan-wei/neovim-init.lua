@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "WilliamHsieh/overlook.nvim",
   module = true,

@@ -1,3 +1,4 @@
+---@type table<string, fun(...: any): any>
 local M = {}
 
 M.is_neovide = function()

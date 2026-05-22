@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "valonmulolli/heap.nvim",
   lazy = true,

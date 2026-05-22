@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "srt0/codescope.nvim",
   lazy = true,

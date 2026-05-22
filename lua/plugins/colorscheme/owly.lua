@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "OwlfaceGames/owly.nvim",
   lazy = true,

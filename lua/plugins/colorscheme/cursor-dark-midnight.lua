@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "joselrodrigues/cursor-dark-midnight.nvim",
   lazy = true,

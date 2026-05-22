@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "wuelnerdotexe/vim-enfocado",
   lazy = true,

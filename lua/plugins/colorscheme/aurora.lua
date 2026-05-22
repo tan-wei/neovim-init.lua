@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ray-x/aurora",
   lazy = true,

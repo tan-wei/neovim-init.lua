@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "MeanderingProgrammer/render-markdown.nvim",
   dependencies = {

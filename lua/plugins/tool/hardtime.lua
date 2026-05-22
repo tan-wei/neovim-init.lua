@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "m4xshen/hardtime.nvim",
   dependencies = {

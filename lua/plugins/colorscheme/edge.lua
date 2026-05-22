@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "sainnhe/edge",
   lazy = true,

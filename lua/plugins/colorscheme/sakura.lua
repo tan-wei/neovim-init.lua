@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "anAcc22/sakura.nvim",
   lazy = true,

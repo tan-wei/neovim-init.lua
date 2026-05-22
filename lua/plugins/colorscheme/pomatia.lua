@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "aliqyan-21/pomatia.nvim",
   lazy = true,

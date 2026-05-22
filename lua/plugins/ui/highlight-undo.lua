@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "tzachar/highlight-undo.nvim",
   event = "VeryLazy",

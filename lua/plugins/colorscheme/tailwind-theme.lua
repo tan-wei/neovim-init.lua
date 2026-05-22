@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "NisonChrist/tailwind-theme.nvim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "bashful-strix/arcana",
   lazy = true,

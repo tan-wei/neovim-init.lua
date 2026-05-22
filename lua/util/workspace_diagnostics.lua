@@ -1,5 +1,6 @@
 local compile_commands = require "util.compile_commands"
 
+---@type table<string, any>
 local M = {}
 
 local loaded_clients = {}

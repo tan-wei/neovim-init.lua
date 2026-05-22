@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Saecki/crates.nvim",
   dependencies = {

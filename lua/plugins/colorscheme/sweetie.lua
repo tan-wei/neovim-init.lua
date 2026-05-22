@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "NTBBloodbath/sweetie.nvim",
   lazy = true,

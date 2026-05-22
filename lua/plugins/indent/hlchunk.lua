@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "shellRaining/hlchunk.nvim",
   event = { "CursorHold", "CursorHoldI" },

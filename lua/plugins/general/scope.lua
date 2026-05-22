@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "tiagovla/scope.nvim",
   dependencies = {

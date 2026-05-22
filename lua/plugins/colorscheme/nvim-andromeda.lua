@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "nobbmaestro/nvim-andromeda",
   lazy = true,

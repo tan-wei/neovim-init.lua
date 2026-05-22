@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "srcery-colors/srcery-vim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "error311/wayfinder.nvim",
   cmd = { "Wayfinder" },

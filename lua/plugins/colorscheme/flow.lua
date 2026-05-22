@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "0xstepit/flow.nvim",
   lazy = true,

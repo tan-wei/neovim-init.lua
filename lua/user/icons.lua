@@ -1,4 +1,14 @@
-return {
+---@class UserIcons
+---@field kind table<string, string>
+---@field type table<string, string>
+---@field documents table<string, string>
+---@field git table<string, string>
+---@field ui table<string, string>
+---@field diagnostics table<string, string>
+---@field misc table<string, string>
+
+---@type UserIcons
+local M = {
   kind = {
     Text = "󰦨 ",
     Method = " ",
@@ -114,3 +124,5 @@ return {
     Tag = " ",
   },
 }
+
+return M

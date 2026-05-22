@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "lunarvim/darkplus.nvim",
   lazy = true,

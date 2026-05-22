@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "nvim-treesitter/nvim-treesitter-textobjects",
   branch = "main",

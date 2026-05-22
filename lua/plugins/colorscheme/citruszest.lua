@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "zootedb0t/citruszest.nvim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "voylin/godot_color_theme",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "rachartier/tiny-devicons-auto-colors.nvim",
   dependencies = {

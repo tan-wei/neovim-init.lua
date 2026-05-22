@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "kurund/atomic.nvim",
   lazy = true,

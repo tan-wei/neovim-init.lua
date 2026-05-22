@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "UtkarshVerma/molokai.nvim",
   lazy = true,

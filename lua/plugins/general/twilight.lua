@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "folke/twilight.nvim",
   module = true,

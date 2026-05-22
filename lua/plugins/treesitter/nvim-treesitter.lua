@@ -330,6 +330,7 @@ local parsers = {
 local highlight_disable = { css = true, csv = true }
 local indent_disable = { python = true, css = true }
 
+---@type LazyPluginSpec
 local M = {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",

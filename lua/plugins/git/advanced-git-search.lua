@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "aaronhallaert/advanced-git-search.nvim",
   dependencies = {

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "m-demare/hlargs.nvim",
   event = "LspAttach",

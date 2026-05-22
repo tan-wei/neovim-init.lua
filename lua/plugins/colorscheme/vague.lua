@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "vague-theme/vague.nvim",
   lazy = true,

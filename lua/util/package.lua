@@ -1,5 +1,6 @@
 local os = require "util.os"
 
+---@type table<string, fun(...: any): any>
 local M = {}
 
 M.is_loaded = function(name)

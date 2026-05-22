@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Kalidozza-theme/neovim",
   name = "Kalidozza",

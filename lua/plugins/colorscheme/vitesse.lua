@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "2nthony/vitesse.nvim",
   dependencies = {

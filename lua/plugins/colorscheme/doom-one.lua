@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "NTBBloodbath/doom-one.nvim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "andersevenrud/nvim_context_vt",
   dependencies = {

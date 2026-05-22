@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "EdenEast/nightfox.nvim",
   lazy = true,

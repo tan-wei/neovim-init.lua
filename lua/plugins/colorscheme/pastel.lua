@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ankushbhagats/pastel.nvim",
   lazy = true,

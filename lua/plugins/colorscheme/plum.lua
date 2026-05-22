@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "takeshid/plum.nvim",
   lazy = true,

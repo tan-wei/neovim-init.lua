@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "aisk/kukishinobu.vim",
   lazy = true,

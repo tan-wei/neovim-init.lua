@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "akinsho/bufferline.nvim",
   dependencies = {

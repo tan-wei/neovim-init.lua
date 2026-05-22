@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "numToStr/Comment.nvim",
   dependencies = {

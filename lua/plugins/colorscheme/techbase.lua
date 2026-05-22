@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "mcauley-penney/techbase.nvim",
   lazy = true,

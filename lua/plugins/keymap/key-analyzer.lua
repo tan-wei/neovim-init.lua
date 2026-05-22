@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "meznaric/key-analyzer.nvim",
   cmd = "KeyAnalyzer",

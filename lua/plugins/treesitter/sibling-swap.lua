@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Wansmer/sibling-swap.nvim",
   dependencies = {

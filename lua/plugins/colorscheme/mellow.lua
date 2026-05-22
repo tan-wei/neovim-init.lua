@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "mellow-theme/mellow.nvim",
   lazy = true,

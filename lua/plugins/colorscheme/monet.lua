@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "fynnfluegge/monet.nvim",
   lazy = true,

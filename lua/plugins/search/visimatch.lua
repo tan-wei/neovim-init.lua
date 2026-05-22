@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "wurli/visimatch.nvim",
   event = "VeryLazy",

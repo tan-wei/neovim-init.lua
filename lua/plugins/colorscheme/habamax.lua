@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ntk148v/habamax.nvim",
   dependencies = {

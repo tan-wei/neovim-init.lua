@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "folke/zen-mode.nvim",
   dependencies = {

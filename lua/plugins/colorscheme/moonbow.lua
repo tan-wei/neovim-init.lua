@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "arturgoms/moonbow.nvim",
   lazy = true,

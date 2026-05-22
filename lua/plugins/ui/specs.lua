@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "cxwx/specs.nvim",
   event = "VeryLazy",

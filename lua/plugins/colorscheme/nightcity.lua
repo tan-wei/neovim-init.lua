@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "cryptomilk/nightcity.nvim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "projekt0n/caret.nvim",
   lazy = true,

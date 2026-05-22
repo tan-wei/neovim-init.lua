@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "nyngwang/nvimgelion",
   lazy = true,

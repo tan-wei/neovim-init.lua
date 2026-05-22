@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "dark-orchid/neovim",
   name = "dark-orchid",

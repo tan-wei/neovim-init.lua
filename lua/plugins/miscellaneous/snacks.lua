@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "folke/snacks.nvim",
   priority = 1000,

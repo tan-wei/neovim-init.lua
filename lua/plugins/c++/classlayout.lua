@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "J-Cowsert/classlayout.nvim",
   cmd = {

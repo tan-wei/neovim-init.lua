@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "rachartier/tiny-inline-diagnostic.nvim",
   event = "LspAttach",

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "https://git.sr.ht/~chinmay/clangd_extensions.nvim",
   ft = { "c", "cpp" },
@@ -14,6 +15,6 @@ local M = {
 }
 
 -- NOTE: Default option is OK
-M.opts = true
+M.config = true
 
 return M

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "josstei/nami.nvim",
   lazy = true,

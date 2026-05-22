@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "alexpasmantier/hubbamax.nvim",
   lazy = true,

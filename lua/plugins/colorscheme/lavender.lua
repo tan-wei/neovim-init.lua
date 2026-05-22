@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   url = "https://codeberg.org/jthvai/lavender.nvim",
   lazy = true,

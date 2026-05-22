@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "junegunn/vim-easy-align",
   event = "VeryLazy",

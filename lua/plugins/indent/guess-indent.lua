@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "NMAC427/guess-indent.nvim",
   event = "BufEnter",

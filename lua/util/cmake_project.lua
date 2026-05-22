@@ -1,3 +1,4 @@
+---@type table<string, any>
 local M = {}
 
 local state = {

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "code-biscuits/nvim-biscuits",
   dependencies = {

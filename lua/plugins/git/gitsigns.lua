@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "lewis6991/gitsigns.nvim",
   event = "VeryLazy",

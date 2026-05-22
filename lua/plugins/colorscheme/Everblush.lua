@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Everblush/nvim",
   name = "everblush",

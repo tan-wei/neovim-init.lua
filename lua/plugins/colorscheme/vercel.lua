@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "tiesen243/vercel.nvim",
   lazy = true,

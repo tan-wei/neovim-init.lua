@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "aaronik/Treewalker.nvim",
   event = "VeryLazy",

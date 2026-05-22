@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "artemave/workspace-diagnostics.nvim",
   module = true,

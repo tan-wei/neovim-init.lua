@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "pappasam/papercolor-theme-slim",
   lazy = true,

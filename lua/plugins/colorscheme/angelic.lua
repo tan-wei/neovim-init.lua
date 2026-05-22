@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "sponkurtus2/angelic.nvim",
   lazy = true,

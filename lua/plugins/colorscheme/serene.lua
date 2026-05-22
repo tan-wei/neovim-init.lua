@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "samharju/serene.nvim",
   lazy = true,

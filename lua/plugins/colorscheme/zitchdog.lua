@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "theamallalgi/zitchdog.vim",
   lazy = true,

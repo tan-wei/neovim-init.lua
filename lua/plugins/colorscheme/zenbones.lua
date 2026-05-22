@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "zenbones-theme/zenbones.nvim",
   lazy = true,

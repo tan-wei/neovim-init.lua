@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "saecki/live-rename.nvim",
   event = "VeryLazy",

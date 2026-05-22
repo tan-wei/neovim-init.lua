@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "mikavilpas/yazi.nvim",
   dependencies = {

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "wadackel/vim-dogrun",
   lazy = true,

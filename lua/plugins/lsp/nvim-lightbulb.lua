@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "kosayoda/nvim-lightbulb",
   event = "LspAttach",

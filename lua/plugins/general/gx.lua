@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "chrishrb/gx.nvim",
   cmd = { "Browse" },

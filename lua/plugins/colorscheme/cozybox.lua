@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "harivansh-afk/cozybox.nvim",
   lazy = true,

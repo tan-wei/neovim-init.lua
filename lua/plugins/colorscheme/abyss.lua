@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "barrientosvctor/abyss.nvim",
   lazy = true,

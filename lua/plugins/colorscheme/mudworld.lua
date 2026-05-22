@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "gabfelix/mudworld",
   lazy = true,

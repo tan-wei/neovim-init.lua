@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "sharpchen/Eva-Theme.nvim",
   lazy = true,

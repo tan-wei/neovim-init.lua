@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "gbprod/nord.nvim",
   lazy = true,

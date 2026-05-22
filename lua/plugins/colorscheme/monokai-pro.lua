@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "loctvl842/monokai-pro.nvim",
   lazy = true,

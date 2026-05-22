@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "rmehri01/onenord.nvim",
   lazy = true,

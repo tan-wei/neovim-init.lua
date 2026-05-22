@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "whatyouhide/vim-gotham",
   lazy = true,

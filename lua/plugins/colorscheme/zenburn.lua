@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "phha/zenburn.nvim",
   lazy = true,

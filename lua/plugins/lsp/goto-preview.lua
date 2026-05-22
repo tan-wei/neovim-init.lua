@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "rmagatti/goto-preview",
   event = "VeryLazy",

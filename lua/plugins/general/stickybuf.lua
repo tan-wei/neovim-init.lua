@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "stevearc/stickybuf.nvim",
   event = "VeryLazy",

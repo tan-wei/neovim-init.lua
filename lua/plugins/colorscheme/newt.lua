@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "sugiura-hiromiti/newt.nvim",
   lazy = true,

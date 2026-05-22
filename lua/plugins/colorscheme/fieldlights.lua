@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "waytoopurple/fieldlights.nvim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ikelaiah/nebula-drift-rosette",
   lazy = true,

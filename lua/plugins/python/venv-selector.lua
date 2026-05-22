@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "linux-cultist/venv-selector.nvim",
   dependencies = {

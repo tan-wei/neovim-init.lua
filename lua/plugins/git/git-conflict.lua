@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "akinsho/git-conflict.nvim",
   cmd = {

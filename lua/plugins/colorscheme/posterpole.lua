@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ilof2/posterpole.nvim",
   lazy = true,

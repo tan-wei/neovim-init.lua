@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "HiPhish/rainbow-delimiters.nvim",
   event = "BufReadPre",

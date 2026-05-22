@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "SmiteshP/nvim-navbuddy",
   dependencies = {

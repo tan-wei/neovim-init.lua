@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "bettervim/yugen.nvim",
   lazy = true,

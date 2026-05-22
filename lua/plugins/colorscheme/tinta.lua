@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "arxngr/tinta.nvim",
   lazy = true,

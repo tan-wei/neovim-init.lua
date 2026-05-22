@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Kopihue/one-dark-pro-max",
   lazy = true,

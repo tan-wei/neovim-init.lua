@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "calind/selenized.nvim",
   lazy = true,

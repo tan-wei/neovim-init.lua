@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "andymass/vim-matchup",
   dependencies = {

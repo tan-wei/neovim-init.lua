@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "followLemmi/cyberneon.nvim",
   lazy = true,

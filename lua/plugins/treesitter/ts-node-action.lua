@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ckolkey/ts-node-action",
   dependencies = {

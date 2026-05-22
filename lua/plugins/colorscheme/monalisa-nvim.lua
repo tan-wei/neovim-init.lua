@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ptdewey/monalisa-nvim",
   lazy = true,

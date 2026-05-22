@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "khoido2003/monokai-v2.nvim",
   lazy = true,

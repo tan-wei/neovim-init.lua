@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Biscuit-Theme/nvim",
   name = "biscuit",

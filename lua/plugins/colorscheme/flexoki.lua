@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "kepano/flexoki-neovim",
   name = "flexoki",

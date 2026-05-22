@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "neko-night/nvim",
   name = "nekonight",

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ChristianChiarulli/nvcode-color-schemes.vim",
   lazy = true,

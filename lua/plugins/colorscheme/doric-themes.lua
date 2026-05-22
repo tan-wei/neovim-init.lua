@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "aymenhafeez/doric-themes.nvim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "wunki/gondolin.nvim",
   lazy = true,

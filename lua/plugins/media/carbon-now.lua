@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ellisonleao/carbon-now.nvim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "j-morano/buffer_manager.nvim",
   dependencies = {

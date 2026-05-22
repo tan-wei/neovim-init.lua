@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "f-person/git-blame.nvim",
   event = "VeryLazy",

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "sQVe/sort.nvim",
   event = "VeryLazy",

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ricardoraposo/bonsai.nvim",
   lazy = true,

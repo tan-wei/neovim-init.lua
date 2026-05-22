@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "deparr/tairiki.nvim",
   lazy = true,

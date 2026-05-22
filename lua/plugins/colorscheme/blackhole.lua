@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "biisal/blackhole",
   lazy = true,

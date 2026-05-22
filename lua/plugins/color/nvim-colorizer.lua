@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "catgoose/nvim-colorizer.lua",
   event = "VeryLazy",

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "jakewvincent/mkdnflow.nvim",
   dependencies = {

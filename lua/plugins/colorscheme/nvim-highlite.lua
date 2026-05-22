@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Iron-E/nvim-highlite",
   lazy = true,

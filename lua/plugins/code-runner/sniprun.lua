@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "michaelb/sniprun",
   build = "sh ./install.sh",

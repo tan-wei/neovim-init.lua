@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "hedyhli/outline.nvim",
   cmd = { "Outline", "OutlineStatus" },

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "DeviusVim/deviuspro.nvim",
   lazy = true,

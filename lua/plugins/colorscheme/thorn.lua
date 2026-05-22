@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "jpwol/thorn.nvim",
   lazy = true,

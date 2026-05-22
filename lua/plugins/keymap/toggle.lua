@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "gregorias/toggle.nvim",
   dependencies = {

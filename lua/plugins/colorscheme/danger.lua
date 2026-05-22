@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "igorgue/danger",
   lazy = true,

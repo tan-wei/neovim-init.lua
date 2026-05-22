@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "cpea2506/one_monokai.nvim",
   lazy = true,

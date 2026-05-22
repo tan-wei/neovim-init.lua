@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "m-mead/eddy.nvim",
   lazy = true,

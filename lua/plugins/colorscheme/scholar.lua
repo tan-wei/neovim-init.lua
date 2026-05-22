@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "abreujp/scholar.nvim",
   lazy = true,

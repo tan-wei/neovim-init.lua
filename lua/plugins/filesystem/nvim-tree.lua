@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "nvim-tree/nvim-tree.lua",
   dependencies = {

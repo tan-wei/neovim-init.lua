@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ricardoraposo/nightwolf.nvim",
   lazy = true,

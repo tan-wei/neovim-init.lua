@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "T-b-t-nchos/Aquavium.nvim",
   lazy = true,

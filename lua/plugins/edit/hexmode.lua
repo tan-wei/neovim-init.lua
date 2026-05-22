@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "fidian/hexmode",
   cmd = "Hexmode",

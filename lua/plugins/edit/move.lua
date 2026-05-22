@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "fedepujol/move.nvim",
   cmd = { "MoveLine", "MoveChar", "MoveWord" },

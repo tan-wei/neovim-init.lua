@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "https://codeberg.org/m15a/nvim-srcerite",
   dependencies = {

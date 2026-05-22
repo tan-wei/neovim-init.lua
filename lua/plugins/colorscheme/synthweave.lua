@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "samharju/synthweave.nvim",
   lazy = true,

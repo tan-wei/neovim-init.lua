@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "3rd/image.nvim",
   enabled = require("util.package").enabled_unix_only(),

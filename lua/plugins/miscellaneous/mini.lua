@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "nvim-mini/mini.nvim",
   enabled = false,

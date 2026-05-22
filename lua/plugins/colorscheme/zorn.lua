@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "anhari/zorn.nvim",
   lazy = true,

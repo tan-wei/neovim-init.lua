@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "xero/miasma.nvim",
   lazy = true,

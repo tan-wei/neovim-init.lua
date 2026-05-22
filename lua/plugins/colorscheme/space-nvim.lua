@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Th3Whit3Wolf/space-nvim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "wesleimp/min-theme.nvim",
   name = "min-dark",

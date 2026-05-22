@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "wurli/cobalt.nvim",
   lazy = true,

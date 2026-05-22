@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Maya-sama/kawaii.nvim",
   lazy = true,

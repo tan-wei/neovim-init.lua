@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "reobin/olive-crt.nvim",
   lazy = true,

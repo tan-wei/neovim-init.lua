@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "eldritch-theme/eldritch.nvim",
   lazy = true,

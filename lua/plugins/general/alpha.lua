@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "goolord/alpha-nvim",
   dependencies = {

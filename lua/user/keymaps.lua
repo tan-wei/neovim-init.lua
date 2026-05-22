@@ -1,3 +1,4 @@
+---@type { setup: fun() }
 local M = {}
 
 local opts = { noremap = true, silent = true }

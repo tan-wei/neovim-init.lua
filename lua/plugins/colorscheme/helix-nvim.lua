@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "oneslash/helix-nvim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "mslvx/obscure.nvim",
   lazy = true,

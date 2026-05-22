@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Pearljak/terracotta.nvim",
   lazy = true,

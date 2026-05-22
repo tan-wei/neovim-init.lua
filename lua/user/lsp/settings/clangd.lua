@@ -66,7 +66,8 @@ local function clangd_parallelism()
   return "-j=" .. require("util.os").get_parallel_job_count(4, 1)
 end
 
-return {
+---@type vim.lsp.Config
+local M = {
   -- before_init must be at the top level, NOT inside settings.
   -- settings gets JSON-serialized for workspace/didChangeConfiguration,
   -- and functions cannot be serialized.
@@ -124,3 +125,5 @@ return {
   filetypes = { "c", "cpp", "cxx", "h", "hpp", "objc", "objcpp", "cuda", "proto" },
   single_file_support = true,
 }
+
+return M

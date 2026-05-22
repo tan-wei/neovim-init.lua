@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "scottmckendry/cyberdream.nvim",
   lazy = true,

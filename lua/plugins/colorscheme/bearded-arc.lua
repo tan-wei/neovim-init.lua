@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "kcayme/bearded-arc.nvim",
   lazy = true,

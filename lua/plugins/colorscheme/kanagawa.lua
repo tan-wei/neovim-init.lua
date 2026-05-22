@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "rebelot/kanagawa.nvim",
   lazy = true,

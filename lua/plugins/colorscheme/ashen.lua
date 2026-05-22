@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ficd0/ashen.nvim",
   lazy = true,

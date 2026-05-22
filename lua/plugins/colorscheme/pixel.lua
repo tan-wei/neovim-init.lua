@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "bjarneo/pixel.nvim",
   lazy = true,

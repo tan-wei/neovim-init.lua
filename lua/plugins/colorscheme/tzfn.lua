@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "sirzif/tzfn.nvim",
   lazy = true,

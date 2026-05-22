@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "jghauser/fold-cycle.nvim",
   event = "VeryLazy",

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "t-troebst/perfanno.nvim",
   dependencies = {

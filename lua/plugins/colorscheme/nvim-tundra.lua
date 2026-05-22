@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "sam4llis/nvim-tundra",
   lazy = true,

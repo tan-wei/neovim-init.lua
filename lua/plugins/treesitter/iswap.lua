@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "mizlan/iswap.nvim",
   dependencies = {

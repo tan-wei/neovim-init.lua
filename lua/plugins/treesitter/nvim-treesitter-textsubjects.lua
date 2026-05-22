@@ -8,6 +8,7 @@
 --   - ';'  textsubjects-container-outer  (select outer container)
 --   - 'i;' textsubjects-container-inner  (select inner container)
 --   - ','  repeat previous selection
+---@type LazyPluginSpec
 local M = {
   "RRethy/nvim-treesitter-textsubjects",
   enabled = false,

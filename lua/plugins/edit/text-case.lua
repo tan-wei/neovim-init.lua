@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "johmsalas/text-case.nvim",
   dependencies = {

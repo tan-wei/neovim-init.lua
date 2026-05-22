@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "aperezdc/vim-template",
   cmd = { "Template", "TemplateHere" },

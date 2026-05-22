@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "polirritmico/monokai-nightasty.nvim",
   lazy = true,

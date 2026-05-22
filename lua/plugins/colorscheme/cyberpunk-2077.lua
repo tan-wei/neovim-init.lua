@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "followLemmi/cyberpunk-2077.nvim",
   lazy = true,

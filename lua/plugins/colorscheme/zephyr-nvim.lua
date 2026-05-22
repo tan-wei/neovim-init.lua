@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "nvimdev/zephyr-nvim",
   dependencies = {

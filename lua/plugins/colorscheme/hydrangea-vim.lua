@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "yuttie/hydrangea-vim",
   lazy = true,

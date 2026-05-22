@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "dgox16/oldworld.nvim",
   lazy = true,

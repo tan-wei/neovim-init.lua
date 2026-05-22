@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "rakr/vim-one",
   lazy = true,

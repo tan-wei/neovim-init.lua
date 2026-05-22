@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "tanvirtin/vgit.nvim",
   dependencies = {

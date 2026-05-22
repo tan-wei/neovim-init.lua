@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "LudoPinelli/comment-box.nvim",
   cmd = {

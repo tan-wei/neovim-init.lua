@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "gmr458/vscode_modern_theme.nvim",
   lazy = true,

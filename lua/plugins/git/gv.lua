@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "junegunn/gv.vim",
   dependencies = {

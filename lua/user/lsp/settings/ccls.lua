@@ -2,7 +2,8 @@ local compile_commands = require "util.compile_commands"
 
 local noopfn = function() end
 
-return {
+---@type vim.lsp.Config
+local M = {
   before_init = function(_, config)
     local ok, cmake = pcall(require, "cmake-tools")
     if ok then
@@ -73,3 +74,5 @@ return {
     },
   },
 }
+
+return M

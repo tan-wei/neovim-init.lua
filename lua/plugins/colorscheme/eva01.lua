@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "hachy/eva01.vim",
   lazy = true,

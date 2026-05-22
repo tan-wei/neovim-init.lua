@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "dlyongemallo/diffview.nvim", -- NOTE: Use fork version which is actively maintained
   cmd = {

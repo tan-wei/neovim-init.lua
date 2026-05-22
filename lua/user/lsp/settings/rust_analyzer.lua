@@ -1,4 +1,5 @@
-return {
+---@type vim.lsp.Config
+local M = {
   settings = {
     ["rust-analyzer"] = {
       diagnostics = {
@@ -7,3 +8,5 @@ return {
     },
   },
 }
+
+return M

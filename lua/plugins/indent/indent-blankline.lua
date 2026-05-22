@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "lukas-reineke/indent-blankline.nvim",
   dependencies = {

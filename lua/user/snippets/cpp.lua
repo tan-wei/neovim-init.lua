@@ -230,7 +230,9 @@ local function add_header_callback()
   }
 end
 
-return {
+---@type any[]
+local M = {
+
   s(
     {
       trig = "clsd",
@@ -350,3 +352,5 @@ class {} {{
     )
   ),
 }
+
+return M

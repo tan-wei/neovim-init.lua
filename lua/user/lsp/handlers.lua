@@ -1,3 +1,9 @@
+---@class UserLspHandlers
+---@field capabilities table<string, any>
+---@field setup fun()
+---@field on_attach fun(client: vim.lsp.Client, bufnr: integer)
+
+---@type UserLspHandlers
 local M = {}
 
 if vim.g.completion_engine == "blink" then

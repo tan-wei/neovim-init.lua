@@ -954,7 +954,8 @@ return M
   )
 end
 
-return {
+---@type any[]
+local M = {
   --- PLUGIN ---
   s(
     {
@@ -1111,3 +1112,5 @@ return {{
     )
   ),
 }
+
+return M

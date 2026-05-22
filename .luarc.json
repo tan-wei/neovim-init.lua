@@ -6,7 +6,10 @@
   "workspace": {
     "library": [
       "$VIMRUNTIME",
-      "$LAZYROOT/lazy.nvim",
+      "${env:XDG_DATA_HOME}/nvim/lazy/lazy.nvim",
+      "${env:HOME}/.local/share/nvim/lazy/lazy.nvim",
+      "${env:HOME}/Library/Application Support/nvim/lazy/lazy.nvim",
+      "${env:LOCALAPPDATA}/nvim-data/lazy/lazy.nvim",
       "${3rd}/luv/library"
     ],
     "ignoreDir": []

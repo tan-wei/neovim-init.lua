@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "craftzdog/solarized-osaka.nvim",
   lazy = true,

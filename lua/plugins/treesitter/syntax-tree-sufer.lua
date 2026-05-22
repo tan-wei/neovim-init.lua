@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ziontee113/syntax-tree-surfer",
   dependencies = {

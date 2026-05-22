@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "felipeagc/fleet-theme-nvim",
   lazy = true,

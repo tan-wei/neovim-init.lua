@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "marcos-venicius/zenburned",
   lazy = true,

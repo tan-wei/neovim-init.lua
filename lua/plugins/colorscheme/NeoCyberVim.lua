@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "DonJulve/NeoCyberVim",
   lazy = true,

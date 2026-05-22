@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "AstroNvim/astrotheme",
   lazy = true,

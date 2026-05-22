@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Thiago4532/mdmath.nvim",
   enabled = require("util.os").is_linux() or require("util.os").is_macos(),

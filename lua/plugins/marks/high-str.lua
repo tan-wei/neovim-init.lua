@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "pocco81/high-str.nvim",
   cmd = { "HSHighlight", "HSRmHighlight", "HSExport", "HSImport" },

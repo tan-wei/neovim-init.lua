@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "tpope/vim-abolish",
   cmd = { "Abolish", "Subvert" },

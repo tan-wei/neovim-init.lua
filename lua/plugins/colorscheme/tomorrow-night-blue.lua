@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "gnfisher/tomorrow-night-blue.nvim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "miikanissi/modus-themes.nvim",
   lazy = true,

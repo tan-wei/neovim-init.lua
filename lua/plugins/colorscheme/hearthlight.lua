@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "dgrco/hearthlight.nvim",
   lazy = true,

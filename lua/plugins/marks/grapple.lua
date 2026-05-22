@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "cbochs/grapple.nvim",
   dependencies = {

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ianklapouch/wildberries.nvim",
   lazy = true,

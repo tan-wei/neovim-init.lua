@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "pablobfonseca/cyberpunk-theme",
   lazy = true,

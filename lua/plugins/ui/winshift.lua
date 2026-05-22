@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "sindrets/winshift.nvim",
   cmd = { "WinShift" },

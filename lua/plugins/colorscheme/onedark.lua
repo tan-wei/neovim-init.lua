@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "navarasu/onedark.nvim",
   lazy = true,

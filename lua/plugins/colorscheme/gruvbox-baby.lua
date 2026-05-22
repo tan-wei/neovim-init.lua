@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "luisiacc/gruvbox-baby",
   lazy = true,

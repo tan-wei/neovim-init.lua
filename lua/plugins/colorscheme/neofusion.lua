@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "diegoulloao/neofusion.nvim",
   lazy = true,

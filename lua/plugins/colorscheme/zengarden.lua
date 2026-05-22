@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "tobi-wan-kenobi/zengarden",
   dependencies = {

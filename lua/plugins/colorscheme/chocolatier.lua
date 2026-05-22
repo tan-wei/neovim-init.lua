@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "qaptoR-nvim/chocolatier.nvim",
   lazy = true,

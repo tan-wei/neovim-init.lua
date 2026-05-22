@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ab-dx/ares.nvim",
   dependencies = {

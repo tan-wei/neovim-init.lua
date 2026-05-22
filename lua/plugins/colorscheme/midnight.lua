@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "dasupradyumna/midnight.nvim",
   lazy = true,

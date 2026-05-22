@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "gen740/SmoothCursor.nvim",
   event = "VeryLazy",

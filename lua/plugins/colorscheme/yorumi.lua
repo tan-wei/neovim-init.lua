@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "yorumicolors/yorumi.nvim",
   lazy = true,

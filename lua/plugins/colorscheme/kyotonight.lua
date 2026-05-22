@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "shrikecode/kyotonight.vim",
   lazy = true,

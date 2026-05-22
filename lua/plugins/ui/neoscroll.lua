@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "karb94/neoscroll.nvim",
   event = "VeryLazy",

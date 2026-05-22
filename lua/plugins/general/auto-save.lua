@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "okuuva/auto-save.nvim",
   ft = {

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "casedami/neomodern.nvim",
   lazy = true,

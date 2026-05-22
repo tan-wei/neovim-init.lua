@@ -1,4 +1,5 @@
-return {
+---@type vim.lsp.Config
+local M = {
   settings = {
     ltex = {
       language = "en-US",
@@ -6,3 +7,5 @@ return {
   },
   filetypes = { "bib", "gitcommit", "org", "plaintex", "rst", "rnoweb", "tex", "pandoc" }, -- ignore markdown
 }
+
+return M

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "sugiura-hiromiti/primary.nvim",
   lazy = true,

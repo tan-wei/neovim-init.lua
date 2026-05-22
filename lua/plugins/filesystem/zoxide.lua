@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "nanotee/zoxide.vim",
   cmd = { "Z", "Lz", "Tz", "Zi", "Lzi", "Tzi" },

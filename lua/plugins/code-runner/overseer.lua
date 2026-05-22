@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "stevearc/overseer.nvim",
   event = "VeryLazy",

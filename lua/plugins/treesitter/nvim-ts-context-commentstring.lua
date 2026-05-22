@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "JoosepAlviste/nvim-ts-context-commentstring",
   dependencies = {

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "mistweaverco/retro-theme.nvim",
   lazy = true,

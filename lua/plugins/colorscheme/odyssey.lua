@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "S-Spektrum-M/odyssey.nvim",
   lazy = true,

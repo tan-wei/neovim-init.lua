@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "nnavales/paragon",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "josstei/voidpulse.nvim",
   lazy = true,

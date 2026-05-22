@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "uhs-robert/oasis.nvim",
   lazy = true,

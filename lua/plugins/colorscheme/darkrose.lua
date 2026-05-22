@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "water-sucks/darkrose.nvim",
   lazy = true,

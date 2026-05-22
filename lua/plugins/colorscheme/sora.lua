@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Aejkatappaja/sora",
   lazy = true,

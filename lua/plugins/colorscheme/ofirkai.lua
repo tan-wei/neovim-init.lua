@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ofirgall/ofirkai.nvim",
   lazy = true,

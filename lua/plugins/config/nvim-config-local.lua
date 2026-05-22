@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "klen/nvim-config-local",
   lazy = false,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "marko-cerovac/material.nvim",
   lazy = true,

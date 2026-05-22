@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "WhoIsSethDaniel/mason-tool-installer.nvim",
 }

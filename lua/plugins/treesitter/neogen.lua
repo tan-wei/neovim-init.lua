@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "danymat/neogen",
   dependencies = {

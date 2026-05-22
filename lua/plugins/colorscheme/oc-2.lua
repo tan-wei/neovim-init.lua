@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "0xleodevv/oc-2.nvim",
   lazy = true,

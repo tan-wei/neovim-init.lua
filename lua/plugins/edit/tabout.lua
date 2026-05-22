@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "abecodes/tabout.nvim",
   dependencies = {

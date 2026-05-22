@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "HakonHarnes/img-clip.nvim",
   ft = { "markdown" },

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "katawful/kat.nvim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "pmouraguedes/neodarcula.nvim",
   lazy = true,

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "hardhackerlabs/theme-vim",
   name = "hardhacker",

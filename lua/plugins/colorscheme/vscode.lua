@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Mofiqul/vscode.nvim",
   lazy = true,

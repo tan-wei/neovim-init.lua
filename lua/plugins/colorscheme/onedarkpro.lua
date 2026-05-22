@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "olimorris/onedarkpro.nvim",
   lazy = true,

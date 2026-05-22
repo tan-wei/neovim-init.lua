@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "ellisonleao/gruvbox.nvim",
   lazy = true,

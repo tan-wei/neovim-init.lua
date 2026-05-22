@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "raphamorim/lucario",
   lazy = true,

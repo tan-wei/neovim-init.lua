@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "smjonas/inc-rename.nvim",
   cmd = "IncRename",

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "danielfalk/smart-open.nvim",
   dependencies = {

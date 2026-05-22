@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "kdheepak/lazygit.nvim",
   dependencies = {

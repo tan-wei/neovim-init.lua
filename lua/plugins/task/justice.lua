@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "chrisgrieser/nvim-justice",
   dependencies = {

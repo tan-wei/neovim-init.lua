@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Eandrju/cellular-automaton.nvim",
   cmd = "CellularAutomaton",

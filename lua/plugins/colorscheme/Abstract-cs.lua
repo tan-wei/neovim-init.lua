@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Abstract-IDE/Abstract-cs",
   lazy = true,

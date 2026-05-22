@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "dybdeskarphet/gruvbox-minimal.nvim",
   lazy = true,

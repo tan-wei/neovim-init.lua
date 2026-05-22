@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "nvim-zh/colorful-winsep.nvim",
   event = { "WinLeave" },

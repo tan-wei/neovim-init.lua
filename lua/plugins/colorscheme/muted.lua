@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "pisgahk/muted.nvim",
   lazy = true,

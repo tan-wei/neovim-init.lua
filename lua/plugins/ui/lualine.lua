@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "nvim-lualine/lualine.nvim",
   dependencies = {
@@ -387,8 +388,8 @@ M.config = function()
       end
     end
 
-    add_linters("_")
-    add_linters("*")
+    add_linters "_"
+    add_linters "*"
     add_linters(filetype)
 
     for _, ft in ipairs(vim.split(filetype, ".", { plain = true, trimempty = true })) do

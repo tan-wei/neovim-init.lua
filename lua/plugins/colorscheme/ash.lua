@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "drewxs/ash.nvim",
   lazy = true,

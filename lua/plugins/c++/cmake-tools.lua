@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "Civitasv/cmake-tools.nvim",
   dependencies = {

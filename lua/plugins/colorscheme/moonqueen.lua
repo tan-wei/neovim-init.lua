@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "sailorfe/moonqueen.nvim",
   dependencies = {

@@ -1,3 +1,4 @@
+---@type LazyPluginSpec
 local M = {
   "neovim/nvim-lspconfig",
   dependencies = {
