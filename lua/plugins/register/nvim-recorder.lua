@@ -18,8 +18,8 @@ M.opts = {
     yankMacro = "yq",
     deleteAllMacros = "dq",
     addBreakPoint = "##",
-    clear = true,
   },
+  clear = true,
 }
 
 return M
