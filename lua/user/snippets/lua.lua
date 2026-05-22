@@ -13,8 +13,37 @@ local fmt = require("luasnip.extras.fmt").fmt
 local m = require("luasnip.extras").m
 local lambda = require("luasnip.extras").l
 
+local function typed_snippet(type_name, template, nodes)
+  return sn(nil, fmt("---@type " .. type_name .. "\n" .. template, nodes))
+end
+
 local function plugin_snippet(template, nodes)
-  return sn(nil, fmt(template, nodes))
+  return typed_snippet("LazyPluginSpec", template, nodes)
+end
+
+local function lsp_config_snippet(template, nodes)
+  return typed_snippet("vim.lsp.Config", template, nodes)
+end
+
+local function common_module_type_annotation()
+  return c(1, {
+    t "---@type LazyPluginSpec",
+    t "---@type vim.lsp.Config",
+    sn(nil, fmt("---@type {}", { i(1, "TypeName") })),
+  })
+end
+
+local function lsp_config_module()
+  return lsp_config_snippet(
+    [[
+local M = {{
+  {}
+}}
+
+return M
+  ]],
+    { i(0) }
+  )
 end
 
 local function returned_module_name()
@@ -1018,9 +1047,9 @@ local M = {
     {
       trig = "pluo",
       name = "Plugin Opts",
-      dscr = "lazy.nvim plugin spec with event and M.opts",
+      dscr = "typed lazy.nvim plugin spec with event and M.opts",
     },
-    fmt(
+    plugin_snippet(
       [[
 local M = {{
   "{}",
@@ -1045,9 +1074,9 @@ return M
     {
       trig = "pluc",
       name = "Plugin Config",
-      dscr = "lazy.nvim plugin spec with event and M.config",
+      dscr = "typed lazy.nvim plugin spec with event and M.config",
     },
-    fmt(
+    plugin_snippet(
       [[
 local M = {{
   "{}",
@@ -1066,6 +1095,24 @@ return M
         i(0),
       }
     )
+  ),
+
+  s(
+    {
+      trig = "mty",
+      name = "Module Type",
+      dscr = "Common top-level module type annotation",
+    },
+    common_module_type_annotation()
+  ),
+
+  s(
+    {
+      trig = "lcfg",
+      name = "LSP Config Module",
+      dscr = "vim.lsp.Config module skeleton",
+    },
+    lsp_config_module()
   ),
 
   s(
