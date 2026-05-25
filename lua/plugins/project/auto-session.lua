@@ -143,7 +143,7 @@ M.config = function()
       picker_opts = { border = true },
       previewer = true,
     },
-    bypass_save_filetypes = { "alpha", "dashboard", "oil", "telescope", "Outline" },
+    bypass_save_filetypes = { "alpha", "dashboard", "oil", "telescope", "Outline", "terminal" },
     save_extra_cmds = {
       save_early_retirement_pins,
       save_overseer_tasks,
