@@ -1097,23 +1097,17 @@ return M
     )
   ),
 
-  s(
-    {
-      trig = "mty",
-      name = "Module Type",
-      dscr = "Common top-level module type annotation",
-    },
-    common_module_type_annotation()
-  ),
+  s({
+    trig = "mty",
+    name = "Module Type",
+    dscr = "Common top-level module type annotation",
+  }, common_module_type_annotation()),
 
-  s(
-    {
-      trig = "lcfg",
-      name = "LSP Config Module",
-      dscr = "vim.lsp.Config module skeleton",
-    },
-    lsp_config_module()
-  ),
+  s({
+    trig = "lcfg",
+    name = "LSP Config Module",
+    dscr = "vim.lsp.Config module skeleton",
+  }, lsp_config_module()),
 
   s(
     {
