@@ -6,6 +6,26 @@ end
 
 local general_group = augroup "general"
 
+local spell_comment_filetypes = {
+  "bash",
+  "c",
+  "cmake",
+  "cpp",
+  "go",
+  "javascript",
+  "javascriptreact",
+  "lua",
+  "python",
+  "rust",
+  "sh",
+  "toml",
+  "typescript",
+  "typescriptreact",
+  "vim",
+  "yaml",
+  "zsh",
+}
+
 vim.api.nvim_create_autocmd("FileType", {
   group = general_group,
   pattern = { "qf", "help", "man", "lspinfo" },
@@ -34,6 +54,15 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   desc = "Avoid continuing comments on new lines",
   callback = function()
     vim.opt_local.formatoptions:remove { "c", "r", "o" }
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = general_group,
+  pattern = spell_comment_filetypes,
+  desc = "Enable spell checking for comment spell regions in common code files",
+  callback = function()
+    vim.opt_local.spell = true
   end,
 })
 
