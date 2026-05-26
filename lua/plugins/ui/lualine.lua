@@ -236,6 +236,18 @@ M.config = function()
     }
   end
 
+  local function get_multicursor_state()
+    local ok, mc = pcall(require, "multicursor-nvim")
+    if not ok or not mc.hasCursors() then
+      return nil
+    end
+
+    return {
+      total = mc.numCursors(),
+      disabled = mc.numDisabledCursors(),
+    }
+  end
+
   local harpoon_status = badge {
     function()
       local state = get_harpoon_state()
@@ -278,6 +290,33 @@ M.config = function()
       vim.schedule(function()
         state.harpoon.ui:toggle_quick_menu(state.list)
       end)
+    end,
+  }
+
+  local multicursor_status = badge {
+    function()
+      local state = get_multicursor_state()
+      if state == nil then
+        return ""
+      end
+
+      local parts = { string.format("󰆿 %d", state.total) }
+      if state.disabled > 0 then
+        parts[#parts + 1] = string.format("󰎀 %d", state.disabled)
+      end
+
+      return table.concat(parts, " ")
+    end,
+    cond = function()
+      return get_multicursor_state() ~= nil
+    end,
+    color = function()
+      local state = get_multicursor_state()
+      if state and state.disabled > 0 then
+        return "Search"
+      end
+
+      return "PmenuSel"
     end,
   }
 
@@ -466,7 +505,7 @@ M.config = function()
     sections = {
       lualine_a = { "fancy_branch", "fancy_diagnostics" },
       lualine_b = { { "fancy_mode", width = 8 } },
-      lualine_c = vim.list_extend({ "fancy_cwd", project_config, session, harpoon_status }, macro_components_c),
+      lualine_c = vim.list_extend({ "fancy_cwd", project_config, session, harpoon_status, multicursor_status }, macro_components_c),
       lualine_x = vim.list_extend(
         noice_components_x,
         { "overseer", colorscheme, "fancy_searchcount", spaces, encoding, "fancy_filetype" }

@@ -12,6 +12,13 @@ M.config = function()
 
   local set = vim.keymap.set
 
+  local function refresh_lualine()
+    local ok, lualine = pcall(require, "lualine")
+    if ok then
+      lualine.refresh { place = { "statusline" } }
+    end
+  end
+
   local function get_hl(name)
     local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = name, link = false })
     if ok then
@@ -139,6 +146,10 @@ M.config = function()
     group = vim.api.nvim_create_augroup("UserMultiCursorHighlights", { clear = true }),
     callback = set_multicursor_highlights,
   })
+
+  mc.onSafeState(function()
+    vim.schedule(refresh_lualine)
+  end)
 end
 
 return M
