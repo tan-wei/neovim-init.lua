@@ -1,8 +1,9 @@
 ---@type LazyPluginSpec
 local M = {
   "jake-stewart/multicursor.nvim",
+  branch = "1.0",
   event = "VeryLazy",
-  enabled = false,
+  enabled = true,
 }
 
 M.config = function()
@@ -10,6 +11,24 @@ M.config = function()
   mc.setup()
 
   local set = vim.keymap.set
+
+  local function get_hl(name)
+    local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = name, link = false })
+    if ok then
+      return hl
+    end
+    return {}
+  end
+
+  local function first_hl_color(names, key, fallback)
+    for _, name in ipairs(names) do
+      local value = get_hl(name)[key]
+      if value ~= nil then
+        return value
+      end
+    end
+    return fallback
+  end
 
   -- Add or skip cursor above/below the main cursor.
   set({ "n", "x" }, "<up>", function()
@@ -26,16 +45,16 @@ M.config = function()
   end)
 
   -- Add or skip adding a new cursor by matching word/selection
-  set({ "n", "x" }, "<leader>n", function()
+  set({ "n", "x" }, "]m", function()
     mc.matchAddCursor(1)
   end)
-  set({ "n", "x" }, "<leader>s", function()
+  set({ "n", "x" }, "]M", function()
     mc.matchSkipCursor(1)
   end)
-  set({ "n", "x" }, "<leader>N", function()
+  set({ "n", "x" }, "[m", function()
     mc.matchAddCursor(-1)
   end)
-  set({ "n", "x" }, "<leader>S", function()
+  set({ "n", "x" }, "[M", function()
     mc.matchSkipCursor(-1)
   end)
 
@@ -45,7 +64,7 @@ M.config = function()
   set("n", "<c-leftrelease>", mc.handleMouseRelease)
 
   -- Disable and enable cursors.
-  set({ "n", "x" }, "<c-q>", mc.toggleCursor)
+  set({ "n", "x" }, "<A-q>", mc.toggleCursor)
 
   -- Mappings defined in a keymap layer only apply when there are
   -- multiple cursors. This lets you have overlapping mappings.
@@ -68,14 +87,58 @@ M.config = function()
   end)
 
   -- Customize how cursors look.
-  local hl = vim.api.nvim_set_hl
-  hl(0, "MultiCursorCursor", { reverse = true })
-  hl(0, "MultiCursorVisual", { link = "Visual" })
-  hl(0, "MultiCursorSign", { link = "SignColumn" })
-  hl(0, "MultiCursorMatchPreview", { link = "Search" })
-  hl(0, "MultiCursorDisabledCursor", { reverse = true })
-  hl(0, "MultiCursorDisabledVisual", { link = "Visual" })
-  hl(0, "MultiCursorDisabledSign", { link = "SignColumn" })
+  local function set_multicursor_highlights()
+    local hl = vim.api.nvim_set_hl
+    local normal = get_hl "Normal"
+    local cursor_bg = first_hl_color({ "CurSearch", "IncSearch", "Search", "Visual" }, "bg", 0xFFAF5F)
+    local cursor_fg = first_hl_color({ "CurSearch", "IncSearch", "Search" }, "fg", normal.bg)
+    local visual_bg = first_hl_color({ "Visual", "CursorLine", "Search" }, "bg", 0x3A3F58)
+    local disabled_bg = first_hl_color({ "PmenuSel", "StatusLine", "CursorLine", "Visual" }, "bg", 0x6C7086)
+    local disabled_fg = first_hl_color({ "PmenuSel", "StatusLine", "Visual" }, "fg", normal.bg)
+    local preview_bg = first_hl_color({ "Search", "IncSearch", "CurSearch" }, "bg", cursor_bg)
+    local preview_fg = first_hl_color({ "Search", "IncSearch", "CurSearch" }, "fg", normal.bg)
+
+    hl(0, "MultiCursorCursor", {
+      fg = cursor_fg,
+      bg = cursor_bg,
+      bold = true,
+      nocombine = true,
+    })
+    hl(0, "MultiCursorVisual", {
+      bg = visual_bg,
+      nocombine = true,
+    })
+    hl(0, "MultiCursorSign", {
+      fg = cursor_bg,
+      nocombine = true,
+    })
+    hl(0, "MultiCursorMatchPreview", {
+      fg = preview_fg,
+      bg = preview_bg,
+      bold = true,
+      nocombine = true,
+    })
+    hl(0, "MultiCursorDisabledCursor", {
+      fg = disabled_fg,
+      bg = disabled_bg,
+      nocombine = true,
+    })
+    hl(0, "MultiCursorDisabledVisual", {
+      bg = disabled_bg,
+      nocombine = true,
+    })
+    hl(0, "MultiCursorDisabledSign", {
+      fg = disabled_bg,
+      nocombine = true,
+    })
+  end
+
+  set_multicursor_highlights()
+
+  vim.api.nvim_create_autocmd("ColorScheme", {
+    group = vim.api.nvim_create_augroup("UserMultiCursorHighlights", { clear = true }),
+    callback = set_multicursor_highlights,
+  })
 end
 
 return M
