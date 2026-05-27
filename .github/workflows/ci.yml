@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  nvim-nightly-version:
+    name: ${{ matrix.os_name }} (${{ matrix.arch }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os_name: Linux
+            arch: x86_64
+            runner: ubuntu-24.04
+            archive: nvim-linux-x86_64.tar.gz
+            extracted_dir: nvim-linux-x86_64
+          - os_name: macOS
+            arch: arm64
+            runner: macos-15
+            archive: nvim-macos-arm64.tar.gz
+            extracted_dir: nvim-macos-arm64
+          - os_name: Windows
+            arch: x86_64
+            runner: windows-2025
+            archive: nvim-win64.zip
+            extracted_dir: nvim-win64
+          - os_name: Linux
+            arch: arm64
+            runner: ubuntu-24.04-arm
+            archive: nvim-linux-arm64.tar.gz
+            extracted_dir: nvim-linux-arm64
+          - os_name: macOS
+            arch: x86_64
+            runner: macos-15-intel
+            archive: nvim-macos-x86_64.tar.gz
+            extracted_dir: nvim-macos-x86_64
+          - os_name: Windows
+            arch: arm64
+            runner: windows-11-arm
+            archive: nvim-win-arm64.zip
+            extracted_dir: nvim-win-arm64
+
+    steps:
+      - name: Install Neovim nightly on Unix
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          curl -fsSLo "$RUNNER_TEMP/${{ matrix.archive }}" \
+            "https://github.com/neovim/neovim/releases/download/nightly/${{ matrix.archive }}"
+          tar -xzf "$RUNNER_TEMP/${{ matrix.archive }}" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/${{ matrix.extracted_dir }}/bin" >> "$GITHUB_PATH"
+
+      - name: Install Neovim nightly on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $archive = '${{ matrix.archive }}'
+          $downloadUrl = "https://github.com/neovim/neovim/releases/download/nightly/$archive"
+          $destination = Join-Path $env:RUNNER_TEMP $archive
+          $installDir = Join-Path $env:RUNNER_TEMP 'nvim'
+
+          Invoke-WebRequest -Uri $downloadUrl -OutFile $destination
+          Expand-Archive -Path $destination -DestinationPath $installDir -Force
+          Add-Content -Path $env:GITHUB_PATH -Value (Join-Path $installDir '${{ matrix.extracted_dir }}\bin')
+
+      - name: Show Neovim version on Unix
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          set -euxo pipefail
+          nvim --version | head -n 5
+
+      - name: Show Neovim version on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          nvim --version | Select-Object -First 5
