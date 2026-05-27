@@ -9,10 +9,18 @@ M.config = function()
   require("colorizer").setup {
     filetypes = {
       "lua",
-      markdown = { names = false },
-      cpp = { names = false },
+      "markdown",
+      "cpp",
     },
-    user_default_options = { mode = "background" },
+    options = {
+      parsers = {
+        names = true,
+        hex = { default = true },
+      },
+      display = {
+        mode = "background",
+      },
+    },
   }
 
   -- execute colorizer as soon as possible
