@@ -346,8 +346,7 @@ M.config = function()
           score_offset = -5,
           enabled = function()
             local bufname = vim.api.nvim_buf_get_name(0)
-            return bufname:sub(-#"ginit.vim") == "ginit.vim"
-              or bufname:sub(-#"goneovim.lua") == "goneovim.lua"
+            return bufname:sub(-#"ginit.vim") == "ginit.vim" or bufname:sub(-#"goneovim.lua") == "goneovim.lua"
           end,
         },
         -- dadbod has native blink support

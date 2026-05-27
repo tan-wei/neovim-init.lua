@@ -24,7 +24,7 @@ M.opts = {
 M.config = function(_, opts)
   require("demicolon").setup(opts)
 
-  local jump = require("demicolon.jump")
+  local jump = require "demicolon.jump"
 
   local function set_neotest_jump(lhs, forward, jump_opts, desc)
     vim.keymap.set("n", lhs, function()

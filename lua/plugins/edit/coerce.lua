@@ -14,11 +14,11 @@ M.config = function()
   local ok, wk = pcall(require, "which-key")
   if ok then
     local wke = require("coerce.keymaps").which_key_expand
-    wk.add({
+    wk.add {
       { "cr", group = "+Coerce word", expand = wke.normal_mode, mode = "n" },
       { "gcr", group = "+Coerce motion", expand = wke.motion_mode, mode = "n" },
       { "gcr", group = "+Coerce visual", expand = wke.visual_mode, mode = "x" },
-    })
+    }
   else
     vim.keymap.set("n", "cr", "<Plug>(coerce-normal)", { desc = "Coerce word" })
     vim.keymap.set("n", "gcr", "<Plug>(coerce-motion)", { desc = "Coerce motion" })

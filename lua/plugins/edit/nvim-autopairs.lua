@@ -32,10 +32,9 @@ M.config = function()
     },
   }
 
-
   npairs.add_rules {
     -- LaTeX: $$ only pairs inside strings/comments
-    Rule("$", "$", "latex"):with_pair(ts_conds.is_ts_node({ "string", "comment" })),
+    Rule("$", "$", "latex"):with_pair(ts_conds.is_ts_node { "string", "comment" }),
   }
 
   if vim.g.completion_engine ~= "blink" then
