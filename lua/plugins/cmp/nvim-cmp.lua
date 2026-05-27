@@ -135,29 +135,22 @@ M.config = function()
     return "»" .. name .. "«"
   end
 
-  local buf_is_options_lua = function(bufnr)
-    local bufname = vim.api.nvim_buf_get_name(bufnr)
-    local enable_filename = "options.lua"
-    return bufname:sub(-#enable_filename) == enable_filename
+  local make_buf_is_checker = function(filename)
+    return function(bufnr)
+      local bufname = vim.api.nvim_buf_get_name(bufnr)
+      return bufname:sub(-#filename) == filename
+    end
   end
 
-  local buf_is_ginit_vim = function(bufnr)
-    local bufname = vim.api.nvim_buf_get_name(bufnr)
-    local enable_filename = "ginit.vim"
-    return bufname:sub(-#enable_filename) == enable_filename
-  end
-
-  local buf_is_cargo_toml = function(bufnr)
-    local bufname = vim.api.nvim_buf_get_name(bufnr)
-    local enable_filename = "Cargo.toml"
-    return bufname:sub(-#enable_filename) == enable_filename
-  end
+  local buf_is_ginit_vim = make_buf_is_checker "ginit.vim"
+  local buf_is_goneovim_lua = make_buf_is_checker "goneovim.lua"
+  local buf_is_cargo_toml = make_buf_is_checker "Cargo.toml"
 
   vim.api.nvim_create_autocmd("BufReadPre", {
     callback = function(t)
       local sources = default_cmp_sources
 
-      if buf_is_options_lua(t.buf) or buf_is_ginit_vim(t.buf) then
+      if buf_is_ginit_vim(t.buf) or buf_is_goneovim_lua(t.buf) then
         sources[#sources + 1] = { name = "fonts", option = { space_filter = "-" } }
       end
 

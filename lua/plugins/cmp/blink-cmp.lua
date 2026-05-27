@@ -45,6 +45,10 @@ local M = {
     "amarz45/nvim-cmp-fonts",
     "hrsh7th/cmp-nvim-lsp-document-symbol",
 
+    -- STATUS: [DISABLED] ray-x/cmp-treesitter crashes via blink.compat (params nil).
+    -- Re-enable once a native blink treesitter source exists or compat is fixed.
+    -- "ray-x/cmp-treesitter",
+
     -- dadbod (has native blink support)
     "kristijanhusak/vim-dadbod-completion",
 
@@ -82,6 +86,8 @@ M.config = function()
     nvim_lua = "NVIM_LUA",
     emoji = "EMOJI",
     nerdfont = "NERD_FONT",
+    fonts = "FONT",
+    -- treesitter = "TREESITTER", -- disabled, see cmp-treesitter note in dependencies
     rg = "RG",
     ecolog = "ECOLOG",
     git = "GIT",
@@ -89,6 +95,7 @@ M.config = function()
     copilot = "COPILOT",
     conventional_commits = "CONVENTIONAL_COMMITS",
     dadbod = "DADBOD",
+    nvim_lsp_document_symbol = "LSP_SYMBOL",
     cmdline = "CMDLINE",
   }
 
@@ -219,6 +226,8 @@ M.config = function()
         "nvim_lua",
         "emoji",
         "nerdfont",
+        "fonts",
+        -- "treesitter", -- disabled, see cmp-treesitter note in dependencies
         "rg",
         "ecolog",
         "git",
@@ -226,7 +235,8 @@ M.config = function()
         "copilot",
       },
       per_filetype = {
-        gitcommit = { inherit_defaults = true, "conventional_commits" },
+        -- Match nvim-cmp: gitcommit only has git + conventional_commits, no noisy defaults
+        gitcommit = { "git", "conventional_commits" },
         sql = { inherit_defaults = true, "dadbod" },
       },
       providers = {
@@ -320,7 +330,26 @@ M.config = function()
           module = "blink.compat.source",
           score_offset = -3,
         },
-
+        nvim_lsp_document_symbol = {
+          name = "nvim_lsp_document_symbol",
+          module = "blink.compat.source",
+          score_offset = -3,
+        },
+        -- treesitter = { -- disabled, see cmp-treesitter note in dependencies
+        --   name = "treesitter",
+        --   module = "blink.compat.source",
+        --   score_offset = -7,
+        -- },
+        fonts = {
+          name = "fonts",
+          module = "blink.compat.source",
+          score_offset = -5,
+          enabled = function()
+            local bufname = vim.api.nvim_buf_get_name(0)
+            return bufname:sub(-#"ginit.vim") == "ginit.vim"
+              or bufname:sub(-#"goneovim.lua") == "goneovim.lua"
+          end,
+        },
         -- dadbod has native blink support
         dadbod = {
           name = "Dadbod",
@@ -337,7 +366,7 @@ M.config = function()
       sources = function()
         local type = vim.fn.getcmdtype()
         if type == "/" or type == "?" then
-          return { "buffer" }
+          return { "nvim_lsp_document_symbol", "buffer" }
         end
         if type == ":" or type == "@" then
           return { "cmdline", "path" }
