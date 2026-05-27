@@ -8,4 +8,21 @@ local M = {
   event = "VeryLazy",
 }
 
+M.opts = {
+  textobjects = {
+    move = {
+      enable = true,
+      set_jumps = true,
+      goto_next_start = {
+        ["]f"] = "@function.outer",
+        ["]c"] = "@class.outer",
+      },
+      goto_previous_start = {
+        ["[f"] = "@function.outer",
+        ["[c"] = "@class.outer",
+      },
+    },
+  },
+}
+
 return M

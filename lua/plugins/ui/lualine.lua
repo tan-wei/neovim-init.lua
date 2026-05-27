@@ -505,7 +505,10 @@ M.config = function()
     sections = {
       lualine_a = { "fancy_branch", "fancy_diagnostics" },
       lualine_b = { { "fancy_mode", width = 8 } },
-      lualine_c = vim.list_extend({ "fancy_cwd", project_config, session, harpoon_status, multicursor_status }, macro_components_c),
+      lualine_c = vim.list_extend(
+        { "fancy_cwd", project_config, session, harpoon_status, multicursor_status },
+        macro_components_c
+      ),
       lualine_x = vim.list_extend(
         noice_components_x,
         { "overseer", colorscheme, "fancy_searchcount", spaces, encoding, "fancy_filetype" }
