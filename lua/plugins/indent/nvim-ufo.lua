@@ -46,17 +46,6 @@ M.config = function()
     end,
   }
 
-  vim.keymap.set("n", "zR", ufo.openAllFolds)
-  vim.keymap.set("n", "zM", ufo.closeAllFolds)
-  vim.keymap.set("n", "zr", ufo.openFoldsExceptKinds)
-  vim.keymap.set("n", "zm", ufo.closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
-  vim.keymap.set("n", "K", function()
-    local winid = ufo.peekFoldedLinesUnderCursor()
-    if not winid then
-      vim.lsp.buf.hover { border = "rounded" }
-    end
-  end)
-
   local builtin = require "statuscol.builtin"
   require("statuscol").setup {
     relculright = true,
@@ -99,5 +88,7 @@ M.config = function()
   --   end,
   -- })
 end
+
+M.keys = require("user.keymap.registry").lazy_keys "nvim-ufo"
 
 return M

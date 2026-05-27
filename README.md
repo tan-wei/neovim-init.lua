@@ -84,6 +84,192 @@ The lowest-friction entry points are:
 
 If you want to remove or swap functionality, the corresponding plugin specs are usually under a matching folder in `lua/plugins/`.
 
+## Keymap inventory
+
+This section is the repo-level source of truth for repo-owned keymaps.
+
+Maintenance contract:
+
+1. Any change that adds, removes, or repurposes a keymap in [lua/user/keymap/plain.lua](lua/user/keymap/plain.lua), [lua/user/keymap/lazy.lua](lua/user/keymap/lazy.lua), [lua/user/keymap/buffer.lua](lua/user/keymap/buffer.lua), [lua/user/keymap/which_key.lua](lua/user/keymap/which_key.lua), [lua/user/autocommands.lua](lua/user/autocommands.lua), or plugin specs with `M.keys` must update this section in the same change.
+2. If a key replaces a core Neovim mapping, keep the `Overrides builtin` and `Replaced meaning` columns in sync. For builtin-like normal-mode slots (`g*`, `z*`, `<C-w>*`, single-key, `Ctrl-letter`), add `conflict.builtin` or at least `conflict.note` in the registry entry so the audit knows the slot was reviewed.
+3. Centralized `[` / `]` entries must declare whether they are bracket `motion` or bracket `action` via `symbol = { ... }`. Bracket motions are expected to be previous/next pairs and repeat through demicolon; bracket actions must opt out with `symbol.repeatable = false`.
+4. Centralized `>` / `<` / `=` entries are treated as operator-style actions, not navigation prefixes. They must declare `symbol = { family = "operator", role = "action", repeatable = false, ... }`.
+5. `(` / `)` / `{` / `}` stay reserved for native motions rather than repo-defined prefix families.
+6. Buffer-local mappings should be documented with their scope, not only by key.
+
+Scope notes:
+
+- This inventory focuses on repo-owned mappings and repo-generated prefixes.
+- It does not fully expand upstream default plugin mappings inherited from plugins, such as `nvim-tree`'s `default_on_attach()` defaults.
+- `mapleader` and `maplocalleader` are both `\`, configured in [lua/user/config.lua](lua/user/config.lua).
+- Plugin-local bracket families that are still generated outside the centralized registry, such as toggle.nvim's `[o` / `]o`, are documented here but are not yet covered by the symbol-family audit.
+
+### Symbol families
+
+- `[` / `]` are the repo's navigation family. Use them for previous/next style motions like `[b` / `]b`; centralized motion entries should be repeatable with demicolon.
+- `[` / `]` may still host actions when Neovim or a plugin already uses that syntax, such as Yanky's `[p` / `]p`, but those entries should explicitly opt out of repeatability.
+- `>` / `<` / `=` are operator-style action families. Keep them for transforms such as Yanky's shifted or filtered puts, not for next/previous navigation.
+- `(` / `)` / `{` / `}` are kept for native motions rather than repo-owned prefix namespaces.
+
+### Ctrl / Alt / Function / Special keys
+
+| Mode | Key | Current meaning | Overrides builtin | Replaced meaning / notes |
+| --- | --- | --- | --- | --- |
+| `n` | `<C-Up>`, `<C-Down>`, `<C-Left>`, `<C-Right>` | Resize splits | No | Repo-owned resize shortcuts |
+| `n` | `<C-h>`, `<C-j>`, `<C-k>`, `<C-l>` | Treewalker structural navigation | No | Uses nonstandard control slots for syntax-aware movement |
+| `all` | `<C-\\>` | Toggle floating terminal | No | Set by toggleterm `open_mapping` |
+| `n` | `<C-w>z`, `<C-w>_`, `<C-w>\|`, `<C-w>=` | windows.nvim maximize / equalize helpers | Yes | Replaces core window commands with plugin implementations |
+| `n`, `v` | `<C-a>`, `<C-x>` | dial.nvim increment / decrement | Yes | Replaces core numeric increment / decrement with dial logic |
+| `n` | `<C-n>`, `<C-p>` | Yank history next / previous | Yes | Replaces normal-mode slots with Yanky ring navigation |
+| `i`, `s` | `<C-n>`, `<C-p>` | LuaSnip next / previous choice | Yes | Replaces insert/select completion-style navigation |
+| `n`, `v`, `x` | `<A-j>`, `<A-k>` | Move line / block up or down | No | Repo-owned move.nvim mappings |
+| `n`, `v` | `<A-h>`, `<A-l>` | Move character / block left or right | No | Repo-owned move.nvim mappings |
+| `n`, `o`, `x` | `<A-w>`, `<A-e>`, `<A-b>` | Spider subword motions | No | Repo-owned alternative word motions |
+| `n`, `x` | `<A-q>` | Toggle multicursor | No | Repo-owned multicursor entrypoint |
+| `i` | `<A-e>` | nvim-autopairs fast-wrap | No | Repo-owned insert helper |
+| `n`, `x` | `<Up>`, `<Down>` | Add cursor above / below | Yes | Replaces plain cursor movement with multicursor actions |
+| `n` | `<C-LeftMouse>`, `<C-LeftDrag>`, `<C-LeftRelease>` | Multicursor mouse interactions | Yes | Replaces core mouse selection behavior |
+| `n` | `<S-h>`, `<S-l>` | Previous / next buffer | Yes | Replaces `H` / `L` screen-line motions |
+| `n` | `<F1>` | Toggle profiling | No | Repo-owned profile.nvim helper |
+| `n` | `<F2>` | Live rename | No | Repo-owned rename helper |
+| `v` | `<F3>`, `<F4>` | Add / remove highlight | No | Repo-owned highlighting helpers |
+| `n` | `<F5>` | `OverseerRun` | No | Repo-owned task runner shortcut |
+| `n` | `<F6>` | DAP continue | No | Repo-owned debug helper |
+| `n` | `<F8>` | Randomize colorscheme | No | Repo-owned theme rotation shortcut |
+| `n` | `<F9>`, `<F10>` | CellularAutomaton animations | No | Also defined by DAP, but runtime winner is the animation mapping |
+| `n` | `<F17>`, `<F23>` | DAP terminate / step out | No | Repo-owned debug helpers |
+
+### `g*` keys
+
+| Mode | Key | Current meaning | Overrides builtin | Replaced meaning / notes |
+| --- | --- | --- | --- | --- |
+| `n` | `gD` | LSP declaration | Yes | Replaces core declaration jump with LSP declaration |
+| `n` | `gd` | LSP definition | Yes | Replaces core local-definition jump with LSP definition |
+| `n` | `gI` | LSP implementation | No | Repo-owned LSP slot |
+| `n` | `gr` | LSP references | No | Repo-owned LSP slot |
+| `n` | `gl` | Diagnostic float | No | Repo-owned diagnostics slot |
+| `n`, `x` | `ga` | EasyAlign | Yes | Replaces core character info display |
+| `n`, `x` | `gx` | `Browse` open under cursor | Yes | Replaces builtin open-under-cursor behavior with gx.nvim's `:Browse` |
+| `n`, `v` | `g<C-a>`, `g<C-x>` | dial.nvim gnormal / gvisual increment / decrement | Yes | Replaces core `g<C-a>` / `g<C-x>` numeric operations |
+| `n`, `x` | `gcr` | coerce motion / visual transform entrypoint | No | Repo-owned transform slot |
+
+### `z*` and fold-related keys
+
+| Mode | Key | Current meaning | Overrides builtin | Replaced meaning / notes |
+| --- | --- | --- | --- | --- |
+| `n` | `zR`, `zM`, `zr`, `zm` | ufo fold open / close helpers | Yes | Replaces core fold controls with ufo implementations |
+| `n` | `zC` | fold-cycle `close_all()` | Yes | Replaces core recursive fold close |
+| `n` | `K` | Peek folded lines, else hover | Yes | Replaces core `keywordprg` / help behavior; also shadowed by LSP buffer-local `K` |
+| `n` | `<Tab>`, `<S-Tab>` | fold-cycle open / close | Yes for `<Tab>` | `<Tab>` replaces jump-list forward (`<C-i>` equivalent); `<S-Tab>` is a repo-owned slot |
+
+### `[` / `]` / operator families
+
+| Mode | Key | Current meaning | Overrides builtin | Replaced meaning / notes |
+| --- | --- | --- | --- | --- |
+| `n` | `[b`, `]b` | Previous / next buffer | No | Bracket motion family; repeatable with demicolon |
+| `n` | `[S`, `]S` | Previous / next scrollview mark | No | Bracket motion family; repeatable with demicolon |
+| `n` | `[g`, `]g` | Previous / next git hunk | No | Bracket motion family; repeatable with demicolon |
+| `n` | `[p`, `]p`, `[P`, `]P` | Yanky indent-aware put | Yes | Bracket action family; intentionally non-repeatable |
+| `n` | `>p`, `<p`, `>P`, `<P`, `=p`, `=P` | Yanky shift / filter put helpers | Yes | Operator-style action family; intentionally non-repeatable |
+| `n`, `x` | `[m`, `]m`, `[M`, `]M` | Multicursor match add / skip | No | Repo-owned multicursor navigation |
+| `n` | `[t`, `]t`, `[T`, `]T` | Previous / next test, previous / next failed test | No | Repo-owned neotest motions; custom demicolon repeat wrapper |
+| `n` | `[o{option}`, `]o{option}` | toggle.nvim previous / next option state | No | Plugin-generated toggle prefix family |
+
+### Bare keys and text-object families
+
+| Mode | Key | Current meaning | Overrides builtin | Replaced meaning / notes |
+| --- | --- | --- | --- | --- |
+| `n`, `x` | `y` | Yanky yank | Yes | Replaces core yank with yank-ring aware yank |
+| `n` | `p`, `P`, `gp` | Yanky put family | Yes | Replaces core put family with yank-ring aware put |
+| `n` | `cr` | coerce current word | No | Repo-owned transform entrypoint |
+| `i` | `jk`, `kj` | Exit insert mode | No | Repo-owned insert escape shortcuts |
+| `v` | `<`, `>` | Reindent and keep selection | Yes | Extends core indent behavior to preserve selection |
+| `v` | `p` | Black-hole delete then paste | Yes | Avoids clobbering unnamed register |
+| `x` | `J`, `K` | Move selected block down / up | Yes | Replaces core visual/block behavior |
+| `n` | `-` | Open Oil float | Yes | Replaces core first-nonblank line motion |
+| `n` | `q` in `qf`, `help`, `man`, `lspinfo` buffers | Close auxiliary window | Yes | Buffer-local override of macro recording key |
+| `n` | `yo{option}`, `yos` | toggle.nvim toggle option / dashboard | No | Plugin-generated option prefix family |
+| `o`, `x` | various-textobjs family | Extra text objects for indentation, subword, brackets, quotes, values, keys, numbers, diagnostics, folds, chain members, notebook cells, filepaths, colors, and more | Mixed | Exact leaf list lives in [lua/plugins/edit/nvim-various-textobjs.lua](lua/plugins/edit/nvim-various-textobjs.lua) |
+
+### `<leader>` families
+
+`<leader>` is `\\`. The table below lists repo-owned namespaces and leaf keys.
+
+| Prefix | Leaf keys | Current meaning | Overrides builtin | Notes |
+| --- | --- | --- | --- | --- |
+| `<leader>A` | `A` | Alpha dashboard | No | Standalone action |
+| `<leader>a` | `a` | `NodeAction` | No | Standalone action |
+| `<leader>b` | `bb`, `bn`, `bi`, `bI`, `bc`, `bp`, `bP`, `bf`, `bh`, `bl`, `bm`, `bM`, `bsd`, `bsl`, `bst`, `bsr` | Buffer navigation, close, pick, menu, sort, indent-blankline toggle | No | Buffer namespace |
+| `<leader>C` | `Cs`, `Ci`, `CI`, `Ca`, `CS`, `Ct`, `Cm`, `CD`, `Cf`, `Cc`, `C3`, `C5` | clangd / C++ helper actions | No | C++ namespace |
+| `<leader>c` | `c` | Close current buffer | No | Standalone action |
+| `<leader>d` | `d` | Dropbar pick | No | Plain `d` is a standalone action, but `d*` also hosts DAP keys |
+| `<leader>d*` | `dp`, `dP`, `dR`, `dl` | DAP condition breakpoint, log point, REPL, run last | No | Debug namespace piggybacks on `<leader>d` |
+| `<leader>e` | `e` | Toggle NvimTree | No | Standalone action |
+| `<leader>F` | `F` | Live grep with args | No | Standalone action |
+| `<leader>f` | `f` | Find files | No | Standalone action |
+| `<leader>g` | `gB`, `gb`, `gc`, `gd`, `gl`, `gj`, `gk`, `gp`, `gr`, `gR`, `gs`, `gu`, `go` | Git blame, branches, commits, diff, LazyGit, hunk operations, status | No | Git namespace |
+| `<leader>h` | `h` | Clear search highlight | No | Standalone action |
+| `<leader>j` | `jj`, `jk`, `jcj`, `jck`, `jgj`, `jgk`, `jhj`, `jhk`, `jqj`, `jqk` | Portal jumplist / changelist / grapple / harpoon / quickfix jumps | No | Jump namespace |
+| `<leader>L` | `Ld`, `Lr` | Linediff and reset | No | Line-diff namespace |
+| `<leader>l` | `la`, `ld`, `lD`, `lf`, `lF`, `lh`, `li`, `lI`, `lj`, `lk`, `ll`, `lo`, `lq`, `lr`, `ls`, `lS` | LSP code actions, diagnostics, symbols, format, hover, rename, signature, outline | No | LSP namespace |
+| `<leader>M` | `Mg`, `Mj`, `Ms`, `Mt` | Grapple mark / select / scopes / tags | No | Marks namespace |
+| `<leader>m` | `ma`, `mm`, `mn`, `mp`, `m1`, `m2`, `m3`, `m4` | Harpoon toggle, menu, prev/next, select slot | No | Harpoon namespace |
+| `<leader>o` | `o` | Smart open | No | Standalone action |
+| `<leader>P` | `P` | Projects picker | No | Standalone action |
+| `<leader>p` | `pd`, `pc`, `pu`, `pU`, `pf`, `ps`, `pv`, `pt`, `po` | Overlook peek / close / restore / focus / split / vsplit / tab / current window | No | Popup namespace |
+| `<leader>q` | `qq`, `qp`, `qs`, `qe`, `qy`, `qd` | Macro start/stop, play, switch slot, edit, yank, delete | No | Macro namespace |
+| `<leader>R` | `Rr`, `Rs`, `RS`, `Rf`, `Rh`, `Rc`, `Rl` | REPL run / restart / sniprun / focus / hide / send file / send until cursor | No | REPL namespace |
+| `<leader>r` | `rc`, `rf`, `rs` | RunCode / RunFile / stop runner | No | Run namespace |
+| `<leader>s` | `ss`, `sS`, `sy`, `sg`, `sf`, `si`, `sa`, `sb`, `sc`, `sC`, `sh`, `sk`, `sM`, `so`, `sp`, `sr`, `sR` | Flash, grug-far, yank history, AST grep, buffer search, colorschemes, commands, help, keymaps, man, smart open, pickers, recent files, registers | No | Search namespace |
+| `<leader>T` | `Tf`, `Th`, `Tv` | Float / horizontal / vertical terminal | No | Terminal namespace |
+| `<leader>t` | `tm`, `tg`, `tr`, `tu`, `tn`, `tl`, `tc`, `ts`, `to`, `tp`, `tw`, `tj`, `tk` | Table mode, TOC, neotest run / output / panel / watch / failed-test jumps | No | Test/table namespace; `tj` / `tk` currently look typo-prone in config |
+| `<leader>w` | `wl`, `ws`, `wd`, `wt`, `wf`, `wb` | Session management plus MoveWord forward / backward | No | Namespace drift: workspace/session and MoveWord share the same prefix |
+| `<leader>y` | `yc`, `yy`, `yt` | Yazi cwd / open / toggle | No | Yazi namespace |
+| `<leader><Up>`, `<leader><Down>` | `↑`, `↓` | Multicursor skip cursor above / below | No | Only meaningful for multicursor workflow |
+
+### Buffer-local and conditional mappings
+
+| Scope | Key | Current meaning | Overrides builtin | Notes |
+| --- | --- | --- | --- | --- |
+| LSP-attached buffer | `K` | Pure LSP hover | Yes | Buffer-local registry entry in [lua/user/keymap/buffer.lua](lua/user/keymap/buffer.lua), applied from [lua/user/lsp/handlers.lua](lua/user/lsp/handlers.lua) and shadowing the global ufo `K` |
+| Non-LSP buffer | `K` | Peek folded lines, else hover | Yes | Global lazy-registry entry from [lua/user/keymap/lazy.lua](lua/user/keymap/lazy.lua) |
+| `qf`, `help`, `man`, `lspinfo` | `q` | Close window | Yes | Buffer-local helper from [lua/user/autocommands.lua](lua/user/autocommands.lua) |
+| Terminal buffers | `<Esc>`, `jk`, `<C-h>`, `<C-j>`, `<C-k>`, `<C-l>` | Leave terminal mode or move between windows | Yes | Buffer-local helpers from [lua/plugins/terminal/toggleterm.lua](lua/plugins/terminal/toggleterm.lua) |
+| NvimTree buffer | `P`, `<Esc>`, `<C-f>`, `<C-b>`, `<Tab>` | Preview, close preview, preview scroll, smart expand / preview | Mixed | Repo-local additions only; upstream `default_on_attach()` maps are not expanded here |
+
+### Known active conflicts and drift
+
+- [lua/user/keymap/plain.lua](lua/user/keymap/plain.lua) defines `<A-j>` / `<A-k>` twice in normal and visual modes. Runtime winner is the later move.nvim version, so the earlier `:m`-based mappings are dead.
+- [lua/user/keymap/lazy.lua](lua/user/keymap/lazy.lua) defines `<F9>` and `<F10>` for debugging via nvim-dap, but [lua/user/keymap/plain.lua](lua/user/keymap/plain.lua) later remaps both keys to CellularAutomaton. Runtime winner is the animation mapping.
+- Global `K` from [lua/user/keymap/lazy.lua](lua/user/keymap/lazy.lua) is shadowed by buffer-local LSP `K` from [lua/user/keymap/buffer.lua](lua/user/keymap/buffer.lua), so fold-preview-on-`K` disappears after LSP attach.
+- `<leader>d` is both a standalone Dropbar action and the parent prefix for DAP leaf keys.
+- `<leader>w` mixes workspace/session actions with MoveWord (`wf`, `wb`), so the namespace is not semantically pure.
+
+### Conflict detection workflow
+
+Manual tools currently available in this repo:
+
+1. `just keymap-audit` runs the repo-owned headless audit and prints a report without failing the shell.
+2. `just keymap-audit-check` runs the same audit but exits non-zero when duplicate repo registrations or required conflict annotations are missing.
+1. `:KeyAnalyzer <leader>`, `:KeyAnalyzer <C->`, and `:KeyAnalyzer <M->` visualize occupied vs free keys by prefix.
+2. `:Telescope keymaps` shows the runtime keymap list after lazy loading.
+3. `:verbose nmap {lhs}`, `:verbose xmap {lhs}`, `:verbose imap {lhs}`, and friends show which mapping currently wins and where it was defined.
+
+Practical limitations:
+
+- [lua/plugins/keymap/key-analyzer.lua](lua/plugins/keymap/key-analyzer.lua) installs `meznaric/key-analyzer.nvim`, but that plugin is an analysis / visualization aid, not an automatic conflict warning system.
+- `just keymap-audit` / `just keymap-audit-check` currently focus on repo-internal duplicate registrations that survive startup and lazy loading, plus missing builtin-conflict annotations, reviewed `conflict.note` metadata for builtin-like normal-mode slots, and missing symbol-family metadata for centralized `[` / `]` and `>` / `<` / `=` entries. They still do not try to infer every upstream plugin default mapping.
+- Upstream `key-analyzer.nvim` reads mappings via `vim.api.nvim_get_keymap()`, so it does not fully cover built-in families such as `<C-w>` and `z`, and it does not show buffer-local mappings.
+- `which-key.nvim` improves discoverability, but it does not validate conflicts or duplicate ownership.
+- There is currently no plugin in this repo that will reliably warn on every repo-internal conflict as soon as a mapping changes, especially across lazy-loaded, plugin-generated, and buffer-local mappings.
+
+If automatic warnings become a requirement, the more reliable next step is a repo-owned audit command or headless script that:
+
+1. collects global and buffer-local mappings,
+2. groups them by mode and lhs,
+3. flags duplicate lhs ownership,
+4. and checks whether builtin overrides or reviewed builtin-like slots are explicitly documented in this section and registry metadata.
+
 ## Project-local config
 
 This repo also supports project-local configuration through `klen/nvim-config-local`.
