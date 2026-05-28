@@ -1,6 +1,6 @@
 ---@type LazyPluginSpec
 local M = {
-  "b0o/lavi.nvim",
+  "b0o/lavi",
   dependencies = {
     "rktjmp/lush.nvim",
   },

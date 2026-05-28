@@ -1,6 +1,7 @@
 ---@type LazyPluginSpec
 local M = {
-  "oxidescheme/oxide.nvim",
+  "oxidescheme/nvim",
+  name = "oxide.nvim",
   lazy = true,
 }
 

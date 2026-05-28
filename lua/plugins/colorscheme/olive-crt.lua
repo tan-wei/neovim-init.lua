@@ -1,6 +1,6 @@
 ---@type LazyPluginSpec
 local M = {
-  "reobin/olive-crt.nvim",
+  "vimcolorschemes/olive-crt.nvim",
   lazy = true,
 }
 

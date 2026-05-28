@@ -1,6 +1,6 @@
 ---@type LazyPluginSpec
 local M = {
-  "mslvx/obscure.nvim",
+  "mikovskii/obscure.nvim",
   lazy = true,
 }
 

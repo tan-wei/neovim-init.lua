@@ -1,6 +1,6 @@
 ---@type LazyPluginSpec
 local M = {
-  "ricka-hunt/desert-witch.nvim",
+  "trickyni/desert-witch.nvim",
   lazy = true,
 }
 

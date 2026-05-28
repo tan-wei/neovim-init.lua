@@ -1,6 +1,6 @@
 ---@type LazyPluginSpec
 local M = {
-  "sudoscrawl/tokyo-dark.nvim",
+  "sudoscrawl/tokyo-night-dark.nvim",
   lazy = true,
 }
 

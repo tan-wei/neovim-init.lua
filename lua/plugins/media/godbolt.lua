@@ -1,6 +1,6 @@
 ---@type LazyPluginSpec
 local M = {
-  "p00f/godbolt.nvim",
+  "dchinmay2/godbolt.nvim",
   cmd = { "Godbolt", "GodboltCompiler" },
 }
 
