@@ -1,4 +1,4 @@
-local wezterm = require("wezterm")
+local wezterm = require "wezterm"
 
 local config = wezterm.config_builder()
 
@@ -23,7 +23,7 @@ local platform = "linux"
 
 if wezterm.running_under_wsl() then
   platform = "wsl"
-elseif wezterm.target_triple:find("darwin") then
+elseif wezterm.target_triple:find "darwin" then
   platform = "macos"
 end
 

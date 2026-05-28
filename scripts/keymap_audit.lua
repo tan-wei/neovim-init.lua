@@ -13,7 +13,7 @@ local function script_path()
   if source:sub(1, 1) == "@" then
     return source:sub(2)
   end
-  error("Unable to determine script path")
+  error "Unable to determine script path"
 end
 
 local SCRIPT = normalize_path(script_path())
@@ -143,7 +143,7 @@ local function first_repo_frame()
       if relative:sub(1, 4) ~= "/hom" and relative:sub(1, 1) ~= "[" then
         return relative, info.currentline or 0
       end
-      if relative:match("^lua/") or relative:match("^init%.lua$") then
+      if relative:match "^lua/" or relative:match "^init%.lua$" then
         return relative, info.currentline or 0
       end
     end
@@ -268,9 +268,9 @@ local function discover_mapping_plugins()
   for _, path in ipairs(files) do
     local contents = read_file(path)
     if contents and file_may_define_keymaps(contents) then
-      local repo = contents:match('local%s+M%s*=%s*{%s*"([^"]+)"')
+      local repo = contents:match 'local%s+M%s*=%s*{%s*"([^"]+)"'
       if repo then
-        local name = repo:match("[^/]+$") or repo
+        local name = repo:match "[^/]+$" or repo
         plugins[name] = true
       end
     end
@@ -307,7 +307,7 @@ local function load_mapping_plugins()
   })
   if not ok then
     io.stderr:write("keymap audit: failed to load mapping plugins\n" .. tostring(err) .. "\n")
-    vim.cmd("cquit 2")
+    vim.cmd "cquit 2"
   end
 end
 
@@ -421,27 +421,27 @@ local function registry_metadata_issues()
     end
 
     local lowered = lhs:lower()
-    if lowered:find("^<leader>") or lowered:find("^<localleader>") or lhs:find("^<Plug>") then
+    if lowered:find "^<leader>" or lowered:find "^<localleader>" or lhs:find "^<Plug>" then
       return nil
     end
 
-    if lhs:find("^<C%-w>") then
+    if lhs:find "^<C%-w>" then
       return "normal-mode <C-w> family"
     end
 
-    if lhs:find("^g[%a<]") then
+    if lhs:find "^g[%a<]" then
       return "normal-mode g family"
     end
 
-    if lhs:find("^z[%a<]") then
+    if lhs:find "^z[%a<]" then
       return "normal-mode z family"
     end
 
-    if lhs:find("^[A-Za-z]$") then
+    if lhs:find "^[A-Za-z]$" then
       return "normal-mode single-key slot"
     end
 
-    if lhs:find("^<C%-%a>$") then
+    if lhs:find "^<C%-%a>$" then
       return "normal-mode Ctrl-letter slot"
     end
 
@@ -453,7 +453,7 @@ local function registry_metadata_issues()
       return nil
     end
 
-    if lhs:find("^[%[%]][A-Za-z]$") then
+    if lhs:find "^[%[%]][A-Za-z]$" then
       return {
         family = "bracket",
         namespace = lhs:sub(2, 2),
@@ -461,7 +461,7 @@ local function registry_metadata_issues()
       }
     end
 
-    if lhs:find("^[><=][A-Za-z]$") then
+    if lhs:find "^[><=][A-Za-z]$" then
       return {
         family = "operator",
         namespace = lhs:sub(2, 2),
@@ -589,11 +589,12 @@ local function registry_metadata_issues()
               end
 
               local pair_id = table.concat({ mode, contract.namespace }, "\0")
-              bracket_motion_pairs[pair_id] = bracket_motion_pairs[pair_id] or {
-                mode = mode,
-                namespace = contract.namespace,
-                directions = {},
-              }
+              bracket_motion_pairs[pair_id] = bracket_motion_pairs[pair_id]
+                or {
+                  mode = mode,
+                  namespace = contract.namespace,
+                  directions = {},
+                }
               bracket_motion_pairs[pair_id].directions[contract.direction] = true
             elseif symbol.repeatable ~= false then
               issues[#issues + 1] = string.format(
@@ -668,12 +669,13 @@ local function group_conflicts()
   for _, record in ipairs(effective_records()) do
     local scope = record.buffer and ("buffer:" .. tostring(record.buffer)) or "global"
     local id = table.concat({ scope, record.mode, record.lhs }, "\0")
-    grouped[id] = grouped[id] or {
-      scope = scope,
-      mode = record.mode,
-      lhs = record.lhs,
-      records = {},
-    }
+    grouped[id] = grouped[id]
+      or {
+        scope = scope,
+        mode = record.mode,
+        lhs = record.lhs,
+        records = {},
+      }
     grouped[id].records[#grouped[id].records + 1] = record
   end
 
@@ -749,7 +751,7 @@ local function print_report(conflicts, metadata_issues, registry_index)
   print(string.format("keymap audit: recorded %d registrations", #state.records))
 
   if #conflicts == 0 and #metadata_issues == 0 then
-    print("keymap audit: no duplicate repo registrations or keymap metadata issues detected")
+    print "keymap audit: no duplicate repo registrations or keymap metadata issues detected"
     return
   end
 
@@ -758,7 +760,8 @@ local function print_report(conflicts, metadata_issues, registry_index)
 
     for _, conflict in ipairs(conflicts) do
       local winner = conflict.scope == "global" and runtime_winner(conflict.mode, conflict.lhs) or nil
-      local header = string.format("- [%s] %s %s (%d registrations)", conflict.scope, conflict.mode, conflict.lhs, #conflict.records)
+      local header =
+        string.format("- [%s] %s %s (%d registrations)", conflict.scope, conflict.mode, conflict.lhs, #conflict.records)
       if winner then
         header = header .. " -> runtime winner: " .. winner
       end
@@ -794,10 +797,10 @@ function _G.__keymap_audit_finalize()
 
   if #conflicts > 0 or #metadata_issues > 0 then
     if fail_on_conflict() then
-      vim.cmd("cquit 1")
+      vim.cmd "cquit 1"
       return
     end
 
-    print("keymap audit: issues detected; run `just keymap-audit-check` to fail on them")
+    print "keymap audit: issues detected; run `just keymap-audit-check` to fail on them"
   end
 end
