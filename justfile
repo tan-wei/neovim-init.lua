@@ -1,6 +1,7 @@
 set shell := ["bash", "-uc"]
 
 bootstrap_preinit := "lua dofile(vim.fn.fnamemodify('./scripts/bootstrap_preinit.lua', ':p'))"
+bootstrap_helper := "dofile(vim.fn.fnamemodify('./scripts/bootstrap.lua', ':p'))"
 
 default:
 	@just --list
@@ -32,19 +33,19 @@ bootstrap-lazy:
 bootstrap-treesitter:
 	@nvim --headless \
 		--cmd "{{bootstrap_preinit}}" \
-		"+lua require('user.bootstrap').treesitter_sync()" \
+		"+lua {{bootstrap_helper}}.treesitter_sync()" \
 		+qa!
 
 bootstrap-mason:
 	@nvim --headless \
 		--cmd "{{bootstrap_preinit}}" \
-		"+lua require('user.bootstrap').mason_sync()" \
+		"+lua {{bootstrap_helper}}.mason_sync()" \
 		+qa!
 
 bootstrap-smoke:
 	@nvim --headless \
 		--cmd "{{bootstrap_preinit}}" \
-		"+lua require('user.bootstrap').startup_smoke()" \
+		"+lua {{bootstrap_helper}}.startup_smoke()" \
 		+qa!
 
 bootstrap:

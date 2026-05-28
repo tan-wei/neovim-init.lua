@@ -261,6 +261,18 @@ jobs:
           go version
           just --version
 
-      - name: Bootstrap config via just
+      - name: Sync plugins via just
         working-directory: ${{ github.workspace }}/xdg/nvim
-        run: just bootstrap
+        run: just bootstrap-lazy
+
+      - name: Install tree-sitter parsers via just
+        working-directory: ${{ github.workspace }}/xdg/nvim
+        run: just bootstrap-treesitter
+
+      - name: Install Mason packages via just
+        working-directory: ${{ github.workspace }}/xdg/nvim
+        run: just bootstrap-mason
+
+      - name: Run smoke test via just
+        working-directory: ${{ github.workspace }}/xdg/nvim
+        run: just bootstrap-smoke
