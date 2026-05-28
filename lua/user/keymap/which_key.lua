@@ -566,6 +566,9 @@ function M.entries()
     -- X --
 
     -- x --
+    { "<leader>x", group = "effects", mode = "n" },
+    { "<leader>xg", "<cmd>CellularAutomaton game_of_life<cr>", desc = "game of life", mode = "n" },
+    { "<leader>xr", "<cmd>CellularAutomaton make_it_rain<cr>", desc = "make it rain", mode = "n" },
 
     -- Y --
 

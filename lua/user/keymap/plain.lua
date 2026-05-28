@@ -26,14 +26,10 @@ return {
         opts = default_opts,
         conflict = { builtin = builtin.get("n", "<S-h>") },
       },
-      { mode = "n", lhs = "<A-j>", rhs = ":m .+1<CR>==", opts = default_opts },
-      { mode = "n", lhs = "<A-k>", rhs = ":m .-2<CR>==", opts = default_opts },
       { mode = "i", lhs = "jk", rhs = "<ESC>", opts = default_opts },
       { mode = "i", lhs = "kj", rhs = "<ESC>", opts = default_opts },
       { mode = "v", lhs = "<", rhs = "<gv^", opts = default_opts, conflict = { builtin = builtin.get("v", "<") } },
       { mode = "v", lhs = ">", rhs = ">gv^", opts = default_opts, conflict = { builtin = builtin.get("v", ">") } },
-      { mode = "v", lhs = "<A-j>", rhs = ":m '>+1<CR>gv=gv", opts = default_opts },
-      { mode = "v", lhs = "<A-k>", rhs = ":m '<-2<CR>gv=gv", opts = default_opts },
       { mode = "v", lhs = "p", rhs = '"_dP', opts = default_opts, conflict = { builtin = builtin.get("v", "p") } },
       {
         mode = "x",
@@ -472,14 +468,6 @@ return {
         end,
         conflict = { builtin = builtin.get("n", "-") },
       },
-    },
-  },
-  {
-    plugin = "CellularAutomaton.nvim",
-    family = "plain",
-    maps = {
-      { mode = "", lhs = "<F9>", rhs = "<cmd>CellularAutomaton make_it_rain<cr>", opts = default_opts },
-      { mode = "", lhs = "<F10>", rhs = "<cmd>CellularAutomaton game_of_life<cr>", opts = default_opts },
     },
   },
   {
