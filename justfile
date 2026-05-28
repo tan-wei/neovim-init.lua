@@ -24,6 +24,16 @@ keymap-audit-check:
 		"+lua _G.__keymap_audit_finalize()" \
 		+qa!
 
+keymap-docs:
+	@nvim --headless \
+		--cmd "lua dofile(vim.fn.fnamemodify('./scripts/keymap_docs.lua', ':p'))" \
+		+qa!
+
+keymap-docs-check:
+	@KEYMAP_DOCS_FAIL_ON_MISSING=1 nvim --headless \
+		--cmd "lua dofile(vim.fn.fnamemodify('./scripts/keymap_docs.lua', ':p'))" \
+		+qa!
+
 bootstrap-lazy:
 	@nvim --headless \
 		--cmd "{{bootstrap_preinit}}" \

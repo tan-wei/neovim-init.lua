@@ -146,7 +146,7 @@ Scope notes:
 | `n` | `<F5>` | `OverseerRun` | No | Repo-owned task runner shortcut |
 | `n` | `<F6>` | DAP continue | No | Repo-owned debug helper |
 | `n` | `<F8>` | Randomize colorscheme | No | Repo-owned theme rotation shortcut |
-| `n` | `<F9>`, `<F10>` | CellularAutomaton animations | No | Also defined by DAP, but runtime winner is the animation mapping |
+| `n` | `<F9>`, `<F10>`, `<F11>` | DAP breakpoint / step over / step into | No | Repo-owned debug helpers |
 | `n` | `<F17>`, `<F23>` | DAP terminate / step out | No | Repo-owned debug helpers |
 
 ### `g*` keys
@@ -234,6 +234,7 @@ Scope notes:
 | `<leader>T` | `Tf`, `Th`, `Tv` | Float / horizontal / vertical terminal | No | Terminal namespace |
 | `<leader>t` | `tm`, `tg`, `tr`, `tu`, `tn`, `tl`, `tc`, `ts`, `to`, `tp`, `tw`, `tj`, `tk` | Table mode, TOC, neotest run / output / panel / watch / failed-test jumps | No | Test/table namespace; `tj` / `tk` currently look typo-prone in config |
 | `<leader>w` | `wl`, `ws`, `wd`, `wt`, `wf`, `wb` | Session management plus MoveWord forward / backward | No | Namespace drift: workspace/session and MoveWord share the same prefix |
+| `<leader>x` | `xg`, `xr` | CellularAutomaton effects | No | Repo-owned extras/effects namespace |
 | `<leader>y` | `yc`, `yy`, `yt` | Yazi cwd / open / toggle | No | Yazi namespace |
 | `<leader><Up>`, `<leader><Down>` | `↑`, `↓` | Multicursor skip cursor above / below | No | Only meaningful for multicursor workflow |
 
@@ -247,10 +248,8 @@ Scope notes:
 | Terminal buffers | `<Esc>`, `jk`, `<C-h>`, `<C-j>`, `<C-k>`, `<C-l>` | Leave terminal mode or move between windows | Yes | Buffer-local helpers from [lua/plugins/terminal/toggleterm.lua](lua/plugins/terminal/toggleterm.lua) |
 | NvimTree buffer | `P`, `<Esc>`, `<C-f>`, `<C-b>`, `<Tab>` | Preview, close preview, preview scroll, smart expand / preview | Mixed | Repo-local additions only; upstream `default_on_attach()` maps are not expanded here |
 
-### Known active conflicts and drift
+### Known drift and conditional precedence
 
-- [lua/user/keymap/plain.lua](lua/user/keymap/plain.lua) defines `<A-j>` / `<A-k>` twice in normal and visual modes. Runtime winner is the later move.nvim version, so the earlier `:m`-based mappings are dead.
-- [lua/user/keymap/lazy.lua](lua/user/keymap/lazy.lua) defines `<F9>` and `<F10>` for debugging via nvim-dap, but [lua/user/keymap/plain.lua](lua/user/keymap/plain.lua) later remaps both keys to CellularAutomaton. Runtime winner is the animation mapping.
 - Global `K` from [lua/user/keymap/lazy.lua](lua/user/keymap/lazy.lua) is shadowed by buffer-local LSP `K` from [lua/user/keymap/buffer.lua](lua/user/keymap/buffer.lua), so fold-preview-on-`K` disappears after LSP attach.
 - `<leader>d` is both a standalone Dropbar action and the parent prefix for DAP leaf keys.
 - `<leader>w` mixes workspace/session actions with MoveWord (`wf`, `wb`), so the namespace is not semantically pure.
@@ -261,6 +260,8 @@ Manual tools currently available in this repo:
 
 1. `just keymap-audit` runs the repo-owned headless audit and prints a report without failing the shell.
 2. `just keymap-audit-check` runs the same audit but exits non-zero when duplicate repo registrations or required conflict annotations are missing.
+3. `just keymap-docs` reports central mappings that do not appear in the README inventory tables.
+4. `just keymap-docs-check` exits non-zero when a central registry or which-key mapping is missing from the README inventory tables.
 1. `:KeyAnalyzer <leader>`, `:KeyAnalyzer <C->`, and `:KeyAnalyzer <M->` visualize occupied vs free keys by prefix.
 2. `:Telescope keymaps` shows the runtime keymap list after lazy loading.
 3. `:verbose nmap {lhs}`, `:verbose xmap {lhs}`, `:verbose imap {lhs}`, and friends show which mapping currently wins and where it was defined.
@@ -269,6 +270,7 @@ Practical limitations:
 
 - [lua/plugins/keymap/key-analyzer.lua](lua/plugins/keymap/key-analyzer.lua) installs `meznaric/key-analyzer.nvim`, but that plugin is an analysis / visualization aid, not an automatic conflict warning system.
 - `just keymap-audit` / `just keymap-audit-check` currently focus on repo-internal duplicate registrations that survive startup and lazy loading, plus missing builtin-conflict annotations, reviewed `conflict.note` metadata for builtin-like normal-mode slots, and missing symbol-family metadata for centralized `[` / `]` and `>` / `<` / `=` entries. They still do not try to infer every upstream plugin default mapping.
+- `just keymap-docs` / `just keymap-docs-check` currently cover the centralized plain, lazy, buffer, and which-key registries that back the README inventory tables. Plugin-generated or attach-time families that are still documented only at a coarse summary level remain outside that strict coverage.
 - Upstream `key-analyzer.nvim` reads mappings via `vim.api.nvim_get_keymap()`, so it does not fully cover built-in families such as `<C-w>` and `z`, and it does not show buffer-local mappings.
 - `which-key.nvim` improves discoverability, but it does not validate conflicts or duplicate ownership.
 - There is currently no plugin in this repo that will reliably warn on every repo-internal conflict as soon as a mapping changes, especially across lazy-loaded, plugin-generated, and buffer-local mappings.
