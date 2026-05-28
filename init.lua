@@ -2,7 +2,7 @@
 local config = require "user.config"
 vim.g.completion_engine = config.completion_engine
 vim.g.restore_overseer_tasks = config.restore_overseer_tasks
-vim.g.mapleader =  config.mapleader
+vim.g.mapleader = config.mapleader
 vim.g.maplocalleader = config.maplocalleader
 
 require "user.options"
