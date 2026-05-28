@@ -81,16 +81,37 @@ jobs:
 
     env:
       NVIM_APPNAME: nvim
-      XDG_CONFIG_HOME: ${{ github.workspace }}/xdg
-      XDG_DATA_HOME: ${{ runner.temp }}/xdg-data
-      XDG_STATE_HOME: ${{ runner.temp }}/xdg-state
-      XDG_CACHE_HOME: ${{ runner.temp }}/xdg-cache
 
     steps:
       - name: Checkout config
         uses: actions/checkout@v4
         with:
           path: xdg/nvim
+
+      - name: Export XDG paths on Unix
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          echo "XDG_CONFIG_HOME=$GITHUB_WORKSPACE/xdg" >> "$GITHUB_ENV"
+          echo "XDG_DATA_HOME=$RUNNER_TEMP/xdg-data" >> "$GITHUB_ENV"
+          echo "XDG_STATE_HOME=$RUNNER_TEMP/xdg-state" >> "$GITHUB_ENV"
+          echo "XDG_CACHE_HOME=$RUNNER_TEMP/xdg-cache" >> "$GITHUB_ENV"
+
+      - name: Export XDG paths on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $configHome = Join-Path $env:GITHUB_WORKSPACE 'xdg'
+          $dataHome = Join-Path $env:RUNNER_TEMP 'xdg-data'
+          $stateHome = Join-Path $env:RUNNER_TEMP 'xdg-state'
+          $cacheHome = Join-Path $env:RUNNER_TEMP 'xdg-cache'
+
+          Add-Content -Path $env:GITHUB_ENV -Value "XDG_CONFIG_HOME=$configHome"
+          Add-Content -Path $env:GITHUB_ENV -Value "XDG_DATA_HOME=$dataHome"
+          Add-Content -Path $env:GITHUB_ENV -Value "XDG_STATE_HOME=$stateHome"
+          Add-Content -Path $env:GITHUB_ENV -Value "XDG_CACHE_HOME=$cacheHome"
 
       - name: Install system dependencies on Linux
         if: runner.os == 'Linux'
