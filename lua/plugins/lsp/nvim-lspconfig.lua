@@ -63,16 +63,12 @@ M.config = function()
       vim.notify("Server [" .. server .. "] is not available")
     end
 
-    if not is_server_enabled(server, opts) then
-      goto continue
+    if is_server_enabled(server, opts) then
+      opts.enabled = nil
+
+      vim.lsp.config(server, opts)
+      vim.lsp.enable(server)
     end
-
-    opts.enabled = nil
-
-    vim.lsp.config(server, opts)
-    vim.lsp.enable(server)
-
-    ::continue::
   end
 end
 
