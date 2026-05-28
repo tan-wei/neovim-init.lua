@@ -28,15 +28,25 @@ Highlights of the current setup:
 
 ## Requirements
 
-Use a recent Neovim version. This config uses newer APIs such as `vim.lsp.config`, `vim.lsp.enable`, and modern semantic token handling, so `0.11+` is the practical baseline.
+Use a recent Neovim version. This config uses newer APIs such as `vim.lsp.config`, `vim.lsp.enable`, and modern semantic token handling, and it currently tracks `nvim-treesitter`'s `main` branch, so `0.12+` / nightly is the practical baseline.
 
 Recommended dependencies:
 
 - `git`
+- `curl`
+- `tar`
 - a Nerd Font
 - `ripgrep`
 - `fd` or another fast file finder
-- language runtimes and external tools you actually use (`python`, `node`, `clangd`, `latex`, etc.)
+- `tree-sitter-cli` installed via your system package manager, not `npm`. This repo uses `nvim-treesitter`'s `main` branch, and parser install/update expects the CLI to be available.
+- native build tools for plugins and parsers:
+	- Unix: a C/C++ compiler (`gcc` or `clang`), `make`, and `cmake`
+	- Windows: MSVC Build Tools or `clang-cl`, plus `cmake`
+- `node` 22+ if you keep `copilot.lua` enabled. The plugin requires Node.js and `curl`; this repo does not call `npm` directly.
+- `ruby` if you keep Mason automatic installation enabled, because the default Mason LSP list includes `solargraph`
+- language runtimes and external tools you actually use (`python`, `clangd`, `latex`, etc.)
+
+Depending on platform and feature usage, a Rust toolchain (`cargo`/`rustc`) may also be useful for Rust-specific workflows or plugins that need a local Rust build.
 
 Some plugins have extra optional requirements. For example, workspace substitution with `nvim-rip-substitute` benefits from `ripgrep` with `pcre2` support.
 
@@ -54,7 +64,7 @@ Start Neovim:
 nvim
 ```
 
-On first launch, `lazy.nvim` will bootstrap itself and install plugins automatically.
+Before first launch, make sure the bootstrap dependencies above are installed. This config will bootstrap `lazy.nvim`, build native plugins, update Treesitter parsers, and let Mason install its default toolchain on startup.
 
 After startup, these commands are usually the first things worth checking:
 

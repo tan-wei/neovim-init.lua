@@ -5,21 +5,7 @@ local M = {
 
 M.config = function()
   require("mason-tool-installer").setup {
-    ensure_installed = {
-      "ast_grep",
-      "black",
-      "cmakelang",
-      "cmakelint",
-      "commitlint",
-      "cpplint",
-      "dotenv-linter",
-      "jq",
-      "jq-lsp",
-      "prettier",
-      "prettierd",
-      "shfmt",
-      "taplo",
-    },
+    ensure_installed = require("user.mason_packages").tools,
     auto_update = true,
     start_delay = 3000,
     debounce_hours = 5,

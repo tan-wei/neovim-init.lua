@@ -6,7 +6,36 @@ on:
   workflow_dispatch:
 
 jobs:
-  nvim-nightly-version:
+  stylua:
+    name: Stylua
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout config
+        uses: actions/checkout@v4
+
+      - name: Install just
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          sudo apt-get update
+          sudo apt-get install -y just
+
+      - name: Set up Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install stylua
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          cargo install stylua --locked
+
+      - name: Run stylua check
+        run: just stylua-check
+
+  bootstrap-smoke:
     name: ${{ matrix.os_name }} (${{ matrix.arch }})
     runs-on: ${{ matrix.runner }}
     strategy:
@@ -16,68 +45,201 @@ jobs:
           - os_name: Linux
             arch: x86_64
             runner: ubuntu-24.04
-            archive: nvim-linux-x86_64.tar.gz
-            extracted_dir: nvim-linux-x86_64
+            nvim_archive: nvim-linux-x86_64.tar.gz
+            nvim_dir: nvim-linux-x86_64
+            tree_sitter_unix_archive: tree-sitter-linux-x64.gz
           - os_name: macOS
             arch: arm64
             runner: macos-15
-            archive: nvim-macos-arm64.tar.gz
-            extracted_dir: nvim-macos-arm64
+            nvim_archive: nvim-macos-arm64.tar.gz
+            nvim_dir: nvim-macos-arm64
+            tree_sitter_unix_archive: tree-sitter-macos-arm64.gz
           - os_name: Windows
             arch: x86_64
             runner: windows-2025
-            archive: nvim-win64.zip
-            extracted_dir: nvim-win64
+            nvim_archive: nvim-win64.zip
+            nvim_dir: nvim-win64
+            tree_sitter_windows_archive: tree-sitter-cli-windows-x64.zip
           - os_name: Linux
             arch: arm64
             runner: ubuntu-24.04-arm
-            archive: nvim-linux-arm64.tar.gz
-            extracted_dir: nvim-linux-arm64
+            nvim_archive: nvim-linux-arm64.tar.gz
+            nvim_dir: nvim-linux-arm64
+            tree_sitter_unix_archive: tree-sitter-linux-arm64.gz
           - os_name: macOS
             arch: x86_64
             runner: macos-15-intel
-            archive: nvim-macos-x86_64.tar.gz
-            extracted_dir: nvim-macos-x86_64
+            nvim_archive: nvim-macos-x86_64.tar.gz
+            nvim_dir: nvim-macos-x86_64
+            tree_sitter_unix_archive: tree-sitter-macos-x64.gz
           - os_name: Windows
             arch: arm64
             runner: windows-11-arm
-            archive: nvim-win-arm64.zip
-            extracted_dir: nvim-win-arm64
+            nvim_archive: nvim-win-arm64.zip
+            nvim_dir: nvim-win-arm64
+            tree_sitter_windows_archive: tree-sitter-cli-windows-arm64.zip
+
+    env:
+      NVIM_APPNAME: nvim
+      XDG_CONFIG_HOME: ${{ github.workspace }}/xdg
+      XDG_DATA_HOME: ${{ runner.temp }}/xdg-data
+      XDG_STATE_HOME: ${{ runner.temp }}/xdg-state
+      XDG_CACHE_HOME: ${{ runner.temp }}/xdg-cache
 
     steps:
+      - name: Checkout config
+        uses: actions/checkout@v4
+        with:
+          path: xdg/nvim
+
+      - name: Install system dependencies on Linux
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake curl fd-find gzip just ripgrep tar unzip
+          sudo ln -sf "$(command -v fdfind)" /usr/local/bin/fd
+
+      - name: Install system dependencies on macOS
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          brew install cmake fd gnu-tar just ripgrep
+          echo "$(brew --prefix gnu-tar)/libexec/gnubin" >> "$GITHUB_PATH"
+
+      - name: Install system dependencies on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          choco install -y cmake fd just ripgrep
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+
+      - name: Set up Rust toolchain on Unix
+        if: runner.os != 'Windows'
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Prepare XDG directories on Unix
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          mkdir -p "$XDG_DATA_HOME" "$XDG_STATE_HOME" "$XDG_CACHE_HOME"
+
+      - name: Prepare XDG directories on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path $env:XDG_DATA_HOME | Out-Null
+          New-Item -ItemType Directory -Force -Path $env:XDG_STATE_HOME | Out-Null
+          New-Item -ItemType Directory -Force -Path $env:XDG_CACHE_HOME | Out-Null
+
+      - name: Install latest tree-sitter-cli on Unix
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          archive="$RUNNER_TEMP/${{ matrix.tree_sitter_unix_archive }}"
+          install_dir="$RUNNER_TEMP/tree-sitter"
+
+          curl -fsSLo "$archive" \
+            "https://github.com/tree-sitter/tree-sitter/releases/latest/download/${{ matrix.tree_sitter_unix_archive }}"
+          mkdir -p "$install_dir"
+          gunzip -c "$archive" > "$install_dir/tree-sitter"
+          chmod +x "$install_dir/tree-sitter"
+          echo "$install_dir" >> "$GITHUB_PATH"
+
+      - name: Install latest tree-sitter-cli on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $archive = '${{ matrix.tree_sitter_windows_archive }}'
+          $downloadUrl = "https://github.com/tree-sitter/tree-sitter/releases/latest/download/$archive"
+          $destination = Join-Path $env:RUNNER_TEMP $archive
+          $installDir = Join-Path $env:RUNNER_TEMP 'tree-sitter'
+
+          Invoke-WebRequest -Uri $downloadUrl -OutFile $destination
+          Expand-Archive -Path $destination -DestinationPath $installDir -Force
+          Add-Content -Path $env:GITHUB_PATH -Value $installDir
+
       - name: Install Neovim nightly on Unix
         if: runner.os != 'Windows'
         shell: bash
         run: |
           set -euxo pipefail
 
-          curl -fsSLo "$RUNNER_TEMP/${{ matrix.archive }}" \
-            "https://github.com/neovim/neovim/releases/download/nightly/${{ matrix.archive }}"
-          tar -xzf "$RUNNER_TEMP/${{ matrix.archive }}" -C "$RUNNER_TEMP"
-          echo "$RUNNER_TEMP/${{ matrix.extracted_dir }}/bin" >> "$GITHUB_PATH"
+          curl -fsSLo "$RUNNER_TEMP/${{ matrix.nvim_archive }}" \
+            "https://github.com/neovim/neovim/releases/download/nightly/${{ matrix.nvim_archive }}"
+          tar -xzf "$RUNNER_TEMP/${{ matrix.nvim_archive }}" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/${{ matrix.nvim_dir }}/bin" >> "$GITHUB_PATH"
 
       - name: Install Neovim nightly on Windows
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          $archive = '${{ matrix.archive }}'
+          $archive = '${{ matrix.nvim_archive }}'
           $downloadUrl = "https://github.com/neovim/neovim/releases/download/nightly/$archive"
           $destination = Join-Path $env:RUNNER_TEMP $archive
           $installDir = Join-Path $env:RUNNER_TEMP 'nvim'
 
           Invoke-WebRequest -Uri $downloadUrl -OutFile $destination
           Expand-Archive -Path $destination -DestinationPath $installDir -Force
-          Add-Content -Path $env:GITHUB_PATH -Value (Join-Path $installDir '${{ matrix.extracted_dir }}\bin')
+          Add-Content -Path $env:GITHUB_PATH -Value (Join-Path $installDir '${{ matrix.nvim_dir }}\bin')
 
-      - name: Show Neovim version on Unix
+      - name: Show tool versions on Unix
         if: runner.os != 'Windows'
         shell: bash
         run: |
           set -euxo pipefail
-          nvim --version | head -n 5
 
-      - name: Show Neovim version on Windows
+          nvim --version | head -n 5
+          tree-sitter --version
+          python --version
+          node --version
+          npm --version
+          ruby --version
+          go version
+          cargo --version
+          rustc --version
+          just --version
+
+      - name: Show tool versions on Windows
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
           nvim --version | Select-Object -First 5
+          tree-sitter --version
+          python --version
+          node --version
+          npm --version
+          ruby --version
+          go version
+          just --version
+
+      - name: Bootstrap config via just
+        working-directory: ${{ github.workspace }}/xdg/nvim
+        run: just bootstrap

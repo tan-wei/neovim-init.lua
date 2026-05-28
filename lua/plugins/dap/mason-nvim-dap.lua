@@ -9,7 +9,7 @@ local M = {
 -- TODO: This plugin should write more configurations
 M.config = function()
   require("mason-nvim-dap").setup {
-    ensure_installed = { "cppdbg" },
+    ensure_installed = require("user.mason_packages").dap_adapters,
   }
 end
 

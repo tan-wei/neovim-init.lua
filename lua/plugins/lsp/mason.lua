@@ -8,25 +8,7 @@ local M = {
 }
 
 M.config = function()
-  local ensure_installed_servers = {
-    -- "bashls",
-    "clangd",
-    -- "cmake",
-    -- "cssls",
-    -- "html",
-    "jsonls",
-    "just",
-    "ltex_plus",
-    "lua_ls",
-    "marksman",
-    "neocmake",
-    "pyright",
-    "rust_analyzer",
-    "solargraph",
-    "tombi",
-    -- "tsserver",
-    "yamlls",
-  }
+  local ensure_installed_servers = require("user.mason_packages").lsp_servers
 
   local settings = {
     ui = {
