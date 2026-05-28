@@ -68,6 +68,21 @@ local function resolved_mason_package_names()
   return resolved
 end
 
+local function refresh_mason_registry()
+  local settings = require "mason.settings"
+  local registry = require "mason-registry"
+  local previous_refresh = settings.current.registry_cache.refresh
+
+  settings.current.registry_cache.refresh = true
+  local ok, result = registry.refresh()
+  settings.current.registry_cache.refresh = previous_refresh
+
+  if not ok then
+    local detail = type(result) == "string" and result or vim.inspect(result)
+    error("Mason registry refresh failed: " .. detail)
+  end
+end
+
 local function write_smoke_fixture(path, lines)
   vim.fn.mkdir(vim.fn.fnamemodify(path, ":h"), "p")
   vim.fn.writefile(lines, path)
@@ -150,6 +165,7 @@ function M.mason_sync()
     debounce_hours = nil,
   }
 
+  refresh_mason_registry()
   vim.cmd "MasonToolsInstallSync"
 
   local registry = require "mason-registry"
