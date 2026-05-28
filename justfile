@@ -34,6 +34,12 @@ keymap-docs-check:
 		--cmd "lua dofile(vim.fn.fnamemodify('./scripts/keymap_docs.lua', ':p'))" \
 		+qa!
 
+link-check:
+	@nvim --headless \
+		--cmd "{{bootstrap_preinit}}" \
+		"+lua dofile(vim.fn.fnamemodify('./scripts/link_check.lua', ':p')).check()" \
+		+qa!
+
 bootstrap-lazy:
 	@nvim --headless \
 		--cmd "{{bootstrap_preinit}}" \

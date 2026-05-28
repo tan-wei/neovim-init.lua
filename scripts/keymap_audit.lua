@@ -156,18 +156,33 @@ local function first_repo_frame()
   return "<unknown>", 0
 end
 
-local function direct_caller_source()
-  local info = debug.getinfo(3, "S")
-  if not info or type(info.source) ~= "string" then
-    return ""
+local original_keymap_set = vim.keymap.set
+
+local function called_from_vim_keymap()
+  for level = 3, 8 do
+    local info = debug.getinfo(level, "fS")
+    if not info then
+      break
+    end
+
+    if info.func == original_keymap_set then
+      return true
+    end
+
+    local source = info.source
+    if type(source) == "string" then
+      if source:sub(1, 1) == "@" then
+        source = source:sub(2)
+      end
+
+      local relative = relpath(source)
+      if relative:find("vim/keymap", 1, true) or relative:find("vim/_editor", 1, true) then
+        return true
+      end
+    end
   end
 
-  local source = info.source
-  if source:sub(1, 1) == "@" then
-    source = source:sub(2)
-  end
-
-  return relpath(source)
+  return false
 end
 
 local function push_record(kind, mode, lhs, rhs, opts, extra)
@@ -195,7 +210,6 @@ local function push_record(kind, mode, lhs, rhs, opts, extra)
   end
 end
 
-local original_keymap_set = vim.keymap.set
 vim.keymap.set = function(mode, lhs, rhs, opts)
   push_record("vim.keymap.set", mode, lhs, rhs, opts)
   return original_keymap_set(mode, lhs, rhs, opts)
@@ -203,7 +217,7 @@ end
 
 local original_nvim_set_keymap = vim.api.nvim_set_keymap
 vim.api.nvim_set_keymap = function(mode, lhs, rhs, opts)
-  if direct_caller_source():find("vim/keymap", 1, true) then
+  if called_from_vim_keymap() then
     return original_nvim_set_keymap(mode, lhs, rhs, opts)
   end
 
@@ -213,7 +227,7 @@ end
 
 local original_nvim_buf_set_keymap = vim.api.nvim_buf_set_keymap
 vim.api.nvim_buf_set_keymap = function(buffer, mode, lhs, rhs, opts)
-  if direct_caller_source():find("vim/keymap", 1, true) then
+  if called_from_vim_keymap() then
     return original_nvim_buf_set_keymap(buffer, mode, lhs, rhs, opts)
   end
 

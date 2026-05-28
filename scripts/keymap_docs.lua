@@ -165,42 +165,39 @@ local function documented_ids()
 
     local header = split_markdown_row(line)
     local separator = lines[index + 1]
-    if not (header and is_table_separator(separator)) then
-      index = index + 1
-      goto continue
-    end
+    if header and is_table_separator(separator) then
+      local header_key = table.concat(
+        vim.tbl_map(function(cell)
+          return strip_ticks(cell):lower()
+        end, header),
+        "|"
+      )
+      index = index + 2
 
-    local header_key = table.concat(
-      vim.tbl_map(function(cell)
-        return strip_ticks(cell):lower()
-      end, header),
-      "|"
-    )
-    index = index + 2
+      while index <= #lines do
+        local row_line = lines[index]
+        local row = split_markdown_row(row_line)
+        if not row or is_table_separator(row_line) then
+          break
+        end
 
-    while index <= #lines do
-      local row_line = lines[index]
-      local row = split_markdown_row(row_line)
-      if not row or is_table_separator(row_line) then
-        break
-      end
-
-      if header_key == "mode|key|current meaning|overrides builtin|replaced meaning / notes" then
-        for _, mode in ipairs(normalize_modes(row[1])) do
+        if header_key == "mode|key|current meaning|overrides builtin|replaced meaning / notes" then
+          for _, mode in ipairs(normalize_modes(row[1])) do
+            for _, lhs in ipairs(split_csv(row[2])) do
+              record(mode, lhs)
+            end
+          end
+        elseif header_key == "prefix|leaf keys|current meaning|overrides builtin|notes" then
           for _, lhs in ipairs(split_csv(row[2])) do
-            record(mode, lhs)
+            documented[wildcard_key_id("<leader>" .. lhs)] = true
           end
         end
-      elseif header_key == "prefix|leaf keys|current meaning|overrides builtin|notes" then
-        for _, lhs in ipairs(split_csv(row[2])) do
-          documented[wildcard_key_id("<leader>" .. lhs)] = true
-        end
-      end
 
+        index = index + 1
+      end
+    else
       index = index + 1
     end
-
-    ::continue::
   end
 
   return documented
