@@ -8,6 +8,7 @@ local M = {
 }
 
 M.config = function()
+  local skip_automatic_install = vim.g.bootstrap_skip_mason_automatic_install
   local ensure_installed_servers = require("user.mason_packages").lsp_servers
 
   local settings = {
@@ -21,9 +22,17 @@ M.config = function()
     },
     log_level = vim.log.levels.INFO,
     max_concurrent_installers = 4,
+    registry_cache = {
+      refresh = not skip_automatic_install,
+    },
   }
 
   require("mason").setup(settings)
+
+  if skip_automatic_install then
+    return
+  end
+
   require("mason-lspconfig").setup {
     ensure_installed = ensure_installed_servers,
     automatic_installation = true,
