@@ -34,7 +34,8 @@ local function map_mason_name(name)
   local ok_mlsp, mlsp = pcall(require, "mason-lspconfig")
   if ok_mlsp then
     local mappings = mlsp.get_mappings()
-    name = mappings.lspconfig_to_package[name] or mappings.lspconfig_to_mason[name] or name
+    local lspconfig_to_package = mappings.lspconfig_to_package or mappings.lspconfig_to_mason or {}
+    name = lspconfig_to_package[name] or name
   end
 
   local ok_mdap, mdap = pcall(require, "mason-nvim-dap.mappings.source")
