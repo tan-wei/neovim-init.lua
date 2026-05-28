@@ -1,7 +1,16 @@
 ---@type LazyPluginSpec
 local M = {
   "mzlogin/vim-markdown-toc",
-  ft = { "markdown" },
+  cmd = {
+    "GenTocGFM",
+    "GenTocGitLab",
+    "GenTocRedcarpet",
+    "GenTocMarked",
+    "GenTocModeline",
+    "UpdateToc",
+    "RemoveToc",
+    "TocGoto",
+  },
 }
 
 M.init = function()
