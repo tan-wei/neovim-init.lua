@@ -6,6 +6,34 @@ end
 
 local general_group = augroup "general"
 
+local auxiliary_close_filetypes = {
+  help = true,
+  lspinfo = true,
+  man = true,
+  qf = true,
+}
+
+---@param buf integer
+---@param rhs string|function
+---@param desc string
+local function map_close_with_q(buf, rhs, desc)
+  vim.keymap.set("n", "q", rhs, {
+    buffer = buf,
+    silent = true,
+    nowait = true,
+    desc = desc,
+  })
+end
+
+local function close_current_health_view()
+  if vim.fn.tabpagenr "$" > 1 then
+    vim.cmd "tabclose"
+    return
+  end
+
+  vim.cmd "close"
+end
+
 local spell_comment_filetypes = {
   "bash",
   "c",
@@ -28,13 +56,35 @@ local spell_comment_filetypes = {
 
 vim.api.nvim_create_autocmd("FileType", {
   group = general_group,
-  pattern = { "qf", "help", "man", "lspinfo" },
-  desc = "Close auxiliary windows with q",
+  pattern = { "qf", "help", "man", "lspinfo", "checkhealth" },
+  desc = "Close auxiliary views with q",
   callback = function(args)
-    vim.keymap.set("n", "q", "<cmd>close<cr>", {
-      buffer = args.buf,
-      silent = true,
-    })
+    if vim.bo[args.buf].filetype == "checkhealth" then
+      map_close_with_q(args.buf, close_current_health_view, "Close health tab")
+      return
+    end
+
+    map_close_with_q(args.buf, "<cmd>close<cr>", "Close auxiliary window")
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  group = general_group,
+  desc = "Close transient floating scratch windows with q",
+  callback = function(args)
+    local buf = args.buf
+    if auxiliary_close_filetypes[vim.bo[buf].filetype] or vim.bo[buf].filetype == "checkhealth" then
+      return
+    end
+
+    local win_config = vim.api.nvim_win_get_config(0)
+    local is_transient_float = win_config.relative ~= ""
+      and vim.bo[buf].buftype == "nofile"
+      and not vim.bo[buf].modifiable
+
+    if is_transient_float then
+      map_close_with_q(buf, "<cmd>close<cr>", "Close transient window")
+    end
   end,
 })
 

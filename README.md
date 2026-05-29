@@ -244,7 +244,8 @@ Scope notes:
 | --- | --- | --- | --- | --- |
 | LSP-attached buffer | `K` | Pure LSP hover | Yes | Buffer-local registry entry in [lua/user/keymap/buffer.lua](lua/user/keymap/buffer.lua), applied from [lua/user/lsp/handlers.lua](lua/user/lsp/handlers.lua) and shadowing the global ufo `K` |
 | Non-LSP buffer | `K` | Peek folded lines, else hover | Yes | Global lazy-registry entry from [lua/user/keymap/lazy.lua](lua/user/keymap/lazy.lua) |
-| `qf`, `help`, `man`, `lspinfo` | `q` | Close window | Yes | Buffer-local helper from [lua/user/autocommands.lua](lua/user/autocommands.lua) |
+| `qf`, `help`, `man`, `lspinfo`, transient nofile floats | `q` | Close window | Yes | Buffer-local helper from [lua/user/autocommands.lua](lua/user/autocommands.lua) |
+| `checkhealth` tab | `q` | Close tab | Yes | Buffer-local helper from [lua/user/autocommands.lua](lua/user/autocommands.lua) with a safe fallback to close the window if it is the last tab |
 | Terminal buffers | `<Esc>`, `jk`, `<C-h>`, `<C-j>`, `<C-k>`, `<C-l>` | Leave terminal mode or move between windows | Yes | Buffer-local helpers from [lua/plugins/terminal/toggleterm.lua](lua/plugins/terminal/toggleterm.lua) |
 | NvimTree buffer | `P`, `<Esc>`, `<C-f>`, `<C-b>`, `<Tab>` | Preview, close preview, preview scroll, smart expand / preview | Mixed | Repo-local additions only; upstream `default_on_attach()` maps are not expanded here |
 
