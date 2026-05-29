@@ -251,11 +251,7 @@ function M.populate_workspace_diagnostics(client, bufnr)
             },
           }
 
-          if vim.fn.has "nvim-0.12" == 1 then
-            client:notify("textDocument/didOpen", params)
-          else
-            client.notify(client, "textDocument/didOpen", params)
-          end
+          client:notify("textDocument/didOpen", params)
         end, 0)
       end
     end
