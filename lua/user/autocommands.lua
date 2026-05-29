@@ -88,17 +88,6 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   end,
 })
 
-vim.api.nvim_create_autocmd("TextYankPost", {
-  group = general_group,
-  desc = "Highlight yanked text",
-  callback = function()
-    vim.highlight.on_yank {
-      higroup = "Visual",
-      timeout = 200,
-    }
-  end,
-})
-
 vim.api.nvim_create_autocmd("BufWinEnter", {
   group = general_group,
   desc = "Avoid continuing comments on new lines",
