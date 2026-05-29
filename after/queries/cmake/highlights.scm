@@ -1,3 +1,3 @@
 ; extends
 
-(comment) @spell
+(line_comment) @spell
