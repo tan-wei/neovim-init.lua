@@ -1,6 +1,6 @@
 ---@type LazyPluginSpec
 local M = {
-  "theruki/yoda.nvim",
+  "harukikuri/yoda.nvim",
   lazy = true,
 }
 
