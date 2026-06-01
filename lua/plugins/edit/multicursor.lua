@@ -146,9 +146,8 @@ M.config = function()
     callback = set_multicursor_highlights,
   })
 
-  mc.onSafeState(function()
-    vim.schedule(refresh_lualine)
-  end)
+  -- NOTE: Ensure refresh lualine
+  mc.onSafeState(refresh_lualine)
 end
 
 return M
