@@ -91,6 +91,111 @@ jobs:
           LINK_CHECK_JOBS: 24
         run: just link-check
 
+  health-check:
+    name: Checkhealth
+    runs-on: ubuntu-24.04
+
+    env:
+      NVIM_APPNAME: nvim
+
+    steps:
+      - name: Checkout config
+        uses: actions/checkout@v4
+        with:
+          path: xdg/nvim
+
+      - name: Export XDG paths
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          echo "XDG_CONFIG_HOME=$GITHUB_WORKSPACE/xdg" >> "$GITHUB_ENV"
+          echo "XDG_DATA_HOME=$RUNNER_TEMP/xdg-data" >> "$GITHUB_ENV"
+          echo "XDG_STATE_HOME=$RUNNER_TEMP/xdg-state" >> "$GITHUB_ENV"
+          echo "XDG_CACHE_HOME=$RUNNER_TEMP/xdg-cache" >> "$GITHUB_ENV"
+
+      - name: Install system dependencies
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake curl fd-find gzip just ripgrep tar unzip
+          sudo ln -sf "$(command -v fdfind)" /usr/local/bin/fd
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+
+      - name: Set up Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Prepare XDG directories
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          mkdir -p "$XDG_DATA_HOME" "$XDG_STATE_HOME" "$XDG_CACHE_HOME"
+
+      - name: Install latest tree-sitter-cli
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          archive="$RUNNER_TEMP/tree-sitter-linux-x64.gz"
+          install_dir="$RUNNER_TEMP/tree-sitter"
+
+          curl -fsSLo "$archive" \
+            "https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-linux-x64.gz"
+          mkdir -p "$install_dir"
+          gunzip -c "$archive" > "$install_dir/tree-sitter"
+          chmod +x "$install_dir/tree-sitter"
+          echo "$install_dir" >> "$GITHUB_PATH"
+
+      - name: Install Neovim nightly
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          archive="$RUNNER_TEMP/nvim-linux-x86_64.tar.gz"
+
+          curl -fsSLo "$archive" \
+            "https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz"
+          tar -xzf "$archive" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/nvim-linux-x86_64/bin" >> "$GITHUB_PATH"
+
+      - name: Sync plugins via just
+        working-directory: ${{ github.workspace }}/xdg/nvim
+        run: just bootstrap-lazy
+
+      - name: Install tree-sitter parsers via just
+        working-directory: ${{ github.workspace }}/xdg/nvim
+        run: just bootstrap-treesitter
+
+      - name: Install Mason packages via just
+        working-directory: ${{ github.workspace }}/xdg/nvim
+        run: just bootstrap-mason
+
+      - name: Run health check via just
+        working-directory: ${{ github.workspace }}/xdg/nvim
+        run: just health-check
+
   bootstrap-smoke:
     name: ${{ matrix.os_name }} (${{ matrix.arch }})
     runs-on: ${{ matrix.runner }}
