@@ -88,7 +88,7 @@ jobs:
       - name: Run link check via just
         working-directory: ${{ github.workspace }}/xdg/nvim
         env:
-          LINK_CHECK_JOBS: 24
+          LINK_CHECK_JOBS: 12
         run: just link-check
 
   # health-check:
@@ -445,4 +445,3 @@ jobs:
       - name: Run smoke test via just
         working-directory: ${{ github.workspace }}/xdg/nvim
         run: just bootstrap-smoke
-
