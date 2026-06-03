@@ -18,6 +18,7 @@ local M = {
     "black",
     "cmakelang",
     "cmakelint",
+    "codespell",
     "commitlint",
     "cpplint",
     "dotenv-linter",
