@@ -5,7 +5,7 @@ local M = {
 }
 
 M.init = function()
-  local ignore_filetypes = { "NvimTree", "Outline" }
+  local ignore_filetypes = { "NvimTree", "Outline", "qf" }
   local ignore_buftypes = { "nofile", "prompt", "popup" }
 
   local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
