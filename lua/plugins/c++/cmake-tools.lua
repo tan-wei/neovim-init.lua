@@ -47,6 +47,29 @@ local function open_overseer_task_list()
   end
 end
 
+local function shorten_cmake_overseer_task_name(task)
+  if type(task) ~= "table" or type(task.name) ~= "string" then
+    return
+  end
+
+  local name = task.name:lower()
+  if name:find(" --build ", 1, true) or name:match "%-%-build$" then
+    if name:find(" --target clean", 1, true) then
+      task.name = "CMake Clean"
+    else
+      task.name = "CMake Build"
+    end
+    return
+  end
+
+  if name:find(" --install ", 1, true) or name:match "%-%-install$" then
+    task.name = "CMake Install"
+    return
+  end
+
+  task.name = "CMake Task"
+end
+
 local function get_session_cache_dir()
   if require("util.os").is_windows() then
     return vim.fn.expand "~" .. "/AppData/Local/cmake_tools_nvim/"
@@ -104,9 +127,25 @@ M.opts = {
         auto_close_when_success = true,
       },
       overseer = {
-        new_task_opts = {},
+        new_task_opts = {
+          components = {
+            "on_exit_set_status",
+            { "on_complete_notify", statuses = { "FAILURE" } },
+            { "on_complete_dispose", require_view = { "SUCCESS", "FAILURE" } },
+            {
+              "on_output_quickfix",
+              open = false,
+              open_on_exit = "failure",
+              open_height = 10,
+              focus = true,
+              items_only = true,
+              set_diagnostics = true,
+              tail = false,
+            },
+          },
+        },
         on_new_task = function(task)
-          open_overseer_task_list()
+          shorten_cmake_overseer_task_name(task)
         end,
       },
       terminal = {},
