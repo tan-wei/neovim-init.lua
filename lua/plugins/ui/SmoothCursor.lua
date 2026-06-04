@@ -12,6 +12,7 @@ M.config = function()
     disabled_filetypes = {
       "lazy",
       "NvimTree",
+      "qf",
     },
     disable_float_win = true,
   }

@@ -22,7 +22,22 @@ M.opts = {
       },
     },
   },
-  bottom = {},
+  bottom = {
+    {
+      title = "QuickFix",
+      ft = "qf",
+      size = { height = 0.25 },
+      wo = {
+        winbar = true,
+        winfixheight = true,
+        number = true,
+        relativenumber = false,
+        signcolumn = "number",
+        spell = false,
+        wrap = false,
+      },
+    },
+  },
   right = {
     {
       title = "Outline",
