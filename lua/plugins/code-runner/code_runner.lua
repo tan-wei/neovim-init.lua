@@ -169,6 +169,26 @@ local function build_native_runner(filetype)
   end
 end
 
+local function find_csproj_root()
+  local file = vim.api.nvim_buf_get_name(0)
+  local dir = file ~= "" and vim.fs.dirname(file) or vim.uv.cwd()
+
+  while dir and dir ~= "" do
+    local matches = vim.fn.glob(vim.fs.joinpath(dir, "*.csproj"), false, true)
+    if type(matches) == "table" and #matches > 0 then
+      return dir
+    end
+
+    local parent = vim.fs.dirname(dir)
+    if not parent or parent == dir then
+      break
+    end
+    dir = parent
+  end
+
+  return file ~= "" and vim.fs.dirname(file) or vim.uv.cwd()
+end
+
 M.config = function()
   local filetype_commands = compact_map {
     javascript = interpreter_command { "node", "bun", "deno run" },
@@ -193,8 +213,8 @@ M.config = function()
     dart = interpreter_command { "dart" },
     vim = build_vimscript_runner(),
     cs = function(...)
-      local root_dir = require("null-ls.utils").root_pattern "*.csproj"(vim.loop.cwd())
-      return "cd " .. root_dir .. " && dotnet run$end"
+      local root_dir = find_csproj_root()
+      return "cd " .. vim.fn.shellescape(root_dir) .. " && dotnet run$end"
     end,
   }
 
