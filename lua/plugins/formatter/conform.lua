@@ -42,7 +42,7 @@ M.config = function()
     cmake = { "cmake_format" },
     json = { "jq" },
     just = { "just" },
-    ["*"] = { "codespell" },
+    -- ["*"] = { "codespell" },
     ["_"] = { "trim_whitespace" },
   }
   local formatters = {}
