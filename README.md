@@ -179,6 +179,7 @@ Scope notes:
 | `n` | `[b`, `]b` | Previous / next buffer | No | Bracket motion family; repeatable with demicolon |
 | `n` | `[S`, `]S` | Previous / next scrollview mark | No | Bracket motion family; repeatable with demicolon |
 | `n` | `[g`, `]g` | Previous / next git hunk | No | Bracket motion family; repeatable with demicolon |
+| `n` | `[r`, `]r` | Previous / next reference | No | Refjump motion family; repeatable with demicolon |
 | `n` | `[p`, `]p`, `[P`, `]P` | Yanky indent-aware put | Yes | Bracket action family; intentionally non-repeatable |
 | `n` | `>p`, `<p`, `>P`, `<P`, `=p`, `=P` | Yanky shift / filter put helpers | Yes | Operator-style action family; intentionally non-repeatable |
 | `n`, `x` | `[m`, `]m`, `[M`, `]M` | Multicursor match add / skip | No | Repo-owned multicursor navigation |
