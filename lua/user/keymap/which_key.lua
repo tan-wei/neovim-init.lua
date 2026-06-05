@@ -20,6 +20,12 @@ end
 function M.entries()
   -- Keep leader families grouped by letter so available slots stay obvious.
   return {
+    -- [ / ] --
+    { "[", group = "previous", mode = "n" },
+    { "[r", desc = "previous reference", mode = "n" },
+    { "]", group = "next", mode = "n" },
+    { "]r", desc = "next reference", mode = "n" },
+
     -- A --
     { "<leader>A", "<cmd>Alpha<cr>", desc = "Alpha", mode = "n" },
 

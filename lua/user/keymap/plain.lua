@@ -151,6 +151,46 @@ return {
     },
   },
   {
+    plugin = "refjump.nvim",
+    family = "bracket",
+    maps = {
+      {
+        mode = "n",
+        lhs = "[r",
+        rhs = function()
+          require("refjump").reference_jump { forward = false }
+        end,
+        desc = "previous reference",
+        opts = default_opts,
+        symbol = {
+          family = "bracket",
+          role = "motion",
+          namespace = "r",
+          direction = "prev",
+          repeatable = true,
+          repeat_engine = "demicolon",
+        },
+      },
+      {
+        mode = "n",
+        lhs = "]r",
+        rhs = function()
+          require("refjump").reference_jump { forward = true }
+        end,
+        desc = "next reference",
+        opts = default_opts,
+        symbol = {
+          family = "bracket",
+          role = "motion",
+          namespace = "r",
+          direction = "next",
+          repeatable = true,
+          repeat_engine = "demicolon",
+        },
+      },
+    },
+  },
+  {
     plugin = "yanky.nvim",
     family = "plain",
     maps = {
