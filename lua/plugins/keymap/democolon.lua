@@ -14,7 +14,7 @@ M.opts = {
   keymaps = {
     horizontal_motions = false,
     diagnostic_motions = true,
-    repeat_motions = "stateful",
+    repeat_motions = false,
     list_motions = true,
     spell_motions = true,
     fold_motions = true,
@@ -92,10 +92,20 @@ M.config = function(_, opts)
   set_portal_jump("<leader>jqj", "quickfix", true, "jump Quickfix forward")
   set_portal_jump("<leader>jqk", "quickfix", false, "jump Quickfix backward")
 
-  set_flash_char_jump "f"
-  set_flash_char_jump "F"
-  set_flash_char_jump "t"
-  set_flash_char_jump "T"
+  -- set_flash_char_jump "f"
+  -- set_flash_char_jump "F"
+  -- set_flash_char_jump "t"
+  -- set_flash_char_jump "T"
+
+  local map, nxo = vim.keymap.set, { "n", "x", "o" }
+
+  -- Stateless: always forward/backward
+  -- map(nxo, "n", require("demicolon.repeat_jump").forward)
+  -- map(nxo, "N", require("demicolon.repeat_jump").backward)
+
+  -- Or, stateful (remember the original motion’s direction)
+  map(nxo, "n", require("demicolon.repeat_jump").next)
+  map(nxo, "N", require("demicolon.repeat_jump").prev)
 end
 
 -- Custom jumps example (uncomment to use)

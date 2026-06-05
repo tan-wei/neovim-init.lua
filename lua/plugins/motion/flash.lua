@@ -7,8 +7,6 @@ local M = {
 M.opts = {
   modes = {
     char = {
-      -- NOTE: Let democolon.nvim handle f/t motions
-      keys = {},
       jump_labels = true,
     },
   },

@@ -72,7 +72,7 @@ M.keys = {
     desc = "rest of paragraph",
   },
   { "gG", '<cmd>lua require("various-textobjs").entireBuffer()<CR>', mode = { "o", "x" }, desc = "entire buffer" },
-  { "n", '<cmd>lua require("various-textobjs").nearEoL()<CR>', mode = { "o", "x" }, desc = "near end of line" },
+  -- { "n", '<cmd>lua require("various-textobjs").nearEoL()<CR>', mode = { "o", "x" }, desc = "near end of line" }, -- FIXME: Cause duplicate keymap
   {
     "i_",
     '<cmd>lua require("various-textobjs").lineCharacterwise("inner")<CR>',
