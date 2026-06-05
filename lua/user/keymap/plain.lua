@@ -2,6 +2,23 @@ local default_opts = { noremap = true, silent = true }
 local yanky_plug_opts = { remap = true, silent = true }
 local builtin = require "user.keymap.builtin"
 
+local function refjump_repeatable_map(forward)
+  return function()
+    local ok, demicolon_jump = pcall(require, "demicolon.jump")
+    if not ok then
+      require("refjump").reference_jump { forward = forward }
+      return
+    end
+
+    local references
+    demicolon_jump.repeatably_do(function(opts)
+      require("refjump").reference_jump(opts, references, function(refs)
+        references = refs
+      end)
+    end, { forward = forward })
+  end
+end
+
 ---@type UserKeymapGroup[]
 return {
   {
@@ -157,9 +174,7 @@ return {
       {
         mode = "n",
         lhs = "[r",
-        rhs = function()
-          require("refjump").reference_jump { forward = false }
-        end,
+        rhs = refjump_repeatable_map(false),
         desc = "previous reference",
         opts = default_opts,
         symbol = {
@@ -174,9 +189,7 @@ return {
       {
         mode = "n",
         lhs = "]r",
-        rhs = function()
-          require("refjump").reference_jump { forward = true }
-        end,
+        rhs = refjump_repeatable_map(true),
         desc = "next reference",
         opts = default_opts,
         symbol = {
