@@ -30,7 +30,7 @@ local function current_window_allows_dimming(current)
 end
 
 M.opts = {
-  recipe = { "minimalist", { animate = true } },
+  recipe = { "ripple", { animate = true } },
   ncmode = "windows",
   fadelevel = 0.4,
   blocklist = {
