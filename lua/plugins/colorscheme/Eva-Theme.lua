@@ -2,7 +2,6 @@
 local M = {
   "sharpchen/Eva-Theme.nvim",
   lazy = true,
-  build = ":EvaCompile",
 }
 
 M.init = function()
