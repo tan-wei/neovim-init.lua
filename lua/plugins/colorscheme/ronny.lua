@@ -16,7 +16,7 @@ M.config = function()
       monokai_original = false,
       only_CursorLineNr = true,
       hi_relativenumber = true,
-      hi_unfocus_window = true,
+      hi_unfocus_window = false,
       hi_formatted_text = true,
       hi_comment_italic = true,
     },

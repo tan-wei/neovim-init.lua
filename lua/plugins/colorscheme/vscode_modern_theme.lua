@@ -14,7 +14,7 @@ M.config = function()
   require("vscode_modern").setup {
     cursorline = true,
     transparent_background = false,
-    nvim_tree_darker = true,
+    nvim_tree_darker = false,
   }
 end
 
