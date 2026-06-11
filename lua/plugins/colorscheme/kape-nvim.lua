@@ -1,6 +1,7 @@
 ---@type LazyPluginSpec
 local M = {
-  "gabiuz/kape-nvim",
+  "kape-theme/nvim",
+  name = "kape-nvim",
   lazy = true,
 }
 
