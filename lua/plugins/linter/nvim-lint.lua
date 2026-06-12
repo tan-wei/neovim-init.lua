@@ -8,18 +8,22 @@ local lint_specs = {
   clangtidy = {
     executable = "clang-tidy",
     filetypes = { "c", "cpp" },
+    enabled = false,
   },
   cppcheck = {
     executable = "cppcheck",
     filetypes = { "c", "cpp" },
+    enabled = false,
   },
   cpplint = {
     executable = "cpplint",
     filetypes = { "c", "cpp" },
+    enabled = false,
   },
   dotenv_linter = {
     executable = "dotenv-linter",
     filetypes = { "envfile" },
+    enabled = true,
   },
 }
 
@@ -72,8 +76,10 @@ local function build_linters_by_ft()
     local enabled = project_linters[linter_name]
 
     if enabled == nil then
-      enabled = provider.executable_exist(spec.executable)
+      -- Default: use spec.enabled (defaults to true) AND executable must exist
+      enabled = (spec.enabled ~= false) and provider.executable_exist(spec.executable)
     else
+      -- Project override: respect explicit setting AND executable must exist
       enabled = enabled and provider.executable_exist(spec.executable)
     end
 
