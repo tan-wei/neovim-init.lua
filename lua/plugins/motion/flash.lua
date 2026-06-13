@@ -7,6 +7,7 @@ local M = {
 M.opts = {
   modes = {
     char = {
+      enabled = false,
       jump_labels = true,
     },
   },

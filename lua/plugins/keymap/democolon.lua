@@ -14,7 +14,7 @@ M.opts = {
   keymaps = {
     horizontal_motions = false,
     diagnostic_motions = true,
-    repeat_motions = false,
+    repeat_motions = "stateful",
     list_motions = true,
     spell_motions = true,
     fold_motions = true,
@@ -116,11 +116,10 @@ M.config = function(_, opts)
     end
   end)
 
-  -- FIXME: Seems no need to set here?
-  -- vim.keymap.set(nxo, "f", flash_jump { key = "f", forward = true }, { desc = "Flash f" })
-  -- vim.keymap.set(nxo, "F", flash_jump { key = "F", forward = false }, { desc = "Flash F" })
-  -- vim.keymap.set(nxo, "t", flash_jump { key = "t", forward = true }, { desc = "Flash t" })
-  -- vim.keymap.set(nxo, "T", flash_jump { key = "T", forward = false }, { desc = "Flash T" })
+  vim.keymap.set(nxo, "f", flash_jump { key = "f", forward = true }, { desc = "Flash f" })
+  vim.keymap.set(nxo, "F", flash_jump { key = "F", forward = false }, { desc = "Flash F" })
+  vim.keymap.set(nxo, "t", flash_jump { key = "t", forward = true }, { desc = "Flash t" })
+  vim.keymap.set(nxo, "T", flash_jump { key = "T", forward = false }, { desc = "Flash T" })
 end
 
 -- Custom jumps example (uncomment to use)
