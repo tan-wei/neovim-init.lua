@@ -27,37 +27,6 @@ M.config = function(_, opts)
   local jump = require "demicolon.jump"
   local nxo = { "n", "x", "o" }
 
-  local function flash_char_jump(key)
-    local flash_char = require "flash.plugins.char"
-    local autohide = require("flash.config").get("char").autohide
-
-    flash_char.jumping = true
-    flash_char.jump(key)
-
-    vim.schedule(function()
-      flash_char.jumping = false
-      if flash_char.state and autohide then
-        flash_char.state:hide()
-      end
-    end)
-  end
-
-  local function set_flash_char_jump(lhs)
-    local motion_is_forward = lhs == "f" or lhs == "t"
-
-    vim.keymap.set(nxo, lhs, function()
-      jump.repeatably_do(function(repeat_opts)
-        if repeat_opts.repeated then
-          local repeat_key = repeat_opts.forward == motion_is_forward and ";" or ","
-          flash_char_jump(repeat_key)
-          return
-        end
-
-        flash_char_jump(lhs)
-      end, { forward = motion_is_forward })
-    end, { desc = "Flash " .. lhs })
-  end
-
   local function set_neotest_jump(lhs, forward, jump_opts, desc)
     vim.keymap.set("n", lhs, function()
       jump.repeatably_do(function(repeat_opts)
@@ -92,20 +61,65 @@ M.config = function(_, opts)
   set_portal_jump("<leader>jqj", "quickfix", true, "jump Quickfix forward")
   set_portal_jump("<leader>jqk", "quickfix", false, "jump Quickfix backward")
 
-  -- set_flash_char_jump "f"
-  -- set_flash_char_jump "F"
-  -- set_flash_char_jump "t"
-  -- set_flash_char_jump "T"
+  -- Credit: https://github.com/mawkler/demicolon.nvim/issues/11#issuecomment-2821882735
+  local flash_char = require "flash.plugins.char"
+  ---@param options { key: string, fowrard: boolean }
+  local function flash_jump(options)
+    return function()
+      require("demicolon.jump").repeatably_do(function(o)
+        local key = o.forward and o.key:lower() or o.key:upper()
 
-  local map, nxo = vim.keymap.set, { "n", "x", "o" }
+        flash_char.jumping = true
+        local autohide = require("flash.config").get("char").autohide
 
-  -- Stateless: always forward/backward
-  -- map(nxo, "n", require("demicolon.repeat_jump").forward)
-  -- map(nxo, "N", require("demicolon.repeat_jump").backward)
+        -- Originally was
+        -- if require("flash.repeat").is_repeat then
+        if o.repeated then
+          flash_char.jump_labels = false
 
-  -- Or, stateful (remember the original motion’s direction)
-  map(nxo, "n", require("demicolon.repeat_jump").next)
-  map(nxo, "N", require("demicolon.repeat_jump").prev)
+          -- Originally was
+          -- flash_char.state:jump({ count = vim.v.count1 })
+          if o.forward then
+            flash_char.right()
+          else
+            flash_char.left()
+          end
+
+          flash_char.state:show()
+        else
+          flash_char.jump(key)
+        end
+
+        vim.schedule(function()
+          flash_char.jumping = false
+          if flash_char.state and autohide then
+            flash_char.state:hide()
+          end
+        end)
+      end, options)
+    end
+  end
+
+  vim.api.nvim_create_autocmd({ "BufLeave", "CursorMoved", "InsertEnter" }, {
+    group = vim.api.nvim_create_augroup("flash_char", { clear = true }),
+    callback = function(event)
+      local hide = event.event == "InsertEnter" or not flash_char.jumping
+      if hide and flash_char.state then
+        flash_char.state:hide()
+      end
+    end,
+  })
+
+  vim.on_key(function(key)
+    if flash_char.state and key == require("flash.util").ESC and (vim.fn.mode() == "n" or vim.fn.mode() == "v") then
+      flash_char.state:hide()
+    end
+  end)
+
+  vim.keymap.set(nxo, "f", flash_jump { key = "f", forward = true }, { desc = "Flash f" })
+  vim.keymap.set(nxo, "F", flash_jump { key = "F", forward = false }, { desc = "Flash F" })
+  vim.keymap.set(nxo, "t", flash_jump { key = "t", forward = true }, { desc = "Flash t" })
+  vim.keymap.set(nxo, "T", flash_jump { key = "T", forward = false }, { desc = "Flash T" })
 end
 
 -- Custom jumps example (uncomment to use)
