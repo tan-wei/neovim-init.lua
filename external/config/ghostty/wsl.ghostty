@@ -2,7 +2,17 @@
 
 font-family = Fira Code Nerd Font
 font-family = Sarasa Gothic Mono
-font-size = 10
+
+font-size = 8
+
+font-feature = calt
+font-feature = liga
+font-feature = zero
+
+# adjust-cell-width = 0
+# adjust-cell-height = 0
+
+# freetype-load-flags = default
 
 gtk-single-instance = detect
 window-theme = system

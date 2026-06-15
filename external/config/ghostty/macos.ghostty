@@ -2,7 +2,16 @@
 
 font-family = Agave Nerd Font
 font-family = Sarasa Gothic SC
-font-size = 14
 
+font-size = 8
+
+font-feature = calt
+font-feature = liga
+font-feature = zero
+
+# adjust-cell-width = 0
+# adjust-cell-height = 0
+
+# freetype-load-flags = default
 macos-titlebar-style = transparent
 window-theme = auto
