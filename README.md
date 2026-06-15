@@ -177,6 +177,7 @@ Scope notes:
 | Mode | Key | Current meaning | Overrides builtin | Replaced meaning / notes |
 | --- | --- | --- | --- | --- |
 | `n` | `[b`, `]b` | Previous / next buffer | No | Bracket motion family; repeatable with demicolon |
+| `n`, `x` | `[e`, `]e` | Previous / next delimiter | No | sort.nvim bracket motion family; repeatable with demicolon |
 | `n` | `[S`, `]S` | Previous / next scrollview mark | No | Bracket motion family; repeatable with demicolon |
 | `n` | `[g`, `]g` | Previous / next git hunk | No | Bracket motion family; repeatable with demicolon |
 | `n` | `[r`, `]r` | Previous / next reference | No | Refjump motion family; repeatable with demicolon |
