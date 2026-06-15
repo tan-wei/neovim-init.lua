@@ -204,6 +204,46 @@ return {
     },
   },
   {
+    plugin = "sort.nvim",
+    family = "bracket",
+    maps = {
+      {
+        mode = { "n", "x", "o" },
+        lhs = "[e",
+        rhs = function()
+          return require("sort.motions").prev_delimiter()
+        end,
+        opts = { expr = true, silent = true },
+        desc = "Previous delimiter",
+        symbol = {
+          family = "bracket",
+          role = "motion",
+          namespace = "e",
+          direction = "prev",
+          repeatable = true,
+          repeat_engine = "demicolon",
+        },
+      },
+      {
+        mode = { "n", "x", "o" },
+        lhs = "]e",
+        rhs = function()
+          return require("sort.motions").next_delimiter()
+        end,
+        opts = { expr = true, silent = true },
+        desc = "Next delimiter",
+        symbol = {
+          family = "bracket",
+          role = "motion",
+          namespace = "e",
+          direction = "next",
+          repeatable = true,
+          repeat_engine = "demicolon",
+        },
+      },
+    },
+  },
+  {
     plugin = "yanky.nvim",
     family = "plain",
     maps = {

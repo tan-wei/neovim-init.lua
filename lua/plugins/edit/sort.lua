@@ -19,10 +19,7 @@ M.opts = {
       inner = "io",
       around = "ao",
     },
-    motion = {
-      next_delimiter = "]o",
-      prev_delimiter = "[o",
-    },
+    motion = false,
   },
 }
 
