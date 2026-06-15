@@ -208,7 +208,7 @@ return {
     family = "bracket",
     maps = {
       {
-        mode = { "n", "x", "o" },
+        mode = { "n", "x" },
         lhs = "[e",
         rhs = function()
           return require("sort.motions").prev_delimiter()
@@ -225,7 +225,7 @@ return {
         },
       },
       {
-        mode = { "n", "x", "o" },
+        mode = { "n", "x" },
         lhs = "]e",
         rhs = function()
           return require("sort.motions").next_delimiter()
