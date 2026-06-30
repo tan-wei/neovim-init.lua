@@ -1,6 +1,7 @@
 ---@type LazyPluginSpec
 local M = {
-  "SmiteshP/nvim-navbuddy",
+  -- "SmiteshP/nvim-navbuddy", NOTE: Not maintained
+  "hasansujon786/nvim-navbuddy",
   dependencies = {
     "SmiteshP/nvim-navic",
     "MunifTanjim/nui.nvim",
