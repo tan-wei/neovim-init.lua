@@ -677,7 +677,33 @@ local function declared_record_location(record, registry_index)
   return location
 end
 
-local function group_conflicts()
+local function record_has_conflict_annotation(record, registry_index)
+  -- Only records from the registry can carry conflict annotations
+  if not (record.source == "lua/user/keymap/registry.lua" or record.source == "=[C]") then
+    return false
+  end
+
+  local id = entry_identity(record.mode, record.lhs, record.rhs, record.desc)
+  local matches = registry_index[id]
+  if not matches then
+    return false
+  end
+
+  for _, entry in ipairs(matches) do
+    local conflict = type(entry.conflict) == "table" and entry.conflict or nil
+    if conflict then
+      local has_builtin = type(conflict.builtin) == "string" and conflict.builtin ~= ""
+      local has_note = type(conflict.note) == "string" and conflict.note ~= ""
+      if has_builtin or has_note then
+        return true
+      end
+    end
+  end
+
+  return false
+end
+
+local function group_conflicts(registry_index)
   local grouped = {}
 
   for _, record in ipairs(effective_records()) do
@@ -696,10 +722,21 @@ local function group_conflicts()
   local conflicts = {}
   for _, group in pairs(grouped) do
     if #group.records > 1 then
-      table.sort(group.records, function(left, right)
-        return left.seq < right.seq
-      end)
-      conflicts[#conflicts + 1] = group
+      -- Skip groups where at least one record is a declared intentional
+      -- overwrite (has conflict.builtin or conflict.note in the registry).
+      local has_intentional = false
+      for _, record in ipairs(group.records) do
+        if record_has_conflict_annotation(record, registry_index) then
+          has_intentional = true
+          break
+        end
+      end
+      if not has_intentional then
+        table.sort(group.records, function(left, right)
+          return left.seq < right.seq
+        end)
+        conflicts[#conflicts + 1] = group
+      end
     end
   end
 
@@ -802,10 +839,10 @@ end
 function _G.__keymap_audit_finalize()
   load_mapping_plugins()
 
-  local conflicts = group_conflicts()
   local entries = declared_registry_entries()
   local registry_entries = entries
   local registry_index = declared_registry_index(registry_entries)
+  local conflicts = group_conflicts(registry_index)
   local metadata_issues = registry_metadata_issues()
   print_report(conflicts, metadata_issues, registry_index)
 
