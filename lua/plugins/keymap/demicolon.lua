@@ -18,7 +18,10 @@ M.opts = {
     list_motions = true,
     spell_motions = true,
     fold_motions = true,
+    disabled_keys = { 'p', 'I', 'A', 'f', 'i', '[', ']' },
   },
+
+
 }
 
 M.config = function(_, opts)
