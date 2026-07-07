@@ -102,6 +102,11 @@ M.config = function()
   -- Auto close: when :q on the last real window, close everything so Neovim exits
   vim.api.nvim_create_autocmd("QuitPre", {
     callback = function()
+      -- Don't close nvim-tree when exiting oil buffers
+      if vim.bo.ft == "oil" then
+        return
+      end
+
       local normal_wins = {}
       for _, w in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
         if
