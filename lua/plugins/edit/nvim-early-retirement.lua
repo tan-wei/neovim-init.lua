@@ -15,7 +15,7 @@ M.opts = {
   ignoreVisibleBufs = true,
   ignoreUnloadedBufs = false,
   notificationOnAutoClose = true,
-  deleteBufferWhenFileDeleted = true,
+  deleteBufferWhenFileDeleted = false,
   deleteFunction = nil,
 }
 
