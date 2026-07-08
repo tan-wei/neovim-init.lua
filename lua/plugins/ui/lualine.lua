@@ -493,6 +493,124 @@ M.config = function()
     }
   end
 
+  local csv_status = {
+    function()
+      local ok, result = pcall(function()
+        if vim.b.current_syntax ~= "csv" then
+          return ""
+        end
+
+        local line = vim.fn.getline "."
+        if line == "" then
+          return ""
+        end
+
+        -- Grab the first non-empty line as the header.
+        local header_line = line
+        for i = 1, math.min(vim.fn.line "$", 20) do
+          local l = vim.fn.getline(i)
+          if l ~= "" then
+            header_line = l
+            break
+          end
+        end
+
+        local header = vim.fn.split(header_line, ",", true)
+        if #header == 0 then
+          return ""
+        end
+
+        local fields = vim.fn.split(line, ",", true)
+        local cur_col = vim.fn.col "."
+        local col_idx = 0
+        local pos = 0
+        for i, f in ipairs(fields) do
+          pos = pos + #f
+          if cur_col <= pos then
+            col_idx = i - 1
+            break
+          end
+          pos = pos + 1 -- delimiter length
+        end
+        if cur_col > pos then
+          col_idx = #fields - 1
+        end
+
+        if col_idx < 0 or col_idx >= #header then
+          return ""
+        end
+
+        local col_name = header[col_idx + 1]
+        local max_len = 40
+        if #col_name > max_len then
+          col_name = col_name:sub(1, max_len - 1) .. "…"
+        end
+
+        return string.format(" %s", col_name)
+      end)
+
+      if ok and result and result ~= "" then
+        return result
+      end
+      return ""
+    end,
+    cond = function()
+      return vim.b.current_syntax == "csv"
+    end,
+    color = function()
+      local ok, result = pcall(function()
+        if vim.b.current_syntax ~= "csv" then
+          return nil
+        end
+
+        local line = vim.fn.getline "."
+        if line == "" then
+          return nil
+        end
+
+        local fields = vim.fn.split(line, ",", true)
+        local cur_col = vim.fn.col "."
+        local col_idx = 0
+        local pos = 0
+        for i, f in ipairs(fields) do
+          pos = pos + #f
+          if cur_col <= pos then
+            col_idx = i - 1
+            break
+          end
+          pos = pos + 1
+        end
+        if cur_col > pos then
+          col_idx = #fields - 1
+        end
+
+        -- Neovim's built-in csv.vim uses csvCol0..csvCol8.
+        local num_groups = 0
+        while vim.fn.hlexists("csvCol" .. num_groups) == 1 do
+          num_groups = num_groups + 1
+        end
+        if num_groups == 0 then
+          return nil
+        end
+
+        local group = "csvCol" .. (col_idx % num_groups)
+        local hl = vim.api.nvim_get_hl_by_name(group, true)
+        if hl and hl.foreground then
+          return { fg = string.format("#%06x", hl.foreground) }
+        end
+        if vim.fn.hlexists(group) == 1 then
+          return group
+        end
+        return nil
+      end)
+
+      if ok and result then
+        return result
+      end
+      return { fg = "green" }
+    end,
+  }
+
   local config = {
     options = {
       icons_enabled = true,
@@ -511,7 +629,7 @@ M.config = function()
       ),
       lualine_x = vim.list_extend(
         noice_components_x,
-        { "overseer", colorscheme, "fancy_searchcount", spaces, encoding, "fancy_filetype" }
+        { csv_status, "overseer", colorscheme, "fancy_searchcount", spaces, encoding, "fancy_filetype" }
       ),
       lualine_y = { "fancy_location", progress },
       lualine_z = vim.list_extend(macro_components_z, { "fancy_lsp_servers", linter_status }),
