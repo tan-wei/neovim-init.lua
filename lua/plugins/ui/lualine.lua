@@ -496,10 +496,10 @@ M.config = function()
   local csv_status = {
     function()
       local ok, result = pcall(function()
-        if vim.b.current_syntax ~= "csv" then
+        local delim = vim.b.csv_delimiter
+        if delim == nil then
           return ""
         end
-
         local line = vim.fn.getline "."
         if line == "" then
           return ""
@@ -515,12 +515,12 @@ M.config = function()
           end
         end
 
-        local header = vim.fn.split(header_line, ",", true)
+        local header = vim.fn.split(header_line, delim, true)
         if #header == 0 then
           return ""
         end
 
-        local fields = vim.fn.split(line, ",", true)
+        local fields = vim.fn.split(line, delim, true)
         local cur_col = vim.fn.col "."
         local col_idx = 0
         local pos = 0
@@ -530,7 +530,7 @@ M.config = function()
             col_idx = i - 1
             break
           end
-          pos = pos + 1 -- delimiter length
+          pos = pos + #delim
         end
         if cur_col > pos then
           col_idx = #fields - 1
@@ -555,11 +555,13 @@ M.config = function()
       return ""
     end,
     cond = function()
-      return vim.b.current_syntax == "csv"
+      -- b:csv_delimiter is set by Neovim's built-in syntax/csv.vim and syntax/tsv.vim.
+      return vim.b.csv_delimiter ~= nil
     end,
     color = function()
       local ok, result = pcall(function()
-        if vim.b.current_syntax ~= "csv" then
+        local delim = vim.b.csv_delimiter
+        if delim == nil then
           return nil
         end
 
@@ -568,7 +570,7 @@ M.config = function()
           return nil
         end
 
-        local fields = vim.fn.split(line, ",", true)
+        local fields = vim.fn.split(line, delim, true)
         local cur_col = vim.fn.col "."
         local col_idx = 0
         local pos = 0
@@ -578,7 +580,7 @@ M.config = function()
             col_idx = i - 1
             break
           end
-          pos = pos + 1
+          pos = pos + #delim
         end
         if cur_col > pos then
           col_idx = #fields - 1

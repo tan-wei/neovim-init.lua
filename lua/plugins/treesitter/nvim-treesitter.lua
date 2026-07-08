@@ -1,6 +1,6 @@
 local parsers = require "user.treesitter_parsers"
 
-local highlight_disable = { css = true, csv = true }
+local highlight_disable = { css = true, csv = true, tsv = true }
 local indent_disable = { python = true, css = true }
 
 ---@type LazyPluginSpec
