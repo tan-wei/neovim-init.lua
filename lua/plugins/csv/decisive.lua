@@ -1,7 +1,7 @@
 ---@type LazyPluginSpec
 local M = {
   "emmanueltouzery/decisive.nvim",
-  ft = "csv",
+  ft = { "csv", "tsv" },
 }
 
 -- TODO: This plugin should write more configurations, keymaps should be added
