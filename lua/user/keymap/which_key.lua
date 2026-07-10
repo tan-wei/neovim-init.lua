@@ -23,8 +23,20 @@ function M.entries()
     -- [ / ] --
     { "[", group = "previous", mode = "n" },
     { "[r", desc = "previous reference", mode = "n" },
+    -- { "[F", desc = "previous function start", mode = { "n", "x", "o" } },
+    -- { "[C", desc = "previous class start", mode = { "n", "x", "o" } },
+    -- { "[o", desc = "previous loop start", mode = { "n", "x", "o" } },
+    -- { "[S", desc = "previous scope", mode = { "n", "x", "o" } },
+    -- { "[z", desc = "previous fold", mode = { "n", "x", "o" } },
+    -- { "[D", desc = "previous conditional", mode = { "n", "x", "o" } },
     { "]", group = "next", mode = "n" },
     { "]r", desc = "next reference", mode = "n" },
+    -- { "]F", desc = "next function start", mode = { "n", "x", "o" } },
+    -- { "]C", desc = "next class start", mode = { "n", "x", "o" } },
+    -- { "]o", desc = "next loop start", mode = { "n", "x", "o" } },
+    -- { "]S", desc = "next scope", mode = { "n", "x", "o" } },
+    -- { "]z", desc = "next fold", mode = { "n", "x", "o" } },
+    -- { "]D", desc = "next conditional", mode = { "n", "x", "o" } },
 
     -- A --
     { "<leader>A", "<cmd>Alpha<cr>", desc = "Alpha", mode = "n" },

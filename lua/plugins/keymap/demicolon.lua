@@ -46,6 +46,15 @@ M.config = function(_, opts)
     end, { desc = desc })
   end
 
+  -- local function set_ts_jump(lhs, direction, query, group, forward)
+  --   local ts_move = require "nvim-treesitter-textobjects.move"
+  --   vim.keymap.set(nxo, lhs, function()
+  --     jump.repeatably_do(function()
+  --       ts_move[direction](query, group)
+  --     end, { forward = forward })
+  --   end)
+  -- end
+
   set_neotest_jump("]t", true, nil, "Next test")
   set_neotest_jump("[t", false, nil, "Previous test")
   set_neotest_jump("]T", true, { status = "failed" }, "Next failed test")
@@ -61,6 +70,40 @@ M.config = function(_, opts)
   set_portal_jump("<leader>jhk", "harpoon", false, "jump Harpoon backward")
   set_portal_jump("<leader>jqj", "quickfix", true, "jump Quickfix forward")
   set_portal_jump("<leader>jqk", "quickfix", false, "jump Quickfix backward")
+
+  -- -- Treesitter textobjects motion jumps
+  -- -- Function: start
+  -- set_ts_jump("]F", "goto_next_start", "@function.outer", "textobjects", true)
+  -- set_ts_jump("[F", "goto_previous_start", "@function.outer", "textobjects", false)
+  -- -- Function: end
+  -- -- set_ts_jump("]E", "goto_next_end", "@function.outer", "textobjects", true)
+  -- -- set_ts_jump("[E", "goto_previous_end", "@function.outer", "textobjects", false)
+  -- -- Class: start
+  -- set_ts_jump("]C", "goto_next_start", "@class.outer", "textobjects", true)
+  -- set_ts_jump("[C", "goto_previous_start", "@class.outer", "textobjects", false)
+  -- -- Class: end
+  -- -- set_ts_jump("]E", "goto_next_end", "@class.outer", "textobjects", true)
+  -- -- set_ts_jump("[E", "goto_previous_end", "@class.outer", "textobjects", false)
+  -- -- Loop (multiple queries)
+  -- vim.keymap.set(nxo, "]o", function()
+  --   jump.repeatably_do(function()
+  --     require("nvim-treesitter-textobjects.move").goto_next_start({ "@loop.inner", "@loop.outer" }, "textobjects")
+  --   end, { forward = true })
+  -- end)
+  -- vim.keymap.set(nxo, "[o", function()
+  --   jump.repeatably_do(function()
+  --     require("nvim-treesitter-textobjects.move").goto_previous_start({ "@loop.inner", "@loop.outer" }, "textobjects")
+  --   end, { forward = false })
+  -- end)
+  -- -- Scope (from locals.scm)
+  -- set_ts_jump("]S", "goto_next_start", "@local.scope", "locals", true)
+  -- set_ts_jump("[S", "goto_previous_start", "@local.scope", "locals", false)
+  -- -- Fold (from folds.scm)
+  -- set_ts_jump("]z", "goto_next_start", "@fold", "folds", true)
+  -- set_ts_jump("[z", "goto_previous_start", "@fold", "folds", false)
+  -- -- Conditional: whichever end is closer
+  -- set_ts_jump("]D", "goto_next", "@conditional.outer", "textobjects", true)
+  -- set_ts_jump("[D", "goto_previous", "@conditional.outer", "textobjects", false)
 
   -- Credit: https://github.com/mawkler/demicolon.nvim/issues/11#issuecomment-2821882735
   local flash_char = require "flash.plugins.char"
