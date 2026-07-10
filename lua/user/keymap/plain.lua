@@ -19,6 +19,24 @@ local function refjump_repeatable_map(forward)
   end
 end
 
+local function hlslens_search_map(forward, cmd)
+  return function()
+    local ok, dj = pcall(require, "demicolon.jump")
+    local action = function()
+      local ok2 = pcall(vim.cmd, "normal! " .. cmd)
+      require("hlslens").start()
+      if not ok2 then
+        vim.notify(string.format("Pattern not found: %s", vim.fn.getreg "/"), vim.log.levels.WARN)
+      end
+    end
+    if ok then
+      dj.repeatably_do(action, { forward = forward })
+    else
+      action()
+    end
+  end
+end
+
 ---@type UserKeymapGroup[]
 return {
   {
@@ -64,6 +82,54 @@ return {
       },
       { mode = "x", lhs = "<A-j>", rhs = ":m '>+1<CR>gv=gv", opts = default_opts },
       { mode = "x", lhs = "<A-k>", rhs = ":m '<-2<CR>gv=gv", opts = default_opts },
+    },
+  },
+  {
+    plugin = "hlslens",
+    family = "plain",
+    maps = {
+      {
+        mode = "n",
+        lhs = "n",
+        rhs = hlslens_search_map(true, "n"),
+        desc = "Next match",
+        conflict = { note = "Replaces builtin n with hlslens" },
+      },
+      {
+        mode = "n",
+        lhs = "N",
+        rhs = hlslens_search_map(false, "N"),
+        desc = "Prev match",
+        conflict = { note = "Replaces builtin N with hlslens" },
+      },
+      {
+        mode = "n",
+        lhs = "*",
+        rhs = [[*<Cmd>lua require('hlslens').start()<CR>]],
+        opts = { noremap = true, silent = true },
+        conflict = { builtin = builtin.get("n", "*") },
+      },
+      {
+        mode = "n",
+        lhs = "#",
+        rhs = [[#<Cmd>lua require('hlslens').start()<CR>]],
+        opts = { noremap = true, silent = true },
+        conflict = { builtin = builtin.get("n", "#") },
+      },
+      {
+        mode = "n",
+        lhs = "g*",
+        rhs = [[g*<Cmd>lua require('hlslens').start()<CR>]],
+        opts = { noremap = true, silent = true },
+        conflict = { builtin = builtin.get("n", "g*") },
+      },
+      {
+        mode = "n",
+        lhs = "g#",
+        rhs = [[g#<Cmd>lua require('hlslens').start()<CR>]],
+        opts = { noremap = true, silent = true },
+        conflict = { builtin = builtin.get("n", "g#") },
+      },
     },
   },
   {

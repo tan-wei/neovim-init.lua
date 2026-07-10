@@ -171,6 +171,19 @@ function M.entries()
     { "<leader>go", "<cmd>Telescope git_status<cr>", desc = "Open changed file", mode = "n" },
 
     -- H --
+    {
+      "<leader>H",
+      function()
+        vim.schedule(function()
+          if require("hlslens").exportLastSearchToQuickfix() then
+            vim.cmd "cw"
+          end
+        end)
+        return "<cmd>nohlsearch<cr>"
+      end,
+      desc = "no Highlight search and export to quickfix",
+      mode = "n",
+    },
 
     -- h --
     { "<leader>h", "<cmd>nohlsearch<cr>", desc = "no Highlight search", mode = "n" },

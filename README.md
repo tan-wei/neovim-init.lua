@@ -193,6 +193,9 @@ Scope notes:
 | --- | --- | --- | --- | --- |
 | `n`, `x` | `y` | Yanky yank | Yes | Replaces core yank with yank-ring aware yank |
 | `n` | `p`, `P`, `gp` | Yanky put family | Yes | Replaces core put family with yank-ring aware put |
+| `n` | `n`, `N` | hlslens-enhanced next / previous match | Yes | Replaces builtin `n` / `N` with hlslens overlay |
+| `n` | `*`, `#` | hlslens-enhanced next / previous word match | Yes | Replaces builtin `*` / `#` with hlslens overlay |
+| `n` | `g*`, `g#` | hlslens-enhanced next / previous partial-word match | Yes | Replaces builtin `g*` / `g#` with hlslens overlay |
 | `n` | `cr` | coerce current word | No | Repo-owned transform entrypoint |
 | `i` | `jk`, `kj` | Exit insert mode | No | Repo-owned insert escape shortcuts |
 | `v` | `<`, `>` | Reindent and keep selection | Yes | Extends core indent behavior to preserve selection |
@@ -221,6 +224,7 @@ Scope notes:
 | `<leader>f` | `f` | Find files | No | Standalone action |
 | `<leader>g` | `gB`, `gb`, `gc`, `gd`, `gl`, `gj`, `gk`, `gp`, `gr`, `gR`, `gs`, `gu`, `go` | Git blame, branches, commits, diff, LazyGit, hunk operations, status | No | Git namespace |
 | `<leader>h` | `h` | Clear search highlight | No | Standalone action |
+| `<leader>H` | `H` | Clear search highlight and export last search to quickfix | No | Standalone action |
 | `<leader>j` | `jj`, `jk`, `jcj`, `jck`, `jgj`, `jgk`, `jhj`, `jhk`, `jqj`, `jqk` | Portal jumplist / changelist / grapple / harpoon / quickfix jumps | No | Jump namespace |
 | `<leader>L` | `Ld`, `Lr` | Linediff and reset | No | Line-diff namespace |
 | `<leader>l` | `la`, `ld`, `lD`, `lf`, `lF`, `lh`, `li`, `lI`, `lj`, `lk`, `ll`, `lo`, `lq`, `lr`, `ls`, `lS` | LSP code actions, diagnostics, symbols, format, hover, rename, signature, outline | No | LSP namespace |
