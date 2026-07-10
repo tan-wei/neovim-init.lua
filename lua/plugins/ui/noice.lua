@@ -42,6 +42,13 @@ M.config = function()
         },
         opts = { skip = true },
       },
+      {
+        filter = {
+          event = "msg_show",
+          kind = "search_count",
+        },
+        opts = { skip = true },
+      },
     },
     presets = {
       bottom_search = true,
