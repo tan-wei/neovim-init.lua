@@ -103,7 +103,6 @@ local function refresh_linters(lint)
   return linters_by_ft
 end
 
--- TODO: Add lint progress by require("lint").get_running()
 M.config = function()
   local lint = require "lint"
 

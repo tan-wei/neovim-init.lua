@@ -699,6 +699,26 @@ M.config = function()
     spinner_symbols = { "🌑 ", "🌒 ", "🌓 ", "🌔 ", "🌕 ", "🌖 ", "🌗 ", "🌘 " },
   }
 
+  ins_left(function()
+    local ok, lint = pcall(require, "lint")
+    if not ok then
+      return ""
+    end
+
+    local running = lint.get_running()
+    if #running == 0 then
+      return ""
+    end
+
+    local text = table.concat(running, ",")
+    local max_len = 30
+    if #text > max_len then
+      text = text:sub(1, max_len - 1) .. "…"
+    end
+
+    return " " .. text
+  end)
+
   lualine.setup(config)
 end
 
