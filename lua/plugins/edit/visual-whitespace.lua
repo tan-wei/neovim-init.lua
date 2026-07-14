@@ -45,7 +45,13 @@ M.opts = {
       "nofile",
       "mason",
     },
-    buftypes = {},
+    buftypes = {
+      "nofile",
+      "prompt",
+      "popup",
+      "terminal",
+      "quickfix",
+    },
   },
 }
 

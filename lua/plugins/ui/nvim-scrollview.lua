@@ -6,7 +6,30 @@ local M = {
 
 M.config = function()
   require("scrollview").setup {
-    excluded_filetypes = {},
+    excluded_filetypes = {
+      "alpha",
+      "NvimTree",
+      "Outline",
+      "lazy",
+      "mason",
+      "checkhealth",
+      "noice",
+      "notify",
+      "toggleterm",
+      "qf",
+      "help",
+      "undotree",
+      "fugitive",
+      "neogit",
+      "trouble",
+      "TelescopePrompt",
+      "TelescopeResults",
+      "dapui_breakpoint",
+      "dapui_stacks",
+      "dapui_scopes",
+      "dapui_console",
+      "dapui_watches",
+    },
     current_only = true,
     signs_on_startup = {
       "changelist",

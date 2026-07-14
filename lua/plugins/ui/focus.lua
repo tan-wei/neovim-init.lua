@@ -5,7 +5,30 @@ local M = {
 }
 
 M.init = function()
-  local ignore_filetypes = { "NvimTree", "Outline", "qf" }
+  local ignore_filetypes = {
+    "NvimTree",
+    "Outline",
+    "qf",
+    "help",
+    "toggleterm",
+    "lazy",
+    "mason",
+    "alpha",
+    "checkhealth",
+    "noice",
+    "notify",
+    "fugitive",
+    "neogit",
+    "undotree",
+    "trouble",
+    "TelescopePrompt",
+    "TelescopeResults",
+    "dapui_breakpoint",
+    "dapui_stacks",
+    "dapui_scopes",
+    "dapui_console",
+    "dapui_watches",
+  }
   local ignore_buftypes = { "nofile", "prompt", "popup" }
 
   local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })

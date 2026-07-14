@@ -23,7 +23,30 @@ M.opts = {
     "table",
     "if_statement",
   },
-  exclude = {}, -- exclude these filetypes
+  exclude = {
+    "NvimTree",
+    "Outline",
+    "qf",
+    "help",
+    "toggleterm",
+    "lazy",
+    "mason",
+    "alpha",
+    "checkhealth",
+    "noice",
+    "notify",
+    "fugitive",
+    "neogit",
+    "undotree",
+    "trouble",
+    "TelescopePrompt",
+    "TelescopeResults",
+    "dapui_breakpoint",
+    "dapui_stacks",
+    "dapui_scopes",
+    "dapui_console",
+    "dapui_watches",
+  }, -- exclude these filetypes
 }
 
 return M

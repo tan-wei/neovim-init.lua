@@ -5,7 +5,30 @@ local M = {
 }
 
 M.config = function()
-  local excluded_filetypes = {}
+  local excluded_filetypes = {
+    "qf",
+    "help",
+    "TelescopePrompt",
+    "TelescopeResults",
+    "lazy",
+    "mason",
+    "checkhealth",
+    "noice",
+    "notify",
+    "NvimTree",
+    "Outline",
+    "toggleterm",
+    "fugitive",
+    "neogit",
+    "undotree",
+    "alpha",
+    "trouble",
+    "dapui_breakpoint",
+    "dapui_stacks",
+    "dapui_scopes",
+    "dapui_console",
+    "dapui_watches",
+  }
 
   require("hlargs").setup {
     use_colorpalette = true,
