@@ -27,6 +27,13 @@ else
   M.capabilities = cmp_nvim_lsp.default_capabilities(M.capabilities)
 end
 
+local ok, nvim_file_operations_config = pcall(require, "nvim-file-operations.config")
+
+if ok then
+  local nvim_file_operations_config_capabilities = nvim_file_operations_config.default_capabilities()
+  vim.tbl_deep_extend("force", M.capabilities, nvim_file_operations_config_capabilities)
+end
+
 M.setup = function()
   require("user.lsp.semantic_tokens").setup()
 
