@@ -43,9 +43,8 @@ M.opts = {
     open_and_pick_window = "<c-o>",
   },
 
-  open_file_function = function(entry)
-    vim.cmd "Yazi"
-    vim.cmd("edit " .. entry.path)
+  open_file_function = function(entry, _config, _state)
+    vim.cmd("edit " .. vim.fn.fnamescape(entry.path))
   end,
 }
 
