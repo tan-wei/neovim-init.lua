@@ -37,6 +37,8 @@ local M = {
     sc.renameProvider = false
     sc.hoverProvider = false
     sc.codeActionProvider = false
+    sc.definitionProvider = false
+    sc.referencesProvidor = false
   end,
   -- Suppress diagnostics, signature, and "not indexed" response errors from ccls.
   -- Wrap common request handlers to silently ignore -32600 ("not indexed") errors.
