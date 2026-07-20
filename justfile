@@ -45,6 +45,12 @@ health-check:
 		"+lua dofile(vim.fn.fnamemodify('./scripts/health_check.lua', ':p')).check()" \
 		+qa!
 
+treesitter-audit:
+	@nvim --headless \
+		--cmd "{{bootstrap_preinit}}" \
+		"+lua dofile(vim.fn.fnamemodify('./scripts/treesitter_audit.lua', ':p')).check()" \
+		+qa!
+
 bootstrap-lazy:
 	@nvim --headless \
 		--cmd "{{bootstrap_preinit}}" \
