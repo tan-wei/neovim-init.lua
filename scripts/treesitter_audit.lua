@@ -122,14 +122,20 @@ function M.check()
     if #missing == 0 then
       break
     end
-    print(string.format(
-      "  Attempt %d/%d: %d parsers not yet installed, triggering install...",
-      attempt + 1, max_attempts, #missing
-    ))
-    local ok = require("nvim-treesitter").update(missing, {
-      max_jobs = 8,
-      summary = true,
-    }):wait(120000)
+    print(
+      string.format(
+        "  Attempt %d/%d: %d parsers not yet installed, triggering install...",
+        attempt + 1,
+        max_attempts,
+        #missing
+      )
+    )
+    local ok = require("nvim-treesitter")
+      .update(missing, {
+        max_jobs = 8,
+        summary = true,
+      })
+      :wait(120000)
     if not ok then
       error("Failed to install missing parsers: " .. table.concat(missing, ", "))
     end
