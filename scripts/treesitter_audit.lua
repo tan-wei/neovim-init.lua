@@ -147,12 +147,12 @@ function M.check()
   -- === Report ===
   print ""
   divider()
-  print("  Treesitter Parser Audit")
+  print "  Treesitter Parser Audit"
   divider()
   print ""
 
   -- 1) Installed & Configured
-  print("  [Installed & Configured]")
+  print "  [Installed & Configured]"
   for _, parser in ipairs(installed_configured) do
     print(string.format("    ✓ %s", parser))
   end
@@ -161,7 +161,7 @@ function M.check()
 
   -- 2) New upstream parsers not in our config
   if #new_upstream > 0 then
-    print("  [New Upstream Parsers — Not Configured]")
+    print "  [New Upstream Parsers — Not Configured]"
     for _, parser in ipairs(new_upstream) do
       if installed_set[parser] then
         print(string.format("    ? %s (already installed)", parser))
@@ -177,7 +177,7 @@ function M.check()
 
   -- 3) Configured parsers no longer in upstream
   if #removed > 0 then
-    print("  [Configured Parsers No Longer in Upstream — SHOULD REMOVE]")
+    print "  [Configured Parsers No Longer in Upstream — SHOULD REMOVE]"
     for _, parser in ipairs(removed) do
       if installed_set[parser] then
         print(string.format("    ✗ %s (installed, but upstream removed it)", parser))
@@ -197,7 +197,7 @@ function M.check()
     end
   end
   if #not_installed_installable > 0 then
-    print("  [Configured But Not Installed — SHOULD INSTALL]")
+    print "  [Configured But Not Installed — SHOULD INSTALL]"
     for _, parser in ipairs(not_installed_installable) do
       print(string.format("    ! %s", parser))
     end
@@ -205,8 +205,8 @@ function M.check()
     print ""
   end
   if #not_installed_trackers > 0 then
-    print("  [Configured But Not Installable]")
-    print("  (tracked in config but no parser source)")
+    print "  [Configured But Not Installable]"
+    print "  (tracked in config but no parser source)"
     for _, parser in ipairs(not_installed_trackers) do
       print(string.format("    ~ %s", parser))
     end
@@ -244,14 +244,19 @@ function M.check()
   -- Determine exit code — fail on anything actionable
   local issues = #removed + #not_installed_installable + #new_upstream
   if issues > 0 then
-    print(string.format(
-      "  FAIL: %d issue(s) found (removed: %d, not installed: %d, new upstream: %d)",
-      issues, #removed, #not_installed_installable, #new_upstream
-    ))
+    print(
+      string.format(
+        "  FAIL: %d issue(s) found (removed: %d, not installed: %d, new upstream: %d)",
+        issues,
+        #removed,
+        #not_installed_installable,
+        #new_upstream
+      )
+    )
     os.exit(1)
   end
 
-  print("  PASS: All parsers are properly configured and installed.")
+  print "  PASS: All parsers are properly configured and installed."
   os.exit(0)
 end
 
