@@ -84,25 +84,64 @@ function M.check()
     os.exit(1)
   end
 
-  -- Get installed parsers from nvim-treesitter
-  local installed = get_installed_parsers()
-  table.sort(installed)
-
   -- Get all parsers known to nvim-treesitter
   local upstream = get_upstream_parsers()
 
-  local upstream_set = index(upstream)
-  local our_set = index(our_parsers)
-  local installed_set = index(installed)
-
-  -- Pre-compute which upstream parsers have install_info (are installable)
+  -- Compute the list of installable parsers from our config
   local ok2, parsers_mod = pcall(require, "nvim-treesitter.parsers")
   local has_install_info = {}
+  local installable_from_config = {}
   if ok2 then
     for name, spec in pairs(parsers_mod) do
       has_install_info[name] = type(spec) == "table" and spec.install_info ~= nil
     end
+    for _, p in ipairs(our_parsers) do
+      if has_install_info[p] then
+        table.insert(installable_from_config, p)
+      end
+    end
   end
+
+  -- Get installed parsers from nvim-treesitter
+  local installed = get_installed_parsers()
+  table.sort(installed)
+
+  -- If we're in a CI environment and nothing is installed, re-trigger sync
+  -- This handles the case where build/compile was still in progress when
+  -- the previous nvim process exited.
+  local is_ci = os.getenv "CI" ~= nil
+  local installable_count = #installable_from_config
+  local attempts = 0
+  local max_attempts = is_ci and 30 or 1
+  while attempts < max_attempts do
+    local missing_count = 0
+    for _, p in ipairs(installable_from_config) do
+      if not vim.tbl_contains(installed, p) then
+        missing_count = missing_count + 1
+      end
+    end
+    if missing_count == 0 then
+      break
+    end
+    if attempts == 0 and is_ci then
+      print(string.format(
+        "  Wait: %d/%d installable parsers missing, retrying...",
+        missing_count, installable_count
+      ))
+    end
+    attempts = attempts + 1
+    vim.wait(1000)
+    installed = get_installed_parsers()
+    table.sort(installed)
+  end
+  if attempts > 0 then
+    installed = get_installed_parsers()
+    table.sort(installed)
+  end
+
+  local upstream_set = index(upstream)
+  local our_set = index(our_parsers)
+  local installed_set = index(installed)
 
   local all_parsers = {}
   for _, p in ipairs(upstream) do
