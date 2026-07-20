@@ -146,7 +146,11 @@ function M.treesitter_sync(timeout_ms)
     for _, p in ipairs(treesitter_parsers) do
       config_set[p] = true
     end
-    for _, name in ipairs(vim.fn.readdir(parser_dir)) do
+    local ok_dir, files = pcall(vim.fn.readdir, parser_dir)
+    if not ok_dir then
+      return
+    end
+    for _, name in ipairs(files) do
       local p = name:match "(.+)%.so$"
       if p and not config_set[p] then
         os.remove(vim.fs.joinpath(parser_dir, name))
@@ -171,9 +175,9 @@ function M.treesitter_sync(timeout_ms)
     error "nvim-treesitter update timed out or failed"
   end
 
-  local installed = require("nvim-treesitter").get_installed "parsers"
-
-  -- Only check installable parsers (those with install_info) for missing
+  -- nvim-treesitter's update() finishes before all parsers are actually
+  -- compiled. Poll get_installed() until every configured parser shows up.
+  local poll_timeout = (timeout_ms or 300000) / 1000
   local parsers_mod = require "nvim-treesitter.parsers"
   local installable = {}
   for _, p in ipairs(treesitter_parsers) do
@@ -182,10 +186,25 @@ function M.treesitter_sync(timeout_ms)
       table.insert(installable, p)
     end
   end
-  local missing = list_missing(installable, installed)
-  if #missing > 0 then
-    error("Missing treesitter parsers: " .. table.concat(missing, ", "))
+
+  local waited = 0
+  while waited < poll_timeout do
+    local installed = require("nvim-treesitter").get_installed "parsers"
+    local missing = list_missing(installable, installed)
+    if #missing == 0 then
+      if waited > 0 then
+        print(string.format("Waited %ds for all parsers to finish compiling", waited))
+      end
+      return
+    end
+    vim.wait(1000)
+    waited = waited + 1
   end
+
+  -- Timeout: report which ones are still missing
+  local installed = require("nvim-treesitter").get_installed "parsers"
+  local missing = list_missing(installable, installed)
+  error("Missing treesitter parsers after waiting: " .. table.concat(missing, ", "))
 end
 
 function M.mason_sync()

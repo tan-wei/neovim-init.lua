@@ -38,12 +38,18 @@ end
 
 ---@return string[]
 local function get_installed_parsers()
-  -- Scan the parser directory for .so files.
-  -- This is more reliable than nvim-treesitter's get_installed() which
-  -- may return stale or incomplete results in a fresh nvim process.
+  local ok, ts = pcall(require, "nvim-treesitter")
+  if ok and ts.get_installed then
+    local installed = ts.get_installed "parsers"
+    if type(installed) == "table" then
+      return installed
+    end
+  end
+
+  -- Fallback: scan the parser directory
   local parser_dir = vim.fs.joinpath(vim.fn.stdpath "data", "site", "parser")
-  local ok, files = pcall(vim.fn.readdir, parser_dir)
-  if not ok then
+  local ok_dir, files = pcall(vim.fn.readdir, parser_dir)
+  if not ok_dir then
     return {}
   end
   local names = {}
@@ -101,9 +107,38 @@ function M.check()
     end
   end
 
-  -- Get installed parsers from file system
+  -- Get installed parsers from nvim-treesitter
   local installed = get_installed_parsers()
   table.sort(installed)
+
+  -- nvim-treesitter's update() finishes before parsers are actually compiled.
+  -- Poll get_installed() until every installable parser shows up.
+  local is_ci = os.getenv "CI" ~= nil
+  if is_ci and #installable_from_config > 0 then
+    local max_wait = 300
+    local waited = 0
+    while waited < max_wait do
+      local missing = {}
+      for _, p in ipairs(installable_from_config) do
+        if not vim.tbl_contains(installed, p) then
+          table.insert(missing, p)
+        end
+      end
+      if #missing == 0 then
+        if waited > 0 then
+          print(string.format("  Waited %ds for all parsers to finish compiling", waited))
+        end
+        break
+      end
+      if waited == 0 then
+        print(string.format("  Polling: %d parsers not yet installed, waiting...", #missing))
+      end
+      vim.wait(1000)
+      installed = get_installed_parsers()
+      table.sort(installed)
+      waited = waited + 1
+    end
+  end
 
   local upstream_set = index(upstream)
   local our_set = index(our_parsers)
