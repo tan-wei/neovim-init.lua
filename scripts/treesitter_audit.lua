@@ -124,10 +124,7 @@ function M.check()
       break
     end
     if attempts == 0 and is_ci then
-      print(string.format(
-        "  Wait: %d/%d installable parsers missing, retrying...",
-        missing_count, installable_count
-      ))
+      print(string.format("  Wait: %d/%d installable parsers missing, retrying...", missing_count, installable_count))
     end
     attempts = attempts + 1
     vim.wait(1000)
