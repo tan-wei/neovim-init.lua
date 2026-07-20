@@ -141,16 +141,15 @@ function M.treesitter_sync(timeout_ms)
   -- Clean stale parsers before update() so it doesn't waste time on them
   local function clean_stale()
     local parser_dir = vim.fs.joinpath(vim.fn.stdpath "data", "site", "parser")
-    local stale = {}
+    if vim.fn.isdirectory(parser_dir) ~= 1 then
+      return
+    end
     local config_set = {}
     for _, p in ipairs(treesitter_parsers) do
       config_set[p] = true
     end
-    local ok_dir, files = pcall(vim.fn.readdir, parser_dir)
-    if not ok_dir then
-      return
-    end
-    for _, name in ipairs(files) do
+    local stale = {}
+    for _, name in ipairs(vim.fn.readdir(parser_dir)) do
       local p = name:match "(.+)%.so$"
       if p and not config_set[p] then
         os.remove(vim.fs.joinpath(parser_dir, name))
@@ -165,9 +164,10 @@ function M.treesitter_sync(timeout_ms)
   clean_stale()
 
   local ok = require("nvim-treesitter")
-    .update(treesitter_parsers, {
+    .install(treesitter_parsers, {
       max_jobs = 8,
       summary = true,
+      force = true,
     })
     :wait(timeout_ms or 300000)
 
@@ -194,6 +194,13 @@ function M.treesitter_sync(timeout_ms)
     if #missing == 0 then
       if waited > 0 then
         print(string.format("Waited %ds for all parsers to finish compiling", waited))
+      end
+
+      -- Run the audit inline within the same nvim process
+      print ""
+      local audit_ok, audit_mod = pcall(dofile, vim.fs.joinpath(repo_root, "scripts", "treesitter_audit.lua"))
+      if audit_ok and audit_mod.check then
+        audit_mod.check()
       end
       return
     end

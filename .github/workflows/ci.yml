@@ -442,10 +442,6 @@ jobs:
         working-directory: ${{ github.workspace }}/xdg/nvim
         run: just keymap-audit-check
 
-      - name: Run treesitter parser audit via just
-        working-directory: ${{ github.workspace }}/xdg/nvim
-        run: just treesitter-audit
-
       - name: Run smoke test via just
         working-directory: ${{ github.workspace }}/xdg/nvim
         run: just bootstrap-smoke
