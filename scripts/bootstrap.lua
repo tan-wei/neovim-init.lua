@@ -138,6 +138,28 @@ local function should_ignore_smoke_errmsg(filetype, errmsg)
 end
 
 function M.treesitter_sync(timeout_ms)
+  -- Clean stale parsers before update() so it doesn't waste time on them
+  local function clean_stale()
+    local parser_dir = vim.fs.joinpath(vim.fn.stdpath "data", "site", "parser")
+    local stale = {}
+    local config_set = {}
+    for _, p in ipairs(treesitter_parsers) do
+      config_set[p] = true
+    end
+    for _, name in ipairs(vim.fn.readdir(parser_dir)) do
+      local p = name:match "(.+)%.so$"
+      if p and not config_set[p] then
+        os.remove(vim.fs.joinpath(parser_dir, name))
+        table.insert(stale, p)
+      end
+    end
+    if #stale > 0 then
+      table.sort(stale)
+      print("Cleaned stale parsers: " .. table.concat(stale, ", "))
+    end
+  end
+  clean_stale()
+
   local ok = require("nvim-treesitter")
     .update(treesitter_parsers, {
       max_jobs = 8,
@@ -163,29 +185,6 @@ function M.treesitter_sync(timeout_ms)
   local missing = list_missing(installable, installed)
   if #missing > 0 then
     error("Missing treesitter parsers: " .. table.concat(missing, ", "))
-  end
-
-  -- Remove stale parsers that are no longer in our config
-  -- These are installed parsers whose upstream definitions have been removed
-  -- from nvim-treesitter, so :TSUninstall won't work — we need to clean up manually.
-  local stale = {}
-  local config_set = {}
-  for _, p in ipairs(treesitter_parsers) do
-    config_set[p] = true
-  end
-  local parser_dir = vim.fs.joinpath(vim.fn.stdpath "data", "site", "parser")
-  for _, p in ipairs(installed) do
-    if not config_set[p] then
-      local so_file = vim.fs.joinpath(parser_dir, p .. ".so")
-      local ok, _ = os.remove(so_file)
-      if ok then
-        table.insert(stale, p)
-      end
-    end
-  end
-  if #stale > 0 then
-    table.sort(stale)
-    print("Cleaned stale parsers: " .. table.concat(stale, ", "))
   end
 end
 

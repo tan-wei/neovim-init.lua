@@ -106,34 +106,36 @@ function M.check()
   local installed = get_installed_parsers()
   table.sort(installed)
 
-  -- If we're in a CI environment and nothing is installed, re-trigger sync
-  -- This handles the case where build/compile was still in progress when
-  -- the previous nvim process exited.
+  -- If we're in a CI environment and parsers are missing, they may not have
+  -- finished compiling in the bootstrap-treesitter step yet.
+  -- Trigger a targeted update and wait for completion.
   local is_ci = os.getenv "CI" ~= nil
-  local installable_count = #installable_from_config
-  local attempts = 0
-  local max_attempts = is_ci and 30 or 1
-  while attempts < max_attempts do
-    local missing_count = 0
+  local max_attempts = is_ci and 3 or 1
+  local attempt = 0
+  while attempt < max_attempts do
+    local missing = {}
     for _, p in ipairs(installable_from_config) do
       if not vim.tbl_contains(installed, p) then
-        missing_count = missing_count + 1
+        table.insert(missing, p)
       end
     end
-    if missing_count == 0 then
+    if #missing == 0 then
       break
     end
-    if attempts == 0 and is_ci then
-      print(string.format("  Wait: %d/%d installable parsers missing, retrying...", missing_count, installable_count))
+    print(string.format(
+      "  Attempt %d/%d: %d parsers not yet installed, triggering install...",
+      attempt + 1, max_attempts, #missing
+    ))
+    local ok = require("nvim-treesitter").update(missing, {
+      max_jobs = 8,
+      summary = true,
+    }):wait(120000)
+    if not ok then
+      error("Failed to install missing parsers: " .. table.concat(missing, ", "))
     end
-    attempts = attempts + 1
-    vim.wait(1000)
     installed = get_installed_parsers()
     table.sort(installed)
-  end
-  if attempts > 0 then
-    installed = get_installed_parsers()
-    table.sort(installed)
+    attempt = attempt + 1
   end
 
   local upstream_set = index(upstream)
