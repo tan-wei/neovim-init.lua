@@ -150,9 +150,42 @@ function M.treesitter_sync(timeout_ms)
   end
 
   local installed = require("nvim-treesitter").get_installed "parsers"
-  local missing = list_missing(treesitter_parsers, installed)
+
+  -- Only check installable parsers (those with install_info) for missing
+  local parsers_mod = require "nvim-treesitter.parsers"
+  local installable = {}
+  for _, p in ipairs(treesitter_parsers) do
+    local spec = parsers_mod[p]
+    if spec and spec.install_info then
+      table.insert(installable, p)
+    end
+  end
+  local missing = list_missing(installable, installed)
   if #missing > 0 then
     error("Missing treesitter parsers: " .. table.concat(missing, ", "))
+  end
+
+  -- Remove stale parsers that are no longer in our config
+  -- These are installed parsers whose upstream definitions have been removed
+  -- from nvim-treesitter, so :TSUninstall won't work — we need to clean up manually.
+  local stale = {}
+  local config_set = {}
+  for _, p in ipairs(treesitter_parsers) do
+    config_set[p] = true
+  end
+  local parser_dir = vim.fs.joinpath(vim.fn.stdpath "data", "site", "parser")
+  for _, p in ipairs(installed) do
+    if not config_set[p] then
+      local so_file = vim.fs.joinpath(parser_dir, p .. ".so")
+      local ok, _ = os.remove(so_file)
+      if ok then
+        table.insert(stale, p)
+      end
+    end
+  end
+  if #stale > 0 then
+    table.sort(stale)
+    print("Cleaned stale parsers: " .. table.concat(stale, ", "))
   end
 end
 
