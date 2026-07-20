@@ -38,24 +38,23 @@ end
 
 ---@return string[]
 local function get_installed_parsers()
-  -- Try the new nvim-treesitter main branch API first, then fallback.
-  local ok, ts = pcall(require, "nvim-treesitter")
-  if ok and ts.get_installed then
-    local installed = ts.get_installed "parsers"
-    if type(installed) == "table" then
-      return installed
+  -- Scan the parser directory for .so files.
+  -- This is more reliable than nvim-treesitter's get_installed() which
+  -- may return stale or incomplete results in a fresh nvim process.
+  local parser_dir = vim.fs.joinpath(vim.fn.stdpath "data", "site", "parser")
+  local ok, files = pcall(vim.fn.readdir, parser_dir)
+  if not ok then
+    return {}
+  end
+  local names = {}
+  for _, name in ipairs(files) do
+    local p = name:match "(.+)%.so$"
+    if p then
+      table.insert(names, p)
     end
   end
-
-  -- Fallback: vim.treesitter
-  local list = vim.treesitter.list or vim.treesitter.available_parsers
-  if type(list) == "table" then
-    return list
-  end
-  if type(list) == "function" then
-    return list()
-  end
-  return {}
+  table.sort(names)
+  return names
 end
 
 ---@param t string[]
@@ -102,47 +101,9 @@ function M.check()
     end
   end
 
-  -- Get installed parsers from nvim-treesitter
+  -- Get installed parsers from file system
   local installed = get_installed_parsers()
   table.sort(installed)
-
-  -- If we're in a CI environment and parsers are missing, they may not have
-  -- finished compiling in the bootstrap-treesitter step yet.
-  -- Trigger a targeted update and wait for completion.
-  local is_ci = os.getenv "CI" ~= nil
-  local max_attempts = is_ci and 3 or 1
-  local attempt = 0
-  while attempt < max_attempts do
-    local missing = {}
-    for _, p in ipairs(installable_from_config) do
-      if not vim.tbl_contains(installed, p) then
-        table.insert(missing, p)
-      end
-    end
-    if #missing == 0 then
-      break
-    end
-    print(
-      string.format(
-        "  Attempt %d/%d: %d parsers not yet installed, triggering install...",
-        attempt + 1,
-        max_attempts,
-        #missing
-      )
-    )
-    local ok = require("nvim-treesitter")
-      .update(missing, {
-        max_jobs = 8,
-        summary = true,
-      })
-      :wait(120000)
-    if not ok then
-      error("Failed to install missing parsers: " .. table.concat(missing, ", "))
-    end
-    installed = get_installed_parsers()
-    table.sort(installed)
-    attempt = attempt + 1
-  end
 
   local upstream_set = index(upstream)
   local our_set = index(our_parsers)
