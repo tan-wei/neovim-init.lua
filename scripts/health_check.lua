@@ -20,6 +20,9 @@ local ignored_message_patterns_by_section = {
     [[LSP authentication status: not authenticated]],
     [[Suggestions disabled in configuration]],
   },
+  lazy = {
+    regex [[^found existing packages at]],
+  },
   mason = {
     [[Composer: not available]],
     [[PHP: not available]],
@@ -54,6 +57,8 @@ local ignored_message_patterns_by_section = {
     [[`vim.ui.input` is not set to `Snacks.input`]],
     [[`vim.ui.select` is not set to `Snacks.picker.select`]],
     [[is not ready]],
+    [[Image rendering in docs with missing treesitter parsers won't work]],
+    regex [[^Missing Treesitter languages:]],
   },
   ["vim.deprecated"] = {
     [[vim.F.if_nil is deprecated. Feature will be removed in Nvim 0.15]],
@@ -61,6 +66,7 @@ local ignored_message_patterns_by_section = {
   },
   ["vim.health"] = {
     [[Build is outdated.]],
+    [[Graphics protocol: not supported by this terminal.]],
   },
   ["vim.lsp"] = {
     [[Unknown filetype 'cxx']],
@@ -70,6 +76,7 @@ local ignored_message_patterns_by_section = {
     [[Unknown filetype 'yaml.docker-compose']],
     [[Unknown filetype 'yaml.gitlab']],
     [[Unknown filetype 'yaml.helm-values']],
+    regex [[^Log size:.*KB$]],
   },
   ["vim.provider"] = {
     [[Missing "neovim" npm]],
@@ -85,6 +92,9 @@ local ignored_message_patterns_by_section = {
   vimtex = {
     [[biber is not executable!]],
     [[Zathura requires xdotool for forward search!]],
+  },
+  ["vim.pack"] = {
+    [[Lockfile is absent, plugin directory is present.]],
   },
   ["which-key"] = {
     [[|mini.icons| is not installed]],
