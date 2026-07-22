@@ -8,6 +8,7 @@ local repo_root = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":p:h:
 local errors = {
   not_found = {},
   no_colors_name = {},
+  duplicate = {},
 }
 
 function M.check()
@@ -17,6 +18,22 @@ function M.check()
     return
   end
 
+  -- Check for duplicates before any sorting
+  local seen = {}
+  for _, name in ipairs(available) do
+    if seen[name] then
+      table.insert(errors.duplicate, name)
+    end
+    seen[name] = true
+  end
+
+  if #errors.duplicate > 0 then
+    print "  FAIL  Duplicate colorscheme name(s) found — the later one would shadow the earlier:"
+    for _, name in ipairs(errors.duplicate) do
+      print(string.format("    " .. name))
+    end
+  end
+
   -- Sort for deterministic output
   table.sort(available)
 
@@ -24,6 +41,9 @@ function M.check()
   local passed = 0
 
   for _, name in ipairs(available) do
+    -- Clear colors_name before setting, so we can detect if the colorscheme
+    -- fails to set its own (e.g. inherits from a previously loaded one)
+    vim.g.colors_name = nil
     vim.v.errmsg = ""
     local ok, err = pcall(vim.cmd.colorscheme, name)
 
@@ -58,8 +78,9 @@ function M.check()
     end
   end
 
-  if total - passed > 0 then
-    error(string.format("colorscheme-check: %d colorscheme(s) failed validation", total - passed))
+  if #errors.duplicate > 0 or #errors.not_found > 0 or #errors.no_colors_name > 0 then
+    local total_errors = #errors.duplicate + #errors.not_found + #errors.no_colors_name
+    error(string.format("colorscheme-check: %d colorscheme(s) failed validation", total_errors))
   end
 
   print "All colorschemes validated successfully."
