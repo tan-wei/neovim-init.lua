@@ -40,6 +40,12 @@ link-check:
 		"+lua dofile(vim.fn.fnamemodify('./scripts/link_check.lua', ':p')).check()" \
 		+qa!
 
+colorscheme-check:
+	@nvim --headless \
+		--cmd "{{bootstrap_preinit}}" \
+		"+lua dofile(vim.fn.fnamemodify('./scripts/colorscheme_check.lua', ':p')).check()" \
+		+qa!
+
 health-check:
 	@nvim --headless \
 		"+lua dofile(vim.fn.fnamemodify('./scripts/health_check.lua', ':p')).check()" \

@@ -91,6 +91,64 @@ jobs:
           LINK_CHECK_JOBS: 12
         run: just link-check
 
+  colorscheme-check:
+    name: Colorscheme check
+    runs-on: ubuntu-24.04
+
+    env:
+      NVIM_APPNAME: nvim
+
+    steps:
+      - name: Checkout config
+        uses: actions/checkout@v4
+        with:
+          path: xdg/nvim
+
+      - name: Export XDG paths
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          echo "XDG_CONFIG_HOME=$GITHUB_WORKSPACE/xdg" >> "$GITHUB_ENV"
+          echo "XDG_DATA_HOME=$RUNNER_TEMP/xdg-data" >> "$GITHUB_ENV"
+          echo "XDG_STATE_HOME=$RUNNER_TEMP/xdg-state" >> "$GITHUB_ENV"
+          echo "XDG_CACHE_HOME=$RUNNER_TEMP/xdg-cache" >> "$GITHUB_ENV"
+
+      - name: Install system dependencies
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          sudo apt-get update
+          sudo apt-get install -y curl just tar
+
+      - name: Prepare XDG directories
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          mkdir -p "$XDG_DATA_HOME" "$XDG_STATE_HOME" "$XDG_CACHE_HOME"
+
+      - name: Install Neovim nightly
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          archive="$RUNNER_TEMP/nvim-linux-x86_64.tar.gz"
+
+          curl -fsSLo "$archive" \
+            "https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz"
+          tar -xzf "$archive" -C "$RUNNER_TEMP"
+          echo "$RUNNER_TEMP/nvim-linux-x86_64/bin" >> "$GITHUB_PATH"
+
+      - name: Sync plugins via just
+        working-directory: ${{ github.workspace }}/xdg/nvim
+        run: just bootstrap-lazy
+
+      - name: Run colorscheme check via just
+        working-directory: ${{ github.workspace }}/xdg/nvim
+        run: just colorscheme-check
+
   # health-check:
   #   name: Checkhealth
   #   runs-on: ubuntu-24.04
