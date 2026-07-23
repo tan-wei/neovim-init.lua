@@ -220,7 +220,7 @@ jobs:
           set -euxo pipefail
 
           sudo apt-get update
-          sudo apt-get install -y build-essential cmake curl fd-find gzip just ripgrep tar unzip
+          sudo apt-get install -y build-essential cmake curl fd-find gzip just ripgrep tar unzip imagemagick pandoc texlive-xelatex zathura xdotool
           sudo ln -sf "$(command -v fdfind)" /usr/local/bin/fd
 
       - name: Set up Python
@@ -237,6 +237,11 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: '1.24'
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
 
       - name: Set up Rust toolchain
         uses: dtolnay/rust-toolchain@stable
@@ -255,6 +260,16 @@ jobs:
           gunzip -c "$archive" > "$install_dir/tree-sitter"
           chmod +x "$install_dir/tree-sitter"
           echo "$install_dir" >> "$GITHUB_PATH"
+
+      - name: Install lazygit
+        shell: bash
+        run: |
+          set -euxo pipefail
+          LAZYGIT_VERSION=$(curl -sI "https://github.com/jesseduffield/lazygit/releases/latest" | grep -i "location:" | tail -1 | sed 's/.*\/v//' | tr -d '\r')
+          curl -fsSLo "$RUNNER_TEMP/lazygit.tar.gz" \
+            "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+          tar -xzf "$RUNNER_TEMP/lazygit.tar.gz" -C "$RUNNER_TEMP" lazygit
+          sudo mv "$RUNNER_TEMP/lazygit" /usr/local/bin/lazygit
 
       - name: Prepare XDG directories
         shell: bash

@@ -20,11 +20,18 @@ local ignored_message_patterns_by_section = {
     [[LSP authentication status: not authenticated]],
     [[Suggestions disabled in configuration]],
   },
+  ["dap.adapter"] = {
+    regex [[^`command` is not executable\. Check path and permissions\.]],
+  },
   lazy = {
     regex [[^found existing packages at]],
+    [[Lazy won't be able to install plugins that require `luarocks`.]],
+    regex [[^hererocks/bin/luarocks} not installed$]],
+    regex [[^hererocks/bin/lua} version .+ not installed$]],
   },
   mason = {
     [[Composer: not available]],
+    [[luarocks: not available]],
     [[PHP: not available]],
     [[javac: not available]],
     [[java: not available]],
@@ -46,6 +53,11 @@ local ignored_message_patterns_by_section = {
     [[{task}: Command "task" not found]],
     [[{tox}: No tox.ini file found]],
     [[{vscode}: No .vscode/tasks.json file found]],
+    [[{composer}: No composer.json file found]],
+    [[{rake}: No Rakefile found]],
+  },
+  rustaceanvim = {
+    [[No debug adapter detected. Make sure either lldb or codelldb is available on the path.]],
   },
   snacks = {
     [[setup {disabled}]],
@@ -53,6 +65,12 @@ local ignored_message_patterns_by_section = {
     [[`magick` is required to convert images.]],
     [[Tool not found: 'mmdc']],
     [[`mmdc` is required to render Mermaid diagrams]],
+    [[None of the tools found: 'kitty', 'wezterm', 'ghostty']],
+    [[None of the tools found: 'tectonic', 'pdflatex']],
+    [[Tool not found: 'gs']],
+    [[{lazygit} not installed]],
+    [[`gs` is required to render PDF files]],
+    [[`tectonic` or `pdflatex` is required to render LaTeX math expressions]],
     [[your terminal does not support the kitty graphics protocol]],
     [[`vim.ui.input` is not set to `Snacks.input`]],
     [[`vim.ui.select` is not set to `Snacks.picker.select`]],
@@ -67,6 +85,7 @@ local ignored_message_patterns_by_section = {
   ["vim.health"] = {
     [[Build is outdated.]],
     [[Graphics protocol: not supported by this terminal.]],
+    regex [[^command failed:.*"infocmp", "-L" ]],
   },
   ["vim.lsp"] = {
     [[Unknown filetype 'cxx']],
@@ -77,6 +96,7 @@ local ignored_message_patterns_by_section = {
     [[Unknown filetype 'yaml.gitlab']],
     [[Unknown filetype 'yaml.helm-values']],
     regex [[^Log size:.*KB$]],
+    regex [[^'ccls' is not executable\. Configuration will not be used\.$]],
   },
   ["vim.provider"] = {
     [[Missing "neovim" npm]],
@@ -85,6 +105,7 @@ local ignored_message_patterns_by_section = {
     [[No Python executable found that can `import neovim`]],
     [[Could not load Python]],
     [[`neovim-ruby-host` not found.]],
+    [[No clipboard tool found. Clipboard tools will not work.]],
   },
   ["vim.ui.img"] = {
     [[Graphics protocol: not supported by this terminal.]],
@@ -92,6 +113,9 @@ local ignored_message_patterns_by_section = {
   vimtex = {
     [[biber is not executable!]],
     [[Zathura requires xdotool for forward search!]],
+    [[Zathura is not executable!]],
+    regex [[^|g:vimtex_compiler_method| .+ is not executable!$]],
+    [[bibtex is not executable!]],
   },
   ["vim.pack"] = {
     [[Lockfile is absent, plugin directory is present.]],
