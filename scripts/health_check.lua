@@ -106,6 +106,7 @@ local ignored_message_patterns_by_section = {
     [[Could not load Python]],
     [[`neovim-ruby-host` not found.]],
     [[No clipboard tool found. Clipboard tools will not work.]],
+    [[No clipboard tool found. Clipboard registers]],
   },
   ["vim.ui.img"] = {
     [[Graphics protocol: not supported by this terminal.]],
@@ -114,7 +115,7 @@ local ignored_message_patterns_by_section = {
     [[biber is not executable!]],
     [[Zathura requires xdotool for forward search!]],
     [[Zathura is not executable!]],
-    regex [[^|g:vimtex_compiler_method| .+ is not executable!$]],
+    [[|g:vimtex_compiler_method| (`latexmk`) is not executable!]],
     [[bibtex is not executable!]],
   },
   ["vim.pack"] = {
