@@ -220,7 +220,7 @@ jobs:
           set -euxo pipefail
 
           sudo apt-get update
-          sudo apt-get install -y build-essential cmake curl fd-find gzip just ripgrep tar unzip imagemagick pandoc texlive-xelatex zathura xdotool
+          sudo apt-get install -y build-essential cmake curl fd-find gzip just ripgrep tar unzip imagemagick pandoc zathura xdotool
           sudo ln -sf "$(command -v fdfind)" /usr/local/bin/fd
 
       - name: Set up Python
