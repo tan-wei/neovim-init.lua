@@ -1,11 +1,17 @@
 ---@type LazyPluginSpec
 local M = {
   "nvim-zh/colorful-winsep.nvim",
-  event = { "WinLeave" },
+  dependencies = {
+    "mawkler/modicator.nvim",
+  },
+  event = "VeryLazy",
 }
 
 M.opts = {
   border = "rounded",
+  highlight = function()
+    vim.api.nvim_set_hl(0, "ColorfulWinSep", { link = "CursorLineNr" })
+  end,
   excluded_ft = {
     "packer",
     "TelescopePrompt",
@@ -34,5 +40,14 @@ M.opts = {
     "dapui_watches",
   },
 }
+
+M.config = function(_, opts)
+  local winsep = require "colorful-winsep"
+
+  winsep.setup(opts)
+  vim.schedule(function()
+    winsep.enable()
+  end)
+end
 
 return M
