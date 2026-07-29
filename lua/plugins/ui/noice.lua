@@ -6,9 +6,41 @@ local M = {
     {
       "rcarriga/nvim-notify",
       config = function()
-        require("notify").setup {
-          background_colour = "#000000",
-        }
+        local function normal_background_colour()
+          local normal = vim.api.nvim_get_hl(0, { name = "Normal", link = false })
+
+          if normal.bg then
+            return string.format("#%06x", normal.bg)
+          end
+
+          return "#000000"
+        end
+
+        local function link_notify_highlights()
+          local levels = {
+            ERROR = "DiagnosticSignError",
+            WARN = "DiagnosticSignWarn",
+            INFO = "DiagnosticSignInfo",
+            DEBUG = "DiagnosticSignHint",
+            TRACE = "DiagnosticSignHint",
+          }
+
+          for level, target in pairs(levels) do
+            vim.api.nvim_set_hl(0, "Notify" .. level .. "Border", { link = target })
+          end
+        end
+
+        local function setup_notify()
+          require("notify").setup {
+            background_colour = normal_background_colour(),
+          }
+          link_notify_highlights()
+        end
+
+        setup_notify()
+        vim.api.nvim_create_autocmd("ColorScheme", {
+          callback = setup_notify,
+        })
       end,
     },
     "nvim-telescope/telescope.nvim",
