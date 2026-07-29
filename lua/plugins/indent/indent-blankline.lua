@@ -14,15 +14,23 @@ M.init = function()
 end
 
 M.config = function()
-  -- TODO: This table should import by user config, and shared with other plugins (e.g.,rainbowdelimiters)
-  local highlight = {
-    "RainbowRed",
-    "RainbowYellow",
-    "RainbowBlue",
-    "RainbowOrange",
-    "RainbowGreen",
-    "RainbowViolet",
-    "RainbowCyan",
+  local rainbow_highlight_groups = {
+    "RainbowDelimiterRed",
+    "RainbowDelimiterYellow",
+    "RainbowDelimiterBlue",
+    "RainbowDelimiterOrange",
+    "RainbowDelimiterGreen",
+    "RainbowDelimiterViolet",
+    "RainbowDelimiterCyan",
+  }
+  local rainbow_highlights = {
+    RainbowDelimiterRed = { sources = { "RainbowDelimiterRed" }, fallback = 0xE06C75 },
+    RainbowDelimiterYellow = { sources = { "RainbowDelimiterYellow" }, fallback = 0xE5C07B },
+    RainbowDelimiterBlue = { sources = { "RainbowDelimiterBlue" }, fallback = 0x61AFEF },
+    RainbowDelimiterOrange = { sources = { "RainbowDelimiterOrange" }, fallback = 0xD19A66 },
+    RainbowDelimiterGreen = { sources = { "RainbowDelimiterGreen" }, fallback = 0x98C379 },
+    RainbowDelimiterViolet = { sources = { "RainbowDelimiterViolet" }, fallback = 0xC678DD },
+    RainbowDelimiterCyan = { sources = { "RainbowDelimiterCyan" }, fallback = 0x56B6C2 },
   }
   local fallback_whitespace_highlight = "IblWhitespaceFallback"
   local fallback_nontext_highlight = "IblNonTextFallback"
@@ -34,6 +42,24 @@ M.config = function()
       return nil
     end
     return hl
+  end
+
+  local function first_highlight_fg(names, fallback)
+    for _, name in ipairs(names) do
+      local hl = get_highlight(name)
+      if hl and hl.fg then
+        return hl.fg
+      end
+    end
+    return fallback
+  end
+
+  local function rainbow_highlight_fg(spec)
+    if vim.g.rainbow_delimiters_color_strategy == "fixed" then
+      return spec.fallback
+    end
+
+    return first_highlight_fg(spec.sources, spec.fallback)
   end
 
   local function warn_missing_highlights(missing, fallback_details)
@@ -68,13 +94,9 @@ M.config = function()
   -- create the highlight groups in the highlight setup hook, so they are reset
   -- every time the colorscheme changes
   hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-    vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
-    vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
-    vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
-    vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
-    vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
-    vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
-    vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+    for name, spec in pairs(rainbow_highlights) do
+      vim.api.nvim_set_hl(0, name, { fg = rainbow_highlight_fg(spec) })
+    end
 
     local missing = {}
     local fallback_details = {}
@@ -107,14 +129,16 @@ M.config = function()
   end)
 
   hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
-  vim.g.rainbow_delimiters = { highlight = highlight }
+  vim.g.rainbow_delimiters = vim.tbl_deep_extend("force", vim.g.rainbow_delimiters or {}, {
+    highlight = rainbow_highlight_groups,
+  })
 
   ibl.setup {
     indent = { char = { "|", "¦", "┆", "┊" }, tab_char = { "»" }, smart_indent_cap = true, priority = 50 },
     scope = {
       show_start = true,
       show_end = true,
-      highlight = highlight,
+      highlight = rainbow_highlight_groups,
       char = { "▏" },
     },
     whitespace = {
