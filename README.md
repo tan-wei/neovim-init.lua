@@ -300,7 +300,7 @@ its parent directories:
 - `.exrc`
 - `.nvim/nvim.lua`
 
-The simplest starting point is `.nvim.lua` in your project root.
+The default starting point is `.nvim/nvim.lua` in your project root.
 
 Use project-local config when something should only apply to one repository,
 such as:
@@ -311,15 +311,19 @@ such as:
 
 Typical flow:
 
-1. Create `.nvim.lua` in the project root.
-2. Open the project in Neovim.
-3. When prompted, inspect the file and allow it.
+1. Run `:ConfigLocalCreate` from the project root to prepare an unsaved
+	`.nvim/nvim.lua` buffer.
+2. Fill the TODO fields and adjust any defaults for the project.
+3. Write the file, then allow it when prompted.
 
 If the file contents or path change later, Neovim will ask you to trust it
 again.
 
 Useful commands:
 
+- `:ConfigLocalCreate` to prepare an unsaved `.nvim/nvim.lua` for an empty
+	project, including TODO project fields plus header/template, linter,
+	formatting, Markdown, and LaTeX defaults
 - `:ConfigLocalEdit` to open or create the local config file
 - `:ConfigLocalSource` to source the current project config again
 - `:ConfigLocalTrust` to mark the current project config as trusted
