@@ -5,7 +5,7 @@ local M = {
 }
 
 M.init = function()
-  vim.g.table_mode_corner = "|"
+  vim.g.table_mode_corner = require("util.project_config").get "table_mode_corner"
 end
 
 M.config = function()

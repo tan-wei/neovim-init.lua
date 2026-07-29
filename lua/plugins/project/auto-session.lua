@@ -14,7 +14,7 @@ local meta = {
 }
 
 local function should_restore_overseer_tasks()
-  return vim.g.restore_overseer_tasks == true
+  return require("util.project_config").get "restore_overseer_tasks" == true
 end
 
 local function source_project_local_config()
@@ -58,7 +58,7 @@ local function save_overseer_tasks()
         table.insert(
           cmds,
           string.format(
-            "lua if vim.g.restore_overseer_tasks == true then require('overseer').new_task(vim.json.decode('%s')):start() end",
+            "lua if require('util.project_config').get('restore_overseer_tasks') == true then require('overseer').new_task(vim.json.decode('%s')):start() end",
             json
           )
         )

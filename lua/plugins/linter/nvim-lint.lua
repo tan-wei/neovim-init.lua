@@ -4,26 +4,29 @@ local M = {
   event = "BufEnter",
 }
 
+local project_config = require "util.project_config"
+local default_linters = project_config.default "linters"
+
 local lint_specs = {
   clangtidy = {
     executable = "clang-tidy",
     filetypes = { "c", "cpp" },
-    enabled = false,
+    enabled = default_linters.clangtidy,
   },
   cppcheck = {
     executable = "cppcheck",
     filetypes = { "c", "cpp" },
-    enabled = false,
+    enabled = default_linters.cppcheck,
   },
   cpplint = {
     executable = "cpplint",
     filetypes = { "c", "cpp" },
-    enabled = false,
+    enabled = default_linters.cpplint,
   },
   dotenv_linter = {
     executable = "dotenv-linter",
     filetypes = { "envfile" },
-    enabled = true,
+    enabled = default_linters.dotenv_linter,
   },
 }
 
@@ -54,17 +57,19 @@ local function clear_disabled_diagnostics(lint, linters_by_ft)
 end
 
 local function get_project_linters()
-  local ok, config_local = pcall(require, "config-local")
+  local ok_config_local, config_local = pcall(require, "config-local")
 
-  if not ok or not config_local.lookup or not config_local.lookup() then
+  if not ok_config_local or not config_local.lookup or not config_local.lookup() then
     return {}
   end
 
-  if type(vim.g.linters) ~= "table" then
+  local linters = project_config.get "linters"
+
+  if type(linters) ~= "table" then
     return {}
   end
 
-  return vim.g.linters
+  return linters
 end
 
 local function build_linters_by_ft()

@@ -329,6 +329,17 @@ Useful commands:
 - `:ConfigLocalTrust` to mark the current project config as trusted
 - `:ConfigLocalDeny` to deny the current project config
 
+Template maintenance:
+
+- Project-local fields are declared in
+	[lua/util/project_config.lua](lua/util/project_config.lua).
+- When adding a new project-level `vim.g.*` setting, add it to that registry
+	with a runtime `default` and, when the generated config should prompt the user,
+	a separate `template` TODO value.
+- Runtime consumers should read these values with
+	`require("util.project_config").get "setting_name"`. `:ConfigLocalCreate`
+	renders the template from the same registry.
+
 Example: plugin globals for one project only
 
 ```lua

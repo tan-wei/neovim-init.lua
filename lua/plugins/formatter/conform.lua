@@ -28,6 +28,7 @@ M.init = function()
 end
 
 M.config = function()
+  local project_config = require "util.project_config"
   local has_schemat = vim.fn.executable "schemat" == 1
   local formatters_by_ft = {
     lua = { "stylua" },
@@ -60,7 +61,7 @@ M.config = function()
   require("conform").setup {
     formatters_by_ft = formatters_by_ft,
     format_after_save = function(bufnr)
-      if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+      if project_config.get "disable_autoformat" or vim.b[bufnr].disable_autoformat then
         return
       end
       return { timeout_ms = 1000, lsp_fallback = true, async = true }

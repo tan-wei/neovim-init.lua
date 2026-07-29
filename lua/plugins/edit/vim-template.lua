@@ -28,7 +28,7 @@ local function normalize_path(path)
 end
 
 local function get_header_guard_prefix()
-  local configured_prefix = vim.g.templates_guard_prefix
+  local configured_prefix = require("util.project_config").get "templates_guard_prefix"
   if type(configured_prefix) == "string" and configured_prefix ~= "" then
     return sanitize_guard_part(configured_prefix)
   end

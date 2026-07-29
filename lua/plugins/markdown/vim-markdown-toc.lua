@@ -14,10 +14,12 @@ local M = {
 }
 
 M.init = function()
-  vim.g.vmt_auto_update_on_save = 1
-  vim.g.vmt_dont_insert_fence = 0
-  vim.g.vmt_cycle_list_item_markers = 1
-  vim.g.vmt_list_item_chars = { "*", "-", "+" }
+  local project_config = require "util.project_config"
+
+  vim.g.vmt_auto_update_on_save = project_config.get "vmt_auto_update_on_save"
+  vim.g.vmt_dont_insert_fence = project_config.get "vmt_dont_insert_fence"
+  vim.g.vmt_cycle_list_item_markers = project_config.get "vmt_cycle_list_item_markers"
+  vim.g.vmt_list_item_chars = project_config.get "vmt_list_item_chars"
 end
 
 return M

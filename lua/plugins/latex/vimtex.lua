@@ -6,7 +6,7 @@ local M = {
 
 -- TODO: Add custom keymaps for other plugins
 M.init = function()
-  vim.g.vimtex_view_method = "zathura"
+  vim.g.vimtex_view_method = require("util.project_config").get "vimtex_view_method"
 end
 
 return M
