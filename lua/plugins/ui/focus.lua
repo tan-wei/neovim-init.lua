@@ -61,11 +61,11 @@ end
 M.config = function()
   require("focus").setup {
     ui = {
-      cursorline = false,
+      cursorline = true,
       colorcolumn = {
         enable = true,
       },
-      signcolumn = false,
+      signcolumn = true,
     },
     autoresize = {
       height_quickfix = 30,
