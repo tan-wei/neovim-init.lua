@@ -2,6 +2,7 @@
 local M = {
   "nyoom-engineering/oxocarbon.nvim",
   lazy = true,
+  build = false,
 }
 
 M.init = function()
