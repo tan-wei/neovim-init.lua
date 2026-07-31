@@ -12,6 +12,7 @@ M.init = function()
   vim.g.matchup_matchparen_offscreen = { method = "popup", border = "rounded", scrolloff = 1 }
   vim.g.matchup_matchparen_deferred = 1
   vim.g.matchup_matchparen_hi_surround_always = 1
+  vim.g.matchup_matchparen_end_sign = "◀"
   vim.g.matchup_treesitter_disable_virtual_text = false
 
   local function get_highlight(name)
@@ -35,14 +36,13 @@ M.init = function()
   local function set_matchup_highlights()
     local accent = first_highlight_value({ "CurSearch", "IncSearch", "Search", "Visual" }, "bg", nil)
     local match_bg = first_highlight_value({ "CursorLine", "Visual", "PmenuSel" }, "bg", nil)
-    local virtual_text_fg = first_highlight_value({ "NonText", "Comment" }, "fg", nil)
 
     vim.api.nvim_set_hl(0, "MatchParen", { bg = match_bg, sp = accent, underline = true, bold = true })
     vim.api.nvim_set_hl(0, "MatchWord", { bg = match_bg, sp = accent, underline = true, bold = true })
     vim.api.nvim_set_hl(0, "MatchParenCur", { bg = match_bg, sp = accent, underline = true, bold = true })
     vim.api.nvim_set_hl(0, "MatchWordCur", { bg = match_bg, sp = accent, underline = true, bold = true })
     vim.api.nvim_set_hl(0, "MatchBackground", { link = "CursorLine" })
-    vim.api.nvim_set_hl(0, "MatchupVirtualText", { fg = virtual_text_fg, italic = true })
+    vim.api.nvim_set_hl(0, "MatchupVirtualText", { fg = accent, bg = match_bg, bold = true, nocombine = true })
   end
 
   set_matchup_highlights()
