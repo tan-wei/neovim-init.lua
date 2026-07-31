@@ -162,6 +162,10 @@ Scope notes:
 | `n`, `x` | `gx` | `Browse` open under cursor | Yes | Replaces builtin open-under-cursor behavior with gx.nvim's `:Browse` |
 | `n`, `v` | `g<C-a>`, `g<C-x>` | dial.nvim gnormal / gvisual increment / decrement | Yes | Replaces core `g<C-a>` / `g<C-x>` numeric operations |
 | `n`, `x` | `gcr` | coerce motion / visual transform entrypoint | No | Repo-owned transform slot |
+| `n`, `x` | `gS` | mini.splitjoin toggle split/join | No | Split or join function arguments, arrays, dicts |
+| `n`, `x` | `g=` | mini.operators evaluate text | Yes | Replaces core `g=` format with Lua expression evaluation |
+| `n`, `x` | `gm` | mini.operators multiply (duplicate) text | No | Repo-owned duplicate operator |
+| `n`, `x` | `gs` | mini.operators sort text | Yes | Replaces core `gs` sleep with sort operator |
 
 ### `z*` and fold-related keys
 
@@ -225,7 +229,7 @@ Scope notes:
 | `<leader>g` | `gB`, `gb`, `gc`, `gd`, `gl`, `gj`, `gk`, `gp`, `gr`, `gR`, `gs`, `gu`, `go` | Git blame, branches, commits, diff, LazyGit, hunk operations, status | No | Git namespace |
 | `<leader>h` | `h` | Clear search highlight | No | Standalone action |
 | `<leader>H` | `H` | Clear search highlight and export last search to quickfix | No | Standalone action |
-| `<leader>j` | `jj`, `jk`, `jcj`, `jck`, `jgj`, `jgk`, `jhj`, `jhk`, `jqj`, `jqk` | Portal jumplist / changelist / grapple / harpoon / quickfix jumps | No | Jump namespace |
+| `<leader>j` | `jj`, `jk`, `jcj`, `jck`, `jgj`, `jgk`, `jhj`, `jhk`, `jqj`, `jqk`, `jv`, `jl` | Portal jumplist / changelist / grapple / harpoon / quickfix jumps, mini.jump2d visible word / line | No | Jump namespace; `jv` / `jl` from mini.jump2d |
 | `<leader>L` | `Ld`, `Lr` | Linediff and reset | No | Line-diff namespace |
 | `<leader>l` | `la`, `ld`, `lD`, `lf`, `lF`, `lh`, `li`, `lI`, `lj`, `lk`, `ll`, `lo`, `lq`, `lr`, `ls`, `lS` | LSP code actions, diagnostics, symbols, format, hover, rename, signature, outline | No | LSP namespace |
 | `<leader>M` | `Mg`, `Mj`, `Ms`, `Mt` | Grapple mark / select / scopes / tags | No | Marks namespace |
@@ -241,6 +245,7 @@ Scope notes:
 | `<leader>t` | `tm`, `tg`, `tr`, `tu`, `tn`, `tl`, `tc`, `ts`, `to`, `tp`, `tw`, `tj`, `tk` | Table mode, TOC, neotest run / output / panel / watch / failed-test jumps | No | Test/table namespace; `tj` / `tk` currently look typo-prone in config |
 | `<leader>w` | `wl`, `ws`, `wd`, `wt`, `wf`, `wb` | Session management plus MoveWord forward / backward | No | Namespace drift: workspace/session and MoveWord share the same prefix |
 | `<leader>x` | `xg`, `xr` | CellularAutomaton effects | No | Repo-owned extras/effects namespace |
+| `<leader>v` | `vv`, `vl`, `vj`, `vk` | mini.visits select path / label / next / previous | No | Visits namespace |
 | `<leader>y` | `yc`, `yy`, `yt` | Yazi cwd / open / toggle | No | Yazi namespace |
 | `<leader><Up>`, `<leader><Down>` | `↑`, `↓` | Multicursor skip cursor above / below | No | Only meaningful for multicursor workflow |
 

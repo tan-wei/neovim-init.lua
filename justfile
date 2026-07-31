@@ -57,6 +57,12 @@ treesitter-audit:
 		"+lua dofile(vim.fn.fnamemodify('./scripts/treesitter_audit.lua', ':p')).check()" \
 		+qa!
 
+update-vscode-unicode-data:
+	@nvim --headless \
+		--cmd "{{bootstrap_preinit}}" \
+		"+lua dofile(vim.fn.fnamemodify('./scripts/update_vscode_unicode_data.lua', ':p')).update()" \
+		+qa!
+
 bootstrap-lazy:
 	@nvim --headless \
 		--cmd "{{bootstrap_preinit}}" \

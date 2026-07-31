@@ -206,6 +206,18 @@ function M.entries()
     { "<leader>jhk", "<cmd>Portal harpoon backward<cr>", desc = "jump Harpoon backward", mode = "n" },
     { "<leader>jqj", "<cmd>Portal quickfix forward<cr>", desc = "jump Quickfix forward", mode = "n" },
     { "<leader>jqk", "<cmd>Portal quickfix backward<cr>", desc = "jump Quickfix backward", mode = "n" },
+    {
+      "<leader>jv",
+      "<cmd>lua require('mini.jump2d').start(MiniJump2d.builtin_opts('word_starts'))<cr>",
+      desc = "jump to visible word",
+      mode = { "n", "x" },
+    },
+    {
+      "<leader>jl",
+      "<cmd>lua require('mini.jump2d').start(MiniJump2d.builtin_opts('line_starts'))<cr>",
+      desc = "jump to visible line",
+      mode = { "n", "x" },
+    },
 
     -- K --
 
@@ -582,6 +594,16 @@ function M.entries()
     -- u --
 
     -- V --
+    { "<leader>v", group = "visits", mode = "n" },
+    { "<leader>vv", "<cmd>lua require('mini.visits').select_path()<cr>", desc = "select path", mode = "n" },
+    { "<leader>vl", "<cmd>lua require('mini.visits').select_label()<cr>", desc = "select label", mode = "n" },
+    { "<leader>vj", "<cmd>lua require('mini.visits').iterate_paths('forward')<cr>", desc = "next path", mode = "n" },
+    {
+      "<leader>vk",
+      "<cmd>lua require('mini.visits').iterate_paths('backward')<cr>",
+      desc = "previous path",
+      mode = "n",
+    },
 
     -- v --
 
