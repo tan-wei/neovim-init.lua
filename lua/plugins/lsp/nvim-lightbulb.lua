@@ -20,7 +20,7 @@ M.config = function()
       text_unavailable = "",
     },
     number = {
-      enabled = true,
+      enabled = false,
       hl = "LightBulbNumber",
     },
     autocmd = {
