@@ -119,36 +119,36 @@ M.config = function()
     local stacked_functions_content = symbol.stacked_count > 0 and ("+%s"):format(symbol.stacked_count) or ""
 
     if symbol.references then
-      table.insert(res, { "󰍞", "SymbolUsageRefRound" })
+      table.insert(res, { "", "SymbolUsageRefRound" })
       table.insert(res, { "󰌹 " .. tostring(symbol.references), "SymbolUsageRef" })
-      table.insert(res, { "󰍟", "SymbolUsageRefRound" })
+      table.insert(res, { "", "SymbolUsageRefRound" })
     end
 
     if symbol.definition then
       if #res > 0 then
         table.insert(res, { " ", "NonText" })
       end
-      table.insert(res, { "󰍞", "SymbolUsageDefRound" })
+      table.insert(res, { "", "SymbolUsageDefRound" })
       table.insert(res, { "󰳽 " .. tostring(symbol.definition), "SymbolUsageDef" })
-      table.insert(res, { "󰍟", "SymbolUsageDefRound" })
+      table.insert(res, { "", "SymbolUsageDefRound" })
     end
 
     if symbol.implementation then
       if #res > 0 then
         table.insert(res, { " ", "NonText" })
       end
-      table.insert(res, { "󰍞", "SymbolUsageImplRound" })
+      table.insert(res, { "", "SymbolUsageImplRound" })
       table.insert(res, { "󰡱 " .. tostring(symbol.implementation), "SymbolUsageImpl" })
-      table.insert(res, { "󰍟", "SymbolUsageImplRound" })
+      table.insert(res, { "", "SymbolUsageImplRound" })
     end
 
     if stacked_functions_content ~= "" then
       if #res > 0 then
         table.insert(res, { " ", "NonText" })
       end
-      table.insert(res, { "󰍞", "SymbolUsageImplRound" })
+      table.insert(res, { "", "SymbolUsageImplRound" })
       table.insert(res, { " " .. tostring(stacked_functions_content), "SymbolUsageImpl" })
-      table.insert(res, { "󰍟", "SymbolUsageImplRound" })
+      table.insert(res, { "", "SymbolUsageImplRound" })
     end
 
     return res
