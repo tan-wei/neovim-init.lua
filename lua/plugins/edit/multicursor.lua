@@ -7,6 +7,7 @@ local M = {
 
 M.config = function()
   local mc = require "multicursor-nvim"
+  local highlight = require "util.highlight"
   mc.setup()
 
   local set = vim.keymap.set
@@ -16,24 +17,6 @@ M.config = function()
     if ok then
       lualine.refresh { place = { "statusline" } }
     end
-  end
-
-  local function get_hl(name)
-    local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = name, link = false })
-    if ok then
-      return hl
-    end
-    return {}
-  end
-
-  local function first_hl_color(names, key, fallback)
-    for _, name in ipairs(names) do
-      local value = get_hl(name)[key]
-      if value ~= nil then
-        return value
-      end
-    end
-    return fallback
   end
 
   -- Add or skip cursor above/below the main cursor.
@@ -95,14 +78,24 @@ M.config = function()
   -- Customize how cursors look.
   local function set_multicursor_highlights()
     local hl = vim.api.nvim_set_hl
-    local normal = get_hl "Normal"
-    local cursor_bg = first_hl_color({ "CurSearch", "IncSearch", "Search", "Visual" }, "bg", 0xFFAF5F)
-    local cursor_fg = first_hl_color({ "CurSearch", "IncSearch", "Search" }, "fg", normal.bg)
-    local visual_bg = first_hl_color({ "Visual", "CursorLine", "Search" }, "bg", 0x3A3F58)
-    local disabled_bg = first_hl_color({ "PmenuSel", "StatusLine", "CursorLine", "Visual" }, "bg", 0x6C7086)
-    local disabled_fg = first_hl_color({ "PmenuSel", "StatusLine", "Visual" }, "fg", normal.bg)
-    local preview_bg = first_hl_color({ "Search", "IncSearch", "CurSearch" }, "bg", cursor_bg)
-    local preview_fg = first_hl_color({ "Search", "IncSearch", "CurSearch" }, "fg", normal.bg)
+    local normal = highlight.get("Normal", { link = false }) or {}
+    local cursor_bg = highlight.first(
+      { "CurSearch", "IncSearch", "Search", "Visual" },
+      "bg",
+      0xFFAF5F,
+      { link = false }
+    )
+    local cursor_fg = highlight.first({ "CurSearch", "IncSearch", "Search" }, "fg", normal.bg, { link = false })
+    local visual_bg = highlight.first({ "Visual", "CursorLine", "Search" }, "bg", 0x3A3F58, { link = false })
+    local disabled_bg = highlight.first(
+      { "PmenuSel", "StatusLine", "CursorLine", "Visual" },
+      "bg",
+      0x6C7086,
+      { link = false }
+    )
+    local disabled_fg = highlight.first({ "PmenuSel", "StatusLine", "Visual" }, "fg", normal.bg, { link = false })
+    local preview_bg = highlight.first({ "Search", "IncSearch", "CurSearch" }, "bg", cursor_bg, { link = false })
+    local preview_fg = highlight.first({ "Search", "IncSearch", "CurSearch" }, "fg", normal.bg, { link = false })
 
     hl(0, "MultiCursorCursor", {
       fg = cursor_fg,

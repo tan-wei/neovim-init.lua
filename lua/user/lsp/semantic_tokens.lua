@@ -131,23 +131,7 @@ local lightness_offsets = {
   0.09,
   -0.08,
 }
-
-local function h(name)
-  local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = name })
-  if not ok or vim.tbl_isempty(hl) then
-    return {}
-  end
-  return hl
-end
-
-local function hl_value(names, key)
-  for _, name in ipairs(names) do
-    local value = h(name)[key]
-    if value ~= nil then
-      return value
-    end
-  end
-end
+local highlight = require "util.highlight"
 
 local function clamp(value, minimum, maximum)
   return math.min(math.max(value, minimum), maximum)
@@ -256,7 +240,7 @@ local function derived_color(base_color, background, id, token_type)
 end
 
 local function token_base_color(token_type)
-  return hl_value(rainbow_token_sources[token_type] or generic_rainbow_sources, "fg")
+  return highlight.first(rainbow_token_sources[token_type] or generic_rainbow_sources, "fg")
 end
 
 local function set_fg(group, fg)
@@ -269,8 +253,8 @@ local function set_fg(group, fg)
 end
 
 local function apply_rainbow_semantic_highlights()
-  local background = hl_value({ "Normal", "NormalFloat", "CursorLine" }, "bg")
-  local generic_base = hl_value(generic_rainbow_sources, "fg")
+  local background = highlight.first({ "Normal", "NormalFloat", "CursorLine" }, "bg")
+  local generic_base = highlight.first(generic_rainbow_sources, "fg")
   local token_base_colors = {}
 
   for _, token_type in ipairs(rainbow_token_types) do

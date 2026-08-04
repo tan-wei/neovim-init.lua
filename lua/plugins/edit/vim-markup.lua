@@ -14,28 +14,11 @@ M.init = function()
   vim.g.matchup_matchparen_hi_surround_always = 1
   vim.g.matchup_matchparen_end_sign = "◀"
   vim.g.matchup_treesitter_disable_virtual_text = false
-
-  local function get_highlight(name)
-    local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = name })
-    if not ok or vim.tbl_isempty(hl) then
-      return nil
-    end
-    return hl
-  end
-
-  local function first_highlight_value(names, key, fallback)
-    for _, name in ipairs(names) do
-      local hl = get_highlight(name)
-      if hl and hl[key] then
-        return hl[key]
-      end
-    end
-    return fallback
-  end
+  local highlight = require "util.highlight"
 
   local function set_matchup_highlights()
-    local accent = first_highlight_value({ "CurSearch", "IncSearch", "Search", "Visual" }, "bg", nil)
-    local match_bg = first_highlight_value({ "CursorLine", "Visual", "PmenuSel" }, "bg", nil)
+    local accent = highlight.first({ "CurSearch", "IncSearch", "Search", "Visual" }, "bg")
+    local match_bg = highlight.first({ "CursorLine", "Visual", "PmenuSel" }, "bg")
 
     vim.api.nvim_set_hl(0, "MatchParen", { bg = match_bg, sp = accent, underline = true, bold = true })
     vim.api.nvim_set_hl(0, "MatchWord", { bg = match_bg, sp = accent, underline = true, bold = true })

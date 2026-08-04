@@ -35,31 +35,14 @@ M.config = function()
   local fallback_whitespace_highlight = "IblWhitespaceFallback"
   local fallback_nontext_highlight = "IblNonTextFallback"
   local notified_missing_highlights = {}
-
-  local function get_highlight(name)
-    local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = name })
-    if not ok or vim.tbl_isempty(hl) then
-      return nil
-    end
-    return hl
-  end
-
-  local function first_highlight_fg(names, fallback)
-    for _, name in ipairs(names) do
-      local hl = get_highlight(name)
-      if hl and hl.fg then
-        return hl.fg
-      end
-    end
-    return fallback
-  end
+  local highlight = require "util.highlight"
 
   local function rainbow_highlight_fg(spec)
     if vim.g.rainbow_delimiters_color_strategy == "fixed" then
       return spec.fallback
     end
 
-    return first_highlight_fg(spec.sources, spec.fallback)
+    return highlight.first(spec.sources, "fg", spec.fallback)
   end
 
   local function warn_missing_highlights(missing, fallback_details)
@@ -100,7 +83,7 @@ M.config = function()
 
     local missing = {}
     local fallback_details = {}
-    local comment_hl = get_highlight "Comment"
+    local comment_hl = highlight.get "Comment"
     local base_hl = comment_hl
     local base_source = "Comment"
     if not comment_hl then
@@ -108,8 +91,8 @@ M.config = function()
       base_source = "hardcoded fallback"
     end
 
-    local whitespace_base = get_highlight "Whitespace"
-    local nontext_base = get_highlight "NonText"
+    local whitespace_base = highlight.get "Whitespace"
+    local nontext_base = highlight.get "NonText"
 
     local whitespace_hl = whitespace_base or base_hl
     local nontext_hl = nontext_base or whitespace_base or base_hl

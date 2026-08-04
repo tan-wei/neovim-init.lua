@@ -5,42 +5,19 @@ local M = {
 }
 
 M.config = function()
-  local function get_highlight(name)
-    local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = name })
-    if not ok or vim.tbl_isempty(hl) then
-      return nil
-    end
-    return hl
-  end
-
-  local function hex(color)
-    if color == nil then
-      return nil
-    end
-    return string.format("#%06x", color)
-  end
-
-  local function first_highlight_value(names, key, fallback)
-    for _, name in ipairs(names) do
-      local hl = get_highlight(name)
-      if hl and hl[key] then
-        return hex(hl[key])
-      end
-    end
-    return fallback
-  end
+  local highlight = require "util.highlight"
 
   local function setup_modes()
     require("modes").setup {
       colors = {
-        copy = first_highlight_value({ "DiagnosticWarn", "WarningMsg" }, "fg", "#f5c359"),
-        delete = first_highlight_value({ "DiagnosticError", "ErrorMsg" }, "fg", "#c75c6a"),
-        change = first_highlight_value({ "DiagnosticError", "ErrorMsg" }, "fg", "#c75c6a"),
-        format = first_highlight_value({ "DiagnosticInfo", "Special" }, "fg", "#c79585"),
-        insert = first_highlight_value({ "DiagnosticOk", "String" }, "fg", "#78ccc5"),
-        replace = first_highlight_value({ "DiagnosticError", "Substitute" }, "fg", "#c75c6a"),
-        select = first_highlight_value({ "Visual", "Search" }, "bg", "#9745be"),
-        visual = first_highlight_value({ "Visual", "Search" }, "bg", "#9745be"),
+        copy = highlight.first_hex({ "DiagnosticWarn", "WarningMsg" }, "fg", "#f5c359"),
+        delete = highlight.first_hex({ "DiagnosticError", "ErrorMsg" }, "fg", "#c75c6a"),
+        change = highlight.first_hex({ "DiagnosticError", "ErrorMsg" }, "fg", "#c75c6a"),
+        format = highlight.first_hex({ "DiagnosticInfo", "Special" }, "fg", "#c79585"),
+        insert = highlight.first_hex({ "DiagnosticOk", "String" }, "fg", "#78ccc5"),
+        replace = highlight.first_hex({ "DiagnosticError", "Substitute" }, "fg", "#c75c6a"),
+        select = highlight.first_hex({ "Visual", "Search" }, "bg", "#9745be"),
+        visual = highlight.first_hex({ "Visual", "Search" }, "bg", "#9745be"),
       },
       ignore = {
         "NvimTree",

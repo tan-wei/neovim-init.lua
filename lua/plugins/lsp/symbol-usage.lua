@@ -8,30 +8,14 @@ M.config = function()
   local symbol_usage = require "symbol-usage"
   local symbol_usage_state = require "symbol-usage.state"
   local client = require "util.client"
-
-  local function h(name)
-    local ok, hl = pcall(vim.api.nvim_get_hl, 0, { name = name })
-    if not ok or vim.tbl_isempty(hl) then
-      return {}
-    end
-    return hl
-  end
-
-  local function hl_value(names, key)
-    for _, name in ipairs(names) do
-      local value = h(name)[key]
-      if value ~= nil then
-        return value
-      end
-    end
-  end
+  local highlight = require "util.highlight"
 
   local function refresh_bubble_highlights()
-    local cursorline_bg = hl_value({ "CursorLine", "CursorColumn", "ColorColumn", "Normal" }, "bg")
-    local content_fg = hl_value({ "Comment", "NonText", "Normal" }, "fg")
-    local ref_fg = hl_value({ "Function", "@function", "Identifier", "Comment" }, "fg")
-    local def_fg = hl_value({ "Type", "@type", "Identifier", "Comment" }, "fg")
-    local impl_fg = hl_value({ "@keyword", "Keyword", "Statement", "Comment" }, "fg")
+    local cursorline_bg = highlight.first({ "CursorLine", "CursorColumn", "ColorColumn", "Normal" }, "bg")
+    local content_fg = highlight.first({ "Comment", "NonText", "Normal" }, "fg")
+    local ref_fg = highlight.first({ "Function", "@function", "Identifier", "Comment" }, "fg")
+    local def_fg = highlight.first({ "Type", "@type", "Identifier", "Comment" }, "fg")
+    local impl_fg = highlight.first({ "@keyword", "Keyword", "Statement", "Comment" }, "fg")
 
     vim.api.nvim_set_hl(0, "SymbolUsageRounding", { fg = cursorline_bg, italic = true })
     vim.api.nvim_set_hl(0, "SymbolUsageContent", { bg = cursorline_bg, fg = content_fg, italic = true })
@@ -41,10 +25,10 @@ M.config = function()
   end
 
   local function refresh_label_highlights()
-    local normal_bg = hl_value({ "Normal", "NormalFloat", "CursorLine" }, "bg")
-    local ref_bg = hl_value({ "Type", "@type", "Identifier", "Comment" }, "fg")
-    local def_bg = hl_value({ "Function", "@function", "Identifier", "Comment" }, "fg")
-    local impl_bg = hl_value({ "@parameter", "@keyword", "Identifier", "Comment" }, "fg")
+    local normal_bg = highlight.first({ "Normal", "NormalFloat", "CursorLine" }, "bg")
+    local ref_bg = highlight.first({ "Type", "@type", "Identifier", "Comment" }, "fg")
+    local def_bg = highlight.first({ "Function", "@function", "Identifier", "Comment" }, "fg")
+    local impl_bg = highlight.first({ "@parameter", "@keyword", "Identifier", "Comment" }, "fg")
 
     vim.api.nvim_set_hl(0, "SymbolUsageRef", { bg = ref_bg, fg = normal_bg, bold = true })
     vim.api.nvim_set_hl(0, "SymbolUsageRefRound", { fg = ref_bg })
