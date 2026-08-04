@@ -382,6 +382,25 @@ M.config = function()
     end,
   }
 
+  local blame = {
+    function()
+      local ok, git_blame = pcall(require, "gitblame")
+      if not ok then
+        return ""
+      end
+
+      return " " .. git_blame.get_current_blame_text()
+    end,
+    cond = function()
+      local ok, git_blame = pcall(require, "gitblame")
+      if not ok then
+        return false
+      end
+
+      return git_blame.is_blame_text_available()
+    end,
+  }
+
   local function compact_recorder_recording_status()
     local reg = vim.fn.reg_recording()
     if reg == "" then
@@ -626,12 +645,12 @@ M.config = function()
       lualine_a = { "fancy_branch", "fancy_diagnostics" },
       lualine_b = { { "fancy_mode", width = 8 } },
       lualine_c = vim.list_extend(
-        { "fancy_cwd", project_config, session, harpoon_status, multicursor_status },
+        { "fancy_cwd", project_config, session, colorscheme, harpoon_status, multicursor_status },
         macro_components_c
       ),
       lualine_x = vim.list_extend(
         noice_components_x,
-        { csv_status, "overseer", colorscheme, "fancy_searchcount", spaces, encoding, "fancy_filetype" }
+        { csv_status, "overseer", blame, "fancy_searchcount", spaces, encoding, "fancy_filetype" }
       ),
       lualine_y = { "fancy_location", progress },
       lualine_z = vim.list_extend(macro_components_z, { "fancy_lsp_servers", linter_status }),

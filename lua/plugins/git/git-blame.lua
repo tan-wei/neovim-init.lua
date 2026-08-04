@@ -4,9 +4,11 @@ local M = {
   event = "VeryLazy",
 }
 
--- TODO: Lualine integrate?
 M.opts = {
   enabled = true,
+  display_virtual_text = false,
+  date_format = "%r",
+  message_template = "<author> (<date>)",
   ignored_filetypes = {
     "markdown",
     "NvimTree",
