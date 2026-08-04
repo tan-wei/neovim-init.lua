@@ -2,7 +2,6 @@
 local M = {
   "AlexvZyl/nordic.nvim",
   lazy = true,
-  config = true,
 }
 
 M.init = function()
@@ -10,5 +9,7 @@ M.init = function()
   table.insert(available_colorschemes, "nordic")
   vim.g.available_colorschemes = available_colorschemes
 end
+
+M.config = true
 
 return M
