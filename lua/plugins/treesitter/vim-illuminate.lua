@@ -5,17 +5,24 @@ local M = {
 }
 
 M.init = function()
-  vim.cmd [[
-    augroup _illuminate
-      autocmd!
-      autocmd VimEnter * hi link illuminatedWord CursorLine
-    augroup END
+  local highlight = require "util.highlight"
 
-    augroup _illuminate
-      autocmd!
-      autocmd VimEnter * hi illuminatedWord cterm=underline gui=underline
-    augroup END
-  ]]
+  local function set_illuminate_highlights()
+    local text_sp = highlight.first({ "Comment", "NonText" }, "fg")
+    local normal_bg = highlight.first({ "Normal", "NormalFloat", "CursorLine" }, "bg")
+    local read_sp = highlight.first({ "DiagnosticInfo", "Function", "Identifier" }, "fg")
+    local write_bg = highlight.first({ "DiagnosticError", "DiagnosticWarn", "Statement" }, "fg")
+
+    vim.api.nvim_set_hl(0, "IlluminatedWordText", { sp = text_sp, underline = true })
+    vim.api.nvim_set_hl(0, "IlluminatedWordRead", { sp = read_sp, underline = true })
+    vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { fg = normal_bg, bg = write_bg, bold = true })
+  end
+
+  set_illuminate_highlights()
+  vim.api.nvim_create_autocmd("ColorScheme", {
+    group = vim.api.nvim_create_augroup("UserIlluminateHighlights", { clear = true }),
+    callback = set_illuminate_highlights,
+  })
 end
 
 M.config = function()
