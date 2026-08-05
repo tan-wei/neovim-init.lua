@@ -10,6 +10,17 @@ M.init = function()
   vim.g.available_colorschemes = available_colorschemes
 end
 
-M.config = true
+M.config = function()
+  require("nordic").setup({
+    on_highlight = function(highlights, palette)
+      highlights.PmenuSel = {
+        fg = palette.white1,
+        bg = palette.blue2,
+        bold = true,
+      }
+    end,
+  })
+  vim.cmd.colorscheme("nordic")
+end
 
 return M
