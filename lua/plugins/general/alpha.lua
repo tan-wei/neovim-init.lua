@@ -38,7 +38,8 @@ M.config = function()
     local v = vim.version()
     -- FIXME: datetime is not working on Windows now
     local datetime = os.date " %d-%m-%Y   %H:%M:%S"
-    local platform = vim.fn.has "win32" == 1 and "" or ""
+    local os = require "util.os"
+    local platform = os.is_windows() and "" or os.is_macos() and "" or ""
     local stats = require("lazy").stats()
     local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
     return string.format(
