@@ -1,6 +1,6 @@
 ---@type LazyPluginSpec
 local M = {
-  "everviolet/nvim",
+  "evergardentheme/nvim",
   name = "evergarden",
   lazy = true,
 }
