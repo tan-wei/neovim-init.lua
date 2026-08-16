@@ -16,9 +16,6 @@ M.init = function()
   table.insert(available_colorschemes, "duckbones")
   table.insert(available_colorschemes, "zenburned")
   table.insert(available_colorschemes, "kanagawabones")
-
-  -- Or use this?
-  -- table.insert(available_colorschemes, "randombones")
   vim.g.available_colorschemes = available_colorschemes
 end
 
