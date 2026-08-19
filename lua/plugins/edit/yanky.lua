@@ -4,7 +4,6 @@ local M = {
   lazy = false,
   dependencies = {
     "kkharji/sqlite.lua",
-    "nvim-telescope/telescope.nvim",
   },
   cmd = {
     "YankyClearHistory",
@@ -16,7 +15,6 @@ local M = {
 
 M.config = function()
   local yanky = require "yanky"
-  local telescope_mapping = require "yanky.telescope.mapping"
   local yanky_utils = require "yanky.utils"
   local upstream_get_default_register = yanky_utils.get_default_register
 
@@ -33,9 +31,6 @@ M.config = function()
 
     return register
   end
-
-  local default_register = yanky_utils.get_default_register()
-
   -- Some clipboard providers expose non-text payloads as unreadable registers.
   -- Skip seeding Yanky's history on startup when the default register can't be read.
   yanky.init_history = function()
@@ -53,33 +48,12 @@ M.config = function()
       history_length = 200,
       storage = "sqlite",
     },
-    picker = {
-      telescope = {
-        use_default_mappings = false,
-        mappings = {
-          default = telescope_mapping.put "p",
-          i = {
-            ["<C-y>"] = telescope_mapping.put "p",
-            ["<C-e>"] = telescope_mapping.put "P",
-            ["<C-r>"] = telescope_mapping.set_register(default_register),
-          },
-          n = {
-            p = telescope_mapping.put "p",
-            P = telescope_mapping.put "P",
-            d = telescope_mapping.delete(),
-            r = telescope_mapping.set_register(default_register),
-          },
-        },
-      },
-    },
     highlight = {
       on_put = false,
       on_yank = false,
       timer = 1000,
     },
   }
-
-  require("telescope").load_extension "yank_history"
 end
 
 return M

@@ -8,8 +8,8 @@ M.config = function()
   require("whitespace-nvim").setup {
     highlight = "DiffDelete",
     ignored_filetypes = {
-      "TelescopePrompt",
-      "TelescopeResults",
+      "fzf",
+      "fzflua_backdrop",
       "trouble",
       "help",
       "alpha",

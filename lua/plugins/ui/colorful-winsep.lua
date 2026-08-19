@@ -14,7 +14,7 @@ M.opts = {
   end,
   excluded_ft = {
     "packer",
-    "TelescopePrompt",
+    "fzf",
     "mason",
     "NvimTree",
     "alpha",
@@ -32,7 +32,7 @@ M.opts = {
     "fugitive",
     "neogit",
     "undotree",
-    "TelescopeResults",
+    "fzflua_backdrop",
     "dapui_breakpoint",
     "dapui_stacks",
     "dapui_scopes",

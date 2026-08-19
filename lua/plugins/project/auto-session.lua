@@ -1,9 +1,6 @@
 ---@type LazyPluginSpec
 local M = {
   "rmagatti/auto-session",
-  dependencies = {
-    "nvim-telescope/telescope.nvim",
-  },
   -- event = "VimEnter",
 }
 
@@ -139,11 +136,10 @@ M.config = function()
     auto_save = true,
     auto_create = false,
     session_lens = {
-      load_on_setup = true,
-      picker_opts = { border = true },
+      picker = "fzf",
       previewer = true,
     },
-    bypass_save_filetypes = { "alpha", "dashboard", "oil", "telescope", "Outline", "terminal" },
+    bypass_save_filetypes = { "alpha", "dashboard", "oil", "fzf", "Outline", "terminal" },
     save_extra_cmds = {
       save_early_retirement_pins,
       save_overseer_tasks,
@@ -335,8 +331,6 @@ M.config = function()
       end
     end,
   })
-
-  require("telescope").load_extension "session-lens"
 end
 
 return M

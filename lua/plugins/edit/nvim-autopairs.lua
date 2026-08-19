@@ -19,8 +19,8 @@ M.config = function()
       java = false,
     },
     disable_filetype = {
-      "TelescopePrompt",
-      "TelescopeResults",
+      "fzf",
+      "fzflua_backdrop",
       "qf",
       "help",
       "lazy",

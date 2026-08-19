@@ -234,13 +234,12 @@ Scope notes:
 | `<leader>l` | `la`, `ld`, `lD`, `lf`, `lF`, `lh`, `li`, `lI`, `lj`, `lk`, `ll`, `lo`, `lq`, `lr`, `ls`, `lS` | LSP code actions, diagnostics, symbols, format, hover, rename, signature, outline | No | LSP namespace |
 | `<leader>M` | `Mg`, `Mj`, `Ms`, `Mt` | Grapple mark / select / scopes / tags | No | Marks namespace |
 | `<leader>m` | `ma`, `mm`, `mn`, `mp`, `m1`, `m2`, `m3`, `m4` | Harpoon toggle, menu, prev/next, select slot | No | Harpoon namespace |
-| `<leader>o` | `o` | Smart open | No | Standalone action |
-| `<leader>P` | `P` | Projects picker | No | Standalone action |
+| `<leader>o` | `o` | Smart open (frecency) | No | Standalone action |
 | `<leader>p` | `pd`, `pc`, `pu`, `pU`, `pf`, `ps`, `pv`, `pt`, `po` | Overlook peek / close / restore / focus / split / vsplit / tab / current window | No | Popup namespace |
 | `<leader>q` | `qq`, `qp`, `qs`, `qe`, `qy`, `qd` | Macro start/stop, play, switch slot, edit, yank, delete | No | Macro namespace |
 | `<leader>R` | `Rr`, `Rs`, `RS`, `Rf`, `Rh`, `Rc`, `Rl` | REPL run / restart / sniprun / focus / hide / send file / send until cursor | No | REPL namespace |
 | `<leader>r` | `rc`, `rf`, `rs` | RunCode / RunFile / stop runner | No | Run namespace |
-| `<leader>s` | `ss`, `sS`, `sy`, `sg`, `sf`, `si`, `sa`, `sb`, `sc`, `sC`, `sh`, `sk`, `sM`, `so`, `sp`, `sr`, `sR` | Flash, grug-far, yank history, AST grep, buffer search, colorschemes, commands, help, keymaps, man, smart open, pickers, recent files, registers | No | Search namespace |
+| `<leader>s` | `ss`, `sS`, `sy`, `sg`, `sf`, `si`, `sb`, `sc`, `sC`, `sh`, `sk`, `sM`, `so`, `sp`, `sr`, `sR` | Flash, grug-far, yank history, buffer search, colorschemes, commands, help, keymaps, man, frecent files, pickers, recent files, registers | No | Search namespace |
 | `<leader>T` | `Tf`, `Th`, `Tv` | Float / horizontal / vertical terminal | No | Terminal namespace |
 | `<leader>t` | `tm`, `tg`, `tr`, `tu`, `tn`, `tl`, `tc`, `ts`, `to`, `tp`, `tw`, `tj`, `tk` | Table mode, TOC, neotest run / output / panel / watch / failed-test jumps | No | Test/table namespace; `tj` / `tk` currently look typo-prone in config |
 | `<leader>w` | `wl`, `ws`, `wd`, `wt`, `wf`, `wb` | Session management plus MoveWord forward / backward | No | Namespace drift: workspace/session and MoveWord share the same prefix |
@@ -275,7 +274,7 @@ Manual tools currently available in this repo:
 3. `just keymap-docs` reports central mappings that do not appear in the README inventory tables.
 4. `just keymap-docs-check` exits non-zero when a central registry or which-key mapping is missing from the README inventory tables.
 1. `:KeyAnalyzer <leader>`, `:KeyAnalyzer <C->`, and `:KeyAnalyzer <M->` visualize occupied vs free keys by prefix.
-2. `:Telescope keymaps` shows the runtime keymap list after lazy loading.
+2. `:FzfLua keymaps` shows the runtime keymap list after lazy loading.
 3. `:verbose nmap {lhs}`, `:verbose xmap {lhs}`, `:verbose imap {lhs}`, and friends show which mapping currently wins and where it was defined.
 
 Practical limitations:

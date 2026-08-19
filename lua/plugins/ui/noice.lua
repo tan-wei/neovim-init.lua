@@ -43,7 +43,6 @@ local M = {
         })
       end,
     },
-    "nvim-telescope/telescope.nvim",
   },
   event = "VeryLazy",
 }
@@ -90,8 +89,6 @@ M.config = function()
       lsp_doc_border = false,
     },
   }
-
-  require("telescope").load_extension "noice"
 end
 
 return M

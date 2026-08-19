@@ -8,8 +8,8 @@ M.config = function()
   local excluded_filetypes = {
     "qf",
     "help",
-    "TelescopePrompt",
-    "TelescopeResults",
+    "fzf",
+    "fzflua_backdrop",
     "lazy",
     "mason",
     "checkhealth",

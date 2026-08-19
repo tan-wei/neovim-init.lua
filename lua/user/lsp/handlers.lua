@@ -84,7 +84,7 @@ M.setup = function()
       local lnum, filename = results[1].lnum, results[1].filename
       for _, val in pairs(results) do
         if val.lnum ~= lnum or val.filename ~= filename then
-          return require("telescope.builtin").lsp_definitions()
+          return require("fzf-lua").lsp_definitions()
         end
       end
       vim.lsp.util.jump_to_location(result[1], client.offset_encoding, false)

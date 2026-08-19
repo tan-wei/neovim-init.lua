@@ -34,8 +34,8 @@ M.config = function()
       "neogit",
       "undotree",
       "trouble",
-      "TelescopePrompt",
-      "TelescopeResults",
+      "fzf",
+      "fzflua_backdrop",
     },
     ignore_buftypes = {
       nofile = true,

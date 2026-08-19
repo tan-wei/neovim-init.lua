@@ -4,7 +4,6 @@ local M = {
   dependencies = {
     "nvim-lua/plenary.nvim",
     "folke/trouble.nvim",
-    "nvim-telescope/telescope.nvim",
   },
   event = "VeryLazy",
 }

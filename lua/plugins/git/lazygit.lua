@@ -3,7 +3,6 @@ local M = {
   "kdheepak/lazygit.nvim",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "nvim-telescope/telescope.nvim",
   },
   cmd = { "LazyGit", "LazyGitCurrentFile", "LazyGitConfig", "LazyGitFilter", "LazyGitFilterCurrentFile" },
 }
@@ -16,10 +15,6 @@ M.init = function()
   vim.g.lazygit_use_neovim_remote = 1
   vim.g.lazygit_use_custom_config_file_path = 0
   vim.g.lazygit_config_file_path = ""
-end
-
-M.config = function()
-  require("telescope").load_extension "lazygit"
 end
 
 return M

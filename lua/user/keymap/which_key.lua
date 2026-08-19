@@ -65,7 +65,7 @@ function M.entries()
     },
     { "<leader>bp", "<cmd>BufferLinePick<cr>", desc = "Pick buffer", mode = "n" },
     { "<leader>bP", "<cmd>BufferLinePickClose<cr>", desc = "close Pick buffer", mode = "n" },
-    { "<leader>bf", "<cmd>Telescope buffers previewer=false<cr>", desc = "Find buffer", mode = "n" },
+    { "<leader>bf", "<cmd>FzfLua buffers<cr>", desc = "Find buffer", mode = "n" },
     { "<leader>bh", "<cmd>BufferLineCloseLeft<cr>", desc = "close all to the left", mode = "n" },
     { "<leader>bl", "<cmd>BufferLineCloseRight<cr>", desc = "close all to the right", mode = "n" },
     {
@@ -136,29 +136,36 @@ function M.entries()
     -- F --
     {
       "<leader>F",
-      "<cmd>Telescope live_grep_args live_grep_args theme=ivy<cr>",
-      desc = "Find texts (rg args)",
+      "<cmd>FzfLua live_grep<cr>",
+      desc = "Find text",
       mode = "n",
     },
 
     -- f --
     {
       "<leader>f",
-      "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>",
+      "<cmd>FzfLua files<cr>",
       desc = "Find files",
       mode = "n",
     },
 
     -- O --
-    { "<leader>o", "<cmd>Telescope smart_open<cr>", desc = "Smart open", mode = "n" },
+    {
+      "<leader>o",
+      function()
+        require("fzf-lua-frecency").frecency { cwd_only = true }
+      end,
+      desc = "Smart open",
+      mode = "n",
+    },
 
     -- G --
 
     -- g --
     { "<leader>g", group = "git", mode = "n" },
     { "<leader>gB", "<cmd>lua require 'gitsigns'.blame_line()<cr>", desc = "Blame", mode = "n" },
-    { "<leader>gb", "<cmd>Telescope git_branches<cr>", desc = "checkout Branch", mode = "n" },
-    { "<leader>gc", "<cmd>Telescope git_commits<cr>", desc = "checkout Commit", mode = "n" },
+    { "<leader>gb", "<cmd>FzfLua git_branches<cr>", desc = "checkout Branch", mode = "n" },
+    { "<leader>gc", "<cmd>FzfLua git_commits<cr>", desc = "checkout Commit", mode = "n" },
     { "<leader>gd", "<cmd>Gitsigns diffthis HEAD<cr>", desc = "Diff", mode = "n" },
     { "<leader>gl", "<cmd>LazyGit<cr>", desc = "Lazygit", mode = "n" },
     { "<leader>gj", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", desc = "next hunk", mode = "n" },
@@ -168,7 +175,7 @@ function M.entries()
     { "<leader>gR", "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", desc = "Reset buffer", mode = "n" },
     { "<leader>gs", "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", desc = "Stage hunk", mode = "n" },
     { "<leader>gu", "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", desc = "Undo stage hunk", mode = "n" },
-    { "<leader>go", "<cmd>Telescope git_status<cr>", desc = "Open changed file", mode = "n" },
+    { "<leader>go", "<cmd>FzfLua git_status<cr>", desc = "Open changed file", mode = "n" },
 
     -- H --
     {
@@ -231,8 +238,8 @@ function M.entries()
     -- l --
     { "<leader>l", group = "lsp", mode = "n" },
     { "<leader>la", "<cmd>lua require('actions-preview').code_actions()<cr>", desc = "code Action", mode = "n" },
-    { "<leader>ld", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics", mode = "n" },
-    { "<leader>lD", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document symbols", mode = "n" },
+    { "<leader>ld", "<cmd>FzfLua diagnostics_document<cr>", desc = "Document diagnostics", mode = "n" },
+    { "<leader>lD", "<cmd>FzfLua lsp_document_symbols<cr>", desc = "Document symbols", mode = "n" },
     { "<leader>lf", "<cmd>FormatEnable<cr>", desc = "enable Format", mode = "n" },
     { "<leader>lF", "<cmd>FormatDisable!<cr>", desc = "disable Format", mode = "n" },
     { "<leader>lh", "<cmd>lua vim.lsp.buf.hover({ border = 'rounded' })<cr>", desc = "Hover", mode = "n" },
@@ -245,7 +252,7 @@ function M.entries()
     { "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Quickfix", mode = "n" },
     { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename", mode = "n" },
     { "<leader>ls", "<cmd>lua require('lsp_signature').toggle_float_win()<cr>", desc = "toggle Signature", mode = "n" },
-    { "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "workspace Symbols", mode = "n" },
+    { "<leader>lS", "<cmd>FzfLua lsp_live_workspace_symbols<cr>", desc = "workspace Symbols", mode = "n" },
 
     -- M --
     { "<leader>M", group = "marks", mode = "n" },
@@ -329,7 +336,6 @@ function M.entries()
     -- O --
 
     -- o --
-    { "<leader>P", "<cmd>lua require('telescope').extensions.projects.projects()<cr>", desc = "Projects", mode = "n" },
 
     -- p --
     { "<leader>p", group = "peek/popup", mode = "n" },
@@ -469,9 +475,7 @@ function M.entries()
     },
     {
       "<leader>sy",
-      function()
-        require("telescope").extensions.yank_history.yank_history()
-      end,
+      "<cmd>YankyRingHistory<cr>",
       desc = "Search yank history",
       mode = { "n", "x" },
     },
@@ -525,17 +529,23 @@ function M.entries()
       desc = "Search within range",
       mode = "x",
     },
-    { "<leader>sa", "<cmd>Telescope ast_grep<cr>", desc = "Search AST grep", mode = "n" },
-    { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Search buffer", mode = "n" },
-    { "<leader>sc", "<cmd>Telescope colorscheme<cr>", desc = "Search colorschemes", mode = "n" },
-    { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Search commands", mode = "n" },
-    { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Search help", mode = "n" },
-    { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Search keymaps", mode = "n" },
-    { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Search man pages", mode = "n" },
-    { "<leader>so", "<cmd>Telescope smart_open<cr>", desc = "Search smart open", mode = "n" },
-    { "<leader>sp", "<cmd>Telescope builtin include_extensions=true<cr>", desc = "Search pickers", mode = "n" },
-    { "<leader>sr", "<cmd>Telescope oldfiles<cr>", desc = "Search recent files", mode = "n" },
-    { "<leader>sR", "<cmd>Telescope registers<cr>", desc = "Search registers", mode = "n" },
+    { "<leader>sb", "<cmd>FzfLua blines<cr>", desc = "Search buffer", mode = "n" },
+    { "<leader>sc", "<cmd>FzfLua colorschemes<cr>", desc = "Search colorschemes", mode = "n" },
+    { "<leader>sC", "<cmd>FzfLua commands<cr>", desc = "Search commands", mode = "n" },
+    { "<leader>sh", "<cmd>FzfLua help_tags<cr>", desc = "Search help", mode = "n" },
+    { "<leader>sk", "<cmd>FzfLua keymaps<cr>", desc = "Search keymaps", mode = "n" },
+    { "<leader>sM", "<cmd>FzfLua man_pages<cr>", desc = "Search man pages", mode = "n" },
+    {
+      "<leader>so",
+      function()
+        require("fzf-lua-frecency").frecency()
+      end,
+      desc = "Search frecent files",
+      mode = "n",
+    },
+    { "<leader>sp", "<cmd>FzfLua builtin<cr>", desc = "Search pickers", mode = "n" },
+    { "<leader>sr", "<cmd>FzfLua oldfiles<cr>", desc = "Search recent files", mode = "n" },
+    { "<leader>sR", "<cmd>FzfLua registers<cr>", desc = "Search registers", mode = "n" },
 
     -- T --
     { "<leader>T", group = "terminal", mode = "n" },
@@ -611,7 +621,7 @@ function M.entries()
 
     -- w --
     { "<leader>w", group = "workspace", mode = "n" },
-    { "<leader>wl", "<cmd>Telescope session-lens<cr>", desc = "session Lens", mode = "n" },
+    { "<leader>wl", "<cmd>AutoSession search<cr>", desc = "session picker", mode = "n" },
     { "<leader>ws", "<cmd>AutoSession save<cr>", desc = "session Save", mode = "n" },
     { "<leader>wd", "<cmd>AutoSession deletePicker<cr>", desc = "Delete a selected session", mode = "n" },
     { "<leader>wt", "<cmd>AutoSession toggle<cr>", desc = "session Toggle", mode = "n" },

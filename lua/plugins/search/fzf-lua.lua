@@ -12,6 +12,21 @@ local M = {
   cmd = "FzfLua",
 }
 
-M.config = true
+M.config = function()
+  require("fzf-lua").setup {
+    winopts = {
+      border = "rounded",
+      preview = {
+        layout = "vertical",
+      },
+    },
+    files = {
+      cwd_prompt = false,
+    },
+    oldfiles = {
+      include_current_session = true,
+    },
+  }
+end
 
 return M

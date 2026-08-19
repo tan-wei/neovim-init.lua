@@ -22,8 +22,8 @@ M.config = function()
       ignore = {
         "NvimTree",
         "Outline",
-        "TelescopePrompt",
-        "TelescopeResults",
+        "fzf",
+        "fzflua_backdrop",
         "Trouble",
         "alpha",
         "checkhealth",

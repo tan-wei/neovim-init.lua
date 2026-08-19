@@ -23,13 +23,13 @@ M.config = function()
   }
   dashboard.section.buttons.val = {
     dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
-    dashboard.button("f", "  Find file", ":Telescope find_files <CR>"),
-    dashboard.button("o", "󰍉  Smart open", ":Telescope smart_open <CR>"),
-    dashboard.button("p", "  Pickers", ":Telescope builtin include_extensions=true <CR>"),
-    dashboard.button("r", "  Recently used files", ":Telescope oldfiles <CR>"),
-    dashboard.button("z", "  Recently directories", ":Telescope zoxide list <CR>"),
-    dashboard.button("s", "󱌣  Session Lens", ":Telescope session-lens <CR>"),
-    dashboard.button("t", "󱎸  Find text", ":Telescope live_grep_args live_grep_args theme=ivy <CR>"),
+    dashboard.button("f", "  Find file", ":FzfLua files <CR>"),
+    dashboard.button("o", "󰍉  Smart open", ":lua require('fzf-lua-frecency').frecency({ cwd_only = true })<CR>"),
+    dashboard.button("p", "  Pickers", ":FzfLua builtin <CR>"),
+    dashboard.button("r", "  Recently used files", ":FzfLua oldfiles <CR>"),
+    dashboard.button("z", "  Recently directories", ":FzfLua zoxide <CR>"),
+    dashboard.button("s", "󱌣  Session picker", ":AutoSession search <CR>"),
+    dashboard.button("t", "󱎸  Find text", ":FzfLua live_grep <CR>"),
     dashboard.button("c", "  Configuration", string.format(":execute 'cd' fnameescape(%q)<CR>", config_dir)),
     dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
   }

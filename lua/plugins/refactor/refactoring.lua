@@ -1,9 +1,6 @@
 ---@type LazyPluginSpec
 local M = {
   "ThePrimeagen/refactoring.nvim",
-  dependencies = {
-    "nvim-telescope/telescope.nvim",
-  },
   cmd = "Refactor",
 }
 
@@ -18,7 +15,6 @@ M.config = function()
       },
     },
   }
-  require("telescope").load_extension "refactoring"
 end
 
 return M

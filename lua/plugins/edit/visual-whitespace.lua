@@ -28,8 +28,8 @@ M.opts = {
   },
   ignore = {
     filetypes = {
-      "TelescopePrompt",
-      "TelescopeResults",
+      "fzf",
+      "fzflua_backdrop",
       "trouble",
       "help",
       "alpha",

@@ -2,7 +2,6 @@
 local M = {
   "aaronhallaert/advanced-git-search.nvim",
   dependencies = {
-    "nvim-telescope/telescope.nvim",
     "tpope/vim-fugitive",
     "dlyongemallo/diffview.nvim",
     "ibhagwan/fzf-lua",
@@ -14,6 +13,5 @@ M.config = function()
   require("advanced_git_search.fzf").setup {
     diff_plugin = "diffview",
   }
-  require("telescope").load_extension "advanced_git_search"
 end
 return M

@@ -16,9 +16,7 @@ M.config = function()
     post_open_hook = nil,
     post_close_hook = nil,
     references = {
-      telescope = require("telescope.themes").get_dropdown {
-        hide_preview = false,
-      },
+      provider = "fzf_lua",
     },
 
     focus_on_open = true,

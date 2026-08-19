@@ -51,7 +51,6 @@ local spec = {
   { import = "plugins.task" },
   { import = "plugins.terminal" },
   { import = "plugins.test" },
-  { import = "plugins.telescope" },
   { import = "plugins.tool" },
   { import = "plugins.treesitter" },
   { import = "plugins.ui" },
