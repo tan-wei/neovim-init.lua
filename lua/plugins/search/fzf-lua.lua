@@ -25,6 +25,7 @@ M.config = function()
     oldfiles = {
       include_current_session = true,
     },
+    file_icon_padding = " ",
   }
 end
 
