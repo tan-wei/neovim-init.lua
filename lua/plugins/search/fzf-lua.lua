@@ -1,7 +1,6 @@
 ---@type LazyPluginSpec
 local M = {
   "ibhagwan/fzf-lua",
-  enabled = require("util.package").enabled_unix_only(),
   dependencies = {
     {
       "junegunn/fzf",
