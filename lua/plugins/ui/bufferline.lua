@@ -64,7 +64,6 @@ M.config = function()
       left_trunc_marker = "",
       right_trunc_marker = "",
       max_name_length = 30,
-      custom_filter = filter_out_nvim_tree,
       max_prefix_length = 30,
       tab_size = 21,
       diagnostics = "nvim_lsp",
