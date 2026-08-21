@@ -34,6 +34,26 @@ M.config = function()
     return text
   end
 
+  -- True when the nvim-tree sidebar is currently visible; the cwd is then
+  -- already displayed in the bufferline offset, so we hide it from the statusline.
+  local function tree_visible()
+    if require("util.package").is_loaded "nvim-tree.lua" then
+      local ok, api = pcall(require, "nvim-tree.api")
+      if ok then
+        return api.tree.is_visible()
+      end
+    end
+
+    return false
+  end
+
+  local cwd = {
+    "fancy_cwd",
+    cond = function()
+      return not tree_visible()
+    end,
+  }
+
   local function badge(component, color)
     local fmt = component.fmt
 
@@ -645,7 +665,7 @@ M.config = function()
       lualine_a = { "fancy_branch", "fancy_diagnostics" },
       lualine_b = { { "fancy_mode", width = 8 } },
       lualine_c = vim.list_extend(
-        { "fancy_cwd", project_config, session, colorscheme, harpoon_status, multicursor_status },
+        { cwd, project_config, session, colorscheme, harpoon_status, multicursor_status },
         macro_components_c
       ),
       lualine_x = vim.list_extend(

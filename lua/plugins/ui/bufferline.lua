@@ -11,6 +11,30 @@ local M = {
 M.config = function()
   local bufferline = require "bufferline"
 
+  -- Shorten the current working directory when it is too long to fit in the
+  -- nvim-tree offset area, keeping the leading "~/" (or "/") and the last
+  -- component so the path stays readable.
+  local function shorten_path(path, max_len)
+    local home = vim.env.HOME
+    local str = path
+    if home and vim.startswith(str, home) then
+      str = "~" .. str:sub(#home + 1)
+    end
+
+    if vim.fn.strwidth(str) <= max_len then
+      return str
+    end
+
+    -- pathshorten(path, 1) keeps the last component and reduces every other
+    -- directory to its first character, e.g. /home/u/p/foo/bar -> ~/u/p/f/bar
+    str = vim.fn.pathshorten(path, 1)
+    if vim.fn.strwidth(str) <= max_len then
+      return str
+    end
+
+    return vim.fn.truncate(str, math.max(0, max_len - 1)) .. "…"
+  end
+
   bufferline.setup {
     options = {
       mod = "tabs",
@@ -40,6 +64,7 @@ M.config = function()
       left_trunc_marker = "",
       right_trunc_marker = "",
       max_name_length = 30,
+      custom_filter = filter_out_nvim_tree,
       max_prefix_length = 30,
       tab_size = 21,
       diagnostics = "nvim_lsp",
@@ -55,7 +80,13 @@ M.config = function()
       offsets = {
         {
           filetype = "NvimTree",
-          text = "File Explorer",
+          text = function()
+            -- Use the visible width of the nvim-tree window as the available space.
+            local ok, api = pcall(require, "nvim-tree.api")
+            local winid = ok and api.tree.winid() or nil
+            local width = winid and vim.api.nvim_win_get_width(winid) or vim.o.columns
+            return shorten_path(vim.fn.getcwd(), width)
+          end,
           text_align = "center",
           separator = true,
         },
