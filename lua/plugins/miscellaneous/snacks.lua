@@ -12,6 +12,9 @@ M.opts = {
     size = 1.5 * 1024 * 1024,
     line_length = 10000,
   },
+  bufdelete = {
+    enabled = true,
+  },
   input = {
     enabled = true,
   },
