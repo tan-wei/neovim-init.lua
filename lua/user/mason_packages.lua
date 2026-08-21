@@ -14,6 +14,7 @@ local M = {
     "yamlls",
   },
   tools = {
+    "ast_grep",
     "black",
     "cmakelang",
     "cmakelint",

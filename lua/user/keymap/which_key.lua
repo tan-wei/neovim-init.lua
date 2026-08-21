@@ -529,6 +529,7 @@ function M.entries()
       desc = "Search within range",
       mode = "x",
     },
+    { "<leader>sa", "<cmd>FzfLua astgrep<cr>", desc = "Search AST grep", mode = "n" },
     { "<leader>sb", "<cmd>FzfLua blines<cr>", desc = "Search buffer", mode = "n" },
     { "<leader>sc", "<cmd>FzfLua colorschemes<cr>", desc = "Search colorschemes", mode = "n" },
     { "<leader>sC", "<cmd>FzfLua commands<cr>", desc = "Search commands", mode = "n" },
