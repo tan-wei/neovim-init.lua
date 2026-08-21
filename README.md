@@ -239,7 +239,7 @@ Scope notes:
 | `<leader>q` | `qq`, `qp`, `qs`, `qe`, `qy`, `qd` | Macro start/stop, play, switch slot, edit, yank, delete | No | Macro namespace |
 | `<leader>R` | `Rr`, `Rs`, `RS`, `Rf`, `Rh`, `Rc`, `Rl` | REPL run / restart / sniprun / focus / hide / send file / send until cursor | No | REPL namespace |
 | `<leader>r` | `rc`, `rf`, `rs` | RunCode / RunFile / stop runner | No | Run namespace |
-| `<leader>s` | `ss`, `sS`, `sy`, `sg`, `sf`, `si`, `sb`, `sc`, `sC`, `sh`, `sk`, `sM`, `so`, `sp`, `sr`, `sR` | Flash, grug-far, yank history, buffer search, colorschemes, commands, help, keymaps, man, frecent files, pickers, recent files, registers | No | Search namespace |
+| `<leader>s` | `ss`, `sS`, `sy`, `sg`, `sf`, `si`, `sa`, `sb`, `sc`, `sC`, `sh`, `sk`, `sM`, `so`, `sp`, `sr`, `sR` | Flash, grug-far, yank history, AST grep, buffer search, colorschemes, commands, help, keymaps, man, frecent files, pickers, recent files, registers | No | Search namespace |
 | `<leader>T` | `Tf`, `Th`, `Tv` | Float / horizontal / vertical terminal | No | Terminal namespace |
 | `<leader>t` | `tm`, `tg`, `tr`, `tu`, `tn`, `tl`, `tc`, `ts`, `to`, `tp`, `tw`, `tj`, `tk` | Table mode, TOC, neotest run / output / panel / watch / failed-test jumps | No | Test/table namespace; `tj` / `tk` currently look typo-prone in config |
 | `<leader>w` | `wl`, `ws`, `wd`, `wt`, `wf`, `wb` | Session management plus MoveWord forward / backward | No | Namespace drift: workspace/session and MoveWord share the same prefix |
