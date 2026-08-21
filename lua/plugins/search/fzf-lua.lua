@@ -4,9 +4,10 @@ local M = {
   dependencies = {
     {
       "junegunn/fzf",
-      build = "./install --bin",
+      build = "./install --all",
     },
     "nvim-tree/nvim-web-devicons",
+    "phanen/fzf-lua-extra",
   },
   cmd = "FzfLua",
 }
@@ -24,6 +25,9 @@ M.config = function()
     },
     oldfiles = {
       include_current_session = true,
+    },
+    astgrep = {
+      debug = false,
     },
     file_icon_padding = " ",
   }
