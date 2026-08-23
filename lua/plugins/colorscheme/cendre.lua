@@ -13,7 +13,7 @@ end
 M.config = function()
   require("cendre").setup {
     background = "hard", -- "hard" | "medium" | "soft"
-    italic = true,
+    italic_virtual_text = true,
   }
 end
 
