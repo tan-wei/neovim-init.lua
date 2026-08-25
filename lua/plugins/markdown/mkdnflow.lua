@@ -1,9 +1,6 @@
 ---@type LazyPluginSpec
 local M = {
   "jakewvincent/mkdnflow.nvim",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-  },
   ft = "markdown",
 }
 

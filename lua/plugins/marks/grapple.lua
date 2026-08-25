@@ -1,9 +1,6 @@
 ---@type LazyPluginSpec
 local M = {
   "cbochs/grapple.nvim",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-  },
   cmd = {
     "Grapple",
     "GrappleTag",

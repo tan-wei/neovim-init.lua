@@ -1,9 +1,6 @@
 ---@type LazyPluginSpec
 local M = {
   "obsidian-nvim/obsidian.nvim",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-  },
   ft = "markdown",
   enabled = false,
 }

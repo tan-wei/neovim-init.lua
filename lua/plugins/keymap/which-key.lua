@@ -139,46 +139,4 @@ M.config = function()
   wk.add(require("user.keymap.registry").which_key_items())
 end
 
--- M.config = function()
---   local which_key = require "which-key"
-
---   which_key.register({
---     b = {
---       name = "Buffers",
---       W = { "<cmd>noautocmd w<cr>", "Save without formatting (noautocmd)" },
---       -- w = { "<cmd>BufferWipeout<cr>", "Wipeout" }, -- TODO: implement this for bufferline
---     },
---     C = {
---       name = "Commet Box",
---       -- TODO
---     },
-
---     l = {
---       name = "LSP",
---       c = { "<cmd>lua require('treesitter-context').go_to_context()<cr>", "Jump to context" },
---       w = {
---         "<cmd>FzfLua diagnostics_document<cr>",
---         "Workspace Diagnostics",
---       },
---     },
---     S = {},
---     s = {
---       name = "Search",
---       -- b = { "<cmd>FzfLua git_branches<cr>", "Checkout branch" },
---       -- c = { "<cmd>FzfLua colorschemes<cr>", "Colorscheme" },
---       -- h = { "<cmd>FzfLua help_tags<cr>", "Find Help" },
---       -- M = { "<cmd>FzfLua man_pages<cr>", "Man Pages" },
---       -- r = { "<cmd>FzfLua oldfiles<cr>", "Open Recent File" },
---       -- R = { "<cmd>FzfLua registers<cr>", "Registers" },
---       -- k = { "<cmd>FzfLua keymaps<cr>", "Keymaps" },
---       -- C = { "<cmd>FzfLua commands<cr>", "Commands" },
---     },
---     T = {
---       name = "Terminal",
---       n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
---       u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" },
---       t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
---       p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python" },
---     },
-
 return M
