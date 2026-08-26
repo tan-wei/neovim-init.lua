@@ -4,7 +4,7 @@ local M = {
   dependencies = {
     {
       "junegunn/fzf",
-      build = "./install --all",
+      build = "./install --bin",
     },
     "nvim-tree/nvim-web-devicons",
     "phanen/fzf-lua-extra",
