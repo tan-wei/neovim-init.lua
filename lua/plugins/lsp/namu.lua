@@ -4,6 +4,6 @@ local M = {
   event = "LspAttach",
 }
 
-M.opts = true
+M.config = true
 
 return M
