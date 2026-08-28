@@ -1,7 +1,7 @@
 ---@type LazyPluginSpec
 local M = {
   "folke/twilight.nvim",
-  module = true,
+  lazy = true,
   cmd = { "Twilight", "TwilightEnable", "TwilightDisable" },
 }
 

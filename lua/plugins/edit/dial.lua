@@ -1,7 +1,7 @@
 ---@type LazyPluginSpec
 local M = {
   "monaqa/dial.nvim",
-  module = true,
+  lazy = true,
 }
 
 M.config = function()

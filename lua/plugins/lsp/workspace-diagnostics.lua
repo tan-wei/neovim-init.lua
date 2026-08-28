@@ -1,7 +1,7 @@
 ---@type LazyPluginSpec
 local M = {
   "artemave/workspace-diagnostics.nvim",
-  module = true,
+  lazy = true,
 }
 
 M.opts = {
