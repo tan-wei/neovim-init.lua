@@ -62,6 +62,14 @@ local M = {
 }
 
 M.config = function()
+  local tabout_forward = function()
+    return vim.keycode "<Plug>(Tabout)"
+  end
+
+  local tabout_backward = function()
+    return vim.keycode "<Plug>(TaboutBack)"
+  end
+
   local quoted_name = function(name)
     return "»" .. name .. "«"
   end
@@ -111,8 +119,8 @@ M.config = function()
       ["<C-k>"] = { "select_prev", "fallback" },
       ["<C-j>"] = { "select_next", "fallback" },
       ["<CR>"] = { "accept", "fallback" },
-      ["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
-      ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+      ["<Tab>"] = { "select_next", "snippet_forward", tabout_forward, "fallback" },
+      ["<S-Tab>"] = { "select_prev", "snippet_backward", tabout_backward, "fallback" },
       ["<C-b>"] = { "scroll_documentation_up", "fallback" },
       ["<C-f>"] = { "scroll_documentation_down", "fallback" },
       ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
