@@ -27,7 +27,6 @@ local M = {
     "disrupted/blink-cmp-conventional-commits", -- conventional commits
     "erooke/blink-cmp-latex", -- latex macros -> unicode symbols
     "becknik/blink-cmp-luasnip-choice", -- LuaSnip choice nodes
-    "bydlw98/blink-cmp-sshconfig", -- ssh config keywords
     "marcoSven/blink-cmp-yanky", -- yanky history
     "jmbuhr/cmp-pandoc-references", -- pandoc references
     "Dynge/gitmoji.nvim", -- gitmoji
@@ -108,7 +107,6 @@ M.config = function()
     ecolog = "ECOLOG",
     git = "GIT",
     spell = "SPELL",
-    sshconfig = "SSH_CONFIG",
     yank = "YANK",
     gitmoji = "GITMOJI",
     pandoc_references = "PANDOC_REFS",
@@ -144,7 +142,6 @@ M.config = function()
     -- Match nvim-cmp: gitcommit only has git + conventional_commits, no noisy defaults
     gitcommit = { "git", "conventional_commits", "gitmoji" },
     sql = { inherit_defaults = true, "dadbod" },
-    sshconfig = { inherit_defaults = true, "sshconfig" },
     markdown = { inherit_defaults = true, "pandoc_references" },
     pandoc = { inherit_defaults = true, "pandoc_references" },
     rmd = { inherit_defaults = true, "pandoc_references" },
@@ -239,14 +236,6 @@ M.config = function()
       enabled = function()
         return vim.bo.filetype == "gitcommit"
       end,
-    },
-    sshconfig = {
-      name = "SshConfig",
-      module = "blink-cmp-sshconfig",
-      score_offset = 2,
-      opts = {
-        prefer_pre_generated = true,
-      },
     },
     yank = {
       name = "Yank",
