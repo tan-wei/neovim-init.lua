@@ -1,11 +1,11 @@
 ---@type LazyPluginSpec
 local M = {
   "gregorias/coerce.nvim",
-  event = "VeryLazy",
   dependencies = {
     "gregorias/coop.nvim",
     "folke/which-key.nvim",
   },
+  event = "VeryLazy",
 }
 
 M.config = function()
