@@ -25,6 +25,12 @@ local M = {
     "ribru17/blink-cmp-spell", -- spell
     "Kaiser-Yang/blink-cmp-git", -- git
     "disrupted/blink-cmp-conventional-commits", -- conventional commits
+    "erooke/blink-cmp-latex", -- latex macros -> unicode symbols
+    "becknik/blink-cmp-luasnip-choice", -- LuaSnip choice nodes
+    "bydlw98/blink-cmp-sshconfig", -- ssh config keywords
+    "marcoSven/blink-cmp-yanky", -- yanky history
+    "jmbuhr/cmp-pandoc-references", -- pandoc references
+    "Dynge/gitmoji.nvim", -- gitmoji
 
     -- ecolog.nvim: reads .env files and provides completions (native blink support)
     {
@@ -88,6 +94,7 @@ M.config = function()
   local source_labels = {
     lsp = "LSP",
     snippets = "SNIPPET",
+    choice = "CHOICE",
     buffer = "BUFFER",
     path = "PATH",
     calc = "CALC",
@@ -96,15 +103,218 @@ M.config = function()
     nerdfont = "NERD_FONT",
     fonts = "FONT",
     -- treesitter = "TREESITTER", -- disabled, see cmp-treesitter note in dependencies
+    latex = "LATEX",
     rg = "RG",
     ecolog = "ECOLOG",
     git = "GIT",
     spell = "SPELL",
+    sshconfig = "SSH_CONFIG",
+    yank = "YANK",
+    gitmoji = "GITMOJI",
+    pandoc_references = "PANDOC_REFS",
     copilot = "COPILOT",
     conventional_commits = "CONVENTIONAL_COMMITS",
     dadbod = "DADBOD",
     nvim_lsp_document_symbol = "LSP_SYMBOL",
     cmdline = "CMDLINE",
+  }
+
+  local default_sources = {
+    "lsp",
+    "snippets",
+    "choice",
+    "buffer",
+    "path",
+    "calc",
+    "nvim_lua",
+    "emoji",
+    "nerdfont",
+    "fonts",
+    -- "treesitter", -- disabled, see cmp-treesitter note in dependencies
+    "latex",
+    "rg",
+    "ecolog",
+    "git",
+    "spell",
+    "yank",
+    "copilot",
+  }
+
+  local per_filetype_sources = {
+    -- Match nvim-cmp: gitcommit only has git + conventional_commits, no noisy defaults
+    gitcommit = { "git", "conventional_commits", "gitmoji" },
+    sql = { inherit_defaults = true, "dadbod" },
+    sshconfig = { inherit_defaults = true, "sshconfig" },
+    markdown = { inherit_defaults = true, "pandoc_references" },
+    pandoc = { inherit_defaults = true, "pandoc_references" },
+    rmd = { inherit_defaults = true, "pandoc_references" },
+    quarto = { inherit_defaults = true, "pandoc_references" },
+    typst = { inherit_defaults = true, "pandoc_references" },
+  }
+
+  local providers = {
+    -- Built-in sources with customized settings
+    lsp = {
+      name = "LSP",
+      fallbacks = {}, -- always show buffer alongside LSP
+      score_offset = 15,
+    },
+    buffer = {
+      name = "Buffer",
+      score_offset = -3,
+    },
+    snippets = {
+      name = "Snippet",
+      score_offset = 8,
+    },
+    path = {
+      name = "Path",
+      score_offset = 3,
+    },
+
+    -- Native blink community sources
+    choice = {
+      name = "LuaSnip Choice",
+      module = "blink-cmp-luasnip-choice",
+      score_offset = 12,
+      opts = {},
+    },
+    copilot = {
+      name = "Copilot",
+      module = "blink-cmp-copilot",
+      score_offset = 100,
+      async = true,
+      transform_items = function(_, items)
+        local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+        local kind_idx = #CompletionItemKind + 1
+        CompletionItemKind[kind_idx] = "Copilot"
+        for _, item in ipairs(items) do
+          item.kind = kind_idx
+        end
+        return items
+      end,
+    },
+    emoji = {
+      name = "Emoji",
+      module = "blink-emoji",
+      score_offset = -5,
+    },
+    nerdfont = {
+      name = "Nerdfont",
+      module = "blink-nerdfont",
+      score_offset = -5,
+    },
+    latex = {
+      name = "Latex",
+      module = "blink-cmp-latex",
+      score_offset = -3,
+      opts = {
+        insert_command = false,
+      },
+    },
+    rg = {
+      name = "RG",
+      module = "blink-cmp-rg",
+      score_offset = -5,
+      min_keyword_length = 3,
+      async = true,
+    },
+    spell = {
+      name = "Spell",
+      module = "blink-cmp-spell",
+      score_offset = -5,
+    },
+    git = {
+      name = "Git",
+      module = "blink-cmp-git",
+      score_offset = -2,
+      enabled = function()
+        return vim.tbl_contains({ "gitcommit", "octo", "NeogitCommitMessage" }, vim.bo.filetype)
+      end,
+    },
+    conventional_commits = {
+      name = "Conventional Commits",
+      module = "blink-cmp-conventional-commits",
+      score_offset = 5,
+      enabled = function()
+        return vim.bo.filetype == "gitcommit"
+      end,
+    },
+    sshconfig = {
+      name = "SshConfig",
+      module = "blink-cmp-sshconfig",
+      score_offset = 2,
+      opts = {
+        prefer_pre_generated = true,
+      },
+    },
+    yank = {
+      name = "Yank",
+      module = "blink-yanky",
+      score_offset = -8,
+      opts = {
+        trigger_characters = { '"' },
+      },
+    },
+    gitmoji = {
+      name = "gitmoji",
+      module = "gitmoji.blink",
+      score_offset = 6,
+      opts = {
+        filetypes = { "gitcommit" },
+        completion = {
+          append_space = false,
+          complete_as = "emoji",
+        },
+      },
+    },
+    pandoc_references = {
+      name = "Pandoc References",
+      module = "cmp-pandoc-references.blink",
+      score_offset = 6,
+    },
+
+    -- nvim-cmp sources via blink.compat
+    calc = {
+      name = "calc",
+      module = "blink.compat.source",
+      score_offset = -3,
+    },
+    ecolog = {
+      name = "ecolog",
+      module = "ecolog.integrations.cmp.blink_cmp",
+      score_offset = -5,
+    },
+    nvim_lua = {
+      name = "nvim_lua",
+      module = "blink.compat.source",
+      score_offset = -3,
+    },
+    nvim_lsp_document_symbol = {
+      name = "nvim_lsp_document_symbol",
+      module = "blink.compat.source",
+      score_offset = -3,
+    },
+    -- treesitter = { -- disabled, see cmp-treesitter note in dependencies
+    --   name = "treesitter",
+    --   module = "blink.compat.source",
+    --   score_offset = -7,
+    -- },
+    fonts = {
+      name = "fonts",
+      module = "blink.compat.source",
+      score_offset = -5,
+      enabled = function()
+        local bufname = vim.api.nvim_buf_get_name(0)
+        return bufname:sub(-#"ginit.vim") == "ginit.vim" or bufname:sub(-#"goneovim.lua") == "goneovim.lua"
+      end,
+    },
+    -- dadbod has native blink support
+    dadbod = {
+      name = "Dadbod",
+      module = "vim_dadbod_completion.blink",
+      score_offset = 5,
+    },
   }
 
   require("blink.cmp").setup {
@@ -225,145 +435,9 @@ M.config = function()
 
     -- Sources configuration
     sources = {
-      default = {
-        "lsp",
-        "snippets",
-        "buffer",
-        "path",
-        "calc",
-        "nvim_lua",
-        "emoji",
-        "nerdfont",
-        "fonts",
-        -- "treesitter", -- disabled, see cmp-treesitter note in dependencies
-        "rg",
-        "ecolog",
-        "git",
-        "spell",
-        "copilot",
-      },
-      per_filetype = {
-        -- Match nvim-cmp: gitcommit only has git + conventional_commits, no noisy defaults
-        gitcommit = { "git", "conventional_commits" },
-        sql = { inherit_defaults = true, "dadbod" },
-      },
-      providers = {
-        -- Built-in sources with customized settings
-        lsp = {
-          name = "LSP",
-          fallbacks = {}, -- always show buffer alongside LSP
-          score_offset = 15,
-        },
-        buffer = {
-          name = "Buffer",
-          score_offset = -3,
-        },
-        snippets = {
-          name = "Snippet",
-          score_offset = 8,
-        },
-        path = {
-          name = "Path",
-          score_offset = 3,
-        },
-
-        -- Native blink community sources
-        copilot = {
-          name = "Copilot",
-          module = "blink-cmp-copilot",
-          score_offset = 100,
-          async = true,
-          transform_items = function(_, items)
-            local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
-            local kind_idx = #CompletionItemKind + 1
-            CompletionItemKind[kind_idx] = "Copilot"
-            for _, item in ipairs(items) do
-              item.kind = kind_idx
-            end
-            return items
-          end,
-        },
-        emoji = {
-          name = "Emoji",
-          module = "blink-emoji",
-          score_offset = -5,
-        },
-        nerdfont = {
-          name = "Nerdfont",
-          module = "blink-nerdfont",
-          score_offset = -5,
-        },
-        rg = {
-          name = "RG",
-          module = "blink-cmp-rg",
-          score_offset = -5,
-          min_keyword_length = 3,
-          async = true,
-        },
-        spell = {
-          name = "Spell",
-          module = "blink-cmp-spell",
-          score_offset = -5,
-        },
-        git = {
-          name = "Git",
-          module = "blink-cmp-git",
-          score_offset = -2,
-          enabled = function()
-            return vim.tbl_contains({ "gitcommit", "octo", "NeogitCommitMessage" }, vim.bo.filetype)
-          end,
-        },
-        conventional_commits = {
-          name = "Conventional Commits",
-          module = "blink-cmp-conventional-commits",
-          score_offset = 5,
-          enabled = function()
-            return vim.bo.filetype == "gitcommit"
-          end,
-        },
-
-        -- nvim-cmp sources via blink.compat
-        calc = {
-          name = "calc",
-          module = "blink.compat.source",
-          score_offset = -3,
-        },
-        ecolog = {
-          name = "ecolog",
-          module = "ecolog.integrations.cmp.blink_cmp",
-          score_offset = -5,
-        },
-        nvim_lua = {
-          name = "nvim_lua",
-          module = "blink.compat.source",
-          score_offset = -3,
-        },
-        nvim_lsp_document_symbol = {
-          name = "nvim_lsp_document_symbol",
-          module = "blink.compat.source",
-          score_offset = -3,
-        },
-        -- treesitter = { -- disabled, see cmp-treesitter note in dependencies
-        --   name = "treesitter",
-        --   module = "blink.compat.source",
-        --   score_offset = -7,
-        -- },
-        fonts = {
-          name = "fonts",
-          module = "blink.compat.source",
-          score_offset = -5,
-          enabled = function()
-            local bufname = vim.api.nvim_buf_get_name(0)
-            return bufname:sub(-#"ginit.vim") == "ginit.vim" or bufname:sub(-#"goneovim.lua") == "goneovim.lua"
-          end,
-        },
-        -- dadbod has native blink support
-        dadbod = {
-          name = "Dadbod",
-          module = "vim_dadbod_completion.blink",
-          score_offset = 5,
-        },
-      },
+      default = default_sources,
+      per_filetype = per_filetype_sources,
+      providers = providers,
     },
 
     -- Cmdline configuration
