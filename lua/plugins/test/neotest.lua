@@ -41,7 +41,7 @@ end
 local function parse_ctest_file(file)
   local normalized = vim.fs.normalize(file):lower()
   local basename = vim.fs.basename(normalized)
-  local stem, extension = basename:match("^(.*)%.([^.]+)$")
+  local stem, extension = basename:match "^(.*)%.([^.]+)$"
 
   return normalized, stem, extension
 end
