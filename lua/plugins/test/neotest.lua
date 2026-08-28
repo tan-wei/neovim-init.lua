@@ -15,6 +15,48 @@ local M = {
   event = "VeryLazy",
 }
 
+local ctest_source_extensions = {
+  c = true,
+  cc = true,
+  cpp = true,
+  cxx = true,
+  ["c++"] = true,
+}
+
+local ctest_test_file_patterns = {
+  path = { "^test/", "^tests/", "/test/", "/tests/" },
+  stem = { "^test_", "^tests_", "_test$", "_tests$", "^s%d%d%d%d_" },
+}
+
+local function matches_any_pattern(text, patterns)
+  for _, pattern in ipairs(patterns) do
+    if text:match(pattern) then
+      return true
+    end
+  end
+
+  return false
+end
+
+local function parse_ctest_file(file)
+  local normalized = vim.fs.normalize(file):lower()
+  local basename = vim.fs.basename(normalized)
+  local stem, extension = basename:match("^(.*)%.([^.]+)$")
+
+  return normalized, stem, extension
+end
+
+local function is_ctest_test_file(file)
+  local normalized, stem, extension = parse_ctest_file(file)
+
+  if extension == nil or ctest_source_extensions[extension] ~= true then
+    return false
+  end
+
+  return matches_any_pattern(normalized, ctest_test_file_patterns.path)
+    or matches_any_pattern(stem, ctest_test_file_patterns.stem)
+end
+
 M.config = function()
   local neotest_ns = vim.api.nvim_create_namespace "neotest"
   vim.diagnostic.config({
@@ -35,13 +77,7 @@ M.config = function()
     adapters = {
       require "neotest-rust" { allow_file_types = { "rust" } },
       require("neotest-ctest").setup {
-        is_test_file = function(file)
-          -- File name begins or ends with test[s]
-          -- FIle name begins with s%d%d%d%d_
-          return string.find(file, "[tT][eE][sS][tT][sS]?_") ~= nil
-            or string.find(file, "_[tT][eE][sS][tT][sS]?") ~= nil
-            or string.find(file, "s%d%d%d%d_.*.[cC]?[pP][pP]") ~= nil
-        end,
+        is_test_file = is_ctest_test_file,
       },
     },
   }
