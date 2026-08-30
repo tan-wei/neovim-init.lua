@@ -62,6 +62,9 @@ local M = {
 
     -- Colorful menu (supports blink.cmp natively)
     "xzbdmw/colorful-menu.nvim",
+
+    --
+    "benborla/at-file.nvim",
   },
   event = { "InsertEnter", "CmdlineEnter" },
 }
@@ -115,6 +118,7 @@ M.config = function()
     dadbod = "DADBOD",
     nvim_lsp_document_symbol = "LSP_SYMBOL",
     cmdline = "CMDLINE",
+    at_file = "AT_FILE",
   }
 
   local default_sources = {
@@ -136,6 +140,7 @@ M.config = function()
     "spell",
     "yank",
     "copilot",
+    "at_file",
   }
 
   local per_filetype_sources = {
@@ -303,6 +308,19 @@ M.config = function()
       name = "Dadbod",
       module = "vim_dadbod_completion.blink",
       score_offset = 5,
+    },
+    at_file = {
+      name = "AtFile",
+      module = "at-file",
+      score_offset = 100,
+      opts = {
+        trigger = "@",
+        insert_format = "relative",
+        root = "auto",
+        max_entries = 1000,
+        cache_ttl_ms = 5000,
+        -- enumerator = nil, -- see below
+      },
     },
   }
 
