@@ -144,7 +144,32 @@ for section, patterns in pairs(ignored_message_patterns_by_section) do
   end
 end
 
+local function gh_group_open(title)
+  if vim.env.CI then
+    print(string.format("::group::%s", title))
+  end
+end
+
+local function gh_group_close()
+  if vim.env.CI then
+    print "::endgroup::"
+  end
+end
+
+local function gh_error(message)
+  if vim.env.CI then
+    print(string.format("::error::%s", message))
+  end
+end
+
+local function gh_notice(message)
+  if vim.env.CI then
+    print(string.format("::notice::%s", message))
+  end
+end
+
 local function fail_check(message)
+  gh_error(message)
   vim.api.nvim_echo({ { message, "ErrorMsg" } }, true, {})
   vim.cmd "cquit 1"
 end
@@ -269,24 +294,29 @@ function M.check()
 
   print(string.format("Health findings: total %d  ignored %d  actionable %d", #findings, #ignored, #actionable))
 
+  gh_group_open "Ignored health findings by section"
   if #ignored > 0 then
     local sections, counts = summarize_by_section(ignored)
-    print "Ignored health findings by section:"
     for _, section in ipairs(sections) do
       print(string.format("~ %s: %d", section, counts[section]))
     end
+  else
+    print "  (none)"
   end
+  gh_group_close()
 
   if #actionable == 0 then
+    gh_notice "Health check passed: no non-ignored WARNING/ERROR findings remained."
     print "Health check passed: no non-ignored WARNING/ERROR findings remained."
     return
   end
 
-  print "Actionable health findings:"
+  gh_group_open "Actionable health findings"
   for _, finding in ipairs(actionable) do
     local marker = finding.severity == "error" and "×" or "!"
     print(string.format("%s [%s] %s", marker, finding.section, finding.message))
   end
+  gh_group_close()
 
   fail_check(string.format("Health check failed: %d actionable finding(s)", #actionable))
 end

@@ -55,44 +55,36 @@ jobs:
         with:
           path: xdg/nvim
 
-      - name: Export XDG paths
+      - name: 🔧 Setup environment
         shell: bash
         run: |
           set -euxo pipefail
 
+          echo "::group::Export XDG paths"
           echo "XDG_CONFIG_HOME=$GITHUB_WORKSPACE/xdg" >> "$GITHUB_ENV"
           echo "XDG_DATA_HOME=$RUNNER_TEMP/xdg-data" >> "$GITHUB_ENV"
           echo "XDG_STATE_HOME=$RUNNER_TEMP/xdg-state" >> "$GITHUB_ENV"
           echo "XDG_CACHE_HOME=$RUNNER_TEMP/xdg-cache" >> "$GITHUB_ENV"
+          echo "::endgroup::"
 
-      - name: Install system dependencies
-        shell: bash
-        run: |
-          set -euxo pipefail
-
+          echo "::group::Install system dependencies"
           sudo apt-get update
           sudo apt-get install -y curl just tar
+          echo "::endgroup::"
 
-      - name: Prepare XDG directories
-        shell: bash
-        run: |
-          set -euxo pipefail
-
+          echo "::group::Prepare XDG directories"
           mkdir -p "$XDG_DATA_HOME" "$XDG_STATE_HOME" "$XDG_CACHE_HOME"
+          echo "::endgroup::"
 
-      - name: Install Neovim nightly
-        shell: bash
-        run: |
-          set -euxo pipefail
-
+          echo "::group::Install Neovim nightly"
           archive="$RUNNER_TEMP/nvim-linux-x86_64.tar.gz"
-
           curl -fsSLo "$archive" \
             "https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz"
           tar -xzf "$archive" -C "$RUNNER_TEMP"
           echo "$RUNNER_TEMP/nvim-linux-x86_64/bin" >> "$GITHUB_PATH"
+          echo "::endgroup::"
 
-      - name: Run link check via just
+      - name: 🔗 Run link check
         working-directory: ${{ github.workspace }}/xdg/nvim
         env:
           LINK_CHECK_JOBS: 12
@@ -111,24 +103,23 @@ jobs:
         with:
           path: xdg/nvim
 
-      - name: Export XDG paths
+      - name: 🔧 Setup environment
         shell: bash
         run: |
           set -euxo pipefail
 
+          echo "::group::Export XDG paths"
           echo "XDG_CONFIG_HOME=$GITHUB_WORKSPACE/xdg" >> "$GITHUB_ENV"
           echo "XDG_DATA_HOME=$RUNNER_TEMP/xdg-data" >> "$GITHUB_ENV"
           echo "XDG_STATE_HOME=$RUNNER_TEMP/xdg-state" >> "$GITHUB_ENV"
           echo "XDG_CACHE_HOME=$RUNNER_TEMP/xdg-cache" >> "$GITHUB_ENV"
+          echo "::endgroup::"
 
-      - name: Install system dependencies
-        shell: bash
-        run: |
-          set -euxo pipefail
-
+          echo "::group::Install system dependencies"
           sudo apt-get update
           sudo apt-get install -y build-essential cmake curl fd-find gzip just ripgrep tar unzip
           sudo ln -sf "$(command -v fdfind)" /usr/local/bin/fd
+          echo "::endgroup::"
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -148,53 +139,53 @@ jobs:
       - name: Set up Rust toolchain
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Install latest tree-sitter-cli
+      - name: 🔧 Install tools & Neovim
         shell: bash
         run: |
           set -euxo pipefail
 
+          echo "::group::Install tree-sitter-cli"
           archive="$RUNNER_TEMP/tree-sitter-linux-x64.gz"
           install_dir="$RUNNER_TEMP/tree-sitter"
-
           curl -fsSLo "$archive" \
             "https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-linux-x64.gz"
           mkdir -p "$install_dir"
           gunzip -c "$archive" > "$install_dir/tree-sitter"
           chmod +x "$install_dir/tree-sitter"
           echo "$install_dir" >> "$GITHUB_PATH"
+          echo "::endgroup::"
 
-      - name: Prepare XDG directories
-        shell: bash
-        run: |
-          set -euxo pipefail
-
+          echo "::group::Prepare XDG directories"
           mkdir -p "$XDG_DATA_HOME" "$XDG_STATE_HOME" "$XDG_CACHE_HOME"
+          echo "::endgroup::"
 
-      - name: Install Neovim nightly
-        shell: bash
-        run: |
-          set -euxo pipefail
-
+          echo "::group::Install Neovim nightly"
           archive="$RUNNER_TEMP/nvim-linux-x86_64.tar.gz"
-
           curl -fsSLo "$archive" \
             "https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz"
           tar -xzf "$archive" -C "$RUNNER_TEMP"
           echo "$RUNNER_TEMP/nvim-linux-x86_64/bin" >> "$GITHUB_PATH"
+          echo "::endgroup::"
 
-      - name: Sync plugins via just
-        working-directory: ${{ github.workspace }}/xdg/nvim
-        run: just bootstrap-lazy
+      - name: 📦 Bootstrap plugins
+        shell: bash
+        run: |
+          set -euxo pipefail
 
-      - name: Install tree-sitter parsers via just
-        working-directory: ${{ github.workspace }}/xdg/nvim
-        run: just bootstrap-treesitter
+          cd "${{ github.workspace }}/xdg/nvim"
+          echo "::group::Sync plugins (lazy.nvim)"
+          just bootstrap-lazy
+          echo "::endgroup::"
 
-      - name: Install Mason packages via just
-        working-directory: ${{ github.workspace }}/xdg/nvim
-        run: just bootstrap-mason
+          echo "::group::Install tree-sitter parsers"
+          just bootstrap-treesitter
+          echo "::endgroup::"
 
-      - name: Run colorscheme check via just
+          echo "::group::Install Mason packages"
+          just bootstrap-mason
+          echo "::endgroup::"
+
+      - name: 🎨 Run colorscheme check
         working-directory: ${{ github.workspace }}/xdg/nvim
         run: just colorscheme-check
 
@@ -211,24 +202,23 @@ jobs:
         with:
           path: xdg/nvim
 
-      - name: Export XDG paths
+      - name: 🔧 Setup environment
         shell: bash
         run: |
           set -euxo pipefail
 
+          echo "::group::Export XDG paths"
           echo "XDG_CONFIG_HOME=$GITHUB_WORKSPACE/xdg" >> "$GITHUB_ENV"
           echo "XDG_DATA_HOME=$RUNNER_TEMP/xdg-data" >> "$GITHUB_ENV"
           echo "XDG_STATE_HOME=$RUNNER_TEMP/xdg-state" >> "$GITHUB_ENV"
           echo "XDG_CACHE_HOME=$RUNNER_TEMP/xdg-cache" >> "$GITHUB_ENV"
+          echo "::endgroup::"
 
-      - name: Install system dependencies
-        shell: bash
-        run: |
-          set -euxo pipefail
-
+          echo "::group::Install system dependencies"
           sudo apt-get update
           sudo apt-get install -y build-essential cmake curl fd-find gzip just ripgrep tar unzip imagemagick pandoc zathura xdotool luarocks luajit xclip
           sudo ln -sf "$(command -v fdfind)" /usr/local/bin/fd
+          echo "::endgroup::"
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -253,63 +243,59 @@ jobs:
       - name: Set up Rust toolchain
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Install latest tree-sitter-cli
+      - name: 🔧 Install tools & Neovim
         shell: bash
         run: |
           set -euxo pipefail
 
+          echo "::group::Install tree-sitter-cli"
           archive="$RUNNER_TEMP/tree-sitter-linux-x64.gz"
           install_dir="$RUNNER_TEMP/tree-sitter"
-
           curl -fsSLo "$archive" \
             "https://github.com/tree-sitter/tree-sitter/releases/latest/download/tree-sitter-linux-x64.gz"
           mkdir -p "$install_dir"
           gunzip -c "$archive" > "$install_dir/tree-sitter"
           chmod +x "$install_dir/tree-sitter"
           echo "$install_dir" >> "$GITHUB_PATH"
+          echo "::endgroup::"
 
-      - name: Install lazygit
-        shell: bash
-        run: |
-          set -euxo pipefail
+          echo "::group::Install lazygit"
           LAZYGIT_VERSION=$(curl -sI "https://github.com/jesseduffield/lazygit/releases/latest" | grep -i "location:" | tail -1 | sed 's/.*\/v//' | tr -d '\r')
           curl -fsSLo "$RUNNER_TEMP/lazygit.tar.gz" \
             "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
           tar -xzf "$RUNNER_TEMP/lazygit.tar.gz" -C "$RUNNER_TEMP" lazygit
           sudo mv "$RUNNER_TEMP/lazygit" /usr/local/bin/lazygit
+          echo "::endgroup::"
 
-      - name: Prepare XDG directories
-        shell: bash
-        run: |
-          set -euxo pipefail
-
+          echo "::group::Prepare XDG directories"
           mkdir -p "$XDG_DATA_HOME" "$XDG_STATE_HOME" "$XDG_CACHE_HOME"
+          echo "::endgroup::"
 
-      - name: Install Neovim nightly
-        shell: bash
-        run: |
-          set -euxo pipefail
-
+          echo "::group::Install Neovim nightly"
           archive="$RUNNER_TEMP/nvim-linux-x86_64.tar.gz"
-
           curl -fsSLo "$archive" \
             "https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz"
           tar -xzf "$archive" -C "$RUNNER_TEMP"
           echo "$RUNNER_TEMP/nvim-linux-x86_64/bin" >> "$GITHUB_PATH"
+          echo "::endgroup::"
 
-      - name: Sync plugins via just
-        working-directory: ${{ github.workspace }}/xdg/nvim
-        run: just bootstrap-lazy
+      - name: 📦 Bootstrap plugins
+        shell: bash
+        run: |
+          cd "${{ github.workspace }}/xdg/nvim"
+          echo "::group::Sync plugins (lazy.nvim)"
+          just bootstrap-lazy
+          echo "::endgroup::"
 
-      - name: Install tree-sitter parsers via just
-        working-directory: ${{ github.workspace }}/xdg/nvim
-        run: just bootstrap-treesitter
+          echo "::group::Install tree-sitter parsers"
+          just bootstrap-treesitter
+          echo "::endgroup::"
 
-      - name: Install Mason packages via just
-        working-directory: ${{ github.workspace }}/xdg/nvim
-        run: just bootstrap-mason
+          echo "::group::Install Mason packages"
+          just bootstrap-mason
+          echo "::endgroup::"
 
-      - name: Run health check via just
+      - name: 🏥 Run health check
         working-directory: ${{ github.workspace }}/xdg/nvim
         run: just health-check
 
@@ -366,55 +352,72 @@ jobs:
         with:
           path: xdg/nvim
 
-      - name: Export XDG paths on Unix
+      - name: 🔧 Setup environment (Unix)
         if: runner.os != 'Windows'
         shell: bash
         run: |
-          set -euxo pipefail
-
+          echo "::group::Export XDG paths"
           echo "XDG_CONFIG_HOME=$GITHUB_WORKSPACE/xdg" >> "$GITHUB_ENV"
           echo "XDG_DATA_HOME=$RUNNER_TEMP/xdg-data" >> "$GITHUB_ENV"
           echo "XDG_STATE_HOME=$RUNNER_TEMP/xdg-state" >> "$GITHUB_ENV"
           echo "XDG_CACHE_HOME=$RUNNER_TEMP/xdg-cache" >> "$GITHUB_ENV"
+          echo "::endgroup::"
 
-      - name: Export XDG paths on Windows
+      - name: 🔧 Setup environment (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
+          Write-Output "::group::Export XDG paths"
           $configHome = Join-Path $env:GITHUB_WORKSPACE 'xdg'
           $dataHome = Join-Path $env:RUNNER_TEMP 'xdg-data'
           $stateHome = Join-Path $env:RUNNER_TEMP 'xdg-state'
           $cacheHome = Join-Path $env:RUNNER_TEMP 'xdg-cache'
-
           Add-Content -Path $env:GITHUB_ENV -Value "XDG_CONFIG_HOME=$configHome"
           Add-Content -Path $env:GITHUB_ENV -Value "XDG_DATA_HOME=$dataHome"
           Add-Content -Path $env:GITHUB_ENV -Value "XDG_STATE_HOME=$stateHome"
           Add-Content -Path $env:GITHUB_ENV -Value "XDG_CACHE_HOME=$cacheHome"
+          Write-Output "::endgroup::"
 
-      - name: Install system dependencies on Linux
+      - name: 🔧 Install system dependencies (Linux)
         if: runner.os == 'Linux'
         shell: bash
         run: |
-          set -euxo pipefail
-
+          echo "::group::Install system dependencies"
           sudo apt-get update
           sudo apt-get install -y build-essential cmake curl fd-find gzip just ripgrep tar unzip
           sudo ln -sf "$(command -v fdfind)" /usr/local/bin/fd
+          echo "::endgroup::"
 
-      - name: Install system dependencies on macOS
+      - name: 🔧 Install system dependencies (macOS)
         if: runner.os == 'macOS'
         shell: bash
         run: |
-          set -euxo pipefail
-
+          echo "::group::Install system dependencies"
           brew install cmake fd gnu-tar just ripgrep
           echo "$(brew --prefix gnu-tar)/libexec/gnubin" >> "$GITHUB_PATH"
+          echo "::endgroup::"
 
-      - name: Install system dependencies on Windows
+      - name: 🔧 Install system dependencies (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
+          Write-Output "::group::Install system dependencies"
           choco install -y cmake fd just ripgrep
+          Write-Output "::endgroup::"
+
+      - name: 🔧 Set up language runtimes
+        shell: bash
+        run: |
+          echo "::group::Set up Python"
+          echo "::endgroup::"
+          echo "::group::Set up Node.js"
+          echo "::endgroup::"
+          echo "::group::Set up Go"
+          echo "::endgroup::"
+          echo "::group::Set up Ruby"
+          echo "::endgroup::"
+          echo "::group::Set up Rust toolchain"
+          echo "::endgroup::"
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -440,81 +443,67 @@ jobs:
         if: runner.os != 'Windows'
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Prepare XDG directories on Unix
+      - name: 🔧 Prepare directories & tools (Unix)
         if: runner.os != 'Windows'
         shell: bash
         run: |
-          set -euxo pipefail
-
+          echo "::group::Prepare XDG directories"
           mkdir -p "$XDG_DATA_HOME" "$XDG_STATE_HOME" "$XDG_CACHE_HOME"
+          echo "::endgroup::"
 
-      - name: Prepare XDG directories on Windows
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          New-Item -ItemType Directory -Force -Path $env:XDG_DATA_HOME | Out-Null
-          New-Item -ItemType Directory -Force -Path $env:XDG_STATE_HOME | Out-Null
-          New-Item -ItemType Directory -Force -Path $env:XDG_CACHE_HOME | Out-Null
-
-      - name: Install latest tree-sitter-cli on Unix
-        if: runner.os != 'Windows'
-        shell: bash
-        run: |
-          set -euxo pipefail
-
+          echo "::group::Install tree-sitter-cli"
           archive="$RUNNER_TEMP/${{ matrix.tree_sitter_unix_archive }}"
           install_dir="$RUNNER_TEMP/tree-sitter"
-
           curl -fsSLo "$archive" \
             "https://github.com/tree-sitter/tree-sitter/releases/latest/download/${{ matrix.tree_sitter_unix_archive }}"
           mkdir -p "$install_dir"
           gunzip -c "$archive" > "$install_dir/tree-sitter"
           chmod +x "$install_dir/tree-sitter"
           echo "$install_dir" >> "$GITHUB_PATH"
+          echo "::endgroup::"
 
-      - name: Install latest tree-sitter-cli on Windows
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          $archive = '${{ matrix.tree_sitter_windows_archive }}'
-          $downloadUrl = "https://github.com/tree-sitter/tree-sitter/releases/latest/download/$archive"
-          $destination = Join-Path $env:RUNNER_TEMP $archive
-          $installDir = Join-Path $env:RUNNER_TEMP 'tree-sitter'
-
-          Invoke-WebRequest -Uri $downloadUrl -OutFile $destination
-          Expand-Archive -Path $destination -DestinationPath $installDir -Force
-          Add-Content -Path $env:GITHUB_PATH -Value $installDir
-
-      - name: Install Neovim nightly on Unix
-        if: runner.os != 'Windows'
-        shell: bash
-        run: |
-          set -euxo pipefail
-
+          echo "::group::Install Neovim nightly"
           curl -fsSLo "$RUNNER_TEMP/${{ matrix.nvim_archive }}" \
             "https://github.com/neovim/neovim/releases/download/nightly/${{ matrix.nvim_archive }}"
           tar -xzf "$RUNNER_TEMP/${{ matrix.nvim_archive }}" -C "$RUNNER_TEMP"
           echo "$RUNNER_TEMP/${{ matrix.nvim_dir }}/bin" >> "$GITHUB_PATH"
+          echo "::endgroup::"
 
-      - name: Install Neovim nightly on Windows
+      - name: 🔧 Prepare directories & tools (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
+          Write-Output "::group::Prepare XDG directories"
+          New-Item -ItemType Directory -Force -Path $env:XDG_DATA_HOME | Out-Null
+          New-Item -ItemType Directory -Force -Path $env:XDG_STATE_HOME | Out-Null
+          New-Item -ItemType Directory -Force -Path $env:XDG_CACHE_HOME | Out-Null
+          Write-Output "::endgroup::"
+
+          Write-Output "::group::Install tree-sitter-cli"
+          $archive = '${{ matrix.tree_sitter_windows_archive }}'
+          $downloadUrl = "https://github.com/tree-sitter/tree-sitter/releases/latest/download/$archive"
+          $destination = Join-Path $env:RUNNER_TEMP $archive
+          $installDir = Join-Path $env:RUNNER_TEMP 'tree-sitter'
+          Invoke-WebRequest -Uri $downloadUrl -OutFile $destination
+          Expand-Archive -Path $destination -DestinationPath $installDir -Force
+          Add-Content -Path $env:GITHUB_PATH -Value $installDir
+          Write-Output "::endgroup::"
+
+          Write-Output "::group::Install Neovim nightly"
           $archive = '${{ matrix.nvim_archive }}'
           $downloadUrl = "https://github.com/neovim/neovim/releases/download/nightly/$archive"
           $destination = Join-Path $env:RUNNER_TEMP $archive
           $installDir = Join-Path $env:RUNNER_TEMP 'nvim'
-
           Invoke-WebRequest -Uri $downloadUrl -OutFile $destination
           Expand-Archive -Path $destination -DestinationPath $installDir -Force
           Add-Content -Path $env:GITHUB_PATH -Value (Join-Path $installDir '${{ matrix.nvim_dir }}\bin')
+          Write-Output "::endgroup::"
 
-      - name: Show tool versions on Unix
+      - name: 🔧 Show tool versions (Unix)
         if: runner.os != 'Windows'
         shell: bash
         run: |
-          set -euxo pipefail
-
+          echo "::group::Tool versions"
           nvim --version | head -n 5
           tree-sitter --version
           python --version
@@ -525,11 +514,13 @@ jobs:
           cargo --version
           rustc --version
           just --version
+          echo "::endgroup::"
 
-      - name: Show tool versions on Windows
+      - name: 🔧 Show tool versions (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
+          Write-Output "::group::Tool versions"
           nvim --version | Select-Object -First 5
           tree-sitter --version
           python --version
@@ -538,27 +529,32 @@ jobs:
           ruby --version
           go version
           just --version
+          Write-Output "::endgroup::"
 
-      - name: Run keymap docs check via just
+      - name: 📋 Run keymap docs check
         working-directory: ${{ github.workspace }}/xdg/nvim
         run: just keymap-docs-check
 
-      - name: Sync plugins via just
-        working-directory: ${{ github.workspace }}/xdg/nvim
-        run: just bootstrap-lazy
+      - name: 📦 Bootstrap plugins
+        shell: bash
+        run: |
+          cd "${{ github.workspace }}/xdg/nvim"
+          echo "::group::Sync plugins (lazy.nvim)"
+          just bootstrap-lazy
+          echo "::endgroup::"
 
-      - name: Install tree-sitter parsers via just
-        working-directory: ${{ github.workspace }}/xdg/nvim
-        run: just bootstrap-treesitter
+          echo "::group::Install tree-sitter parsers"
+          just bootstrap-treesitter
+          echo "::endgroup::"
 
-      - name: Install Mason packages via just
-        working-directory: ${{ github.workspace }}/xdg/nvim
-        run: just bootstrap-mason
+          echo "::group::Install Mason packages"
+          just bootstrap-mason
+          echo "::endgroup::"
 
-      - name: Run keymap audit via just
+      - name: 📋 Run keymap audit
         working-directory: ${{ github.workspace }}/xdg/nvim
         run: just keymap-audit-check
 
-      - name: Run smoke test via just
+      - name: 🧪 Run smoke test
         working-directory: ${{ github.workspace }}/xdg/nvim
         run: just bootstrap-smoke

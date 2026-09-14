@@ -2,6 +2,18 @@
 
 local M = {}
 
+local function gh_notice(message)
+  if vim.env.CI then
+    print(string.format("::notice::%s", message))
+  end
+end
+
+local function gh_error(message)
+  if vim.env.CI then
+    print(string.format("::error::%s", message))
+  end
+end
+
 local repo_root = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":p:h:h")
 
 ---@type table<string, string[]>
@@ -80,9 +92,11 @@ function M.check()
 
   if #errors.duplicate > 0 or #errors.not_found > 0 or #errors.no_colors_name > 0 then
     local total_errors = #errors.duplicate + #errors.not_found + #errors.no_colors_name
+    gh_error(string.format("colorscheme-check: %d colorscheme(s) failed validation", total_errors))
     error(string.format("colorscheme-check: %d colorscheme(s) failed validation", total_errors))
   end
 
+  gh_notice "All colorschemes validated successfully."
   print "All colorschemes validated successfully."
 end
 

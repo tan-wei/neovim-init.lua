@@ -284,18 +284,23 @@ function M.check()
   -- Determine exit code — fail on anything actionable
   local issues = #removed + #not_installed_installable + #new_upstream
   if issues > 0 then
-    print(
-      string.format(
-        "  FAIL: %d issue(s) found (removed: %d, not installed: %d, new upstream: %d)",
-        issues,
-        #removed,
-        #not_installed_installable,
-        #new_upstream
-      )
+    local msg = string.format(
+      "  FAIL: %d issue(s) found (removed: %d, not installed: %d, new upstream: %d)",
+      issues,
+      #removed,
+      #not_installed_installable,
+      #new_upstream
     )
+    if vim.env.CI then
+      print(string.format("::error::%s", msg))
+    end
+    print(msg)
     os.exit(1)
   end
 
+  if vim.env.CI then
+    print "::notice::Treesitter parser audit: PASS — All parsers are properly configured and installed."
+  end
   print "  PASS: All parsers are properly configured and installed."
   os.exit(0)
 end

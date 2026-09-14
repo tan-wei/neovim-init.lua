@@ -89,7 +89,32 @@ local function format_result(result)
   return string.format("× %s -> %s", result.url, result.detail)
 end
 
+local function gh_group_open(title)
+  if vim.env.CI then
+    print(string.format("::group::%s", title))
+  end
+end
+
+local function gh_group_close()
+  if vim.env.CI then
+    print "::endgroup::"
+  end
+end
+
+local function gh_error(message)
+  if vim.env.CI then
+    print(string.format("::error::%s", message))
+  end
+end
+
+local function gh_notice(message)
+  if vim.env.CI then
+    print(string.format("::notice::%s", message))
+  end
+end
+
 local function fail_check(message)
+  gh_error(message)
   vim.api.nvim_echo({ { message, "ErrorMsg" } }, true, {})
   vim.cmd "cquit 1"
 end
@@ -190,17 +215,32 @@ function M.check()
   local redirect_count = 0
   local error_count = 0
 
+  -- Group results by status for cleaner CI output
+  gh_group_open "Failed / redirected links"
+  local had_problems = false
   for _, result in ipairs(results) do
-    print(format_result(result))
+    if result.status ~= "ok" then
+      print(format_result(result))
+      had_problems = true
+    end
+  end
+  if not had_problems then
+    print "  (none)"
+  end
+  gh_group_close()
 
+  gh_group_open "Successful links"
+  for _, result in ipairs(results) do
     if result.status == "ok" then
       ok_count = ok_count + 1
+      print(format_result(result))
     elseif result.status == "redirect" then
       redirect_count = redirect_count + 1
     else
       error_count = error_count + 1
     end
   end
+  gh_group_close()
 
   print(
     string.format(
@@ -227,6 +267,7 @@ function M.check()
     return
   end
 
+  gh_notice(string.format("Plugin link check passed for %d plugin sources", #results))
   print(string.format("Plugin link check passed for %d plugin sources", #results))
 end
 
