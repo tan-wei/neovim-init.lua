@@ -58,30 +58,36 @@ jobs:
       - name: 🔧 Setup environment
         shell: bash
         run: |
-          set -euxo pipefail
-
           echo "::group::Export XDG paths"
+          set -x
           echo "XDG_CONFIG_HOME=$GITHUB_WORKSPACE/xdg" >> "$GITHUB_ENV"
           echo "XDG_DATA_HOME=$RUNNER_TEMP/xdg-data" >> "$GITHUB_ENV"
           echo "XDG_STATE_HOME=$RUNNER_TEMP/xdg-state" >> "$GITHUB_ENV"
           echo "XDG_CACHE_HOME=$RUNNER_TEMP/xdg-cache" >> "$GITHUB_ENV"
+          set +x
           echo "::endgroup::"
 
           echo "::group::Install system dependencies"
+          set -x
           sudo apt-get update
           sudo apt-get install -y curl just tar
+          set +x
           echo "::endgroup::"
 
           echo "::group::Prepare XDG directories"
+          set -x
           mkdir -p "$XDG_DATA_HOME" "$XDG_STATE_HOME" "$XDG_CACHE_HOME"
+          set +x
           echo "::endgroup::"
 
           echo "::group::Install Neovim nightly"
+          set -x
           archive="$RUNNER_TEMP/nvim-linux-x86_64.tar.gz"
           curl -fsSLo "$archive" \
             "https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz"
           tar -xzf "$archive" -C "$RUNNER_TEMP"
           echo "$RUNNER_TEMP/nvim-linux-x86_64/bin" >> "$GITHUB_PATH"
+          set +x
           echo "::endgroup::"
 
       - name: 🔗 Run link check
@@ -106,19 +112,21 @@ jobs:
       - name: 🔧 Setup environment
         shell: bash
         run: |
-          set -euxo pipefail
-
           echo "::group::Export XDG paths"
+          set -x
           echo "XDG_CONFIG_HOME=$GITHUB_WORKSPACE/xdg" >> "$GITHUB_ENV"
           echo "XDG_DATA_HOME=$RUNNER_TEMP/xdg-data" >> "$GITHUB_ENV"
           echo "XDG_STATE_HOME=$RUNNER_TEMP/xdg-state" >> "$GITHUB_ENV"
           echo "XDG_CACHE_HOME=$RUNNER_TEMP/xdg-cache" >> "$GITHUB_ENV"
+          set +x
           echo "::endgroup::"
 
           echo "::group::Install system dependencies"
+          set -x
           sudo apt-get update
           sudo apt-get install -y build-essential cmake curl fd-find gzip just ripgrep tar unzip
           sudo ln -sf "$(command -v fdfind)" /usr/local/bin/fd
+          set +x
           echo "::endgroup::"
 
       - name: Set up Python
@@ -142,9 +150,8 @@ jobs:
       - name: 🔧 Install tools & Neovim
         shell: bash
         run: |
-          set -euxo pipefail
-
           echo "::group::Install tree-sitter-cli"
+          set -x
           archive="$RUNNER_TEMP/tree-sitter-linux-x64.gz"
           install_dir="$RUNNER_TEMP/tree-sitter"
           curl -fsSLo "$archive" \
@@ -153,36 +160,45 @@ jobs:
           gunzip -c "$archive" > "$install_dir/tree-sitter"
           chmod +x "$install_dir/tree-sitter"
           echo "$install_dir" >> "$GITHUB_PATH"
+          set +x
           echo "::endgroup::"
 
           echo "::group::Prepare XDG directories"
+          set -x
           mkdir -p "$XDG_DATA_HOME" "$XDG_STATE_HOME" "$XDG_CACHE_HOME"
+          set +x
           echo "::endgroup::"
 
           echo "::group::Install Neovim nightly"
+          set -x
           archive="$RUNNER_TEMP/nvim-linux-x86_64.tar.gz"
           curl -fsSLo "$archive" \
             "https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz"
           tar -xzf "$archive" -C "$RUNNER_TEMP"
           echo "$RUNNER_TEMP/nvim-linux-x86_64/bin" >> "$GITHUB_PATH"
+          set +x
           echo "::endgroup::"
 
       - name: 📦 Bootstrap plugins
         shell: bash
         run: |
-          set -euxo pipefail
-
           cd "${{ github.workspace }}/xdg/nvim"
           echo "::group::Sync plugins (lazy.nvim)"
+          set -x
           just bootstrap-lazy
+          set +x
           echo "::endgroup::"
 
           echo "::group::Install tree-sitter parsers"
+          set -x
           just bootstrap-treesitter
+          set +x
           echo "::endgroup::"
 
           echo "::group::Install Mason packages"
+          set -x
           just bootstrap-mason
+          set +x
           echo "::endgroup::"
 
       - name: 🎨 Run colorscheme check
@@ -205,19 +221,21 @@ jobs:
       - name: 🔧 Setup environment
         shell: bash
         run: |
-          set -euxo pipefail
-
           echo "::group::Export XDG paths"
+          set -x
           echo "XDG_CONFIG_HOME=$GITHUB_WORKSPACE/xdg" >> "$GITHUB_ENV"
           echo "XDG_DATA_HOME=$RUNNER_TEMP/xdg-data" >> "$GITHUB_ENV"
           echo "XDG_STATE_HOME=$RUNNER_TEMP/xdg-state" >> "$GITHUB_ENV"
           echo "XDG_CACHE_HOME=$RUNNER_TEMP/xdg-cache" >> "$GITHUB_ENV"
+          set +x
           echo "::endgroup::"
 
           echo "::group::Install system dependencies"
+          set -x
           sudo apt-get update
           sudo apt-get install -y build-essential cmake curl fd-find gzip just ripgrep tar unzip imagemagick pandoc zathura xdotool luarocks luajit xclip
           sudo ln -sf "$(command -v fdfind)" /usr/local/bin/fd
+          set +x
           echo "::endgroup::"
 
       - name: Set up Python
@@ -246,9 +264,8 @@ jobs:
       - name: 🔧 Install tools & Neovim
         shell: bash
         run: |
-          set -euxo pipefail
-
           echo "::group::Install tree-sitter-cli"
+          set -x
           archive="$RUNNER_TEMP/tree-sitter-linux-x64.gz"
           install_dir="$RUNNER_TEMP/tree-sitter"
           curl -fsSLo "$archive" \
@@ -257,26 +274,33 @@ jobs:
           gunzip -c "$archive" > "$install_dir/tree-sitter"
           chmod +x "$install_dir/tree-sitter"
           echo "$install_dir" >> "$GITHUB_PATH"
+          set +x
           echo "::endgroup::"
 
           echo "::group::Install lazygit"
+          set -x
           LAZYGIT_VERSION=$(curl -sI "https://github.com/jesseduffield/lazygit/releases/latest" | grep -i "location:" | tail -1 | sed 's/.*\/v//' | tr -d '\r')
           curl -fsSLo "$RUNNER_TEMP/lazygit.tar.gz" \
             "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
           tar -xzf "$RUNNER_TEMP/lazygit.tar.gz" -C "$RUNNER_TEMP" lazygit
           sudo mv "$RUNNER_TEMP/lazygit" /usr/local/bin/lazygit
+          set +x
           echo "::endgroup::"
 
           echo "::group::Prepare XDG directories"
+          set -x
           mkdir -p "$XDG_DATA_HOME" "$XDG_STATE_HOME" "$XDG_CACHE_HOME"
+          set +x
           echo "::endgroup::"
 
           echo "::group::Install Neovim nightly"
+          set -x
           archive="$RUNNER_TEMP/nvim-linux-x86_64.tar.gz"
           curl -fsSLo "$archive" \
             "https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz"
           tar -xzf "$archive" -C "$RUNNER_TEMP"
           echo "$RUNNER_TEMP/nvim-linux-x86_64/bin" >> "$GITHUB_PATH"
+          set +x
           echo "::endgroup::"
 
       - name: 📦 Bootstrap plugins
@@ -284,15 +308,21 @@ jobs:
         run: |
           cd "${{ github.workspace }}/xdg/nvim"
           echo "::group::Sync plugins (lazy.nvim)"
+          set -x
           just bootstrap-lazy
+          set +x
           echo "::endgroup::"
 
           echo "::group::Install tree-sitter parsers"
+          set -x
           just bootstrap-treesitter
+          set +x
           echo "::endgroup::"
 
           echo "::group::Install Mason packages"
+          set -x
           just bootstrap-mason
+          set +x
           echo "::endgroup::"
 
       - name: 🏥 Run health check
@@ -357,10 +387,12 @@ jobs:
         shell: bash
         run: |
           echo "::group::Export XDG paths"
+          set -x
           echo "XDG_CONFIG_HOME=$GITHUB_WORKSPACE/xdg" >> "$GITHUB_ENV"
           echo "XDG_DATA_HOME=$RUNNER_TEMP/xdg-data" >> "$GITHUB_ENV"
           echo "XDG_STATE_HOME=$RUNNER_TEMP/xdg-state" >> "$GITHUB_ENV"
           echo "XDG_CACHE_HOME=$RUNNER_TEMP/xdg-cache" >> "$GITHUB_ENV"
+          set +x
           echo "::endgroup::"
 
       - name: 🔧 Setup environment (Windows)
@@ -383,9 +415,11 @@ jobs:
         shell: bash
         run: |
           echo "::group::Install system dependencies"
+          set -x
           sudo apt-get update
           sudo apt-get install -y build-essential cmake curl fd-find gzip just ripgrep tar unzip
           sudo ln -sf "$(command -v fdfind)" /usr/local/bin/fd
+          set +x
           echo "::endgroup::"
 
       - name: 🔧 Install system dependencies (macOS)
@@ -393,8 +427,10 @@ jobs:
         shell: bash
         run: |
           echo "::group::Install system dependencies"
+          set -x
           brew install cmake fd gnu-tar just ripgrep
           echo "$(brew --prefix gnu-tar)/libexec/gnubin" >> "$GITHUB_PATH"
+          set +x
           echo "::endgroup::"
 
       - name: 🔧 Install system dependencies (Windows)
@@ -404,20 +440,6 @@ jobs:
           Write-Output "::group::Install system dependencies"
           choco install -y cmake fd just ripgrep
           Write-Output "::endgroup::"
-
-      - name: 🔧 Set up language runtimes
-        shell: bash
-        run: |
-          echo "::group::Set up Python"
-          echo "::endgroup::"
-          echo "::group::Set up Node.js"
-          echo "::endgroup::"
-          echo "::group::Set up Go"
-          echo "::endgroup::"
-          echo "::group::Set up Ruby"
-          echo "::endgroup::"
-          echo "::group::Set up Rust toolchain"
-          echo "::endgroup::"
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -448,10 +470,13 @@ jobs:
         shell: bash
         run: |
           echo "::group::Prepare XDG directories"
+          set -x
           mkdir -p "$XDG_DATA_HOME" "$XDG_STATE_HOME" "$XDG_CACHE_HOME"
+          set +x
           echo "::endgroup::"
 
           echo "::group::Install tree-sitter-cli"
+          set -x
           archive="$RUNNER_TEMP/${{ matrix.tree_sitter_unix_archive }}"
           install_dir="$RUNNER_TEMP/tree-sitter"
           curl -fsSLo "$archive" \
@@ -460,13 +485,16 @@ jobs:
           gunzip -c "$archive" > "$install_dir/tree-sitter"
           chmod +x "$install_dir/tree-sitter"
           echo "$install_dir" >> "$GITHUB_PATH"
+          set +x
           echo "::endgroup::"
 
           echo "::group::Install Neovim nightly"
+          set -x
           curl -fsSLo "$RUNNER_TEMP/${{ matrix.nvim_archive }}" \
             "https://github.com/neovim/neovim/releases/download/nightly/${{ matrix.nvim_archive }}"
           tar -xzf "$RUNNER_TEMP/${{ matrix.nvim_archive }}" -C "$RUNNER_TEMP"
           echo "$RUNNER_TEMP/${{ matrix.nvim_dir }}/bin" >> "$GITHUB_PATH"
+          set +x
           echo "::endgroup::"
 
       - name: 🔧 Prepare directories & tools (Windows)
@@ -504,6 +532,7 @@ jobs:
         shell: bash
         run: |
           echo "::group::Tool versions"
+          set -x
           nvim --version | head -n 5
           tree-sitter --version
           python --version
@@ -514,6 +543,7 @@ jobs:
           cargo --version
           rustc --version
           just --version
+          set +x
           echo "::endgroup::"
 
       - name: 🔧 Show tool versions (Windows)
@@ -540,15 +570,21 @@ jobs:
         run: |
           cd "${{ github.workspace }}/xdg/nvim"
           echo "::group::Sync plugins (lazy.nvim)"
+          set -x
           just bootstrap-lazy
+          set +x
           echo "::endgroup::"
 
           echo "::group::Install tree-sitter parsers"
+          set -x
           just bootstrap-treesitter
+          set +x
           echo "::endgroup::"
 
           echo "::group::Install Mason packages"
+          set -x
           just bootstrap-mason
+          set +x
           echo "::endgroup::"
 
       - name: 📋 Run keymap audit
