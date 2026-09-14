@@ -60,10 +60,14 @@ jobs:
         run: |
           echo "::group::Export XDG paths"
           set -x
-          echo "XDG_CONFIG_HOME=$GITHUB_WORKSPACE/xdg" >> "$GITHUB_ENV"
-          echo "XDG_DATA_HOME=$RUNNER_TEMP/xdg-data" >> "$GITHUB_ENV"
-          echo "XDG_STATE_HOME=$RUNNER_TEMP/xdg-state" >> "$GITHUB_ENV"
-          echo "XDG_CACHE_HOME=$RUNNER_TEMP/xdg-cache" >> "$GITHUB_ENV"
+          export XDG_CONFIG_HOME="$GITHUB_WORKSPACE/xdg"
+          export XDG_DATA_HOME="$RUNNER_TEMP/xdg-data"
+          export XDG_STATE_HOME="$RUNNER_TEMP/xdg-state"
+          export XDG_CACHE_HOME="$RUNNER_TEMP/xdg-cache"
+          echo "XDG_CONFIG_HOME=$XDG_CONFIG_HOME" >> "$GITHUB_ENV"
+          echo "XDG_DATA_HOME=$XDG_DATA_HOME" >> "$GITHUB_ENV"
+          echo "XDG_STATE_HOME=$XDG_STATE_HOME" >> "$GITHUB_ENV"
+          echo "XDG_CACHE_HOME=$XDG_CACHE_HOME" >> "$GITHUB_ENV"
           set +x
           echo "::endgroup::"
 
@@ -114,10 +118,14 @@ jobs:
         run: |
           echo "::group::Export XDG paths"
           set -x
-          echo "XDG_CONFIG_HOME=$GITHUB_WORKSPACE/xdg" >> "$GITHUB_ENV"
-          echo "XDG_DATA_HOME=$RUNNER_TEMP/xdg-data" >> "$GITHUB_ENV"
-          echo "XDG_STATE_HOME=$RUNNER_TEMP/xdg-state" >> "$GITHUB_ENV"
-          echo "XDG_CACHE_HOME=$RUNNER_TEMP/xdg-cache" >> "$GITHUB_ENV"
+          export XDG_CONFIG_HOME="$GITHUB_WORKSPACE/xdg"
+          export XDG_DATA_HOME="$RUNNER_TEMP/xdg-data"
+          export XDG_STATE_HOME="$RUNNER_TEMP/xdg-state"
+          export XDG_CACHE_HOME="$RUNNER_TEMP/xdg-cache"
+          echo "XDG_CONFIG_HOME=$XDG_CONFIG_HOME" >> "$GITHUB_ENV"
+          echo "XDG_DATA_HOME=$XDG_DATA_HOME" >> "$GITHUB_ENV"
+          echo "XDG_STATE_HOME=$XDG_STATE_HOME" >> "$GITHUB_ENV"
+          echo "XDG_CACHE_HOME=$XDG_CACHE_HOME" >> "$GITHUB_ENV"
           set +x
           echo "::endgroup::"
 
@@ -223,10 +231,14 @@ jobs:
         run: |
           echo "::group::Export XDG paths"
           set -x
-          echo "XDG_CONFIG_HOME=$GITHUB_WORKSPACE/xdg" >> "$GITHUB_ENV"
-          echo "XDG_DATA_HOME=$RUNNER_TEMP/xdg-data" >> "$GITHUB_ENV"
-          echo "XDG_STATE_HOME=$RUNNER_TEMP/xdg-state" >> "$GITHUB_ENV"
-          echo "XDG_CACHE_HOME=$RUNNER_TEMP/xdg-cache" >> "$GITHUB_ENV"
+          export XDG_CONFIG_HOME="$GITHUB_WORKSPACE/xdg"
+          export XDG_DATA_HOME="$RUNNER_TEMP/xdg-data"
+          export XDG_STATE_HOME="$RUNNER_TEMP/xdg-state"
+          export XDG_CACHE_HOME="$RUNNER_TEMP/xdg-cache"
+          echo "XDG_CONFIG_HOME=$XDG_CONFIG_HOME" >> "$GITHUB_ENV"
+          echo "XDG_DATA_HOME=$XDG_DATA_HOME" >> "$GITHUB_ENV"
+          echo "XDG_STATE_HOME=$XDG_STATE_HOME" >> "$GITHUB_ENV"
+          echo "XDG_CACHE_HOME=$XDG_CACHE_HOME" >> "$GITHUB_ENV"
           set +x
           echo "::endgroup::"
 
@@ -471,6 +483,9 @@ jobs:
         run: |
           echo "::group::Prepare XDG directories"
           set -x
+          export XDG_DATA_HOME="$XDG_DATA_HOME"
+          export XDG_STATE_HOME="$XDG_STATE_HOME"
+          export XDG_CACHE_HOME="$XDG_CACHE_HOME"
           mkdir -p "$XDG_DATA_HOME" "$XDG_STATE_HOME" "$XDG_CACHE_HOME"
           set +x
           echo "::endgroup::"
