@@ -94,6 +94,16 @@ jobs:
           set +x
           echo "::endgroup::"
 
+      - name: 📦 Bootstrap plugins
+        shell: bash
+        run: |
+          cd "${{ github.workspace }}/xdg/nvim"
+          echo "::group::Sync plugins (lazy.nvim)"
+          set -x
+          just bootstrap-lazy
+          set +x
+          echo "::endgroup::"
+
       - name: 🔗 Run link check
         working-directory: ${{ github.workspace }}/xdg/nvim
         env:
