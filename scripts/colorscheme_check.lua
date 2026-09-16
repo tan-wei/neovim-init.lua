@@ -14,6 +14,12 @@ local function gh_error(message)
   end
 end
 
+local function fail_check(message)
+  gh_error(message)
+  vim.api.nvim_echo({ { message, "ErrorMsg" } }, true, {})
+  vim.cmd "cquit 1"
+end
+
 local repo_root = vim.fn.fnamemodify(debug.getinfo(1, "S").source:sub(2), ":p:h:h")
 
 ---@type table<string, string[]>
@@ -92,8 +98,8 @@ function M.check()
 
   if #errors.duplicate > 0 or #errors.not_found > 0 or #errors.no_colors_name > 0 then
     local total_errors = #errors.duplicate + #errors.not_found + #errors.no_colors_name
-    gh_error(string.format("colorscheme-check: %d colorscheme(s) failed validation", total_errors))
-    error(string.format("colorscheme-check: %d colorscheme(s) failed validation", total_errors))
+    fail_check(string.format("colorscheme-check: %d colorscheme(s) failed validation", total_errors))
+    return
   end
 
   gh_notice "All colorschemes validated successfully."
