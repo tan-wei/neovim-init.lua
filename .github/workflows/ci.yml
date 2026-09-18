@@ -452,7 +452,9 @@ jobs:
         run: |
           echo "::group::Install system dependencies"
           set -x
-          brew untap aws/tap azure/bicep hashicorp/tap || true
+          brew untap aws/tap || true
+          brew trust --formula azure/bicep/bicep || true
+          brew trust --formula hashicorp/tap/packer || true
           brew install cmake fd gnu-tar just ripgrep
           echo "$(brew --prefix gnu-tar)/libexec/gnubin" >> "$GITHUB_PATH"
           set +x
