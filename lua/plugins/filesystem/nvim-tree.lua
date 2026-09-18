@@ -211,6 +211,9 @@ M.config = function()
   end
 
   nvim_tree.setup {
+    experimental = {
+      session_restore_nvim = false,
+    },
     sync_root_with_cwd = true,
     respect_buf_cwd = false,
     update_focused_file = {
