@@ -268,8 +268,6 @@ M.config = function()
     cwd_change_handling = true,
     pre_cwd_changed_cmds = {
       function()
-        vim.notify "pre_cwd_changed_hook"
-
         -- Close nvim-tree before cwd change to avoid stale directory state
         local ok, api = pcall(require, "nvim-tree.api")
         if ok then
@@ -288,7 +286,6 @@ M.config = function()
     },
     post_cwd_changed_cmds = {
       function()
-        vim.notify "post_cwd_changed_hook"
         require("lualine").refresh()
         vim.defer_fn(function()
           vim.cmd "filetype detect"

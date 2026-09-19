@@ -22,7 +22,7 @@ M.config = function()
 
   -- Smart buffer close: delete buffer (preserving window layout), then close
   -- tab/quit if nothing real remains.
-  -- Uses snacks.bufdelete (built into snacks.nvim) instead of vim-bbye.
+  -- Uses snacks.bufdelete (built into snacks.nvim)
   vim.api.nvim_create_user_command("BdeleteOrClose", function(opts)
     local bufnr = opts.args ~= "" and tonumber(opts.args) or vim.api.nvim_get_current_buf()
     local ok, _ = pcall(require("snacks").bufdelete.delete, bufnr)
