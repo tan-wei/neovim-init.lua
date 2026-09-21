@@ -16,6 +16,7 @@ vim.opt.rtp:prepend(install_path)
 
 ---@type LazySpec[]
 local spec = {
+  { import = "plugins.buffer" },
   { import = "plugins.c++" },
   { import = "plugins.cmp" },
   { import = "plugins.code-runner" },
@@ -48,12 +49,14 @@ local spec = {
   { import = "plugins.rust" },
   { import = "plugins.search" },
   { import = "plugins.snippet" },
+  { import = "plugins.statusline" },
   { import = "plugins.task" },
   { import = "plugins.terminal" },
   { import = "plugins.test" },
   { import = "plugins.tool" },
   { import = "plugins.treesitter" },
   { import = "plugins.ui" },
+  { import = "plugins.window" },
 }
 
 ---@type LazyConfig
