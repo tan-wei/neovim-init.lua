@@ -3,6 +3,7 @@ local M = {
   "stevearc/oil.nvim",
   dependencies = {
     "nvim-tree/nvim-web-devicons",
+    "ingur/fzf-oil.nvim",
   },
   lazy = false,
 }
@@ -22,15 +23,17 @@ M.opts = {
     "size",
     "mtime",
   },
-  float = {
-    padding = 4,
-    max_width = 180,
-    max_height = 0,
-    border = "rounded",
-    win_options = {
-      winblend = 10,
-    },
-  },
+  -- float = {
+  --   padding = 4,
+  --   max_width = 180,
+  --   max_height = 0,
+  --   border = "rounded",
+  --   win_options = {
+  --     winblend = 10,
+  --   },
+  -- },
+  float = require("fzf-oil").float,
+  preview_win = require("fzf-oil").preview_win,
   constrain_cursor = "editable",
   watch_for_changes = true,
   keymaps = {
