@@ -78,7 +78,7 @@ After startup, these commands are usually the first things worth checking:
 - [init.lua](init.lua): startup entrypoint
 - [lua/user](lua/user): user config, options, keymaps, autocommands, LSP setup, semantic token customization
 - [lua/plugins](lua/plugins): modular plugin specs grouped by domain
-- [lazy-lock.json](lazy-lock.json): pinned plugin versions
+- [lazy-lock.json](lazy-lock.json): pinned plugin versions, it's intentional ignore in git, to keep everything latest, :-P
 - `external/`: related tool configs such as kitty, ghostty, alacritty, wezterm, and goneovim
 - `templates/`: file templates
 - `spell/`: custom spell additions
@@ -386,4 +386,4 @@ systems provide.
 
 - This is a personal config repo, not a polished distribution.
 - The code is a more reliable source of truth than old documentation copied from upstream templates.
-- `lazy-lock.json` is committed, so plugin versions are intentionally pinned.
+- `lazy-lock.json` is ignored in git, so plugin versions are always latest (if break, should be fixed ASAP).
