@@ -15,7 +15,7 @@ concurrency:
 jobs:
   stylua:
     name: Stylua
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout config
@@ -44,7 +44,7 @@ jobs:
 
   link-check:
     name: Plugin link check
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
 
     env:
       NVIM_APPNAME: nvim
@@ -112,7 +112,7 @@ jobs:
 
   colorscheme-check:
     name: Colorscheme check
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
 
     env:
       NVIM_APPNAME: nvim
@@ -226,7 +226,7 @@ jobs:
 
   health-check:
     name: Checkhealth
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
 
     env:
       NVIM_APPNAME: nvim
@@ -368,7 +368,7 @@ jobs:
             tree_sitter_unix_archive: tree-sitter-linux-x64.gz
           - os_name: macOS
             arch: arm64
-            runner: macos-15
+            runner: macos-26
             nvim_archive: nvim-macos-arm64.tar.gz
             nvim_dir: nvim-macos-arm64
             tree_sitter_unix_archive: tree-sitter-macos-arm64.gz
@@ -386,7 +386,7 @@ jobs:
             tree_sitter_unix_archive: tree-sitter-linux-arm64.gz
           - os_name: macOS
             arch: x86_64
-            runner: macos-15-intel
+            runner: macos-26-intel
             nvim_archive: nvim-macos-x86_64.tar.gz
             nvim_dir: nvim-macos-x86_64
             tree_sitter_unix_archive: tree-sitter-macos-x64.gz
