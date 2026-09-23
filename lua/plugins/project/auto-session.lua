@@ -217,10 +217,10 @@ M.config = function()
           end
         end
 
-        -- Clear stale winsep separators after session save window changes
+        -- Refresh winsep separators after session save window changes
         vim.schedule(function()
           pcall(function()
-            require("colorful-winsep.view").hide_all()
+            require("colorful-winsep.view").render()
           end)
         end)
         ------------------------------------------------
