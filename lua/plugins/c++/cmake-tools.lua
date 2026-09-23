@@ -88,7 +88,7 @@ end
 M.opts = {
   cmake_build_directory = "build/${kit}/${kitGenerator}/${variant:buildType}",
   cmake_build_options = build_options(),
-  cmake_soft_link_compile_commands = false,
+  cmake_soft_link_compile_commands = true,
   cmake_compile_commands_from_lsp = true,
   cmake_kits_path = require("util.cmake_kits").get_path(),
   cmake_kit_scanner = {
