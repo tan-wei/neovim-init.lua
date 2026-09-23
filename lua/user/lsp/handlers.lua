@@ -95,6 +95,12 @@ M.setup = function()
 end
 
 M.on_attach = function(client, bufnr)
+  local compile_commands
+  if client.name == "clangd" or client.name == "ccls" then
+    compile_commands = require "util.compile_commands"
+    compile_commands.attach(client)
+  end
+
   if client.name == "tsserver" then
     client.server_capabilities.documentFormattingProvider = false
   end
@@ -110,7 +116,7 @@ M.on_attach = function(client, bufnr)
     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
   end
   if client.name == "ccls" then
-    vim.lsp.codelens.enable(true, { client_id = client.id })
+    compile_commands.enable_ccls_codelens(client, bufnr)
   end
 
   if client.server_capabilities.inlayHintProvider then

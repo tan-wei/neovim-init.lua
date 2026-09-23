@@ -1,6 +1,44 @@
 ---@type table<string, any>
 local M = {}
 
+local cpp_clients = { clangd = true, ccls = true }
+local watchers = {}
+
+-- Prevent ccls restarts from leaving duplicate CodeLens virtual lines behind.
+local function clear_stale_codelens_namespaces(buffers)
+  for name, namespace in pairs(vim.api.nvim_get_namespaces()) do
+    local client_id = tonumber(name:match "^nvim%.lsp%.codelens:(%d+)$")
+    if client_id and not vim.lsp.get_client_by_id(client_id) then
+      for bufnr in pairs(buffers) do
+        if vim.api.nvim_buf_is_valid(bufnr) then
+          vim.api.nvim_buf_clear_namespace(bufnr, namespace, 0, -1)
+        end
+      end
+    end
+  end
+end
+
+M.enable_ccls_codelens = function(client, bufnr)
+  clear_stale_codelens_namespaces { [bufnr] = true }
+  vim.lsp.codelens.enable(true, { client_id = client.id, bufnr = bufnr })
+end
+
+M.restart_clients = function(clients, reason)
+  local names = {}
+  for _, client in pairs(clients) do
+    if vim.lsp.get_client_by_id(client.id) == client then
+      names[client.name] = true
+      client:_restart(client.exit_timeout)
+    end
+  end
+
+  if next(names) then
+    local restarted = vim.tbl_keys(names)
+    table.sort(restarted)
+    vim.notify("LSP restarted: " .. table.concat(restarted, ", ") .. " (" .. reason .. ")")
+  end
+end
+
 local project_root_markers = {
   ".clangd",
   "compile_commands.json",
@@ -178,6 +216,131 @@ M.find_compile_commands_dir = function(root_dir)
   end
 
   return nil
+end
+
+local function client_root(client)
+  return normalize_path(client.config.root_dir or (client.workspace_folders and client.workspace_folders[1].name))
+end
+
+local function client_compile_commands_dir(client)
+  if client.name == "clangd" then
+    for _, arg in ipairs(client.config.cmd or {}) do
+      local dir = arg:match "^%-%-compile%-commands%-dir=(.+)$"
+      if dir then
+        return vim.fs.abspath(dir, { cwd = client_root(client) or vim.uv.cwd() }), "--compile-commands-dir"
+      end
+    end
+  elseif client.name == "ccls" then
+    local dir = (client.config.init_options or {}).compilationDatabaseDirectory
+    if dir then
+      return vim.fs.abspath(dir, { cwd = client_root(client) or vim.uv.cwd() }), "initializationOptions"
+    end
+  end
+
+  local root = client_root(client)
+  return M.find_compile_commands_dir(root), "auto-discovery"
+end
+
+local function client_compile_commands_path(client)
+  local dir = client_compile_commands_dir(client)
+  if not dir then
+    return nil
+  end
+
+  local path = dir .. "/compile_commands.json"
+  return vim.uv.fs_realpath(path) or normalize_path(path)
+end
+
+local function clients_for_compile_commands(path)
+  local clients = {}
+  for _, client in pairs(vim.lsp.get_clients()) do
+    if cpp_clients[client.name] and client_compile_commands_path(client) == path then
+      clients[client.id] = client
+    end
+  end
+  return clients
+end
+
+M.show_info = function(bufnr)
+  bufnr = bufnr or vim.api.nvim_get_current_buf()
+  local lines = { "compile_commands.json status" }
+  local clients = vim.tbl_filter(function(client)
+    return cpp_clients[client.name]
+  end, vim.lsp.get_clients { bufnr = bufnr })
+
+  if #clients == 0 then
+    table.insert(lines, "No clangd/ccls client is attached to this buffer.")
+  end
+
+  for _, client in ipairs(clients) do
+    local dir, source = client_compile_commands_dir(client)
+    local path = dir and (dir .. "/compile_commands.json") or nil
+    local exists = path and vim.uv.fs_stat(path) ~= nil
+    table.insert(lines, "")
+    table.insert(lines, client.name .. " (client " .. client.id .. ")")
+    table.insert(lines, "  configured: " .. (path or "none") .. " [" .. source .. "]")
+    table.insert(lines, "  database: " .. (exists and "exists" or "missing"))
+    table.insert(lines, "  evidence: startup configuration only")
+  end
+
+  table.insert(lines, "")
+  table.insert(lines, "Note: LSP exposes no query for the database path actually opened by clangd/ccls.")
+  vim.notify(table.concat(lines, "\n"), vim.log.levels.INFO, { title = "Compile Commands" })
+end
+
+local function ensure_command()
+  if vim.fn.exists ":CompileCommandsInfo" == 2 then
+    return
+  end
+  pcall(vim.api.nvim_del_user_command, "CompileCommandsInfo")
+  vim.api.nvim_create_user_command("CompileCommandsInfo", function()
+    M.show_info()
+  end, { desc = "Show C/C++ compilation database status" })
+end
+
+M.attach = function(client)
+  if not cpp_clients[client.name] then
+    return false
+  end
+
+  ensure_command()
+  local dir = client_compile_commands_dir(client)
+  if not M.has_compile_commands(dir) then
+    return false
+  end
+
+  local path = vim.uv.fs_realpath(dir .. "/compile_commands.json") or normalize_path(dir .. "/compile_commands.json")
+  local watched = watchers[path]
+  if watched then
+    return false
+  end
+
+  local poll = vim.uv.new_fs_poll()
+  watched = { poll = poll, debounce = vim.uv.new_timer() }
+  local ok = poll:start(
+    path,
+    1000,
+    vim.schedule_wrap(function(err, previous, current)
+      if not err and previous and current and watchers[path] == watched then
+        watched.debounce:stop()
+        watched.debounce:start(
+          500,
+          0,
+          vim.schedule_wrap(function()
+            M.restart_clients(clients_for_compile_commands(path), "compile_commands.json changed")
+          end)
+        )
+      end
+    end)
+  )
+  if ok then
+    watchers[path] = watched
+    return true
+  else
+    poll:close()
+    watched.debounce:close()
+    return false
+  end
 end
 
 return M

@@ -525,28 +525,23 @@ M.config = function(_, opts)
   kit_scanner.setup(scanner_opts)
   cmake_project.setup(project_discovery_opts)
 
-  -- After CMakeGenerate/CMakeBuild completes successfully, restart C++ LSP
-  -- so it picks up the new/updated compile_commands.json.
+  -- Existing databases are handled by util.compile_commands' watcher. Restart
+  -- here only when CMake has created a database that was not watchable before.
   on_cmake_done = function(result)
     if result:is_ok() then
       vim.schedule(function()
-        local restarted = {}
+        local clients = {}
         local bufnr = vim.api.nvim_get_current_buf()
+        local compile_commands = require "util.compile_commands"
+        local started_watching = false
         for _, client in pairs(vim.lsp.get_clients { bufnr = bufnr }) do
           if client.name == "clangd" or client.name == "ccls" then
-            table.insert(restarted, client.name)
-            client:stop()
+            table.insert(clients, client)
+            started_watching = compile_commands.attach(client) or started_watching
           end
         end
-        if #restarted > 0 then
-          vim.defer_fn(function()
-            -- Re-attach by triggering FileType event on current buffer only
-            vim.api.nvim_exec_autocmds("FileType", { buffer = bufnr })
-            vim.notify(
-              "LSP restarted: " .. table.concat(restarted, ", ") .. " (compile_commands.json updated)",
-              vim.log.levels.INFO
-            )
-          end, 500)
+        if started_watching then
+          compile_commands.restart_clients(clients, "compile_commands.json created")
         end
       end)
     end

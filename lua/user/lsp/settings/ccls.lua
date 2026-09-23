@@ -8,12 +8,21 @@ local M = {
     local ok, cmake = pcall(require, "cmake-tools")
     if ok then
       cmake.ccls_on_new_config(config)
-      return
     end
 
     local root_dir = config.root_dir
     if not root_dir or root_dir == "" then
       return
+    end
+
+    local configured_dir = config.init_options.compilationDatabaseDirectory
+    -- Prevent from unwinded configurations
+    if configured_dir and not configured_dir:find "%${" then
+      configured_dir = vim.fs.abspath(configured_dir, { cwd = root_dir })
+      if compile_commands.has_compile_commands(configured_dir) then
+        config.init_options.compilationDatabaseDirectory = configured_dir
+        return
+      end
     end
 
     local compile_commands_dir = compile_commands.find_compile_commands_dir(root_dir)
