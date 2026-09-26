@@ -1,6 +1,6 @@
 ---@type LazyPluginSpec
 local M = {
-  "mistweaverco/kulala.nvim",
+  "dont-be-evil-company/kulala.nvim",
   dependencies = {
     "MunifTanjim/nui.nvim",
   },
