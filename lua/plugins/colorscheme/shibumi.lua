@@ -1,12 +1,12 @@
 ---@type LazyPluginSpec
 local M = {
-  "darianmorat/gruvdark.nvim",
+  "darianmorat/shibumi.nvim",
   lazy = true,
 }
 
 M.init = function()
   local available_colorschemes = vim.g.available_colorschemes or {}
-  table.insert(available_colorschemes, "gruvdark")
+  table.insert(available_colorschemes, "shibumi")
   vim.g.available_colorschemes = available_colorschemes
 end
 
