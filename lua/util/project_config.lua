@@ -25,6 +25,15 @@ local sections = {
     },
   },
   {
+    title = "ClassLayout",
+    fields = {
+      -- Extra compiler flags appended to every classlayout.nvim invocation.
+      -- Needed because the plugin drops target/architecture flags (e.g. -msse4),
+      -- which makes clang abort early and report "no layout found".
+      { name = "classlayout_extra_flags", default = {} },
+    },
+  },
+  {
     title = "Linters",
     fields = {
       {

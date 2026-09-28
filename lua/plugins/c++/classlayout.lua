@@ -8,6 +8,7 @@ local M = {
 
 M.config = function()
   local compile_commands = require "util.compile_commands"
+  local project_config = require "util.project_config"
 
   local notified_roots = {}
 
@@ -78,6 +79,11 @@ M.config = function()
   require("classlayout").setup {
     compiler = "clang",
     compile_commands = true,
+    -- classlayout.nvim keeps only -D/-std/-I/-isystem from compile_commands.json and
+    -- drops target/architecture flags. Projects that rely on those (e.g. -msse4 for
+    -- SSE intrinsics) fail clang parsing early, so the target class is never dumped.
+    -- Top up the missing flags per project via `classlayout_extra_flags`.
+    args = project_config.get "classlayout_extra_flags" or {},
   }
 
   local augroup = vim.api.nvim_create_augroup("classlayout-prepare-compile-commands", { clear = true })
