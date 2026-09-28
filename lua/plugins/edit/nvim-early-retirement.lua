@@ -20,6 +20,7 @@ M.opts = {
     "notify",
     "fugitive",
     "neogit",
+    "atone",
     "undotree",
     "trouble",
     "fzf",

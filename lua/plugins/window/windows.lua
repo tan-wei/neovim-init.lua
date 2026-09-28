@@ -26,10 +26,12 @@ M.config = function()
     ignore = {
       buftype = {
         "quickfix",
+        "nofile",
       },
       filetype = {
         "NvimTree",
         "neo-tree",
+        "atone",
         "undotree",
         "gundo",
         "qf",

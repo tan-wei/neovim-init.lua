@@ -75,6 +75,7 @@ M.config = function()
       "notify",
       "fugitive",
       "neogit",
+      "atone",
       "undotree",
       "trouble",
       "fzf",

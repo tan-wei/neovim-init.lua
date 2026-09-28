@@ -45,6 +45,7 @@ M.config = function()
         "qf",
         "toggleterm",
         "trouble",
+        "atone",
         "undotree",
       },
       set_number = false,

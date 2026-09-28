@@ -31,6 +31,7 @@ M.opts = {
     "trouble",
     "fugitive",
     "neogit",
+    "atone",
     "undotree",
     "fzflua_backdrop",
     "dapui_breakpoint",

@@ -23,6 +23,7 @@ M.opts = {
     "noice",
     "notify",
     "neogit",
+    "atone",
     "undotree",
     "trouble",
     "fzf",

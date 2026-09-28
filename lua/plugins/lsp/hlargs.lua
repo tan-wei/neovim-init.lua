@@ -20,6 +20,7 @@ M.config = function()
     "toggleterm",
     "fugitive",
     "neogit",
+    "atone",
     "undotree",
     "alpha",
     "trouble",

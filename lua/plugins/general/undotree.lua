@@ -6,6 +6,8 @@ local M = {
 
 M.init = function()
   vim.g.undotree_SetFocusWhenToggle = 1
+  vim.g.undotree_WindowLayout = 3
+  vim.g.undotree_SplitWidth = 60
 
   if vim.fn.has "persistent_undo" == 1 then
     local undotree_dir = vim.fn.stdpath "data" .. "/undotree"

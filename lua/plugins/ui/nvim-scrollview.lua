@@ -18,6 +18,7 @@ M.config = function()
       "toggleterm",
       "qf",
       "help",
+      "atone",
       "undotree",
       "fugitive",
       "neogit",
