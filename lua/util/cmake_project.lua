@@ -1,3 +1,5 @@
+-- Discover CMake projects within a repository, remember the selected root,
+-- and keep cmake-tools pointed at that root as buffers change.
 ---@type table<string, any>
 local M = {}
 
@@ -29,6 +31,9 @@ local config = {
   },
 }
 
+-- cmake-tools has no public API for switching projects without generating.
+-- This bridge depends on its current closure layout and should be revisited
+-- when the plugin exposes a silent project-switching API.
 local function get_upvalue(fn, target)
   if type(fn) ~= "function" then
     return nil
@@ -96,6 +101,8 @@ local function sync_cmake_tools_root(root)
     cmake_state.session.save(previous_cwd, previous_config)
   end
 
+  -- Restore the selected project's session without changing Neovim's cwd or
+  -- invoking cmake.select_cwd(), which would run a configure/generate step.
   local next_config = cmake_state.Config:new(cmake_state.const)
   next_config.cwd = root
   next_config = cmake_state.session.update(next_config, cmake_state.session.load(root))
@@ -205,6 +212,8 @@ local function path_is_within(path, parent)
 end
 
 local function find_scan_base(start_path)
+  -- Scan the enclosing repository, or the outermost CMake root when there is
+  -- no VCS root, so sibling projects can be offered in one selection list.
   local start_dir = as_directory(start_path or vim.loop.cwd())
   if not start_dir then
     return normalize_path(vim.loop.cwd())
@@ -409,6 +418,8 @@ function M.setup(opts)
 end
 
 function M.scan_entries(start_dir, opts)
+  -- Keep all CMakeLists.txt entries for --all; scan_roots() later collapses
+  -- nested directories into the recommended project-root choices.
   opts = opts or {}
   local base_dir = find_scan_base(start_dir or vim.loop.cwd())
   if not base_dir then
@@ -537,6 +548,7 @@ function M.suggest_root(start_path, opts)
 end
 
 function M.select_root(root)
+  -- Persist the preference for future visits before synchronizing the plugin.
   local normalized = normalize_path(root)
   if not normalized then
     return false

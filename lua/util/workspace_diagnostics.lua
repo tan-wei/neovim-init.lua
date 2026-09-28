@@ -196,13 +196,13 @@ end
 local function get_filetype(path)
   local ext = vim.fn.fnamemodify(path, ":e")
 
-  if rawget(detected_filetypes, ext) ~= nil then
+  if ext ~= "" and rawget(detected_filetypes, ext) ~= nil then
     return detected_filetypes[ext]
   end
 
   local filetype = detect_filetype(path)
 
-  if not dont_cache_extensions[ext] then
+  if ext ~= "" and not dont_cache_extensions[ext] then
     detected_filetypes[ext] = filetype or false
   end
 
@@ -213,8 +213,6 @@ function M.populate_workspace_diagnostics(client, bufnr)
   if loaded_clients[client.id] then
     return
   end
-
-  loaded_clients[client.id] = true
 
   if not client:supports_method "textDocumentSync/openClose" then
     return
@@ -229,6 +227,8 @@ function M.populate_workspace_diagnostics(client, bufnr)
   if not root then
     return
   end
+
+  loaded_clients[client.id] = true
 
   local current = normalize_path(vim.api.nvim_buf_get_name(bufnr))
   local workspace_files = get_workspace_files(root)
