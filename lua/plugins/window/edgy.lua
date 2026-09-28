@@ -43,7 +43,7 @@ M.opts = {
       title = "Outline",
       ft = "Outline",
       size = { width = 60 },
-      pinned = true,
+      pinned = false,
       open = "Outline",
       wo = {
         winbar = true,
@@ -52,6 +52,37 @@ M.opts = {
         spell = false,
         wrap = false,
       },
+    },
+    {
+      title = "Undotree",
+      ft = "undotree",
+      size = { width = 60 },
+    },
+    {
+      title = "Undotree Diff",
+      ft = "diff",
+      filter = function(buf)
+        return vim.b[buf].isUndotreeBuffer == 1
+      end,
+      size = { width = 60 },
+    },
+    {
+      title = "Atone",
+      ft = "atone",
+      filter = function(buf)
+        local core = package.loaded["atone.core"]
+        return core and buf == core._tree_buf
+      end,
+      size = { width = 60 },
+    },
+    {
+      title = "Atone Diff",
+      ft = "atone",
+      filter = function(buf)
+        local core = package.loaded["atone.core"]
+        return core and buf == core._auto_diff_buf
+      end,
+      size = { width = 60 },
     },
   },
 }
