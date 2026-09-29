@@ -1,6 +1,8 @@
 ---@type LazyPluginSpec
 local M = {
-  "zbirenbaum/neodim",
+  -- "zbirenbaum/neodim",
+  "ALVAROPING1/neodim", -- maintainance fork
+  branch = "fix-nvim-0.11",
   event = "LspAttach",
 }
 
