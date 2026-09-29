@@ -1,6 +1,6 @@
 ---@type LazyPluginSpec
 local M = {
-  "gabfelix/mudworld",
+  "gabfelix/mudworld.nvim",
   lazy = true,
 }
 
