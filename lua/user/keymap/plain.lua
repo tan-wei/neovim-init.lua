@@ -659,28 +659,36 @@ return {
       {
         mode = "n",
         lhs = "<C-j>",
-        rhs = ":Treewalker Down<CR>",
+        rhs = function()
+          require("plugins.keymap.demicolon").treewalker_jump("vertical", true)
+        end,
         opts = default_opts,
         conflict = { builtin = builtin.get("n", "<C-j>") },
       },
       {
         mode = "n",
         lhs = "<C-k>",
-        rhs = ":Treewalker Up<CR>",
+        rhs = function()
+          require("plugins.keymap.demicolon").treewalker_jump("vertical", false)
+        end,
         opts = default_opts,
         conflict = { note = "Reviewed normal-mode Ctrl-letter slot before reusing it for treewalker up" },
       },
       {
         mode = "n",
         lhs = "<C-h>",
-        rhs = ":Treewalker Left<CR>",
+        rhs = function()
+          require("plugins.keymap.demicolon").treewalker_jump("horizontal", false)
+        end,
         opts = default_opts,
         conflict = { builtin = builtin.get("n", "<C-h>") },
       },
       {
         mode = "n",
         lhs = "<C-l>",
-        rhs = ":Treewalker Right<CR>",
+        rhs = function()
+          require("plugins.keymap.demicolon").treewalker_jump("horizontal", true)
+        end,
         opts = default_opts,
         conflict = { builtin = builtin.get("n", "<C-l>") },
       },

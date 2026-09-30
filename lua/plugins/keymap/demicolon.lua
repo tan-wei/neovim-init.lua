@@ -9,6 +9,15 @@ local M = {
   },
 }
 
+function M.treewalker_jump(axis, forward)
+  require("demicolon.jump").repeatably_do(function(repeat_opts)
+    local treewalker = require "treewalker"
+    local motion = axis == "vertical" and (repeat_opts.forward and "move_down" or "move_up")
+      or (repeat_opts.forward and "move_in" or "move_out")
+    treewalker[motion]()
+  end, { forward = forward })
+end
+
 -- TODO: Add custom keymaps for other plugins
 M.opts = {
   keymaps = {
