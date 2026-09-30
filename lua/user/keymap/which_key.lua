@@ -17,6 +17,12 @@ local function feed_normal(keys)
   end
 end
 
+local function portal_jump(builtin_name, forward)
+  return function()
+    require("plugins.keymap.demicolon").portal_jump(builtin_name, forward)
+  end
+end
+
 function M.entries()
   -- Keep leader families grouped by letter so available slots stay obvious.
   return {
@@ -203,16 +209,16 @@ function M.entries()
 
     -- j --
     { "<leader>j", group = "jump", mode = "n" },
-    { "<leader>jj", "<cmd>Portal jumplist forward<cr>", desc = "jump forward", mode = "n" },
-    { "<leader>jk", "<cmd>Portal jumplist backward<cr>", desc = "jump backward", mode = "n" },
-    { "<leader>jcj", "<cmd>Portal changelist forward<cr>", desc = "jump Changelist forward", mode = "n" },
-    { "<leader>jck", "<cmd>Portal changelist backward<cr>", desc = "jump Changelist backward", mode = "n" },
-    { "<leader>jgj", "<cmd>Portal grapple forward<cr>", desc = "jump Grapple forward", mode = "n" },
-    { "<leader>jgk", "<cmd>Portal grapple backward<cr>", desc = "jump Grapple backward", mode = "n" },
-    { "<leader>jhj", "<cmd>Portal harpoon forward<cr>", desc = "jump Harpoon forward", mode = "n" },
-    { "<leader>jhk", "<cmd>Portal harpoon backward<cr>", desc = "jump Harpoon backward", mode = "n" },
-    { "<leader>jqj", "<cmd>Portal quickfix forward<cr>", desc = "jump Quickfix forward", mode = "n" },
-    { "<leader>jqk", "<cmd>Portal quickfix backward<cr>", desc = "jump Quickfix backward", mode = "n" },
+    { "<leader>jj", portal_jump("jumplist", true), desc = "jump forward", mode = "n" },
+    { "<leader>jk", portal_jump("jumplist", false), desc = "jump backward", mode = "n" },
+    { "<leader>jcj", portal_jump("changelist", true), desc = "jump Changelist forward", mode = "n" },
+    { "<leader>jck", portal_jump("changelist", false), desc = "jump Changelist backward", mode = "n" },
+    { "<leader>jgj", portal_jump("grapple", true), desc = "jump Grapple forward", mode = "n" },
+    { "<leader>jgk", portal_jump("grapple", false), desc = "jump Grapple backward", mode = "n" },
+    { "<leader>jhj", portal_jump("harpoon", true), desc = "jump Harpoon forward", mode = "n" },
+    { "<leader>jhk", portal_jump("harpoon", false), desc = "jump Harpoon backward", mode = "n" },
+    { "<leader>jqj", portal_jump("quickfix", true), desc = "jump Quickfix forward", mode = "n" },
+    { "<leader>jqk", portal_jump("quickfix", false), desc = "jump Quickfix backward", mode = "n" },
     {
       "<leader>jv",
       "<cmd>lua require('mini.jump2d').start(MiniJump2d.builtin_opts('word_starts'))<cr>",

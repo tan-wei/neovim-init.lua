@@ -200,6 +200,7 @@ Scope notes:
 | `n` | `n`, `N` | hlslens-enhanced next / previous match | Yes | Replaces builtin `n` / `N` with hlslens overlay |
 | `n` | `*`, `#` | hlslens-enhanced next / previous word match | Yes | Replaces builtin `*` / `#` with hlslens overlay |
 | `n` | `g*`, `g#` | hlslens-enhanced next / previous partial-word match | Yes | Replaces builtin `g*` / `g#` with hlslens overlay |
+| `n`, `x`, `o` | `f`, `F`, `t`, `T` | Flash character motions | Yes | Replaces builtin character motions; repeats through demicolon |
 | `n` | `cr` | coerce current word | No | Repo-owned transform entrypoint |
 | `i` | `jk`, `kj` | Exit insert mode | No | Repo-owned insert escape shortcuts |
 | `v` | `<`, `>` | Reindent and keep selection | Yes | Extends core indent behavior to preserve selection |

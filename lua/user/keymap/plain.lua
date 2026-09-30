@@ -270,6 +270,76 @@ return {
     },
   },
   {
+    plugin = "neotest",
+    family = "bracket",
+    maps = {
+      {
+        mode = "n",
+        lhs = "]t",
+        rhs = function()
+          require("plugins.keymap.demicolon").neotest_jump(true)
+        end,
+        desc = "Next test",
+        symbol = {
+          family = "bracket",
+          role = "motion",
+          namespace = "t",
+          direction = "next",
+          repeatable = true,
+          repeat_engine = "demicolon",
+        },
+      },
+      {
+        mode = "n",
+        lhs = "[t",
+        rhs = function()
+          require("plugins.keymap.demicolon").neotest_jump(false)
+        end,
+        desc = "Previous test",
+        symbol = {
+          family = "bracket",
+          role = "motion",
+          namespace = "t",
+          direction = "prev",
+          repeatable = true,
+          repeat_engine = "demicolon",
+        },
+      },
+      {
+        mode = "n",
+        lhs = "]T",
+        rhs = function()
+          require("plugins.keymap.demicolon").neotest_jump(true, { status = "failed" })
+        end,
+        desc = "Next failed test",
+        symbol = {
+          family = "bracket",
+          role = "motion",
+          namespace = "T",
+          direction = "next",
+          repeatable = true,
+          repeat_engine = "demicolon",
+        },
+      },
+      {
+        mode = "n",
+        lhs = "[T",
+        rhs = function()
+          require("plugins.keymap.demicolon").neotest_jump(false, { status = "failed" })
+        end,
+        desc = "Previous failed test",
+        symbol = {
+          family = "bracket",
+          role = "motion",
+          namespace = "T",
+          direction = "prev",
+          repeatable = true,
+          repeat_engine = "demicolon",
+        },
+      },
+    },
+  },
+  {
     plugin = "sort.nvim",
     family = "bracket",
     maps = {
@@ -649,6 +719,48 @@ return {
         lhs = "<F8>",
         rhs = "<cmd>lua require('colorscheme-randomizer').randomize()<cr>",
         opts = default_opts,
+      },
+    },
+  },
+  {
+    plugin = "flash.nvim",
+    family = "plain",
+    maps = {
+      {
+        mode = { "n", "x", "o" },
+        lhs = "f",
+        rhs = function()
+          require("plugins.keymap.demicolon").flash_jump { key = "f", forward = true }
+        end,
+        desc = "Flash f",
+        conflict = { note = "Replaces builtin f character motion with Flash" },
+      },
+      {
+        mode = { "n", "x", "o" },
+        lhs = "F",
+        rhs = function()
+          require("plugins.keymap.demicolon").flash_jump { key = "F", forward = false }
+        end,
+        desc = "Flash F",
+        conflict = { note = "Replaces builtin F character motion with Flash" },
+      },
+      {
+        mode = { "n", "x", "o" },
+        lhs = "t",
+        rhs = function()
+          require("plugins.keymap.demicolon").flash_jump { key = "t", forward = true }
+        end,
+        desc = "Flash t",
+        conflict = { note = "Replaces builtin t character motion with Flash" },
+      },
+      {
+        mode = { "n", "x", "o" },
+        lhs = "T",
+        rhs = function()
+          require("plugins.keymap.demicolon").flash_jump { key = "T", forward = false }
+        end,
+        desc = "Flash T",
+        conflict = { note = "Replaces builtin T character motion with Flash" },
       },
     },
   },

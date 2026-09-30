@@ -18,7 +18,50 @@ function M.treewalker_jump(axis, forward)
   end, { forward = forward })
 end
 
--- TODO: Add custom keymaps for other plugins
+function M.neotest_jump(forward, jump_opts)
+  require("demicolon.jump").repeatably_do(function(repeat_opts)
+    local direction = repeat_opts.forward and "next" or "prev"
+    require("neotest").jump[direction](jump_opts)
+  end, { forward = forward })
+end
+
+function M.portal_jump(builtin_name, forward)
+  require("demicolon.jump").repeatably_do(function(repeat_opts)
+    local direction = repeat_opts.forward and "forward" or "backward"
+    vim.cmd(("Portal %s %s"):format(builtin_name, direction))
+  end, { forward = forward })
+end
+
+-- Credit: https://github.com/mawkler/demicolon.nvim/issues/11#issuecomment-2821882735
+function M.flash_jump(options)
+  require("demicolon.jump").repeatably_do(function(repeat_opts)
+    local flash_char = require "flash.plugins.char"
+    local key = repeat_opts.forward and repeat_opts.key:lower() or repeat_opts.key:upper()
+
+    flash_char.jumping = true
+    local autohide = require("flash.config").get("char").autohide
+
+    if repeat_opts.repeated then
+      flash_char.jump_labels = false
+      if repeat_opts.forward then
+        flash_char.right()
+      else
+        flash_char.left()
+      end
+      flash_char.state:show()
+    else
+      flash_char.jump(key)
+    end
+
+    vim.schedule(function()
+      flash_char.jumping = false
+      if flash_char.state and autohide then
+        flash_char.state:hide()
+      end
+    end)
+  end, options)
+end
+
 M.opts = {
   keymaps = {
     horizontal_motions = false,
@@ -34,124 +77,7 @@ M.opts = {
 M.config = function(_, opts)
   require("demicolon").setup(opts)
 
-  local jump = require "demicolon.jump"
-  local nxo = { "n", "x", "o" }
-
-  local function set_neotest_jump(lhs, forward, jump_opts, desc)
-    vim.keymap.set("n", lhs, function()
-      jump.repeatably_do(function(repeat_opts)
-        local direction = repeat_opts.forward and "next" or "prev"
-        require("neotest").jump[direction](jump_opts)
-      end, { forward = forward })
-    end, { desc = desc })
-  end
-
-  local function set_portal_jump(lhs, builtin_name, forward, desc)
-    vim.keymap.set("n", lhs, function()
-      jump.repeatably_do(function(repeat_opts)
-        local direction = repeat_opts.forward and "forward" or "backward"
-        vim.cmd(("Portal %s %s"):format(builtin_name, direction))
-      end, { forward = forward })
-    end, { desc = desc })
-  end
-
-  -- local function set_ts_jump(lhs, direction, query, group, forward)
-  --   local ts_move = require "nvim-treesitter-textobjects.move"
-  --   vim.keymap.set(nxo, lhs, function()
-  --     jump.repeatably_do(function()
-  --       ts_move[direction](query, group)
-  --     end, { forward = forward })
-  --   end)
-  -- end
-
-  set_neotest_jump("]t", true, nil, "Next test")
-  set_neotest_jump("[t", false, nil, "Previous test")
-  set_neotest_jump("]T", true, { status = "failed" }, "Next failed test")
-  set_neotest_jump("[T", false, { status = "failed" }, "Previous failed test")
-
-  set_portal_jump("<leader>jj", "jumplist", true, "jump forward")
-  set_portal_jump("<leader>jk", "jumplist", false, "jump backward")
-  set_portal_jump("<leader>jcj", "changelist", true, "jump Changelist forward")
-  set_portal_jump("<leader>jck", "changelist", false, "jump Changelist backward")
-  set_portal_jump("<leader>jgj", "grapple", true, "jump Grapple forward")
-  set_portal_jump("<leader>jgk", "grapple", false, "jump Grapple backward")
-  set_portal_jump("<leader>jhj", "harpoon", true, "jump Harpoon forward")
-  set_portal_jump("<leader>jhk", "harpoon", false, "jump Harpoon backward")
-  set_portal_jump("<leader>jqj", "quickfix", true, "jump Quickfix forward")
-  set_portal_jump("<leader>jqk", "quickfix", false, "jump Quickfix backward")
-
-  -- -- Treesitter textobjects motion jumps
-  -- -- Function: start
-  -- set_ts_jump("]F", "goto_next_start", "@function.outer", "textobjects", true)
-  -- set_ts_jump("[F", "goto_previous_start", "@function.outer", "textobjects", false)
-  -- -- Function: end
-  -- -- set_ts_jump("]E", "goto_next_end", "@function.outer", "textobjects", true)
-  -- -- set_ts_jump("[E", "goto_previous_end", "@function.outer", "textobjects", false)
-  -- -- Class: start
-  -- set_ts_jump("]C", "goto_next_start", "@class.outer", "textobjects", true)
-  -- set_ts_jump("[C", "goto_previous_start", "@class.outer", "textobjects", false)
-  -- -- Class: end
-  -- -- set_ts_jump("]E", "goto_next_end", "@class.outer", "textobjects", true)
-  -- -- set_ts_jump("[E", "goto_previous_end", "@class.outer", "textobjects", false)
-  -- -- Loop (multiple queries)
-  -- vim.keymap.set(nxo, "]o", function()
-  --   jump.repeatably_do(function()
-  --     require("nvim-treesitter-textobjects.move").goto_next_start({ "@loop.inner", "@loop.outer" }, "textobjects")
-  --   end, { forward = true })
-  -- end)
-  -- vim.keymap.set(nxo, "[o", function()
-  --   jump.repeatably_do(function()
-  --     require("nvim-treesitter-textobjects.move").goto_previous_start({ "@loop.inner", "@loop.outer" }, "textobjects")
-  --   end, { forward = false })
-  -- end)
-  -- -- Scope (from locals.scm)
-  -- set_ts_jump("]S", "goto_next_start", "@local.scope", "locals", true)
-  -- set_ts_jump("[S", "goto_previous_start", "@local.scope", "locals", false)
-  -- -- Fold (from folds.scm)
-  -- set_ts_jump("]z", "goto_next_start", "@fold", "folds", true)
-  -- set_ts_jump("[z", "goto_previous_start", "@fold", "folds", false)
-  -- -- Conditional: whichever end is closer
-  -- set_ts_jump("]D", "goto_next", "@conditional.outer", "textobjects", true)
-  -- set_ts_jump("[D", "goto_previous", "@conditional.outer", "textobjects", false)
-
-  -- Credit: https://github.com/mawkler/demicolon.nvim/issues/11#issuecomment-2821882735
   local flash_char = require "flash.plugins.char"
-  ---@param options { key: string, fowrard: boolean }
-  local function flash_jump(options)
-    return function()
-      require("demicolon.jump").repeatably_do(function(o)
-        local key = o.forward and o.key:lower() or o.key:upper()
-
-        flash_char.jumping = true
-        local autohide = require("flash.config").get("char").autohide
-
-        -- Originally was
-        -- if require("flash.repeat").is_repeat then
-        if o.repeated then
-          flash_char.jump_labels = false
-
-          -- Originally was
-          -- flash_char.state:jump({ count = vim.v.count1 })
-          if o.forward then
-            flash_char.right()
-          else
-            flash_char.left()
-          end
-
-          flash_char.state:show()
-        else
-          flash_char.jump(key)
-        end
-
-        vim.schedule(function()
-          flash_char.jumping = false
-          if flash_char.state and autohide then
-            flash_char.state:hide()
-          end
-        end)
-      end, options)
-    end
-  end
 
   vim.api.nvim_create_autocmd({ "BufLeave", "CursorMoved", "InsertEnter" }, {
     group = vim.api.nvim_create_augroup("flash_char", { clear = true }),
@@ -168,21 +94,6 @@ M.config = function(_, opts)
       flash_char.state:hide()
     end
   end)
-
-  vim.keymap.set(nxo, "f", flash_jump { key = "f", forward = true }, { desc = "Flash f" })
-  vim.keymap.set(nxo, "F", flash_jump { key = "F", forward = false }, { desc = "Flash F" })
-  vim.keymap.set(nxo, "t", flash_jump { key = "t", forward = true }, { desc = "Flash t" })
-  vim.keymap.set(nxo, "T", flash_jump { key = "T", forward = false }, { desc = "Flash T" })
 end
-
--- Custom jumps example (uncomment to use)
--- local jump = require("demicolon.jump")
--- vim.keymap.set("n", "<leader>s", function()
---   jump.repeatably_do(function(opts)
---     require("flash").jump({
---       forward = opts.forward,
---     })
---   end, { forward = true })
--- end, { desc = "Flash jump (repeatable)" })
 
 return M
