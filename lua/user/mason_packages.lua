@@ -30,7 +30,12 @@ local M = {
     "taplo",
   },
   dap_adapters = {
+    "bash",
+    "codelldb",
     "cppdbg",
+    "delve",
+    "js",
+    "python",
   },
 }
 

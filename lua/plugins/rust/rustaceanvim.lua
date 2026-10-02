@@ -52,9 +52,6 @@ M.init = function()
         },
       },
     },
-    dap = {
-      -- TODO
-    },
   }
 
   -- Reload rust-analyzer workspace when mod.rs or Cargo.toml is saved

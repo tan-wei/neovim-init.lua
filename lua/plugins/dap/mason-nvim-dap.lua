@@ -6,7 +6,6 @@ local M = {
   },
 }
 
--- TODO: This plugin should write more configurations
 M.config = function()
   if vim.g.bootstrap_skip_mason_automatic_install then
     return
