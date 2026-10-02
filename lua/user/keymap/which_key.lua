@@ -567,6 +567,18 @@ function M.entries()
     { "<leader>tr", "<cmd>RemoveToc<cr>", desc = "Remove toc", mode = "n" },
     { "<leader>tu", "<cmd>UpdateToc<cr>", desc = "Update toc", mode = "n" },
     { "<leader>tn", "<cmd>lua require('neotest').run.run()<cr>", desc = "run the Nearest test", mode = "n" },
+    {
+      "<leader>td",
+      function()
+        if vim.bo.filetype ~= "rust" then
+          vim.notify("Neotest DAP debugging is only configured for Rust", vim.log.levels.WARN)
+          return
+        end
+        require("neotest").run.run { strategy = "dap" }
+      end,
+      desc = "debug the Nearest Rust test",
+      mode = "n",
+    },
     { "<leader>tl", "<cmd>lua require('neotest').run.run_last()<cr>", desc = "re-run the Last", mode = "n" },
     {
       "<leader>tc",

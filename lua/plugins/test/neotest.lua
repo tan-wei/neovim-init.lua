@@ -70,12 +70,52 @@ M.config = function()
     },
   }, neotest_ns)
 
+  local rust_adapter = require "neotest-rust" { allow_file_types = { "rust" } }
+  -- neotest-rust only recognizes test binaries under deps/; this Cargo toolchain can emit lib tests under build/.../out/.
+  -- Fall back to Cargo's artifact JSON when the adapter cannot find the executable.
+  local rust_build_spec = rust_adapter.build_spec
+  rust_adapter.build_spec = function(args)
+    local spec = rust_build_spec(args)
+    if not spec or args.strategy ~= "dap" or spec.strategy.program then
+      return spec
+    end
+
+    local root = spec.cwd
+    local path = args.tree:data().path
+    local lib = vim.fs.joinpath(root, "src", "lib.rs")
+    if not vim.startswith(path, vim.fs.joinpath(root, "src") .. "/") or not vim.uv.fs_stat(lib) then
+      return spec
+    end
+
+    local result = vim
+      .system({ "cargo", "test", "--lib", "--message-format=json", "--no-run", "--quiet" }, {
+        cwd = root,
+        text = true,
+      })
+      :wait()
+    if result.code ~= 0 then
+      error(result.stderr or "Unable to build Rust library tests")
+    end
+
+    for line in result.stdout:gmatch "[^\n]+" do
+      local ok, artifact = pcall(vim.json.decode, line)
+      if ok and artifact.reason == "compiler-artifact" and artifact.target.src_path == lib then
+        spec.strategy.program = artifact.executable
+        break
+      end
+    end
+
+    return spec
+  end
+
   require("neotest").setup {
     consumers = {
       overseer = require "neotest.consumers.overseer",
     },
     adapters = {
-      require "neotest-rust" { allow_file_types = { "rust" } },
+      rust_adapter,
+      -- CTest may launch a wrapper instead of the test binary; neotest-ctest also expects
+      -- CTest's JUnit output after DAP runs, so leave C/C++ test debugging disabled.
       require("neotest-ctest").setup {
         is_test_file = is_ctest_test_file,
       },

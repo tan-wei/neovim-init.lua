@@ -245,7 +245,7 @@ Scope notes:
 | `<leader>r` | `rc`, `rf`, `rs` | RunCode / RunFile / stop runner | No | Run namespace |
 | `<leader>s` | `ss`, `sS`, `sy`, `sg`, `sf`, `si`, `sa`, `sb`, `sc`, `sC`, `sh`, `sk`, `sM`, `so`, `sp`, `sr`, `sR` | Flash, grug-far, yank history, AST grep, buffer search, colorschemes, commands, help, keymaps, man, frecent files, pickers, recent files, registers | No | Search namespace |
 | `<leader>T` | `Tf`, `Th`, `Tv` | Float / horizontal / vertical terminal | No | Terminal namespace |
-| `<leader>t` | `ta`, `tA`, `tm`, `tg`, `tr`, `tu`, `tn`, `tl`, `tc`, `ts`, `to`, `tp`, `tw`, `tj`, `tk` | CSV column alignment, table mode, TOC, neotest run / output / panel / watch / failed-test jumps | No | `ta` / `tA` are CSV/TSV buffer-local; `tj` / `tk` currently look typo-prone in config |
+| `<leader>t` | `ta`, `tA`, `tm`, `tg`, `tr`, `tu`, `tn`, `td`, `tl`, `tc`, `ts`, `to`, `tp`, `tw`, `tj`, `tk` | CSV column alignment, table mode, TOC, neotest run / Rust-only debug / output / panel / watch / failed-test jumps | No | `ta` / `tA` are CSV/TSV buffer-local; `tj` / `tk` currently look typo-prone in config |
 | `<leader>w` | `wl`, `ws`, `wd`, `wt`, `wf`, `wb` | Session management plus MoveWord forward / backward | No | Namespace drift: workspace/session and MoveWord share the same prefix |
 | `<leader>x` | `xg`, `xr` | CellularAutomaton effects | No | Repo-owned extras/effects namespace |
 | `<leader>v` | `vv`, `vl`, `vj`, `vk` | mini.visits select path / label / next / previous | No | Visits namespace |
@@ -386,6 +386,47 @@ The main tradeoff is flexibility versus discoverability: these files can run
 arbitrary Lua or Vimscript, which makes them powerful, but they do not have the
 schema validation and completion that more structured project-local config
 systems provide.
+
+## Project debugging
+
+Run `:DebugConfigCreate` from a project root and select a template in
+[templates/debug](templates/debug). `Empty` prepares JSONC skeletons; the
+other choices cover C, C++, Python, Rust, Go, JavaScript, TypeScript, Lua,
+Ruby, and Bash. Check each template's defaults before saving:
+
+- C/C++ offer GDB or CodeLLDB with a CMake build task; set the actual
+	executable and build directory. Rust uses CodeLLDB and `cargo build`; set the binary name in
+	`target/debug`. Go uses Delve and expects a Go package at the project root.
+- Python uses debugpy and `python3`; change `python` to the project's
+	interpreter if needed. JavaScript runs the current file with Node.js;
+	TypeScript additionally needs `tsx` installed in the project
+	(`npm install --save-dev tsx`). These are Node scripts, not browser configs.
+- Lua has separate templates: `Lua (standalone / Lua 5.3)` launches the
+	current file with `lua5.3` and the local Lua debugger; change the interpreter
+	to a supported Lua 5.1-5.3 or LuaJIT if needed (not Lua 5.4/5.5). `Lua
+	(Neovim / OSV attach)` instead connects to another Neovim instance running
+	`:lua require("osv").launch({port = 8086})`; it does not start a Lua script.
+	Ruby runs the current file through `rdbg` (install the Ruby `debug` gem).
+	Bash uses the Mason-provided bash-debug-adapter and bashdb; it also needs
+	`bash`, `cat`, `mkfifo`, and `pkill` on `PATH`.
+
+New launch templates pause at entry without a breakpoint when supported:
+GDB uses `stopAtBeginningOfMainSubprogram`, while CodeLLDB, Python, Go,
+Node.js, and standalone Lua use `stopOnEntry`. Bash's adapter has no supported entry
+pause setting. Neovim Lua and Ruby use attach configurations, so they cannot
+generally guarantee a pause before the target starts running. Existing project
+`.vscode/launch.json` files are not changed when templates are updated.
+
+Mason is configured to install debugpy, CodeLLDB, Delve, js-debug-adapter,
+and bash-debug-adapter; the standalone Lua debugger is built by lazy.nvim
+with npm. GDB, Node.js, Cargo, Go, Ruby/debug, and shell tools
+must be available separately. Both
+`.vscode/launch.json` and `.vscode/tasks.json` are prepared as unsaved buffers:
+the command opens `launch.json`, and you can switch to the `tasks.json` buffer
+to edit it before `:write` on each file. Canceling the selection creates
+nothing; existing files and unsaved drafts are not overwritten. nvim-dap reads
+launch configurations and Overseer reads tasks from this fixed directory;
+`.nvim/nvim.lua` remains for trusted project-local Lua settings.
 
 ## Notes
 
