@@ -1,18 +1,25 @@
 ---@type LazyPluginSpec
 local M = {
   "s1n7ax/nvim-window-picker",
-  event = "VeryLazy",
+  cmd = "WindowPick",
 }
 
--- TODO: This plugin should write more configurations
 M.config = function()
   require("window-picker").setup {
     filter_rules = {
       bo = {
-        filetype = { "smear-cursor" },
+        filetype = { "NvimTree", "neo-tree", "notify", "snacks_notif", "smear-cursor" },
+        buftype = { "terminal", "nofile", "quickfix" },
       },
     },
   }
+
+  vim.api.nvim_create_user_command("WindowPick", function()
+    local win = require("window-picker").pick_window()
+    if win then
+      vim.api.nvim_set_current_win(win)
+    end
+  end, { desc = "Pick and focus a window" })
 end
 
 return M
