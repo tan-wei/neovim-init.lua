@@ -3,7 +3,7 @@ local M = {
   "aaronhallaert/advanced-git-search.nvim",
   dependencies = {
     "tpope/vim-fugitive",
-    "dlyongemallo/diffview.nvim",
+    "dlyongemallo/diffview-plus.nvim",
     "ibhagwan/fzf-lua",
   },
   cmd = { "AdvancedGitSearch" },
