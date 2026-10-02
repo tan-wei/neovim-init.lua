@@ -13,7 +13,7 @@ M.opts = {
       show_current = true,
       name = function(buf)
         local name = vim.api.nvim_buf_get_name(buf)
-        local term = select(2, require("toggleterm.terminal").indentify(name))
+        local term = select(2, require("toggleterm.terminal").identify(name))
         if term then
           return term.display_name or term.name
         else
