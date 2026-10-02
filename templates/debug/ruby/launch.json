@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Ruby: Current file (rdbg)",
+      "type": "ruby",
+      "request": "attach",
+      "command": "rdbg",
+      "current_file": true,
+      "random_port": true,
+      "waiting": 1000,
+      "error_on_failure": true,
+      "localfs": true
+    }
+  ]
+}

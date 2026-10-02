@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C: Launch (GDB)",
+      "type": "gdb",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/my-app",
+      "cwd": "${workspaceFolder}",
+      "stopAtBeginningOfMainSubprogram": true,
+      "preLaunchTask": "C: Build"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Lua: Attach to Neovim (OSV)",
+      "type": "nlua",
+      "request": "attach"
+    }
+  ]
+}

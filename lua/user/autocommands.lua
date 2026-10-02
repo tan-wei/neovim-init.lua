@@ -6,6 +6,17 @@ end
 
 local general_group = augroup "general"
 
+vim.filetype.add {
+  pattern = {
+    [".*/%.vscode/launch%.json"] = "jsonc",
+    [".*/%.vscode/tasks%.json"] = "jsonc",
+  },
+}
+
+vim.api.nvim_create_user_command("DebugConfigCreate", function()
+  require("util.debug_project").create()
+end, { desc = "Create project debug launch and task configs" })
+
 local auxiliary_close_filetypes = {
   help = true,
   lspinfo = true,

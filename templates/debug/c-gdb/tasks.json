@@ -1,0 +1,13 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "C: Build",
+      "type": "process",
+      "command": "cmake",
+      "args": ["--build", "${workspaceFolder}/build"],
+      "group": "build",
+      "problemMatcher": []
+    }
+  ]
+}

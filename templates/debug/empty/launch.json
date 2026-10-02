@@ -1,0 +1,6 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    // Add a configuration with name, type (debug adapter), and request (launch or attach).
+  ]
+}

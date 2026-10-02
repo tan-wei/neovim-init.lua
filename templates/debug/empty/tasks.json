@@ -1,0 +1,7 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    // Add a task with label, type (shell or process), and command.
+    // Reference its label from launch.json with preLaunchTask.
+  ]
+}

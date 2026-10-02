@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Bash: Current file (bashdb)",
+      "type": "bash",
+      "request": "launch",
+      "program": "${file}",
+      "cwd": "${fileDirname}",
+      "pathBash": "bash",
+      "pathCat": "cat",
+      "pathMkfifo": "mkfifo",
+      "pathPkill": "pkill",
+      "terminalKind": "integrated"
+    }
+  ]
+}

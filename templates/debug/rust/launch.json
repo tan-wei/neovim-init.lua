@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Rust: Launch (CodeLLDB)",
+      "type": "codelldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/target/debug/my-app",
+      "cwd": "${workspaceFolder}",
+      "stopOnEntry": true,
+      "preLaunchTask": "Rust: Build"
+    }
+  ]
+}

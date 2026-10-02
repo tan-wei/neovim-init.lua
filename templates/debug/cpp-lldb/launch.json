@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C++: Launch (CodeLLDB)",
+      "type": "codelldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/my-app",
+      "cwd": "${workspaceFolder}",
+      "stopOnEntry": true,
+      "preLaunchTask": "C++: Build"
+    }
+  ]
+}
