@@ -2,7 +2,7 @@
 local M = {
   "NeogitOrg/neogit",
   dependencies = {
-    "sindrets/diffview.nvim",
+    "dlyongemallo/diffview.nvim",
     "ibhagwan/fzf-lua",
   },
   cmd = { "Neogit", "NeogitLog", "NeogitCommit" },

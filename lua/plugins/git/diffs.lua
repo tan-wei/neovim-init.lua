@@ -12,6 +12,16 @@ M.init = function()
       neojj = false,
       gitsigns = true,
     },
+    conflict = {
+      keymaps = {
+        ours = "co",
+        theirs = "ct",
+        both = "cb",
+        none = "c0",
+        next = "]x",
+        prev = "[x",
+      },
+    },
   }
 end
 

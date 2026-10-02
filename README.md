@@ -184,6 +184,7 @@ Scope notes:
 | `n`, `x` | `[e`, `]e` | Previous / next delimiter | No | sort.nvim bracket motion family; repeatable with demicolon |
 | `n` | `[S`, `]S` | Previous / next scrollview mark | No | Bracket motion family; repeatable with demicolon |
 | `n` | `[g`, `]g` | Previous / next git hunk | No | Bracket motion family; repeatable with demicolon |
+| `n` | `[x`, `]x` | Previous / next merge conflict | No | diffs.nvim buffer-local maps in conflicted files |
 | `n` | `[r`, `]r` | Previous / next reference | No | Refjump motion family; repeatable with demicolon |
 | `n` | `[p`, `]p`, `[P`, `]P` | Yanky indent-aware put | Yes | Bracket action family; intentionally non-repeatable |
 | `n` | `>p`, `<p`, `>P`, `<P`, `=p`, `=P` | Yanky shift / filter put helpers | Yes | Operator-style action family; intentionally non-repeatable |
@@ -202,6 +203,7 @@ Scope notes:
 | `n` | `g*`, `g#` | hlslens-enhanced next / previous partial-word match | Yes | Replaces builtin `g*` / `g#` with hlslens overlay |
 | `n`, `x`, `o` | `f`, `F`, `t`, `T` | Flash character motions | Yes | Replaces builtin character motions; repeats through demicolon |
 | `n` | `cr` | coerce current word | No | Repo-owned transform entrypoint |
+| `n` | `co`, `ct`, `cb`, `c0` | Resolve conflict with ours / theirs / both / neither | No | diffs.nvim buffer-local maps in conflicted files |
 | `i` | `jk`, `kj` | Exit insert mode | No | Repo-owned insert escape shortcuts |
 | `v` | `<`, `>` | Reindent and keep selection | Yes | Extends core indent behavior to preserve selection |
 | `v` | `p` | Black-hole delete then paste | Yes | Avoids clobbering unnamed register |
@@ -217,6 +219,7 @@ Scope notes:
 
 | Prefix | Leaf keys | Current meaning | Overrides builtin | Notes |
 | --- | --- | --- | --- | --- |
+| `<leader>[`, `<leader>]` | `[`, `]` | Swap syntax sibling left / right | No | sibling-swap.nvim; repeatable with `.` |
 | `<leader>A` | `A` | Alpha dashboard | No | Standalone action |
 | `<leader>a` | `a` | `NodeAction` | No | Standalone action |
 | `<leader>b` | `bb`, `bn`, `bi`, `bI`, `bc`, `bp`, `bP`, `bf`, `bh`, `bl`, `bm`, `bM`, `bsd`, `bsl`, `bst`, `bsr` | Buffer navigation, close, pick, menu, sort, indent-blankline toggle | No | Buffer namespace |
