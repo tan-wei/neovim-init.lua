@@ -32,7 +32,6 @@ local M = {
   },
 }
 
--- TODO: Configure for comment-box.nvim
 M.config = true
 
 return M
