@@ -31,7 +31,15 @@ M.config = function()
       return str
     end
 
-    return vim.fn.truncate(str, math.max(0, max_len - 1)) .. "…"
+    if max_len < 1 then
+      return ""
+    end
+
+    local prefix = vim.fn.strcharpart(str, 0, max_len - 1)
+    while vim.fn.strdisplaywidth(prefix) > max_len - 1 do
+      prefix = vim.fn.strcharpart(prefix, 0, vim.fn.strchars(prefix) - 1)
+    end
+    return prefix .. "…"
   end
 
   bufferline.setup {
