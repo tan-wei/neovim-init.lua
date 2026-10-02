@@ -4,6 +4,32 @@ local silent_opts = { silent = true }
 
 ---@type table<string, UserKeymapGroup[]>
 return {
+  ["decisive.nvim"] = {
+    {
+      plugin = "decisive.nvim",
+      family = "buffer",
+      maps = {
+        {
+          mode = "n",
+          lhs = "<leader>ta",
+          rhs = function()
+            require("decisive").align_csv {}
+          end,
+          desc = "Align CSV columns",
+          opts = silent_opts,
+        },
+        {
+          mode = "n",
+          lhs = "<leader>tA",
+          rhs = function()
+            require("decisive").align_csv_clear {}
+          end,
+          desc = "Clear CSV alignment",
+          opts = silent_opts,
+        },
+      },
+    },
+  },
   lsp = {
     {
       plugin = "lsp",

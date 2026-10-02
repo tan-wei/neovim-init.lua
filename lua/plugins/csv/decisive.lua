@@ -4,7 +4,20 @@ local M = {
   ft = { "csv", "tsv" },
 }
 
--- TODO: This plugin should write more configurations, keymaps should be added
-M.config = true
+M.config = function()
+  require("decisive").setup { enable_text_objects = false }
+
+  local registry = require "user.keymap.registry"
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "csv", "tsv" },
+    callback = function(args)
+      registry.apply_buffer("decisive.nvim", args.buf)
+    end,
+  })
+
+  if vim.tbl_contains({ "csv", "tsv" }, vim.bo.filetype) then
+    registry.apply_buffer("decisive.nvim", vim.api.nvim_get_current_buf())
+  end
+end
 
 return M

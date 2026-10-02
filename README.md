@@ -245,7 +245,7 @@ Scope notes:
 | `<leader>r` | `rc`, `rf`, `rs` | RunCode / RunFile / stop runner | No | Run namespace |
 | `<leader>s` | `ss`, `sS`, `sy`, `sg`, `sf`, `si`, `sa`, `sb`, `sc`, `sC`, `sh`, `sk`, `sM`, `so`, `sp`, `sr`, `sR` | Flash, grug-far, yank history, AST grep, buffer search, colorschemes, commands, help, keymaps, man, frecent files, pickers, recent files, registers | No | Search namespace |
 | `<leader>T` | `Tf`, `Th`, `Tv` | Float / horizontal / vertical terminal | No | Terminal namespace |
-| `<leader>t` | `tm`, `tg`, `tr`, `tu`, `tn`, `tl`, `tc`, `ts`, `to`, `tp`, `tw`, `tj`, `tk` | Table mode, TOC, neotest run / output / panel / watch / failed-test jumps | No | Test/table namespace; `tj` / `tk` currently look typo-prone in config |
+| `<leader>t` | `ta`, `tA`, `tm`, `tg`, `tr`, `tu`, `tn`, `tl`, `tc`, `ts`, `to`, `tp`, `tw`, `tj`, `tk` | CSV column alignment, table mode, TOC, neotest run / output / panel / watch / failed-test jumps | No | `ta` / `tA` are CSV/TSV buffer-local; `tj` / `tk` currently look typo-prone in config |
 | `<leader>w` | `wl`, `ws`, `wd`, `wt`, `wf`, `wb` | Session management plus MoveWord forward / backward | No | Namespace drift: workspace/session and MoveWord share the same prefix |
 | `<leader>x` | `xg`, `xr` | CellularAutomaton effects | No | Repo-owned extras/effects namespace |
 | `<leader>v` | `vv`, `vl`, `vj`, `vk` | mini.visits select path / label / next / previous | No | Visits namespace |
@@ -256,6 +256,7 @@ Scope notes:
 
 | Scope | Key | Current meaning | Overrides builtin | Notes |
 | --- | --- | --- | --- | --- |
+| CSV/TSV buffer | `<leader>ta`, `<leader>tA` | Align / clear virtual column spacing | No | Buffer-local registry entries applied by decisive.nvim on FileType |
 | LSP-attached buffer | `K` | Pure LSP hover | Yes | Buffer-local registry entry in [lua/user/keymap/buffer.lua](lua/user/keymap/buffer.lua), applied from [lua/user/lsp/handlers.lua](lua/user/lsp/handlers.lua) and shadowing the global ufo `K` |
 | Non-LSP buffer | `K` | Peek folded lines, else hover | Yes | Global lazy-registry entry from [lua/user/keymap/lazy.lua](lua/user/keymap/lazy.lua) |
 | `qf`, `help`, `man`, `lspinfo`, transient nofile floats | `q` | Close window | Yes | Buffer-local helper from [lua/user/autocommands.lua](lua/user/autocommands.lua) |
