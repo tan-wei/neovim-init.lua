@@ -5,7 +5,7 @@ local M = {
 }
 
 M.config = function()
-  -- TODO: https://github.com/stevearc/stickybuf.nvim/issues/29
+  -- NOTE: https://github.com/stevearc/stickybuf.nvim/issues/29
   require("stickybuf").setup {
     get_auto_pin = function()
       return false
