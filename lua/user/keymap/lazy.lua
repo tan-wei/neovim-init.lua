@@ -164,6 +164,30 @@ return {
       },
     },
   },
+  ["sibling-swap.nvim"] = {
+    {
+      plugin = "sibling-swap.nvim",
+      family = "plain",
+      maps = {
+        {
+          mode = "n",
+          lhs = "<leader>[",
+          rhs = function()
+            require("sibling-swap").swap_with_left()
+          end,
+          desc = "Swap sibling left",
+        },
+        {
+          mode = "n",
+          lhs = "<leader>]",
+          rhs = function()
+            require("sibling-swap").swap_with_right()
+          end,
+          desc = "Swap sibling right",
+        },
+      },
+    },
+  },
   ["windows.nvim"] = {
     {
       plugin = "windows.nvim",

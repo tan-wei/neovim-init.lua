@@ -7,7 +7,10 @@ local M = {
   event = "VeryLazy",
 }
 
--- TODO: This plugin should write more configurations
-M.config = true
+M.opts = {
+  use_default_keymaps = false,
+}
+
+M.keys = require("user.keymap.registry").lazy_keys "sibling-swap.nvim"
 
 return M
