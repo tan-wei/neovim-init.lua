@@ -11,8 +11,6 @@ local M = {
   },
 }
 
--- TODO: Integerate with other plugins
-
 M.config = function()
   local yanky = require "yanky"
   local yanky_utils = require "yanky.utils"
