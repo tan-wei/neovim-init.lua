@@ -4,7 +4,6 @@ local M = {
   cmd = "Screenkey",
 }
 
--- TODO: Configure for screenkey.nvim
 M.config = true
 
 return M

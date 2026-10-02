@@ -4,10 +4,11 @@ local M = {
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
   },
-  event = "VeryLazy",
+  cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
 }
 
--- TODO: Configure for treesj
-M.opts = {}
+M.opts = {
+  use_default_keymaps = false,
+}
 
 return M

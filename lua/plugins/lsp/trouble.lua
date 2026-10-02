@@ -4,10 +4,9 @@ local M = {
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },
-  cmd = { "Trouble", "TroubleClose", "TroubleToggle", "TroubleRefresh" },
+  cmd = "Trouble",
 }
 
--- TODO: This plugin should write more configurations
 M.opts = {
   modes = {
     mydiags = {
