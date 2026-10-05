@@ -44,11 +44,36 @@ function M.entries()
     -- { "]z", desc = "next fold", mode = { "n", "x", "o" } },
     -- { "]D", desc = "next conditional", mode = { "n", "x", "o" } },
 
+    {
+      "gzd",
+      "<cmd>lua require('goto-preview').goto_preview_definition()<cr>",
+      desc = "Preview definition",
+      mode = "n",
+    },
+    {
+      "gzt",
+      "<cmd>lua require('goto-preview').goto_preview_type_definition()<cr>",
+      desc = "Preview type definition",
+      mode = "n",
+    },
+    {
+      "gzi",
+      "<cmd>lua require('goto-preview').goto_preview_implementation()<cr>",
+      desc = "Preview implementation",
+      mode = "n",
+    },
+    {
+      "gzr",
+      "<cmd>lua require('goto-preview').goto_preview_references()<cr>",
+      desc = "Preview references",
+      mode = "n",
+    },
+    { "gzP", "<cmd>lua require('goto-preview').close_all_win()<cr>", desc = "Close previews", mode = "n" },
+
     -- A --
     { "<leader>A", "<cmd>Alpha<cr>", desc = "Alpha", mode = "n" },
 
     -- a --
-    { "<leader>a", "<cmd>NodeAction<cr>", desc = "node action", mode = "n" },
 
     -- B --
 
@@ -182,6 +207,14 @@ function M.entries()
     { "<leader>gs", "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", desc = "Stage hunk", mode = "n" },
     { "<leader>gu", "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", desc = "Undo stage hunk", mode = "n" },
     { "<leader>go", "<cmd>FzfLua git_status<cr>", desc = "Open changed file", mode = "n" },
+    { "<leader>gv", group = "VGit", mode = "n" },
+    { "<leader>gvd", "<cmd>VGit project_diff_preview<cr>", desc = "Project diff", mode = "n" },
+    { "<leader>gvf", "<cmd>VGit buffer_diff_preview<cr>", desc = "File diff", mode = "n" },
+    { "<leader>gvb", "<cmd>VGit buffer_blame_preview<cr>", desc = "Line blame", mode = "n" },
+    { "<leader>gvh", "<cmd>VGit buffer_history_preview<cr>", desc = "File history", mode = "n" },
+    { "<leader>gvl", "<cmd>VGit project_logs_preview<cr>", desc = "Commit log", mode = "n" },
+    { "<leader>gvc", "<cmd>VGit project_commits_preview<cr>", desc = "Browse commits", mode = "n" },
+    { "<leader>gvs", "<cmd>VGit project_stash_preview<cr>", desc = "Stashes", mode = "n" },
 
     -- H --
     {
@@ -254,7 +287,7 @@ function M.entries()
     { "<leader>lj", "<cmd>lua vim.diagnostic.goto_next()<cr>", desc = "next diagostic", mode = "n" },
     { "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev()<cr>", desc = "previous diagostic", mode = "n" },
     { "<leader>ll", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "codeLens action", mode = "n" },
-    { "<leader>lo", "<cmd>SymbolsOutline<cr>", desc = "toggle symbols Outline", mode = "n" },
+    { "<leader>lo", "<cmd>Outline<cr>", desc = "Toggle outline", mode = "n" },
     { "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<cr>", desc = "Quickfix", mode = "n" },
     { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename", mode = "n" },
     { "<leader>ls", "<cmd>lua require('lsp_signature').toggle_float_win()<cr>", desc = "toggle Signature", mode = "n" },
@@ -338,6 +371,8 @@ function M.entries()
     -- N --
 
     -- n --
+    { "<leader>n", group = "node", mode = "n" },
+    { "<leader>na", "<cmd>NodeAction<cr>", desc = "node action", mode = "n" },
 
     -- O --
 

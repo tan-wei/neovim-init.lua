@@ -198,6 +198,8 @@ Scope notes:
 | --- | --- | --- | --- | --- |
 | `n`, `x` | `y` | Yanky yank | Yes | Replaces core yank with yank-ring aware yank |
 | `n` | `p`, `P`, `gp` | Yanky put family | Yes | Replaces core put family with yank-ring aware put |
+| `n` | `gzd`, `gzt`, `gzi`, `gzr` | goto-preview definition / type / implementation / references | No | Requires LSP support for the requested method |
+| `n` | `gzP` | Close goto-preview windows | No | Closes all goto-preview windows, not only the current one |
 | `n` | `n`, `N` | hlslens-enhanced next / previous match | Yes | Replaces builtin `n` / `N` with hlslens overlay |
 | `n` | `*`, `#` | hlslens-enhanced next / previous word match | Yes | Replaces builtin `*` / `#` with hlslens overlay |
 | `n` | `g*`, `g#` | hlslens-enhanced next / previous partial-word match | Yes | Replaces builtin `g*` / `g#` with hlslens overlay |
@@ -221,7 +223,7 @@ Scope notes:
 | --- | --- | --- | --- | --- |
 | `<leader>[`, `<leader>]` | `[`, `]` | Swap syntax sibling left / right | No | sibling-swap.nvim; repeatable with `.` |
 | `<leader>A` | `A` | Alpha dashboard | No | Standalone action |
-| `<leader>a` | `a` | `NodeAction` | No | Standalone action |
+| `<leader>n` | `na` | `NodeAction` | No | Tree-sitter node actions |
 | `<leader>b` | `bb`, `bn`, `bi`, `bI`, `bc`, `bp`, `bP`, `bf`, `bh`, `bl`, `bm`, `bM`, `bsd`, `bsl`, `bst`, `bsr` | Buffer navigation, close, pick, menu, sort, indent-blankline toggle | No | Buffer namespace |
 | `<leader>C` | `Cs`, `Ci`, `CI`, `Ca`, `CS`, `Ct`, `Cm`, `CD`, `Cf`, `Cc`, `C3`, `C5` | clangd / C++ helper actions | No | C++ namespace |
 | `<leader>c` | `c` | Close current buffer | No | Standalone action |
@@ -230,7 +232,8 @@ Scope notes:
 | `<leader>e` | `e` | Toggle NvimTree | No | Standalone action |
 | `<leader>F` | `F` | Live grep with args | No | Standalone action |
 | `<leader>f` | `f` | Find files | No | Standalone action |
-| `<leader>g` | `gB`, `gb`, `gc`, `gd`, `gl`, `gj`, `gk`, `gp`, `gr`, `gR`, `gs`, `gu`, `go` | Git blame, branches, commits, diff, LazyGit, hunk operations, status | No | Git namespace |
+| `<leader>g` | `gB`, `gb`, `gc`, `gd`, `gl`, `gj`, `gk`, `gp`, `gr`, `gR`, `gs`, `gu`, `go`, `gv` | Git blame, branches, commits, diff, LazyGit, hunk operations, status, VGit previews | No | Git namespace; `gv` opens the VGit group |
+| `<leader>gv` | `gvd`, `gvf`, `gvb`, `gvh`, `gvl`, `gvc`, `gvs` | VGit project/file diff, blame, file history, commit log/overview, stashes | No | Read-only view entry points; staging/resetting stays with Gitsigns |
 | `<leader>h` | `h` | Clear search highlight | No | Standalone action |
 | `<leader>H` | `H` | Clear search highlight and export last search to quickfix | No | Standalone action |
 | `<leader>j` | `jj`, `jk`, `jcj`, `jck`, `jgj`, `jgk`, `jhj`, `jhk`, `jqj`, `jqk`, `jv`, `jl` | Portal jumplist / changelist / grapple / harpoon / quickfix jumps, mini.jump2d visible word / line | No | Jump namespace; `jv` / `jl` from mini.jump2d |
