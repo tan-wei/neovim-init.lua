@@ -14,7 +14,6 @@ M.init = function()
   vim.g.navbuddy_silence = true
 end
 
--- TODO: This plugin should write more configurations
 M.config = true
 
 return M

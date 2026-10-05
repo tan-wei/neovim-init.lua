@@ -7,7 +7,6 @@ local M = {
   event = "VeryLazy",
 }
 
--- TODO: Configure for ts-node-action
 M.opts = {}
 
 return M

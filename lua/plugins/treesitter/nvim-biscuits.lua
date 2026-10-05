@@ -8,7 +8,6 @@ local M = {
   event = "VeryLazy",
 }
 
--- TODO: This plugin should write more configurations
 M.opts = {
   default_config = {
     max_length = 12,

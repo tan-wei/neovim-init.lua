@@ -4,7 +4,6 @@ local M = {
   cmd = "RipSubstitute",
 }
 
--- TODO: This plugin should write more configurations
 M.config = function()
   require("rip-substitute").setup()
 end

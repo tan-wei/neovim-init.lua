@@ -8,7 +8,6 @@ local M = {
   cmd = { "VGit" },
 }
 
--- TODO: Keybindings should be configured with which-key
 M.opts = {
   settings = {
     live_blame = {

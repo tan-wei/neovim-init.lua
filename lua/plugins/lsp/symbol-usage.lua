@@ -175,7 +175,7 @@ M.config = function()
     kinds_filter = {},
     vt_position = "above",
     -- request_pending_text = "loading...",
-    request_pending_text = false, -- TODO: Due to buggy use neovide or neovim-qt
+    request_pending_text = false, -- NOTE: Due to buggy use neovide or neovim-qt
     references = { enabled = true, include_declaration = false },
     definition = { enabled = true },
     implementation = { enabled = true },
