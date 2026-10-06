@@ -5,6 +5,7 @@ local M = {
     "folke/noice.nvim",
     "nvim-tree/nvim-web-devicons",
     "meuter/lualine-so-fancy.nvim",
+    "abccsss/nvim-gitstatus",
   },
   event = "VeryLazy",
 }
@@ -662,7 +663,24 @@ M.config = function()
       always_divide_middle = true,
     },
     sections = {
-      lualine_a = { "fancy_branch", "fancy_diagnostics" },
+      lualine_a = {
+        "fancy_branch",
+        {
+          "gitstatus",
+          sections = {
+            { "is_dirty", format = "*" },
+            { "ahead", format = "{}↑" },
+            { "behind", format = "{}↓" },
+            { "conflicted", format = "{}!" },
+            { "staged", format = "{}=" },
+            { "untracked", format = "{}+" },
+            { "modified", format = "{}*" },
+            { "renamed", format = "{}~" },
+            { "deleted", format = "{}-" },
+          },
+        },
+        "fancy_diagnostics",
+      },
       lualine_b = { { "fancy_mode", width = 8 } },
       lualine_c = vim.list_extend(
         { cwd, project_config, session, colorscheme, harpoon_status, multicursor_status },
