@@ -664,19 +664,28 @@ M.config = function()
     },
     sections = {
       lualine_a = {
-        "fancy_branch",
+        {
+          "gitstatus",
+          icon = { "", color = { fg = "#fc5603" } },
+          sections = {
+            { "branch", format = "{}" },
+            { "is_dirty", format = "*", hl = "DiagnosticWarn" },
+            { "up_to_date_and_clean", format = "✓", hl = "DiagnosticOk" },
+          },
+          sep = "",
+        },
         {
           "gitstatus",
           sections = {
-            { "is_dirty", format = "*" },
             { "ahead", format = "{}↑" },
             { "behind", format = "{}↓" },
-            { "conflicted", format = "{}!" },
+            { "conflicted", format = "{}!", hl = "DiagnosticWarn" },
             { "staged", format = "{}=" },
             { "untracked", format = "{}+" },
             { "modified", format = "{}*" },
             { "renamed", format = "{}~" },
             { "deleted", format = "{}-" },
+            { "stashed", format = "{}$" },
           },
         },
         "fancy_diagnostics",
