@@ -138,27 +138,45 @@ local function should_ignore_smoke_errmsg(filetype, errmsg)
 end
 
 function M.treesitter_sync(timeout_ms)
-  -- Clean stale parsers before update() so it doesn't waste time on them
+  -- Clean stale parsers/queries before install() so it doesn't waste time on them
   local function clean_stale()
-    local parser_dir = vim.fs.joinpath(vim.fn.stdpath "data", "site", "parser")
-    if vim.fn.isdirectory(parser_dir) ~= 1 then
-      return
-    end
     local config_set = {}
     for _, p in ipairs(treesitter_parsers) do
       config_set[p] = true
     end
     local stale = {}
-    for _, name in ipairs(vim.fn.readdir(parser_dir)) do
-      local p = name:match "(.+)%.so$"
-      if p and not config_set[p] then
-        os.remove(vim.fs.joinpath(parser_dir, name))
-        table.insert(stale, p)
+
+    -- 1) Remove stale parser .so files not in our config
+    local parser_dir = vim.fs.joinpath(vim.fn.stdpath "data", "site", "parser")
+    if vim.fn.isdirectory(parser_dir) == 1 then
+      for _, name in ipairs(vim.fn.readdir(parser_dir)) do
+        local p = name:match "(.+)%.so$"
+        if p and not config_set[p] then
+          os.remove(vim.fs.joinpath(parser_dir, name))
+          table.insert(stale, p)
+        end
       end
     end
+
+    -- 2) Remove stale query symlinks/dirs under site/queries/ whose language
+    --    is not in our config (these cause "Parser not available" on TSUpdate
+    --    when upstream removes a language but the symlink lingers as a dead link)
+    local queries_dir = vim.fs.joinpath(vim.fn.stdpath "data", "site", "queries")
+    if vim.fn.isdirectory(queries_dir) == 1 then
+      for _, name in ipairs(vim.fn.readdir(queries_dir)) do
+        if not config_set[name] then
+          local path = vim.fs.joinpath(queries_dir, name)
+          -- vim.fn.delete("rf") handles symlinks and directories recursively
+          if vim.fn.delete(path, "rf") == 0 then
+            table.insert(stale, name)
+          end
+        end
+      end
+    end
+
     if #stale > 0 then
       table.sort(stale)
-      print("Cleaned stale parsers: " .. table.concat(stale, ", "))
+      print("Cleaned stale parsers/queries: " .. table.concat(stale, ", "))
     end
   end
   clean_stale()
