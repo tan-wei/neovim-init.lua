@@ -669,8 +669,8 @@ M.config = function()
           icon = { "", color = { fg = "#fc5603" } },
           sections = {
             { "branch", format = "{}" },
-            { "is_dirty", format = "*", hl = "DiagnosticWarn" },
-            { "up_to_date_and_clean", format = "✓", hl = "DiagnosticOk" },
+            { "is_dirty", format = "*" },
+            { "up_to_date_and_clean", format = "✓" },
           },
           sep = "",
         },
@@ -679,7 +679,7 @@ M.config = function()
           sections = {
             { "ahead", format = "{}↑" },
             { "behind", format = "{}↓" },
-            { "conflicted", format = "{}!", hl = "DiagnosticWarn" },
+            { "conflicted", format = "{}!" },
             { "staged", format = "{}=" },
             { "untracked", format = "{}+" },
             { "modified", format = "{}*" },
