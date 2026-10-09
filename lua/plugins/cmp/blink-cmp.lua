@@ -26,7 +26,6 @@ local M = {
     "Kaiser-Yang/blink-cmp-git", -- git
     "disrupted/blink-cmp-conventional-commits", -- conventional commits
     "erooke/blink-cmp-latex", -- latex macros -> unicode symbols
-    "becknik/blink-cmp-luasnip-choice", -- LuaSnip choice nodes
     "marcoSven/blink-cmp-yanky", -- yanky history
     "jmbuhr/cmp-pandoc-references", -- pandoc references
     "Dynge/gitmoji.nvim", -- gitmoji
@@ -96,7 +95,6 @@ M.config = function()
   local source_labels = {
     lsp = "LSP",
     snippets = "SNIPPET",
-    choice = "CHOICE",
     buffer = "BUFFER",
     path = "PATH",
     calc = "CALC",
@@ -124,7 +122,6 @@ M.config = function()
   local default_sources = {
     "lsp",
     "snippets",
-    "choice",
     "buffer",
     "path",
     "calc",
@@ -175,12 +172,6 @@ M.config = function()
     },
 
     -- Native blink community sources
-    choice = {
-      name = "LuaSnip Choice",
-      module = "blink-cmp-luasnip-choice",
-      score_offset = 12,
-      opts = {},
-    },
     copilot = {
       name = "Copilot",
       module = "blink-cmp-copilot",
