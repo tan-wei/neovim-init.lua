@@ -1,6 +1,6 @@
 ---@type LazyPluginSpec
 local M = {
-  "thesimonho/kanagawa-paper.nvim",
+  "thesimonho/kanagawa-paper",
   lazy = true,
 }
 
