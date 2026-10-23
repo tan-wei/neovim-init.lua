@@ -18,6 +18,8 @@ M.config = function()
   local has_noice, noice = pcall(require, "noice")
   local has_recorder, recorder = pcall(require, "recorder")
   local indent_icon = devicons.get_icon_by_filetype("editorconfig", { default = true }) or "↹"
+  local jj_status = require "util.jj_status"
+  jj_status.setup()
 
   local wider_than = function(width)
     return vim.fn.winwidth(0) > width
@@ -128,6 +130,66 @@ M.config = function()
         }
       end,
     }, component)
+  end
+
+  local function compact_jj(text, width)
+    text = text:gsub("%c", " ")
+    if vim.fn.strdisplaywidth(text) > width then
+      local length = vim.fn.strchars(text)
+      while length > 0 and vim.fn.strdisplaywidth(vim.fn.strcharpart(text, 0, length)) > width - 3 do
+        length = length - 1
+      end
+      text = vim.fn.strcharpart(text, 0, length) .. "..."
+    end
+    return text:gsub("%%", "%%%%")
+  end
+
+  local jj = badge {
+    function()
+      local state = jj_status.get()
+      if not state then
+        return ""
+      end
+      local text = "JJ " .. (state.change_id or (state.error and "?" or "..."))
+      if not state.change_id then
+        return text
+      end
+      if state.conflict then
+        text = text .. "  conflict"
+      elseif state.empty then
+        text = text .. " ∅"
+      else
+        text = text .. " *"
+      end
+      if state.divergent then
+        text = text .. " divergent"
+      end
+      if wider_than(100) and state.bookmarks and state.bookmarks ~= "" then
+        text = text .. "  " .. compact_jj(state.bookmarks, wider_than(150) and 24 or 14)
+      end
+      if wider_than(150) and state.description and state.description ~= "" then
+        text = text .. " · " .. compact_jj(state.description, 28)
+      end
+      return text
+    end,
+    color = function()
+      local state = jj_status.get()
+      return state and (state.conflict or state.error or state.divergent) and "DiagnosticError" or "PmenuSel"
+    end,
+    on_click = function(_, mouse_button)
+      if mouse_button == "l" then
+        vim.schedule(function()
+          local state = jj_status.get()
+          if state then
+            require("jj.cmd").j { "--repository", state.root, "status" }
+          end
+        end)
+      end
+    end,
+  }
+
+  local function git_only()
+    return jj_status.get() == nil
   end
 
   local diagnostics = {
@@ -413,6 +475,9 @@ M.config = function()
       return " " .. git_blame.get_current_blame_text()
     end,
     cond = function()
+      if not git_only() then
+        return false
+      end
       local ok, git_blame = pcall(require, "gitblame")
       if not ok then
         return false
@@ -664,8 +729,10 @@ M.config = function()
     },
     sections = {
       lualine_a = {
+        jj,
         {
           "gitstatus",
+          cond = git_only,
           icon = { "", color = { fg = "#fc5603" } },
           sections = {
             { "branch", format = "{}" },
@@ -676,6 +743,7 @@ M.config = function()
         },
         {
           "gitstatus",
+          cond = git_only,
           sections = {
             { "ahead", format = "{}↑" },
             { "behind", format = "{}↓" },

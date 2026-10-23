@@ -83,6 +83,70 @@ After startup, these commands are usually the first things worth checking:
 - `templates/`: file templates
 - `spell/`: custom spell additions
 
+## Jujutsu
+
+Install [Jujutsu (`jj`)](https://docs.jj-vcs.dev/latest/install-and-setup/) on
+`PATH`. Existing Git plugins remain available; no repository is automatically
+initialized or migrated.
+
+- [NicolasGB/jj.nvim](https://github.com/NicolasGB/jj.nvim) is the main JJ
+	interface, loaded by `:J` and its companion commands. Use `:J log`, `:J status`,
+	`:J describe`, `:J new`, `:J bookmark create`, `:J split`, or `:J resolve`.
+	`:Jdiff` compares the current file with its parent using native Neovim diff.
+	Destructive-action confirmations remain enabled. No global keymaps are added;
+	the existing `<leader>j` jump namespace is unchanged.
+- [MrDwarf7/lazyjui.nvim](https://github.com/MrDwarf7/lazyjui.nvim) opens
+	[jjui](https://github.com/idursun/jjui), a lazygit-like terminal interface, with
+	`:LazyJui`. It uses a 90% width/height floating window with no transparency.
+	Default global keymaps are disabled to preserve the jump namespace. Run it
+	from your JJ workspace. Install the separate `jjui` executable on `PATH`, for
+	example `brew install jjui`, `paru -S jjui-bin` on Arch, or
+	`go install github.com/idursun/jjui/cmd/jjui@latest` (add `$(go env GOPATH)/bin`
+	to `PATH`). Use `:checkhealth lazyjui` to check dependencies.
+- [julienvincent/hunk.nvim](https://github.com/julienvincent/hunk.nvim) adds
+	file/hunk/line selection for interactive splitting and squashing. It loads on
+	`:HunkDiffEditor` / `:HunkDiffView` and uses a compact file tree with quit
+	confirmation. To let JJ launch it, merge this into your JJ user config
+	(`jj config edit --user`):
+
+	```toml
+	[ui]
+	diff-editor = [
+		"nvim", "-c",
+		'lua vim.api.nvim_cmd({cmd="HunkDiffEditor", args=vim.fn.argv()}, {})',
+		"--", "$left", "$right", "$output",
+	]
+	```
+
+	This uses Neovim's argument list for paths, including paths containing spaces.
+	JJ launches a separate Neovim instance, including when invoked from `:J split`.
+	In hunk, `a` selects a line, `A` selects a hunk, `<leader><CR>` accepts, and `q`
+	aborts. The JJ user config is not changed automatically.
+
+Lualine keeps the existing Git branch/status components in Git-only repositories.
+Inside a JJ workspace (including colocated Git/JJ repositories), they are replaced
+by a theme-aware JJ badge: change ID, `*` for a nonempty change or `∅` for an empty
+one, and prominent conflict/divergence warnings. Bookmarks appear above 100 columns;
+the first description line appears above 150 columns. Long text is truncated
+without breaking UTF-8. `JJ ...` means loading and `JJ ?` means the query failed.
+Click the badge to open status for that workspace, even when the editor's current
+directory points elsewhere.
+Git blame is hidden there because Git HEAD is not JJ's working-copy change.
+
+JJ status queries are asynchronous, cached per workspace, and throttled to at most
+once per second on buffer entry, save, focus return, terminal leave, directory
+change, or cursor idle. Like `jj status`, the query snapshots saved working-copy
+changes; unsaved buffer edits are not included. Redrawing Lualine never runs JJ.
+
+Other community options include
+[jiejie.nvim](https://github.com/jceb/jiejie.nvim) (Fugitive-style),
+[neojj](https://github.com/NicholasZolton/neojj) (Magit-style), and
+[jj-diffconflicts](https://github.com/rafikdraoui/jj-diffconflicts) (dedicated merge
+tool). These are not installed alongside the primary interface to avoid overlapping
+workflows. [vcsigns.nvim](https://github.com/algmyr/vcsigns.nvim) is worth considering
+for native JJ gutter signs, especially in non-colocated repositories; the existing
+Gitsigns setup is retained, so its Git-based signs/actions are not JJ-aware.
+
 ## Customization
 
 The lowest-friction entry points are:
