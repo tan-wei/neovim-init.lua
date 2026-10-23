@@ -94,6 +94,11 @@ jobs:
           set +x
           echo "::endgroup::"
 
+      - name: Install Jujutsu
+        uses: taiki-e/install-action@v2
+        with:
+          tool: jj-cli
+
       - name: 📦 Bootstrap plugins
         shell: bash
         run: |
@@ -197,6 +202,11 @@ jobs:
           echo "$RUNNER_TEMP/nvim-linux-x86_64/bin" >> "$GITHUB_PATH"
           set +x
           echo "::endgroup::"
+
+      - name: Install Jujutsu
+        uses: taiki-e/install-action@v2
+        with:
+          tool: jj-cli
 
       - name: 📦 Bootstrap plugins
         shell: bash
@@ -311,6 +321,13 @@ jobs:
           set +x
           echo "::endgroup::"
 
+          echo "::group::Install jjui"
+          set -x
+          go install github.com/idursun/jjui/cmd/jjui@latest
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+          set +x
+          echo "::endgroup::"
+
           echo "::group::Prepare XDG directories"
           set -x
           mkdir -p "$XDG_DATA_HOME" "$XDG_STATE_HOME" "$XDG_CACHE_HOME"
@@ -326,6 +343,11 @@ jobs:
           echo "$RUNNER_TEMP/nvim-linux-x86_64/bin" >> "$GITHUB_PATH"
           set +x
           echo "::endgroup::"
+
+      - name: Install Jujutsu
+        uses: taiki-e/install-action@v2
+        with:
+          tool: jj-cli
 
       - name: 📦 Bootstrap plugins
         shell: bash
@@ -558,6 +580,11 @@ jobs:
           Add-Content -Path $env:GITHUB_PATH -Value (Join-Path $installDir '${{ matrix.nvim_dir }}\bin')
           Write-Output "::endgroup::"
 
+      - name: Install Jujutsu
+        uses: taiki-e/install-action@v2
+        with:
+          tool: jj-cli
+
       - name: 🔧 Show tool versions (Unix)
         if: runner.os != 'Windows'
         shell: bash
@@ -566,6 +593,7 @@ jobs:
           set -x
           nvim --version | head -n 5
           tree-sitter --version
+          jj --version
           python --version
           node --version
           npm --version
@@ -584,6 +612,7 @@ jobs:
           Write-Output "::group::Tool versions"
           nvim --version | Select-Object -First 5
           tree-sitter --version
+          jj --version
           python --version
           node --version
           npm --version
