@@ -1,13 +1,8 @@
 ---@type LazyPluginSpec
 local M = {
   "rmagatti/auto-session",
+  dependencies = { "nvim-tree/nvim-tree.lua" },
   -- event = "VimEnter",
-}
-
-local meta = {
-  focused = vim.api.nvim_get_current_win(),
-  nvimTreeOpen = false,
-  nvimTreeFocused = false,
 }
 
 local function should_restore_overseer_tasks()
@@ -127,6 +122,8 @@ local function save_early_retirement_pins()
 end
 
 M.config = function()
+  local restore_attempted = false
+
   require("auto-session").setup {
     log_level = vim.log.levels.ERROR,
     root_dir = vim.fn.stdpath "data" .. "/sessions/",
@@ -140,45 +137,20 @@ M.config = function()
       previewer = true,
     },
     bypass_save_filetypes = { "alpha", "dashboard", "oil", "fzf", "Outline", "terminal" },
+    close_unsupported_windows = {
+      preserve_filetypes = { "NvimTree" },
+    },
     save_extra_cmds = {
       save_early_retirement_pins,
       save_overseer_tasks,
     },
     pre_save_cmds = {
       function()
-        -- local status_ok, api = pcall(require, "nvim-tree.api")
-        -- if status_ok then
-        --   local winid = api.tree.winid()
-
-        --   if winid then
-        --     api.tree.close_in_this_tab()
-        --   end
-        -- end
-
-        -- local status_ok, _ = pcall(require, "scope")
-        -- if status_ok then
-        --   vim.cmd [[ScopeSaveState]]
-        -- end
-
         ------------------------------------------------
         -- ref: https://github.com/b0o/nvim-conf/blob/3f9c92550f79921326a453f3140be9dcf843eb3d/lua/user/fn.lua#L352
         -- Close Outline before saving session to prevent exit hang
         if require("util.package").is_loaded "outline.nvim" then
           pcall(vim.cmd, "OutlineClose")
-        end
-
-        meta.nvimTreeOpen = false
-        meta.nvimTreeFocused = false
-        if require("util.package").is_loaded "nvim-tree.lua" then
-          local api = require "nvim-tree.api"
-          -- Check current tab for focus tracking
-          if api.tree.is_visible() then
-            meta.nvimTreeOpen = true
-            meta.nvimTreeFocused = vim.fn.bufname(vim.fn.bufnr()) == "NvimTree"
-            meta.focused = vim.api.nvim_get_current_win()
-          end
-          -- Close nvim-tree in ALL tabs to prevent it from leaking into the session file
-          api.tree.close_in_all_tabs()
         end
 
         local status_ok, _ = pcall(require, "scope")
@@ -192,30 +164,9 @@ M.config = function()
     },
     post_save_cmds = {
       function()
-        -- local status_ok, api = pcall(require, "nvim-tree.api")
-        -- if status_ok then
-        --   local winid = api.tree.winid()
-
-        --   if not winid then
-        --     api.tree.toggle { focus = false, find_file = true }
-        --   end
-        -- end
-
         ------------------------------------------------
         -- ref: https://github.com/b0o/nvim-conf/blob/3f9c92550f79921326a453f3140be9dcf843eb3d/lua/user/fn.lua#L352
         require("treesitter-context").enable()
-
-        if meta.nvimTreeOpen then
-          local api = require "nvim-tree.api"
-          local winid = api.tree.winid()
-          if not winid then
-            api.tree.toggle { focus = false, find_file = true }
-          end
-          -- Restore focus to the previously focused window (not nvim-tree)
-          if not meta.nvimTreeFocused and vim.api.nvim_win_is_valid(meta.focused) then
-            vim.api.nvim_set_current_win(meta.focused)
-          end
-        end
 
         -- Refresh winsep separators after session save window changes
         vim.schedule(function()
@@ -227,6 +178,9 @@ M.config = function()
       end,
     },
     pre_restore_cmds = {
+      function()
+        restore_attempted = true
+      end,
       source_project_local_config,
       clear_overseer_tasks,
       function()
@@ -243,15 +197,6 @@ M.config = function()
           vim.cmd [[ScopeLoadState]]
         end
 
-        local status_ok, api = pcall(require, "nvim-tree.api")
-        if status_ok then
-          local winid = api.tree.winid()
-
-          if not winid then
-            api.tree.toggle { focus = false, find_file = true }
-          end
-        end
-
         if require("util.package").is_loaded "cmake-tools.nvim" then
           vim.notify("Change CWD to " .. vim.fn.getcwd() .. " for cmake-tools.nvim")
           require("util.cmake_project").select_root(vim.fn.getcwd())
@@ -265,15 +210,16 @@ M.config = function()
         vim.opt.titlestring = "Neovim @ [session: " .. session_name .. "]"
       end,
     },
+    no_restore_cmds = {
+      function(is_startup)
+        if is_startup and not restore_attempted and vim.v.this_session == "" and not vim.g.in_pager_mode then
+          vim.api.nvim_exec_autocmds("User", { pattern = "AutoSessionNoRestore" })
+        end
+      end,
+    },
     cwd_change_handling = true,
     pre_cwd_changed_cmds = {
       function()
-        -- Close nvim-tree before cwd change to avoid stale directory state
-        local ok, api = pcall(require, "nvim-tree.api")
-        if ok then
-          api.tree.close_in_all_tabs()
-        end
-
         -- Stop LSP clients synchronously before cwd change.
         -- Using vim.defer_fn causes a race: auto-session wipes buffers before
         -- LSP has fully detached, leading to "Failed to delete autocmd" errors.
@@ -292,42 +238,9 @@ M.config = function()
         end, 1000)
 
         vim.cmd "Winsep enable"
-
-        -- Re-open nvim-tree in new cwd (use open, not toggle —
-        -- post_restore_cmds may have already opened it, and toggle would close it again)
-        local ok, api = pcall(require, "nvim-tree.api")
-        if ok and not api.tree.is_visible() then
-          api.tree.open { focus = false, find_file = true }
-        end
       end,
     },
   }
-
-  -- Workaround for nvim-tree, see here: https://github.com/nvim-tree/nvim-tree.lua/wiki/Recipes
-  vim.api.nvim_create_autocmd({ "BufEnter", "TabEnter", "TabNewEntered" }, {
-    pattern = "NvimTree*",
-    callback = function()
-      local status_ok, api = pcall(require, "nvim-tree.api")
-      if not status_ok then
-        return
-      end
-
-      -- Don't force-open if we're the last normal window (about to quit)
-      local normal_wins = vim.tbl_filter(function(w)
-        return vim.api.nvim_win_get_config(w).relative == ""
-          and not vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(w)):match "NvimTree_"
-      end, vim.api.nvim_list_wins())
-      if #normal_wins == 0 then
-        return
-      end
-
-      local winid = api.tree.winid()
-
-      if not winid then
-        api.tree.open { current_window = true }
-      end
-    end,
-  })
 end
 
 return M

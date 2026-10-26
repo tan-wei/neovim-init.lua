@@ -12,6 +12,9 @@ stylua:
 stylua-check:
 	@stylua --check .
 
+session-check:
+	@nvim --headless -u NONE -i NONE -l scripts/session_check.lua
+
 keymap-audit:
 	@nvim --headless \
 		--cmd "lua dofile(vim.fn.fnamemodify('./scripts/keymap_audit.lua', ':p'))" \

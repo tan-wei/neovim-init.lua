@@ -83,6 +83,54 @@ After startup, these commands are usually the first things worth checking:
 - `templates/`: file templates
 - `spell/`: custom spell additions
 
+## Sessions
+
+Auto-session saves the complete window layout, including nvim-tree windows.
+On Neovim 0.13+, nvim-tree rebuilds its own windows when a session is restored,
+preserving which tabs had the tree open. Saving a session does not close and
+reopen the tree. When no session is restored at startup, the tree opens without
+taking focus; a failed restore does not trigger this fallback.
+
+Auto-session's unsupported-window cleanup preserves the `NvimTree` filetype.
+Otherwise automatic saves on exit would close the tree before saving and
+overwrite a manually saved open-tree layout with a closed-tree layout.
+
+The nvim-tree configuration also adapts the current upstream one-shot
+`SessionLoadPost` handler to support repeated session switches, while coalescing
+duplicate events. Auto-session loads nvim-tree before restoring any layout.
+
+Sessions previously saved with the close-before-save workaround have no tree
+window records. Open the tree where desired and save the session again to record
+that layout.
+
+Run `just session-check` for the session regression suite. Each group runs in a
+fresh Neovim process with temporary session, config, state, cache and fixture
+directories. The checks use installed plugins without touching existing sessions
+or project repositories. Failures identify the group and return a nonzero status.
+
+| Group | Coverage |
+| --- | --- |
+| `layout` | Named sessions, split orientation, files, active editor, cursor, local options, pinned buffers and title |
+| `startup` | Automatic cwd restore, no-session fallback, no unrelated last-session restore, saved tree visibility |
+| `filters` | Auto-create disabled, existing-session autosave, enable switches, suppressed directories, bypass filetypes and unsupported-window cleanup |
+| `directory` | Active-buffer guard, clean directory restore, LSP stop and separator/statusline hooks |
+| `git` | Branch-specific session files and restore, named-session autosave; uses a temporary Git repository |
+| `scope` | Real Scope tab-local buffer membership save and restore |
+| `overseer` | Task serialization, quoting, opt-in at save/restore, disposal, invalid tasks and stale companion-file cleanup |
+| `hooks` | Outline close, project-local config sourcing, dropbar preload and CMake/statusline refresh |
+| `errors` | Missing/corrupt sessions, error reporting, autosave safety and no startup fallback after failure |
+| `commands` | `AutoSession save`, `restore`, `delete` and `toggle` |
+| `terminal` | Terminal split preservation and job recreation |
+| `tree` | Per-tab visibility, repeated and fresh-process restores, focus preservation and no blank placeholders |
+| `shutdown` | `q`, `qa`, `wq`, tree focus, multiple tabs/splits, exit autosave, and last-buffer deletion through real Snacks bufdelete |
+
+The session engine, nvim-tree, Scope, terminal handling and buffer deletion run
+against real installed code. External-effect boundaries (task execution, LSP
+clients, trusted project-config loading, Outline, dropbar loading, CMake and UI
+refresh) use recording test doubles. These checks verify the configured hooks,
+not actual language servers, builds, task processes or picker UI. Git branch
+watcher automation is not tested because it is not enabled in this config.
+
 ## Jujutsu
 
 Install [Jujutsu (`jj`)](https://docs.jj-vcs.dev/latest/install-and-setup/) on

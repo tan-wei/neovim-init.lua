@@ -18,7 +18,6 @@ M.config = function()
   local nvim_tree = require "nvim-tree"
   local nvim_tree_api = require "nvim-tree.api"
   local preview = require "nvim-tree-preview"
-  local nvim_tree_open = {}
 
   -- Smart buffer close: delete buffer (preserving window layout), then close
   -- tab/quit if nothing real remains.
@@ -50,56 +49,16 @@ M.config = function()
     end
   end, { nargs = "?" })
 
-  nvim_tree_api.events.subscribe(nvim_tree_api.events.Event.TreeOpen, function()
-    local winid = nvim_tree_api.tree.winid { tabpage = 0 }
-    nvim_tree_open[winid] = true
-  end)
-  nvim_tree_api.events.subscribe(nvim_tree_api.events.Event.TreeClose, function()
-    local winid = nvim_tree_api.tree.winid { tabpage = 0 }
-    local tabpage = vim.api.nvim_get_current_tabpage()
-  end)
-
-  -- Open on startup
-  vim.api.nvim_create_autocmd({ "VimEnter", "TabNew", "TabNewEntered", "TabEnter" }, {
-    callback = function(data)
-      local winid = nvim_tree_api.tree.winid { tabpage = 0 }
-      if nvim_tree_open[winid] then
-        return
+  vim.api.nvim_create_autocmd("User", {
+    pattern = "AutoSessionNoRestore",
+    callback = function()
+      local focused_win = vim.api.nvim_get_current_win()
+      nvim_tree_api.tree.open { focus = false, find_file = true }
+      if vim.api.nvim_win_is_valid(focused_win) then
+        vim.api.nvim_set_current_win(focused_win)
       end
-      -- buffer is a real file on the disk
-      local real_file = vim.fn.filereadable(data.file) == 1
-
-      -- buffer is a [No Name]
-      local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
-
-      if not real_file and not no_name then
-        return
-      end
-
-      -- open the tree, find the file but don't focus it
-      nvim_tree_api.tree.toggle { focus = false, find_file = true }
     end,
   })
-
-  -- nvim-tree is loaded on VimEnter, so the VimEnter autocmd above is too late
-  -- for the initial alpha screen. Run one deferred startup check just for that case.
-  vim.schedule(function()
-    local bufnr = vim.api.nvim_get_current_buf()
-    if vim.bo[bufnr].filetype ~= "alpha" then
-      return
-    end
-
-    local alpha_win = vim.api.nvim_get_current_win()
-    local winid = nvim_tree_api.tree.winid { tabpage = 0 }
-
-    if not winid then
-      nvim_tree_api.tree.open { focus = false, find_file = false }
-    end
-
-    if vim.api.nvim_win_is_valid(alpha_win) then
-      vim.api.nvim_set_current_win(alpha_win)
-    end
-  end)
 
   -- Auto close: when :q on the last real window, close everything so Neovim exits
   vim.api.nvim_create_autocmd("QuitPre", {
@@ -211,9 +170,6 @@ M.config = function()
   end
 
   nvim_tree.setup {
-    experimental = {
-      session_restore_nvim = false,
-    },
     sync_root_with_cwd = true,
     respect_buf_cwd = false,
     update_focused_file = {
@@ -307,6 +263,29 @@ M.config = function()
       end, opts "Preview")
     end,
   }
+
+  -- Upstream restores only once per process. Reuse its restore logic on each
+  -- session switch, coalescing duplicate SessionLoadPost events until it completes.
+  -- Remove this workaround when upstream supports repeated session restores.
+  for _, autocmd in ipairs(vim.api.nvim_get_autocmds { group = "NvimTree", event = "SessionLoadPost" }) do
+    if autocmd.once then
+      vim.api.nvim_del_autocmd(autocmd.id)
+      local restore_pending = false
+      vim.api.nvim_create_autocmd("SessionLoadPost", {
+        group = "NvimTree",
+        callback = function()
+          if restore_pending then
+            return
+          end
+          restore_pending = true
+          require("nvim-tree.session").restore()
+          vim.schedule(function()
+            restore_pending = false
+          end)
+        end,
+      })
+    end
+  end
 
   -- Automatically open file upon creation
   local api = require "nvim-tree.api"
