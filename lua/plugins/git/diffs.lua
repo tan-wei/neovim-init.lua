@@ -1,6 +1,6 @@
 ---@type LazyPluginSpec
 local M = {
-  "https://git.sr.ht/~barrettruth/diffs.nvim",
+  "barrettruth/diffs.nvim",
   lazy = false, -- NOTE: diffs.nvim lazy-loads itself
 }
 
