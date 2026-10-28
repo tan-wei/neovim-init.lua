@@ -6,8 +6,8 @@ local M = {
 
 M.init = function()
   local available_colorschemes = vim.g.available_colorschemes or {}
-  table.insert(available_colorschemes, "winterisoming-blue")
-  table.insert(available_colorschemes, "winterisoming-black")
+  table.insert(available_colorschemes, "winteriscoming-blue")
+  table.insert(available_colorschemes, "winteriscoming-black")
   vim.g.available_colorschemes = available_colorschemes
 end
 
