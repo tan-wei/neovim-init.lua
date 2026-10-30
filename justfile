@@ -6,6 +6,12 @@ bootstrap_helper := "dofile(vim.fn.fnamemodify('./scripts/bootstrap.lua', ':p'))
 default:
 	@just --list
 
+install-kitty:
+	@bash scripts/install_external_config.sh kitty
+
+install-ghostty:
+	@bash scripts/install_external_config.sh ghostty
+
 stylua:
 	@stylua .
 

@@ -73,6 +73,19 @@ After startup, these commands are usually the first things worth checking:
 :Mason
 ```
 
+Install the optional Kitty or Ghostty configuration separately:
+
+```sh
+just install-kitty
+just install-ghostty
+```
+
+The installer detects Linux, macOS, and WSL, and overwrites the matching files
+under `$XDG_CONFIG_HOME` (or `~/.config`). Set `DOTFILES_PLATFORM` to `linux`,
+`macos`, or `wsl` to select a platform explicitly. If a tool's config directory
+is a symlink directly to its tracked source directory, the installer replaces
+that directory symlink with an installed copy.
+
 ## Layout
 
 - [init.lua](init.lua): startup entrypoint
