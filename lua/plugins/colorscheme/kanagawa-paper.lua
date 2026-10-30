@@ -1,6 +1,7 @@
 ---@type LazyPluginSpec
 local M = {
   "thesimonho/kanagawa-paper",
+  branch = "neovim",
   lazy = true,
 }
 
