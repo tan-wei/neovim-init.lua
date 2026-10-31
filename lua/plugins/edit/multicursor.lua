@@ -1,7 +1,6 @@
 ---@type LazyPluginSpec
 local M = {
   "jake-stewart/multicursor.nvim",
-  branch = "native",
   event = "VeryLazy",
 }
 
