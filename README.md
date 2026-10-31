@@ -73,18 +73,21 @@ After startup, these commands are usually the first things worth checking:
 :Mason
 ```
 
-Install the optional Kitty or Ghostty configuration separately:
+Install optional terminal configurations separately:
 
 ```sh
 just install-kitty
 just install-ghostty
+just install-alacritty
+just install-wezterm
 ```
 
 The installer detects Linux, macOS, and WSL, and overwrites the matching files
-under `$XDG_CONFIG_HOME` (or `~/.config`). Set `DOTFILES_PLATFORM` to `linux`,
-`macos`, or `wsl` to select a platform explicitly. If a tool's config directory
-is a symlink directly to its tracked source directory, the installer replaces
-that directory symlink with an installed copy.
+under `$XDG_CONFIG_HOME` (or `~/.config`). For Kitty, Ghostty, and Alacritty,
+set `DOTFILES_PLATFORM` to `linux`, `macos`, or `wsl` to select a platform
+explicitly. WezTerm selects its platform module at runtime. If a tool's config
+directory is a symlink directly to its tracked source directory, the installer
+replaces that directory symlink with an installed copy.
 
 ## Layout
 

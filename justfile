@@ -12,6 +12,12 @@ install-kitty:
 install-ghostty:
 	@bash scripts/install_external_config.sh ghostty
 
+install-alacritty:
+	@bash scripts/install_external_config.sh alacritty
+
+install-wezterm:
+	@bash scripts/install_external_config.sh wezterm
+
 stylua:
 	@stylua .
 

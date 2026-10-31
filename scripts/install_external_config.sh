@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-tool="${1:?Usage: install_external_config.sh <kitty|ghostty>}"
+tool="${1:?Usage: install_external_config.sh <kitty|ghostty|alacritty|wezterm>}"
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
 
@@ -57,6 +57,15 @@ case "$tool" in
 	ghostty)
 		cp -f "$source_dir/config.ghostty" "$destination_dir/config.ghostty"
 		cp -f "$source_dir/$platform.ghostty" "$destination_dir/platform.ghostty"
+		;;
+	alacritty)
+		cp -f "$source_dir/alacritty.toml" "$destination_dir/alacritty.toml"
+		cp -f "$source_dir/$platform.toml" "$destination_dir/platform.toml"
+		;;
+	wezterm)
+		cp -f "$source_dir/wezterm.lua" "$destination_dir/wezterm.lua"
+		mkdir -p "$destination_dir/platform"
+		cp -R "$source_dir/platform/." "$destination_dir/platform/"
 		;;
 	*)
 		printf 'No installer is defined for: %s\n' "$tool" >&2
