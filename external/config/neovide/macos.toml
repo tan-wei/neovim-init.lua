@@ -1,0 +1,14 @@
+# macOS-specific Neovide settings, installed as the tail of config.toml.
+
+[font]
+# Mirrors the macOS branch of lua/user/neovide.lua
+# (`DejaVuSansM Nerd Font:h14`). No `#e-subpixelantialias` there, so leave edging
+# at its default: macOS points equal pixels and subpixel antialiasing is not
+# useful on Retina displays.
+normal = "DejaVuSansM Nerd Font"
+size = 14.0
+
+# macOS terminals such as Kitty mirror Apple's sRGB default, while Neovide keeps
+# the traditional non-sRGB behaviour. Uncomment to make Neovide match those
+# terminals if colors look off.
+# srgb = true

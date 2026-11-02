@@ -18,6 +18,9 @@ install-alacritty:
 install-wezterm:
 	@bash scripts/install_external_config.sh wezterm
 
+install-neovide:
+	@bash scripts/install_external_config.sh neovide
+
 stylua:
 	@stylua .
 

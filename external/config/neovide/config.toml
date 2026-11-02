@@ -1,0 +1,29 @@
+# Neovide config installed by `just install-neovide`.
+#
+# Only settings that must be known before Neovim starts belong here. Runtime
+# look-and-feel globals have no config file equivalent and stay in
+# lua/user/neovide.lua:
+#   g:neovide_pixel_geometry, g:neovide_cursor_vfx_mode,
+#   g:neovide_hide_mouse_when_typing, g:neovide_floating_corner_radius
+#
+# Neovide has no include directive, so the platform split is resolved at install
+# time: the installer concatenates this file with linux.toml, macos.toml, or
+# wsl.toml into ~/.config/neovide/config.toml.
+
+# Neovide temporarily externalizes `ext_messages`/`ext_cmdline` during startup
+# to capture early messages before the first grid render. Plugins such as
+# noice.nvim detect that in their health check and report:
+#   You're using a GUI that uses ext_messages.
+#   Noice can't work when the GUI has ext_messages enabled.
+# Disabling the capture stops the GUI from advertising those extensions, so
+# Noice works normally. Trade-off: startup errors before the first grid render
+# fall back to Neovim's own `press-enter` prompt instead of Neovide's overlay.
+startup-message-capture = false
+
+# Pointer shape over the text area. Neovim has no 'mouseshape' support
+# (neovim/neovim#21458), so without this the pointer keeps the OS default while
+# over text. "i-beam" reads as an editor; the default is "arrow".
+mouse-cursor-icon = "i-beam"
+
+# Fonts differ per platform and live in the platform fragments, mirroring the
+# guifont branch in lua/user/neovide.lua.

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-tool="${1:?Usage: install_external_config.sh <kitty|ghostty|alacritty|wezterm>}"
+tool="${1:?Usage: install_external_config.sh <kitty|ghostty|alacritty|wezterm|neovide>}"
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 config_home="${XDG_CONFIG_HOME:-$HOME/.config}"
 
@@ -66,6 +66,16 @@ case "$tool" in
 		cp -f "$source_dir/wezterm.lua" "$destination_dir/wezterm.lua"
 		mkdir -p "$destination_dir/platform"
 		cp -R "$source_dir/platform/." "$destination_dir/platform/"
+		;;
+	neovide)
+		# Neovide has no include/import mechanism, so the platform fragment is
+		# concatenated after the base settings instead of being included. The
+		# trailing newline keeps the two files from sharing a comment line.
+		{
+			cat "$source_dir/config.toml"
+			printf '\n'
+			cat "$source_dir/$platform.toml"
+		} >"$destination_dir/config.toml"
 		;;
 	*)
 		printf 'No installer is defined for: %s\n' "$tool" >&2

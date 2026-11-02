@@ -1,0 +1,19 @@
+# Linux-specific Neovide settings, installed as the tail of config.toml.
+
+[font]
+# Mirrors the non-macOS branch of lua/user/neovide.lua
+# (`Hasklug Nerd Font:h8:#e-subpixelantialias`). The guifont set there wins once
+# init.lua runs; keeping the same values here avoids a font flash during startup.
+normal = "Hasklug Nerd Font"
+size = 8.0
+edging = "subpixelantialias"
+
+# Subpixel antialiasing only takes effect when Neovide knows the monitor's pixel
+# geometry, which the default "Unknown" silently disables. It is set to "RGBH"
+# in lua/user/neovide.lua alongside this font; switch it to "BGRH" there if
+# glyph edges show color fringing on a flipped panel.
+#
+# Wayland/X11 window identity, if you ever need to match a desktop entry:
+# wayland-app-id = "neovide"
+# x11-wm-class = "neovide"
+# x11-wm-class-instance = "neovide"

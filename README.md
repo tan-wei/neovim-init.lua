@@ -80,6 +80,7 @@ just install-kitty
 just install-ghostty
 just install-alacritty
 just install-wezterm
+just install-neovide
 ```
 
 The installer detects Linux, macOS, and WSL, and overwrites the matching files
@@ -89,13 +90,30 @@ explicitly. WezTerm selects its platform module at runtime. If a tool's config
 directory is a symlink directly to its tracked source directory, the installer
 replaces that directory symlink with an installed copy.
 
+`just install-neovide` installs `external/config/neovide/config.toml`. Neovide's
+config file has no include directive, so the installer concatenates the base
+file with the matching platform fragment (`linux.toml`, `macos.toml`, or
+`wsl.toml`) into `$XDG_CONFIG_HOME/neovide/config.toml`. The platform fragments
+carry the per-OS `[font]` block that mirrors the `guifont` branch in
+[lua/user/neovide.lua](lua/user/neovide.lua); the remaining `g:neovide_*` globals
+have no config file equivalent and stay there. Note that a Windows-side Neovide
+reads `%APPDATA%\neovide\config.toml`, so run the recipe from the environment
+that starts Neovide.
+
+The base file also sets `startup-message-capture = false`. Neovide normally
+externalizes `ext_messages`/`ext_cmdline` while capturing startup messages, which
+makes `noice.nvim` report `You're using a GUI that uses ext_messages`. Disabling
+the capture avoids that without CLI flags or environment variables. The trade-off
+is that startup errors before the first grid render use Neovim's own `press-enter`
+prompt instead of Neovide's overlay.
+
 ## Layout
 
 - [init.lua](init.lua): startup entrypoint
 - [lua/user](lua/user): user config, options, keymaps, autocommands, LSP setup, semantic token customization
 - [lua/plugins](lua/plugins): modular plugin specs grouped by domain
 - [lazy-lock.json](lazy-lock.json): pinned plugin versions, it's intentional ignore in git, to keep everything latest, :-P
-- `external/`: related tool configs such as kitty, ghostty, alacritty, wezterm, and goneovim
+- `external/`: related tool configs such as kitty, ghostty, alacritty, wezterm, neovide, and goneovim
 - `templates/`: file templates
 - `spell/`: custom spell additions
 

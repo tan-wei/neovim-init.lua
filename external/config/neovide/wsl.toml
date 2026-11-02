@@ -1,0 +1,17 @@
+# WSL-specific Neovide settings, installed as the tail of config.toml.
+#
+# Note: this is read by Neovide running inside the WSL distribution. A
+# Windows-side Neovide reads %APPDATA%\neovide\config.toml instead, so run
+# `just install-neovide` from the environment that actually starts Neovide.
+
+[font]
+# Mirrors the non-macOS branch of lua/user/neovide.lua
+# (`Hasklug Nerd Font:h8:#e-subpixelantialias`).
+normal = "Hasklug Nerd Font"
+size = 8.0
+edging = "subpixelantialias"
+
+# Subpixel antialiasing only takes effect when Neovide knows the monitor's pixel
+# geometry, which the default "Unknown" silently disables. It is set to "RGBH"
+# in lua/user/neovide.lua alongside this font; switch it to "BGRH" there if
+# glyph edges show color fringing on a flipped panel.
