@@ -21,6 +21,12 @@ M.setup = function()
   vim.g.neovide_hide_mouse_when_typing = true
   -- Round floating-window corners, as a fraction of line height (0.0 = off).
   vim.g.neovide_floating_corner_radius = 0.2
+  -- Neovide pads the sub-cell strip below the grid with the bottom row's
+  -- background color, so unless the window height is a whole multiple of the
+  -- cell height the statusline or tabline background paints a few extra pixels
+  -- past its text. Disabled so those backgrounds stop at the grid rows; the
+  -- leftover strip then keeps the normal background instead.
+  vim.g.neovide_fill_bottom_background = false
 end
 
 return M

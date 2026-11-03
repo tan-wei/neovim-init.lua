@@ -4,7 +4,8 @@
 # look-and-feel globals have no config file equivalent and stay in
 # lua/user/neovide.lua:
 #   g:neovide_pixel_geometry, g:neovide_cursor_vfx_mode,
-#   g:neovide_hide_mouse_when_typing, g:neovide_floating_corner_radius
+#   g:neovide_hide_mouse_when_typing, g:neovide_floating_corner_radius,
+#   g:neovide_fill_bottom_background
 #
 # Neovide has no include directive, so the platform split is resolved at install
 # time: the installer concatenates this file with linux.toml, macos.toml, or
