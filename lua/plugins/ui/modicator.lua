@@ -18,8 +18,8 @@ M.opts = {
   integration = {
     lualine = {
       enabled = true,
-      mode_section = "b",
-      highlight = "fg",
+      mode_section = "a",
+      highlight = "bg",
     },
   },
 }

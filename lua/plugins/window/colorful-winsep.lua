@@ -10,10 +10,7 @@ local M = {
 M.opts = {
   border = "rounded",
   highlight = function()
-    local highlight = require "util.highlight"
-    vim.api.nvim_set_hl(0, "ColorfulWinSep", {
-      fg = highlight.first({ "DiagnosticInfo", "Special", "Normal" }, "fg", "#78ccc5"),
-    })
+    vim.api.nvim_set_hl(0, "ColorfulWinSep", { link = "CursorLineNr" })
   end,
   excluded_ft = {
     "packer",
