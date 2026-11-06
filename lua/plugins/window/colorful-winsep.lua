@@ -10,7 +10,10 @@ local M = {
 M.opts = {
   border = "rounded",
   highlight = function()
-    vim.api.nvim_set_hl(0, "ColorfulWinSep", { link = "CursorLineNr" })
+    local highlight = require "util.highlight"
+    vim.api.nvim_set_hl(0, "ColorfulWinSep", {
+      fg = highlight.first({ "DiagnosticInfo", "Special", "Normal" }, "fg", "#78ccc5"),
+    })
   end,
   excluded_ft = {
     "packer",
@@ -44,11 +47,30 @@ M.opts = {
 
 M.config = function(_, opts)
   local winsep = require "colorful-winsep"
+  local view = require "colorful-winsep.view"
+  local render = view.render
+
+  view.render = function()
+    if not winsep.enabled or vim.api.nvim_win_get_config(0).relative ~= "" then
+      return
+    end
+    if vim.tbl_contains(opts.excluded_ft, vim.bo.filetype) then
+      view.hide_all()
+      return
+    end
+    render()
+  end
 
   winsep.setup(opts)
-  vim.schedule(function()
-    winsep.enable()
-  end)
+  local events = { "WinEnter", "WinResized", "BufWinEnter" }
+  vim.api.nvim_clear_autocmds { group = "colorful_winsep", event = events }
+  vim.api.nvim_create_autocmd(events, {
+    group = "colorful_winsep",
+    callback = function()
+      vim.schedule(view.render)
+    end,
+  })
+  vim.schedule(view.render)
 end
 
 return M
