@@ -65,7 +65,7 @@ M.config = function()
       colorcolumn = {
         enable = true,
       },
-      signcolumn = true,
+      signcolumn = false,
     },
     autoresize = {
       height_quickfix = 30,
