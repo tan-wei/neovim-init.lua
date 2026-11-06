@@ -38,7 +38,6 @@ local M = {
   "csv",
   "cuda",
   "cue",
-  "cylc",
   "d",
   "dart",
   "desktop",
