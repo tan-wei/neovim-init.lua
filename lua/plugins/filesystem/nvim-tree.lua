@@ -280,6 +280,12 @@ M.config = function()
           restore_pending = true
           require("nvim-tree.session").restore()
           vim.schedule(function()
+            -- Upstream wipes the active placeholder inside nvim_win_call.
+            -- This can leave curbuf pointing at the tree in a file window.
+            local buf = vim.api.nvim_win_get_buf(0)
+            if vim.api.nvim_get_current_buf() ~= buf then
+              vim.api.nvim_set_current_buf(buf)
+            end
             restore_pending = false
           end)
         end,

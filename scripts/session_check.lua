@@ -14,6 +14,8 @@ local case_names = {
   "commands",
   "terminal",
   "tree",
+  "tree-cwd",
+  "glimmer",
   "shutdown",
 }
 
@@ -611,6 +613,155 @@ suites.tree = function()
   session.run_cmds "pre_restore"
   session.run_cmds("no_restore", true)
   assert(not tree.is_visible(), "failed restore must not trigger default opening")
+end
+
+suites["tree-cwd"] = function()
+  local session, _, tree = setup_session { cwd_change_handling = true }
+  local path = fixture "project/file.txt"
+  local project = vim.fn.fnamemodify(path, ":h")
+  vim.cmd("noautocmd cd " .. vim.fn.fnameescape(project))
+  edit(path)
+  local editor = vim.api.nvim_get_current_win()
+  tree.open()
+  save(session, "tree-focused")
+  settle()
+  vim.api.nvim_set_current_win(editor)
+  save(session, "file-focused")
+  settle()
+  tree.close_in_all_tabs()
+  save(session, "tree-closed")
+  settle()
+
+  for _, source in ipairs { "tree-focused", "file-focused", "tree-closed" } do
+    for _, target in ipairs { "tree-focused", "file-focused", "tree-closed" } do
+      tree.close_in_all_tabs()
+      vim.cmd("cd " .. vim.fn.fnameescape(test_dir))
+      editor = vim.api.nvim_get_current_win()
+      if source ~= "tree-closed" then
+        tree.open()
+        if source == "file-focused" then
+          vim.api.nvim_set_current_win(editor)
+        end
+      end
+      settle()
+      assert(session.restore_session(target, { show_message = false }))
+      settle()
+      assert(vim.fn.getcwd() == project, "session did not restore cwd")
+      assert(
+        vim.api.nvim_get_current_buf() == vim.api.nvim_win_get_buf(0),
+        source .. " -> " .. target .. ": current buffer differs from the displayed buffer"
+      )
+      assert(tree.is_visible() == (target ~= "tree-closed"), "restored tree visibility changed")
+      for _, map in ipairs(vim.api.nvim_get_keymap "n") do
+        assert(not (map.desc or ""):match "^nvim%-tree:", "tree mapping leaked globally: " .. map.lhs)
+      end
+      local found = false
+      for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        if tree.is_tree_buf(buf) then
+          assert(vim.api.nvim_buf_line_count(buf) > 1, "restored tree is blank")
+          vim.api.nvim_buf_call(buf, function()
+            assert(vim.fn.maparg("p", "n", false, true).desc == "nvim-tree: Paste", "tree lost its paste mapping")
+          end)
+        elseif vim.api.nvim_buf_get_name(buf) == path then
+          found = true
+          vim.api.nvim_set_current_win(win)
+          assert(vim.fn.maparg("p", "n") == "", "file paste is mapped to a tree action")
+          vim.api.nvim_win_set_cursor(win, { 1, 0 })
+          vim.cmd "normal yyp"
+          assert(
+            vim.deep_equal(
+              vim.api.nvim_buf_get_lines(buf, 0, -1, false),
+              { "first", "first", "second", "third", "fourth" }
+            ),
+            "normal yank/paste failed"
+          )
+          vim.cmd "silent undo"
+        end
+      end
+      assert(found, "restored file window missing")
+    end
+  end
+end
+
+suites.glimmer = function()
+  for _, context in ipairs { "alpha", "tree", "file" } do
+    local result = run_worker("glimmer-" .. context, test_dir .. "/" .. context)
+    assert(result.code == 0, "paste mapping capture from " .. context .. ":\n" .. result.stdout .. result.stderr)
+  end
+end
+
+local function check_glimmer_paste()
+  for _, plugin in ipairs { "alpha-nvim", "tiny-glimmer.nvim", "yanky.nvim" } do
+    vim.opt.rtp:append(plugin_root .. plugin)
+  end
+  local session, _, tree = setup_session()
+  require("yanky").setup { ring = { storage = "memory" }, highlight = { on_put = false, on_yank = false } }
+  dofile(plugin_root .. "yanky.nvim/plugin/init.lua")
+  vim.keymap.set("n", "p", "<Plug>(YankyPutAfter)", { remap = true })
+  vim.keymap.set("n", "P", "<Plug>(YankyPutBefore)", { remap = true })
+  local path = fixture "project/file.txt"
+  vim.cmd("cd " .. vim.fn.fnameescape(vim.fn.fnamemodify(path, ":h")))
+  edit(path)
+  local editor = vim.api.nvim_get_current_win()
+  tree.open()
+  local tree_buf = vim.api.nvim_get_current_buf()
+  local tree_paste = vim.fn.maparg("p", "n", false, true).callback
+  vim.api.nvim_set_current_win(editor)
+  save(session, "glimmer")
+  settle()
+
+  if case == "glimmer-alpha" then
+    local dashboard = require "alpha.themes.dashboard"
+    dashboard.section.buttons.val = { dashboard.button("p", "Picker", ":echo 'picker'<CR>") }
+    require("alpha").setup(dashboard.config)
+    require("alpha").start(false)
+  elseif case == "glimmer-tree" then
+    tree.focus()
+  else
+    vim.keymap.set("n", "p", function()
+      error "file-local paste was captured globally"
+    end, { buffer = true })
+  end
+  local focused = vim.api.nvim_get_current_win()
+  local current = vim.api.nvim_get_current_buf()
+  dofile(root .. "/lua/plugins/ui/tiny-glimmer.lua").config()
+  assert(vim.api.nvim_get_current_win() == focused and vim.api.nvim_get_current_buf() == current, "setup changed focus")
+  local glimmer = require "tiny-glimmer"
+  for _, key in ipairs { "paste", "Paste" } do
+    local animate = glimmer[key]
+    glimmer[key] = function()
+      record("animate-" .. key)
+      animate()
+    end
+  end
+
+  -- The picker can return through the tree before the deferred session restore.
+  tree.focus()
+  assert(vim.fn.maparg("p", "n", false, true).callback == tree_paste, "tree paste mapping was replaced")
+  assert(vim.api.nvim_get_current_buf() == tree_buf)
+  vim.api.nvim_set_current_win(editor)
+  assert(session.restore_session("glimmer", { show_message = false }))
+  settle()
+  assert(vim.api.nvim_buf_get_name(0) == path, "restore did not focus the file")
+
+  local function paste(keys, expected)
+    vim.api.nvim_buf_set_lines(0, 0, -1, false, { "first", "second" })
+    vim.api.nvim_win_set_cursor(0, { 1, 0 })
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), "xt", false)
+    settle()
+    local actual = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+    assert(vim.deep_equal(actual, expected), "wrong paste result for " .. keys .. ": " .. vim.inspect(actual))
+  end
+  paste("yyp", { "first", "first", "second" })
+  paste("yyjP", { "first", "first", "second" })
+  vim.fn.setreg("a", { "named" }, "V")
+  paste('"a2p', { "first", "named", "named", "second" })
+  assert(count "animate-paste" == 3 and count "animate-Paste" == 1, "paste animations were lost")
+end
+
+for _, context in ipairs { "alpha", "tree", "file" } do
+  suites["glimmer-" .. context] = check_glimmer_paste
 end
 
 suites.reopen = function()
