@@ -9,7 +9,6 @@ M.init = function()
   table.insert(available_colorschemes, "littleprince")
   table.insert(available_colorschemes, "littleprince-fox")
   table.insert(available_colorschemes, "littleprince-rose")
-  table.insert(available_colorschemes, "littleprince-sheep")
   vim.g.available_colorschemes = available_colorschemes
 end
 
