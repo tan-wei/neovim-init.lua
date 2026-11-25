@@ -6,6 +6,7 @@ local M = {
     "nvim-tree/nvim-web-devicons",
     "meuter/lualine-so-fancy.nvim",
     "abccsss/nvim-gitstatus",
+    "bwpge/lualine-pretty-path",
   },
   event = "VeryLazy",
 }
@@ -773,7 +774,7 @@ M.config = function()
     inactive_sections = {
       lualine_a = {},
       lualine_b = {},
-      lualine_c = { "filename" },
+      lualine_c = { { "pretty_path", icon_show = true } },
       lualine_x = { "fancy_location" },
       lualine_y = {},
       lualine_z = {},
